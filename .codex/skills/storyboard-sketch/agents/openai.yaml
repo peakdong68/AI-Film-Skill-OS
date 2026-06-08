@@ -1,0 +1,4 @@
+interface:
+  display_name: "Seedance Storyboard Sketch"
+  short_description: "Draft rough storyboard prompts for Seedance I2V"
+  default_prompt: "Use $storyboard-sketch to turn this scene idea into concise rough storyboard sketch prompts for Seedance image-to-video."

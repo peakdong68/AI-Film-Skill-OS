@@ -1,0 +1,181 @@
+---
+name: director-character
+description: Design and lock character identity for AI film production — character sheets, visual identity parameters, behavior systems, emotion-to-motion mapping, and multi-character relationship management. Use when the user needs character design, 角色设定, character consistency, 角色一致性, character sheet creation, or when director-core routes to STATE 3 (Character Lock). Also use when AI-generated characters keep changing faces or outfits across shots — this skill builds the identity lock that prevents character drift.
+---
+
+# Director Character — Character Consistency Engine
+
+## Overview
+
+Design character identity with enough specificity that AI video generators can maintain it across shots. This skill produces a Character Consistency Sheet — a structured identity document that locks face, body, wardrobe, behavior, and emotional expression so the character remains stable through every frame of the film.
+
+The most common failure in AI video production is character drift (换脸/换衣/崩风格). This skill is the primary defense against it.
+
+Works independently for character design or is invoked by `director-core` at STATE 3.
+
+## The Core Principle
+
+> Character consistency in AI video is not a prompt-tuning problem — it's an identity-specification problem.
+
+The AI must receive identical identity parameters in every prompt. Slight variations in description cause cascading drift. This skill creates the master identity document that all prompts reference.
+
+## Output Structure
+
+### 1. Character Identity Core (角色核心身份)
+
+```
+CHARACTER: [name]
+- Narrative role: [protagonist / antagonist / supporting / observer]
+- Age range: [e.g., 25-30]
+- Gender expression: [description]
+- Emotional identity: [core emotional state — calm, anxious, fierce, vulnerable]
+- Psychological profile: [key traits, motivations, fears]
+- Story function: [what does this character accomplish in the narrative?]
+- Character arc: [from state A at start → to state B at end]
+```
+
+### 2. Visual Identity System (视觉身份系统)
+
+**Face System (面部):**
+```
+- Face shape: [oval / round / angular / heart / square]
+- Skin tone: [specific descriptor with undertone reference]
+- Eye shape: [almond / round / hooded / monolid / deep-set]
+- Eye color: [specific, no "beautiful eyes"]
+- Eyebrows: [shape, thickness, arch]
+- Nose: [shape, bridge, tip]
+- Mouth: [shape, lip fullness]
+- Jaw/chin: [shape, definition]
+- Distinguishing features: [scars, moles, freckles, asymmetry]
+- Facial structure notes: [overall impression, bone structure]
+```
+
+**Hair System (发型):**
+```
+- Style: [specific cut name or description]
+- Length: [measured relative to facial features]
+- Color: [specific shade, not "brown"]
+- Texture: [straight / wavy / curly / coiled]
+- Part direction: [left / right / center / none]
+- Movement quality: [how it moves with the character]
+```
+
+**Body System (体型):**
+```
+- Body type: [ectomorph / mesomorph / endomorph / specific description]
+- Height: [tall / average / short — relative to environment cues]
+- Build: [lean / athletic / soft / angular]
+- Posture: [upright / slouched / coiled / relaxed]
+- Movement signature: [how they walk, stand, fidget]
+```
+
+**Wardrobe System (服装):**
+```
+- Signature outfit: [complete description of primary costume]
+- Color palette: [2-4 colors that define the character's wardrobe]
+- Fabric language: [materials — leather, cotton, silk, tech fabric]
+- Fit: [loose / tailored / oversized / structured]
+- Accessories: [watch, glasses, jewelry, bag, weapon]
+- Layering: [how pieces combine]
+```
+
+**Signature Props (标志道具):**
+```
+- Prop 1: [description, which hand/side, when visible]
+- Prop 2: [description, significance]
+```
+
+### 3. Cinematic Behavior System (镜头行为系统)
+
+**Eye Direction Logic (眼神逻辑):**
+```
+- Default gaze: [direct / averted / scanning / distant]
+- When thinking: [up-right / down-left / etc.]
+- When lying: [behavioral tell]
+- When attracted: [glance pattern]
+- When threatened: [eye movement]
+```
+
+**Emotion-to-Motion Mapping (情绪→动作映射):**
+```
+Sadness → shoulders drop, chin lowers, breathing slows, eyes avoid contact
+Anger → jaw tightens, stillness, narrowed eyes, controlled breathing
+Fear → micro-freeze, slight step back, rapid eye movement, shallow breath
+Affection → hesitant approach, stolen glances, breathing becomes shallow
+Shock → complete stillness, eyes widen, mouth slightly open, no blink
+Joy → relaxed posture, genuine smile reaching eyes, open body language
+```
+
+**Movement Signature (动作签名):**
+```
+- Walking style: [stride length, pace, arm swing, weight distribution]
+- Gesture pattern: [hand talker / reserved / expansive / nervous ticks]
+- Stillness behavior: [what they do when not actively moving]
+- Signature action: [one unique movement that defines them]
+```
+
+### 4. Continuity Lock System (连续性锁定)
+
+**Hard Locks (不可变):**
+- [ ] Face identity — face shape, features, proportions
+- [ ] Hair — style, length, color, texture
+- [ ] Body type — build, height proportion
+- [ ] Wardrobe — signature outfit, color palette
+- [ ] Age — no aging or de-aging between shots
+
+**Soft Variations (允许变化):**
+- Lighting on face (different angles, intensities)
+- Emotional expression (within the defined range)
+- Camera angle (different perspectives of the same face)
+- Environmental effects (wind in hair, rain on face)
+
+**Forbidden Changes (禁止变化):**
+- Face swap / AI regenerated face
+- Random wardrobe changes
+- Age jumps between shots
+- Style shift (photorealistic → anime)
+- Hair color or style change (unless story-motivated and explicitly noted)
+
+### 5. Character Sheet Prompt (角色设定图提示词)
+
+Generate a prompt for creating the character reference sheet image:
+
+```
+Character sheet layout: full body front view, side profile, 3/4 view, back view
+Face detail: close-up front, neutral expression
+Expression range: neutral, [emotion 1], [emotion 2], [emotion 3]
+Wardrobe: [signature outfit] shown in full
+Lighting: neutral studio light, clean background
+Style: cinematic realism, consistent across all views
+Negative: no text, no watermark, no face distortion, no identity variance between views
+```
+
+### 6. Multi-Character System (多角色系统)
+
+For projects with multiple characters, add:
+
+```
+Character Relationship Map:
+[A] ←→ [B]: [relationship type, power dynamic, emotional tone]
+[B] ←→ [C]: [relationship type, power dynamic, emotional tone]
+
+Visual Contrast Design:
+- Character A vs B: [size contrast, color contrast, shape language contrast]
+- Shared lighting rules: [how they interact with the same light source]
+- Interaction rules: [physical distance norms, eye contact patterns, touch boundaries]
+```
+
+## Constraints
+
+- Every character must have a complete Visual Identity System before entering storyboard.
+- Face parameters must be specific enough that two different prompt writers would produce the same description.
+- Emotion-to-motion mapping must cover the full emotional range the character experiences in the story.
+- Hard locks must be explicitly referenced in every Seedance prompt that features the character.
+- Multi-character scenes must define interaction rules to prevent AI confusion.
+
+## Integration
+
+When invoked by `director-core`:
+- The Character Identity Core and Visual Identity System become the single source of truth for all downstream prompts
+- The Continuity Lock System's Hard Locks must be embedded in every Seedance prompt via `director-seedance`
+- Character sheets must be confirmed by the user before STATE 4 (Storyboard)
