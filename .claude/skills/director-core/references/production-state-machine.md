@@ -1,60 +1,60 @@
-# Production State Machine — Core Knowledge
+# 制作状态机 — 核心知识
 
-## State Flow
+## 状态流转
 
 ```
-STATE 0 → INPUT INGESTION     (gather brief, ask key questions)
-STATE 1 → STORY & EMOTION      (narrative structure + emotion arc)
-STATE 2 → VISUAL DESIGN        (camera grammar + lighting + color)
-STATE 3 → CHARACTER LOCK       (character sheets + identity locks)
-STATE 4 → STORYBOARD           (frame generation + confirmation)
-STATE 5 → PROMPT COMPILATION   (Seedance prompt generation)
-STATE 6 → FINAL VALIDATION     (quality pass across all artifacts)
-STATE 7 → EXPORT READY         (packaged deliverable)
+STATE 0 → 输入采集       （收集简报，提问关键问题）
+STATE 1 → 故事与情绪      （叙事结构 + 情绪弧线）
+STATE 2 → 视觉设计        （摄影语法 + 灯光 + 色彩）
+STATE 3 → 角色锁定        （角色设定表 + 身份锁定）
+STATE 4 → 分镜            （帧生成 + 确认）
+STATE 5 → 提示词编译      （Seedance 提示词生成）
+STATE 6 → 最终验证        （所有产物的质量审核）
+STATE 7 → 导出就绪        （打包交付物）
 ```
 
-## Absolute Workflow Locks
+## 绝对工作流锁
 
-1. Never create Seedance prompts before all storyboards are completed
-2. Never create Seedance prompts before user confirms all storyboards
-3. Never create character design prompts before storyboard confirmation
-4. Never assume confirmation — wait for explicit user approval
-5. Storyboard unconfirmed → Seedance Prompt FORBIDDEN
-6. Character unconfirmed → Seedance Prompt FORBIDDEN
+1. 在所有分镜完成之前，绝不创建 Seedance 提示词
+2. 在用户确认所有分镜之前，绝不创建 Seedance 提示词
+3. 在分镜确认之前，绝不创建角色设计提示词
+4. 不假设确认——等待用户的明确批准
+5. 分镜未确认 → Seedance 提示词禁止生成
+6. 角色未确认 → Seedance 提示词禁止生成
 
-## Phase Lock Enforcement
+## 阶段锁强制执行
 
-| Lock | Condition | Violation Consequence |
-|------|-----------|----------------------|
-| Story Lock | Story structure must be confirmed before visual design | Incoherent visual language |
-| Visual Lock | Camera + lighting must be defined before storyboard | Random camera decisions |
-| Character Lock | Character sheet must be confirmed before prompts | Character drift, face swapping |
-| Storyboard Lock | All frames confirmed before compilation | Missing narrative context |
-| Prompt Lock | All pre-checks pass before final export | Broken continuity |
+| 锁 | 条件 | 违规后果 |
+|----|------|---------|
+| 故事锁 | 故事结构必须在视觉设计前确认 | 视觉语言不连贯 |
+| 视觉锁 | 摄影机+灯光必须在分镜前定义 | 摄影机决策随机 |
+| 角色锁 | 角色设定表必须在提示词前确认 | 角色漂移、换脸 |
+| 分镜锁 | 所有帧必须在编译前确认 | 缺失叙事上下文 |
+| 提示词锁 | 所有预检项必须在最终导出前通过 | 连续性断裂 |
 
-## Mandatory Status Tracker
+## 强制状态追踪器
 
-Every production session output must include:
-- Requested storyboard count
-- Completed storyboard count  
-- Remaining storyboard count
-- Current phase
-- Next required action
-- Critical lock status
+每个制作会话输出必须包含：
+- 请求的分镜板数量
+- 已完成的分镜板数量
+- 剩余的分镜板数量
+- 当前阶段
+- 下一步必要操作
+- 关键锁定状态
 
-## Multi-Part Structure Rules
+## 多 Part 结构规则
 
-- Each storyboard = one video clip (max 15 seconds)
-- Each storyboard = 8-12 panels
-- Total runtime = storyboard count × seconds per board
-- Part 2+ must reference previous output as continuity baseline
+- 每个分镜板 = 一个视频片段（最长 15 秒）
+- 每个分镜板 = 8-12 个 panels
+- 总时长 = 分镜板数量 × 每板秒数
+- Part 2 及以上必须引用前一个输出作为连续性基线
 
-## Pre-Check Checklist (before Seedance prompt generation)
+## 预检清单（Seedance 提示词生成前）
 
-All must be YES:
-- [ ] All storyboards completed?
-- [ ] User confirmed all storyboards?
-- [ ] Character prompts completed?
-- [ ] User confirmed characters?
-- [ ] Visual language defined?
-- [ ] Duration and aspect ratio locked?
+全部必须是"是"：
+- [ ] 所有分镜已完成？
+- [ ] 用户已确认所有分镜？
+- [ ] 角色提示词已完成？
+- [ ] 用户已确认角色？
+- [ ] 视觉语言已定义？
+- [ ] 时长和画幅比例已锁定？

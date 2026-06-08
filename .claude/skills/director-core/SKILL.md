@@ -1,176 +1,176 @@
 ---
 name: director-core
-description: Master orchestrator for the AI film production pipeline. Controls the production state machine, enforces phase locking, manages checkpoints, and routes to all director sub-skills in the correct sequence. Use when the user wants to produce a complete AI film/video from an idea or script — this is the entry point that ensures every phase is validated before the next begins. Triggers on: making an AI film, producing a video from idea, directing a Seedance project, 拍AI电影, 制作AI视频, AI导演流程, film production pipeline, or any multi-phase video creation request.
+description: AI 电影制作管线的总控制器——管理制作状态机、强制执行阶段锁定、维护检查点，并按正确顺序调度所有导演子技能。当用户想从创意或剧本制作完整的 AI 电影/视频时使用此技能。触发场景：制作 AI 电影、从创意生成视频、导演 Seedance 项目、拍AI电影、制作AI视频、AI导演流程、film production pipeline，或任何多阶段视频创作需求。Master orchestrator for the AI film production pipeline — controls the production state machine, enforces phase locking, manages checkpoints, and routes to all director sub-skills in the correct sequence.
 ---
 
-# Director Core — Production State Machine
+# Director Core — 制作状态机
 
-## Overview
+## 概览
 
-This is the master orchestrator for the AI Film OS pipeline. It ensures every AI film/video project flows through a validated, phase-gated production sequence — from initial idea to final Seedance-ready video prompts. The state machine prevents the most common failure mode in AI video production: jumping to prompt generation before the story, visual language, and character identity are locked.
+这是 AI Film OS 管线的总控制器。它确保每个 AI 电影/视频项目按顺序流经经过验证的、有阶段门控的制作序列——从初始创意到最终的 Seedance 就绪视频提示词。状态机防止了 AI 视频制作中最常见的失败模式：在故事、视觉语言和角色身份被锁定之前就跳到了提示词生成。
 
-This skill does not generate creative content itself. It routes to the appropriate sub-skills at each phase and validates outputs before advancing.
+此技能本身不生成创意内容。它在每个阶段将任务路由到相应的子技能，并在推进前验证输出。
 
-## The Production Pipeline
+## 制作管线
 
 ```
-STATE 0 → INPUT INGESTION
-STATE 1 → STORY & EMOTION DESIGN
-STATE 2 → VISUAL DESIGN (CAMERA + LIGHTING)
-STATE 3 → CHARACTER LOCK
-STATE 4 → STORYBOARD PLANNING
-STATE 5 → PROMPT COMPILATION
-STATE 6 → FINAL VALIDATION
-STATE 7 → EXPORT READY
+STATE 0 → 输入采集
+STATE 1 → 故事与情绪设计
+STATE 2 → 视觉设计（摄影机 + 光影）
+STATE 3 → 角色锁定
+STATE 4 → 分镜规划
+STATE 5 → 提示词编译
+STATE 6 → 最终验证
+STATE 7 → 导出就绪
 ```
 
-Each state produces a validated artifact before the next state unlocks. Skipping states is forbidden.
+每个状态在解锁下一个状态之前，必须产出一个已验证的产物。禁止跳过任何状态。
 
-## Phase Lock Rules
+## 阶段锁规则
 
-These are hard constraints. Violating them causes the most common AI video failures (character drift, visual inconsistency, incoherent narrative).
+这些是硬性约束。违反它们会导致最常见的 AI 视频失败（角色漂移、视觉不一致、叙事不连贯）。
 
-| Rule | Lock |
-|------|------|
-| **Story Lock** | Story structure and emotion arc must be confirmed before visual design | 
-| **Visual Lock** | Camera language and lighting system must be defined before storyboard |
-| **Character Lock** | Character identity sheet must be confirmed before prompt generation |
-| **Storyboard Lock** | All storyboard frames must be confirmed before Seedance prompts |
-| **Prompt Lock** | All pre-check items must pass before final export |
+| 规则 | 锁定内容 |
+|------|---------|
+| **故事锁** | 故事结构和情绪弧线必须在视觉设计之前确认 |
+| **视觉锁** | 摄影机语言和灯光系统必须在分镜之前定义 |
+| **角色锁** | 角色身份表必须在提示词生成之前确认 |
+| **分镜锁** | 所有分镜帧必须在 Seedance 提示词之前确认 |
+| **提示词锁** | 所有预检项必须在最终导出前通过 |
 
-If any lock is broken, halt and return to the earliest incomplete state.
+如果任何锁被打破，立即停止并返回到最早未完成的状态。
 
-## State Machine
+## 状态机
 
-### STATE 0 — INPUT INGESTION
+### STATE 0 — 输入采集
 
-Gather the minimum viable brief. Ask only what's needed to begin:
+收集最小可行的项目简报。只问必要的：
 
-- Project idea or script (one sentence minimum)
-- Intended duration (15s / 30s / 60s / custom)
-- Visual style (cinematic / commercial / documentary / anime / sci-fi / etc.)
-- Delivery platform (Seedance / Runway / Sora / Kling)
-- Aspect ratio (16:9 / 9:16 / 1:1)
-- Any existing reference images or character descriptions
+- 项目创意或剧本（至少一句话）
+- 预期时长（15s / 30s / 60s / 自定义）
+- 视觉风格（cinematic / commercial / documentary / anime / sci-fi 等）
+- 交付平台（Seedance / Runway / Sora / Kling）
+- 画幅比例（16:9 / 9:16 / 1:1）
+- 已有的参考图或角色描述
 
-If the user provides fewer than 4 of these, ask the missing ones. If they say "直接生成" or "just do it", fill gaps with reasonable defaults and mark them.
+如果用户提供的信息不足 4 项，追问缺失项。如果用户说"直接生成"或"just do it"，用合理默认值填补空白并标注。
 
-**State 0 output**: A confirmed production brief. Proceed to STATE 1.
+**State 0 产出**: 确认的制作简报。进入 STATE 1。
 
-### STATE 1 — STORY & EMOTION DESIGN
+### STATE 1 — 故事与情绪设计
 
-Route to `director-story` and `director-emotion`.
+路由到 `director-story` 和 `director-emotion`。
 
-**Required artifacts:**
-- Narrative structure (3-act or 5-act breakdown)
-- Scene list with scene purpose per scene
-- Emotional arc map (calm → tension → climax → resolution)
-- Emotional intensity timeline
+**必要产物:**
+- 叙事结构（3幕或5幕拆解）
+- 场景列表，每场戏标注场景目的
+- 情绪弧线图（平静 → 紧张 → 高潮 → 收束）
+- 情绪强度时间轴
 
-**Validation gate:**
-- [ ] Every scene has a narrative purpose
-- [ ] Emotional arc covers the full duration
-- [ ] Causal chain is defined (A causes B causes C)
-- [ ] User has confirmed the structure
+**验证门:**
+- [ ] 每场戏都有叙事目的
+- [ ] 情绪弧线覆盖完整时长
+- [ ] 因果链已定义（A 导致 B 导致 C）
+- [ ] 用户已确认结构
 
-**State 1 output**: Script Blueprint + Emotional Timeline. Proceed to STATE 2.
+**State 1 产出**: 剧本蓝图 + 情绪时间轴。进入 STATE 2。
 
-### STATE 2 — VISUAL DESIGN
+### STATE 2 — 视觉设计
 
-Route to `director-camera` and `director-light`.
+路由到 `director-camera` 和 `director-light`。
 
-**Required artifacts:**
-- Camera language blueprint (primary shot types, movement vocabulary, angle philosophy)
-- Lighting design system (key light strategy, color temperature arc, contrast rules)
-- Color script (dominant colors per act/scene, temperature curve)
-- Composition rules (primary and secondary framing approaches)
+**必要产物:**
+- 摄影机语言蓝图（主要镜头类型、运动词汇、角度哲学）
+- 灯光设计系统（主光策略、色温弧线、对比度规则）
+- 色彩脚本（每幕/每场的主色调、温度曲线）
+- 构图规则（主要和次要取景方式）
 
-**Validation gate:**
-- [ ] Camera language matches the emotional tone
-- [ ] Lighting evolves with the narrative
-- [ ] Color script is defined across the full duration
-- [ ] User has confirmed the visual language
+**验证门:**
+- [ ] 摄影机语言与情绪基调匹配
+- [ ] 灯光随叙事演进
+- [ ] 色彩脚本覆盖完整时长
+- [ ] 用户已确认视觉语言
 
-**State 2 output**: Visual Language Blueprint. Proceed to STATE 3.
+**State 2 产出**: 视觉语言蓝图。进入 STATE 3。
 
-### STATE 3 — CHARACTER LOCK
+### STATE 3 — 角色锁定
 
-Route to `director-character`.
+路由到 `director-character`。
 
-**Required artifacts:**
-- Character Identity Sheet per character
-- Visual lock parameters (face, hair, body, wardrobe, props)
-- Behavior system (movement signature, eye direction, emotion-to-motion mapping)
-- Multi-character relationship map (if applicable)
+**必要产物:**
+- 每个角色的角色身份表
+- 视觉锁定参数（面部、发型、体型、服装、道具）
+- 行为系统（动作签名、眼神逻辑、情绪→动作映射）
+- 多角色关系图（如适用）
 
-**Validation gate:**
-- [ ] All characters have identity locks
-- [ ] Visual parameters are specific enough to reproduce
-- [ ] Behavior system accounts for emotional range
-- [ ] User has confirmed all character sheets
+**验证门:**
+- [ ] 所有角色都有身份锁定
+- [ ] 视觉参数足够具体，可以重现
+- [ ] 行为系统覆盖情绪范围
+- [ ] 用户已确认所有角色设定表
 
-**State 3 output**: Character Sheets + Identity Locks. Proceed to STATE 4.
+**State 3 产出**: 角色设定表 + 身份锁定。进入 STATE 4。
 
-### STATE 4 — STORYBOARD PLANNING
+### STATE 4 — 分镜规划
 
-Route to `storyboard-sketch` (for Seedance I2V) or `storyboard-prompt` / `storyboard-master` (for image generator boards).
+路由到 `storyboard-sketch`（用于 Seedance I2V）或 `storyboard-prompt` / `storyboard-master`（用于图像生成器分镜板）。
 
-**Required artifacts:**
-- Storyboard frame plan (3-8 frames per board)
-- Shot-by-shot breakdown with camera, action, emotion, purpose
-- Continuity anchors across all frames
+**必要产物:**
+- 分镜帧计划（每板 3-8 帧）
+- 逐镜头拆解（含摄影机、动作、情绪、目的）
+- 跨所有帧的连续性锚点
 
-**Validation gate:**
-- [ ] Number of boards matches the planned duration
-- [ ] Every frame has a narrative purpose
-- [ ] Character identity is maintained across all frames
-- [ ] User has confirmed all storyboard frames
+**验证门:**
+- [ ] 分镜板数量与计划时长匹配
+- [ ] 每一帧都有叙事目的
+- [ ] 角色身份在所有帧中保持一致
+- [ ] 用户已确认所有分镜帧
 
-**State 4 output**: Storyboard Boards + Shot Plan. Proceed to STATE 5.
+**State 4 产出**: 分镜板 + 镜头计划。进入 STATE 5。
 
-### STATE 5 — PROMPT COMPILATION
+### STATE 5 — 提示词编译
 
-Route to `director-seedance`.
+路由到 `director-seedance`。
 
-**Required artifacts:**
-- Seedance-ready video prompts per shot
-- Continuity context locks between shots
-- Negative constraint blocks per shot
-- Multi-part continuity bindings (for videos > 15s)
+**必要产物:**
+- 每个镜头的 Seedance 就绪视频提示词
+- 镜头之间的连续性上下文锁定
+- 每个镜头的负面约束块
+- 多 Part 连续性绑定（用于超过 15 秒的视频）
 
-**Pre-Check Checklist (all must be YES):**
-- [ ] All storyboards completed?
-- [ ] User confirmed all storyboards?
-- [ ] Character sheets completed?
-- [ ] User confirmed characters?
-- [ ] Visual language defined?
-- [ ] Duration and aspect ratio locked?
+**预检清单（全部必须是"是"）:**
+- [ ] 所有分镜已完成？
+- [ ] 用户已确认所有分镜？
+- [ ] 角色设定表已完成？
+- [ ] 用户已确认角色？
+- [ ] 视觉语言已定义？
+- [ ] 时长和画幅比例已锁定？
 
-If any answer is NO, halt and return to the missing phase.
+如果有任何答案是"否"，停止并返回到缺失的阶段。
 
-**State 5 output**: Seedance Video Prompt Pack. Proceed to STATE 6.
+**State 5 产出**: Seedance 视频提示词包。进入 STATE 6。
 
-### STATE 6 — FINAL VALIDATION
+### STATE 6 — 最终验证
 
-Quality pass across all artifacts:
+对所有产物进行质量审核：
 
-- **Narrative check**: Does the full sequence tell a coherent story?
-- **Visual check**: Is the visual language consistent across all shots?
-- **Character check**: Is character identity preserved in every prompt?
-- **Continuity check**: Do spatial geography, lighting, and time flow feel continuous?
-- **Execution check**: Is every prompt directly usable in the target tool?
+- **叙事检查**: 完整的镜头序列是否讲了一个连贯的故事？
+- **视觉检查**: 所有镜头中的视觉语言是否一致？
+- **角色检查**: 角色身份在每个提示词中是否保持一致？
+- **连续性检查**: 空间地理、光影和时间流是否感觉连续？
+- **执行检查**: 每个提示词是否可以直接在目标工具中使用？
 
-**State 6 output**: Validated prompt pack. Proceed to STATE 7.
+**State 6 产出**: 已验证的提示词包。进入 STATE 7。
 
-### STATE 7 — EXPORT READY
+### STATE 7 — 导出就绪
 
-Package the final deliverable:
-- Full prompt list in execution order
-- Context continuity notes for multi-part generation
-- Reference image role map (if reference images were provided)
-- Delivery format notes (duration, aspect ratio, platform)
+打包最终交付物：
+- 按执行顺序排列的完整提示词列表
+- 多 Part 生成的上下文连续性备注
+- 参考图角色映射（如果提供了参考图）
+- 交付格式备注（时长、画幅比例、平台）
 
-## Dependency Graph
+## 依赖关系图
 
 ```
 director-story ────→ director-emotion
@@ -189,28 +189,28 @@ director-story ────→ director-emotion
          director-seedance
                 │
                 ↓
-         [FINAL VALIDATION → EXPORT]
+         [最终验证 → 导出]
 ```
 
-## Routing Guide
+## 路由指南
 
-| User intent | Load first |
-|---|---|
-| "I have an idea, make it into a film" | Stay in director-core, start STATE 0 |
-| "I already have a script, need visual design" | Enter at STATE 2 |
-| "I have storyboard frames, need Seedance prompts" | Enter at STATE 5 |
-| "I just want the character sheet" | Route directly to director-character |
-| "Fix my broken AI video, character keeps changing" | Enter at STATE 3 (re-lock character), then STATE 5 |
+| 用户意图 | 首先加载 |
+|---------|---------|
+| "我有一个创意，帮我做成电影" | 留在 director-core，从 STATE 0 开始 |
+| "我已有剧本，需要视觉设计" | 从 STATE 2 进入 |
+| "我有分镜帧，需要 Seedance 提示词" | 从 STATE 5 进入 |
+| "我只需要角色设定表" | 直接路由到 director-character |
+| "修复我崩坏的 AI 视频，角色一直变" | 从 STATE 3 进入（重新锁定角色），然后 STATE 5 |
 
-## Status Tracker
+## 状态追踪器
 
-At the end of every production session, output:
+在每个制作会话结束时输出：
 
 ```markdown
-**Production Status**
-- Current state: [STATE N — name]
-- Completed states: [list]
-- Pending states: [list]
-- Active locks: [which locks are in effect]
-- Next action: [what the user needs to do or confirm]
+**制作状态**
+- 当前状态: [STATE N — 名称]
+- 已完成状态: [列表]
+- 待完成状态: [列表]
+- 生效的锁定: [哪些锁正在生效]
+- 下一步操作: [用户需要做什么或确认什么]
 ```

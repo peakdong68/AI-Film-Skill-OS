@@ -1,123 +1,123 @@
-# Temporal Flow Types — 时间流叙事
+# 时间流类型 — Temporal Flow Types
 
-## The Three Time Flows
+## 三种时间流
 
-Every narrative moment operates in one of three temporal modes. The choice determines shot duration, cut rhythm, and emotional pacing.
+每个叙事时刻以三种时间模式之一运行。选择决定了镜头时长、剪辑节奏和情绪节奏。
 
-### 1. Linear Flow (线性流)
-Time passes at a natural, perceptible rate. Action A → Action B → Action C in real sequence.
+### 1. 线性流（Linear Flow）
+时间以自然、可感知的速率流逝。动作 A → 动作 B → 动作 C 按实际顺序进行。
 
-**When to use**: Standard narrative progression, real-time dialogue, action that needs to be followed
-**Characteristics**:
-- Shot duration: 2-4 seconds
-- Cut rhythm: Steady, predictable
-- Camera: Follows action, maintains spatial continuity
-- Emotion: Builds gradually, step by step
+**使用时机**: 标准叙事推进、实时对话、需要跟随的动作
+**特征**:
+- 镜头时长: 2-4 秒
+- 剪辑节奏: 稳定、可预测
+- 摄影机: 跟随动作，保持空间连续性
+- 情绪: 逐步建立，一步一步
 
-### 2. Compressed Flow (压缩流)
-Multiple moments collapse into a short time span. Time accelerates.
+### 2. 压缩流（Compressed Flow）
+多个时刻坍缩到短时间跨度中。时间加速。
 
-**When to use**: Montage, passage of time, routine establishment, fast information delivery
-**Characteristics**:
-- Shot duration: 0.5-2 seconds
-- Cut rhythm: Fast, aggressive
-- Camera: Varied, jump cuts permitted, spatial continuity loosened
-- Emotion: Cumulative — each fragment adds emotional weight
+**使用时机**: 蒙太奇、时间流逝、日常工作建立、快速信息传递
+**特征**:
+- 镜头时长: 0.5-2 秒
+- 剪辑节奏: 快速、激进
+- 摄影机: 多样化，允许跳切，空间连续性放松
+- 情绪: 累积——每个碎片叠加情绪重量
 
-### 3. Expanded Flow (扩展流)
-A single moment stretches. Time decelerates to amplify emotional weight.
+### 3. 扩展流（Expanded Flow）
+单个时刻被拉长。时间减速以放大情绪重量。
 
-**When to use**: Emotional peaks, decisive moments, silence, revelation, climax
-**Characteristics**:
-- Shot duration: 3-6 seconds (or longer)
-- Cut rhythm: Very slow, deliberate pauses
-- Camera: Slow dolly-in, static hold, micro-movement only
-- Emotion: Intensified — every microsecond carries meaning
+**使用时机**: 情绪顶点、决定性时刻、沉默、揭示、高潮
+**特征**:
+- 镜头时长: 3-6 秒（或更长）
+- 剪辑节奏: 极慢、刻意停顿
+- 摄影机: 缓慢 dolly-in、静态保持、仅微运动
+- 情绪: 强化——每一微秒都承载意义
 
-## Emotional Curve Types
+## 情绪曲线类型
 
-How emotion changes across time determines the temporal strategy:
+情绪随时间如何变化决定了时间策略：
 
-### Rise Curve (上升型)
-Emotion builds steadily toward a peak.
-
-```
-Intensity: 3 → 5 → 7 → 9
-Temporal flow: Linear → Compressed near peak → Expanded at peak
-Camera: Medium → Close-up → ECU
-Movement: Static → Slow push-in → Hold
-```
-
-### Fall Curve (下降型)
-Emotion fades from intensity to release.
+### 上升型曲线（Rise Curve）
+情绪稳定地向顶点建立。
 
 ```
-Intensity: 8 → 5 → 3
-Temporal flow: Expanded at start → Linear → Compressed toward end
-Camera: Close-up → Medium → Wide
-Movement: Static hold → Slow pull-out → Static
+强度: 3 → 5 → 7 → 9
+时间流: 线性流 → 顶点附近压缩流 → 顶点处扩展流
+摄影机: Medium → Close-up → ECU
+运动: Static → Slow push-in → Hold
 ```
 
-### Spike Curve (爆发型)
-Sudden emotional peak from a calm baseline.
+### 下降型曲线（Fall Curve）
+情绪从高强度衰退到释放。
 
 ```
-Intensity: 2 → 9 → 4
-Temporal flow: Linear → Expanded (spike holds) → Compressed (aftermath)
-Camera: Medium → ECU → Wide
-Movement: Static → Sudden stillness → Slow pull-back
+强度: 8 → 5 → 3
+时间流: 起始处扩展流 → 线性流 → 末尾压缩流
+摄影机: Close-up → Medium → Wide
+运动: Static hold → Slow pull-out → Static
 ```
 
-### Wave Curve (波动型)
-Emotion oscillates — uncertainty, internal conflict.
+### 爆发型曲线（Spike Curve）
+从平静基线突然出现情绪顶点。
 
 ```
-Intensity: 4 → 7 → 3 → 6 → 2
-Temporal flow: Varied — shift mode with each wave
-Camera: Varied shot sizes
-Movement: Unstable — handheld, micro-shake, orbit
+强度: 2 → 9 → 4
+时间流: 线性流 → 扩展流（顶点保持）→ 压缩流（余波）
+摄影机: Medium → ECU → Wide
+运动: Static → 骤然静止 → Slow pull-back
 ```
 
-## Time Density Control
-
-The relationship between emotional intensity and temporal density:
-
-| Emotional State | Density | Shot Length | Rationale |
-|----------------|---------|-------------|-----------|
-| Calm / Neutral | Medium | 2-3s | Standard flow |
-| Building tension | Increasing | 2s → 1.5s | Acceleration |
-| Peak emotion | Minimum | 4-6s | Slow motion feel |
-| Action / Urgency | Maximum | 0.5-1.5s | Rapid cuts |
-| Silence / Stillness | Very low | 5-10s | Time expands |
-| Aftermath / Release | Decreasing | 4s → 2s → 3s | Return to normal |
-
-## Time Expansion Triggers
-
-Extend shot duration when:
-
-- **Slow breathing**: Character's breath becomes visible, deliberate
-- **Silence**: Sound drops out — time feels longer
-- **Emotional gaze**: Character looks at something/someone with emotional weight
-- **Hesitation**: Character pauses before decision — the pause IS the moment
-- **Discovery**: Character realizes something — the realization IS the shot
-
-## Time Compression Triggers
-
-Shorten shot duration when:
-
-- **Routine**: Repeated actions (walking, working, waiting) — montage
-- **Information overload**: Multiple facts need rapid delivery
-- **Tension release**: After peak, quick cuts show consequence
-- **Parallel action**: Two things happening simultaneously — cross-cut
-
-## Causality Binding
-
-Every panel must have a causal link to the previous panel:
+### 波动型曲线（Wave Curve）
+情绪振荡——不确定性、内心冲突。
 
 ```
-P1: character looks forward  →  causes awareness shift
-P2: character pauses         →  reaction to stimulus  
-P3: character turns back     →  emotional escalation
+强度: 4 → 7 → 3 → 6 → 2
+时间流: 多变——随每个波浪切换模式
+摄影机: 多样化的镜头尺寸
+运动: 不稳定——handheld、微晃动、orbit
 ```
 
-Rule: If P(n) doesn't causally depend on P(n-1), the sequence is broken.
+## 时间密度控制
+
+情绪强度与时间密度之间的关系：
+
+| 情绪状态 | 密度 | 镜头时长 | 原理 |
+|---------|------|---------|------|
+| 平静 / 中性 | 中等 | 2-3s | 标准流 |
+| 建立紧张 | 递增 | 2s → 1.5s | 加速 |
+| 情绪顶点 | 最低 | 4-6s | 慢动作感 |
+| 动作 / 紧迫 | 最高 | 0.5-1.5s | 快速剪辑 |
+| 沉默 / 静止 | 极低 | 5-10s | 时间扩展 |
+| 余波 / 释放 | 递减 | 4s → 2s → 3s | 回归正常 |
+
+## 时间扩展触发器
+
+在以下情况下延长镜头时长：
+
+- **缓慢呼吸**: 角色的呼吸变得可见、刻意
+- **沉默**: 声音消失——时间感觉更长
+- **情绪凝视**: 角色以情绪重量注视某物/某人
+- **犹豫**: 角色在决定前停顿——停顿本身就是那个时刻
+- **发现**: 角色意识到某事——意识到的那一瞬就是镜头本身
+
+## 时间压缩触发器
+
+在以下情况下缩短镜头时长：
+
+- **日常重复**: 重复动作（走路、工作、等待）——蒙太奇
+- **信息过载**: 多个事实需要快速传递
+- **紧张释放**: 顶点之后，快速剪辑展示后果
+- **平行动作**: 两件事同时发生——交叉剪辑
+
+## 因果绑定
+
+每个 panel 必须与前一个 panel 有因果链接：
+
+```
+P1: 角色向前看   →  引起意识转变
+P2: 角色停顿     →  对刺激的反应
+P3: 角色转回身   →  情绪升级
+```
+
+规则: 如果 P(n) 不因果依赖于 P(n-1)，序列就断裂了。

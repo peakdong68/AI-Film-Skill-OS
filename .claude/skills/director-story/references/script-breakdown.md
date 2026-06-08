@@ -1,59 +1,59 @@
-# Script Breakdown Knowledge
+# 剧本拆解知识
 
-## Narrative Structure Types
+## 叙事结构类型
 
-### 3-Act Structure
-- Act 1 (Setup): Establish world, character, status quo. Ends with inciting incident.
-- Act 2 (Confrontation): Rising obstacles, complications. Midpoint shift (irreversible change). Ends with crisis/darkest moment.
-- Act 3 (Resolution): Climax, consequences, new equilibrium.
+### 3幕结构
+- Act 1 (建置): 建立世界、角色、现状。以激励事件结束。
+- Act 2 (对抗): 上升的障碍、复杂化。中点转变（不可逆变化）。以危机/最黑暗时刻结束。
+- Act 3 (解决): 高潮、后果、新平衡。
 
-### 5-Act Structure
-- Act 1: Exposition
-- Act 2: Rising Action  
-- Act 3: Climax
-- Act 4: Falling Action
-- Act 5: Denouement
+### 5幕结构
+- Act 1: exposition（展开）
+- Act 2: 上升行动
+- Act 3: 高潮
+- Act 4: 下降行动
+- Act 5: 收场
 
-## Scene Purpose Classification
+## 场景目的分类
 
-| Category | 中文 | Definition |
-|----------|------|------------|
-| Establish | 建立 | Introduce world, character, or status quo |
-| Advance | 推进 | Move plot forward through action or decision |
-| Reveal | 揭示 | Expose information, character truth, or stakes |
-| Escalate | 升级 | Increase tension, stakes, or conflict |
-| Contrast | 对比 | Juxtapose two states, characters, or ideas |
-| Transition | 过渡 | Bridge between major narrative blocks |
-| Resolve | 收束 | Conclude an arc, answer a question, reach closure |
+| Category | 中文 | 定义 |
+|----------|------|------|
+| Establish | 建立 | 引入世界、角色或现状 |
+| Advance | 推进 | 通过行动或决定推动剧情前进 |
+| Reveal | 揭示 | 暴露信息、角色真相或赌注 |
+| Escalate | 升级 | 增加紧张、赌注或冲突 |
+| Contrast | 对比 | 并列两种状态、角色或想法 |
+| Transition | 过渡 | 连接主要叙事区块 |
+| Resolve | 收束 | 结束一段弧线、回答一个问题、达成闭合 |
 
-## Director Intent Questions
+## 导演意图问题
 
-Every scene must answer:
-1. Why does this scene exist?
-2. What changes after this scene?
-3. What emotion does the audience leave with?
+每场戏必须回答：
+1. 这场戏为什么存在？
+2. 这场戏之后什么变了？
+3. 观众带着什么情绪离开？
 
-## Causal Chain Rules
+## 因果链规则
 
-- Every event must connect to the causal chain
-- A causes B causes C — no coincidences
-- Test: "If I remove this event, does the next scene still make sense?"
-- Weak causal links = weak narrative
+- 每个事件必须连接到因果链
+- A 导致 B 导致 C——不容巧合
+- 检验："如果我删除这个事件，下一场戏还成立吗？"
+- 弱的因果链接 = 弱的叙事
 
-## Scene Structure Template
+## 场景结构模板
 
-Each scene in breakdown:
-- scene_id
-- scene purpose (why exists)
-- emotional function (audience feeling)
-- narrative function (plot role)
-- characters involved
-- conflict type (internal / interpersonal / external / environmental)
-- entry state → exit state (what changes)
+每场戏在拆解中需包含：
+- scene_id（场景编号）
+- 场景目的（为什么存在）
+- 情绪功能（观众感受）
+- 叙事功能（剧情角色）
+- 涉及角色
+- 冲突类型（内在 / 人际 / 外部 / 环境）
+- 进入状态 → 退出状态（什么变了）
 
-## Constraints
+## 约束
 
-- No scene without a purpose
-- No orphaned events in causal chain
-- No unexamined director intent
-- No handoff to storyboard until structure is complete
+- 没有无目的的场景
+- 因果链中没有孤立事件
+- 没有未经审视的导演意图
+- 在结构完整之前不移交到分镜

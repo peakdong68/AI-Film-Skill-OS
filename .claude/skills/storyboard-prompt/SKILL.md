@@ -1,201 +1,201 @@
 ---
 name: storyboard-prompt
-description: Generate professional storyboard frame prompts for AI image generators (Midjourney, Flux, 即梦, 可灵, GPT Image, Runway, Veo). Use when the user asks for storyboard prompts, shot planning prompts, 分镜提示词, storyboard frame generation, film pre-visualization prompts, animation storyboard, commercial storyboard, single-frame storyboard, or needs to write structured prompts that produce cinema-grade storyboard panel images. Also use when the user gives a vague scene idea and wants it turned into a professional storyboard shot description.
+description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Image, Runway, Veo）生成专业分镜帧提示词。用于分镜提示词、镜头规划提示词、分镜提示词生成、电影预可视化提示词、动画分镜、商业广告分镜、单帧分镜，或需要撰写能产出电影级分镜面板图像的结构化提示词时。当用户给出模糊的场景创意并希望将其转化为专业分镜镜头描述时也适用。Use when the user asks for storyboard prompts, shot planning prompts, storyboard frame generation, film pre-visualization prompts, animation storyboard, commercial storyboard, single-frame storyboard, or needs to write structured prompts that produce cinema-grade storyboard panel images.
 ---
 
-# Storyboard Prompt
+# Storyboard Prompt 分镜提示词
 
-## Overview
+## 概览
 
-Turn a scene idea, subject, or action into a professionally structured prompt that AI image generators can convert into cinema-grade storyboard frame images. This skill enforces an 8-element shot description framework derived from film industry pre-production standards, ensuring every prompt produces a readable, technically accurate storyboard panel regardless of the image generator used.
+将场景创意、主体或动作转化为专业结构化的提示词，AI 图像生成器可将其转化为电影级分镜帧图像。此技能强制执行一个源自电影行业前期制作标准的 8 要素镜头描述框架，确保每条提示词都能生成可读、技术准确的分镜面板，无论使用哪种图像生成器。
 
-Use this skill for single-frame storyboard prompts. For multi-shot master sheets, use `storyboard-master`. For e-commerce/livestream storyboards, use `storyboard-ecommerce`. For Seedance I2V planning prompts, use `storyboard-sketch`.
+此技能用于单帧分镜提示词。多镜头总览图请用 `storyboard-master`。电商/直播分镜请用 `storyboard-ecommerce`。Seedance I2V 规划提示词请用 `storyboard-sketch`。
 
-## Input Gate
+## 输入门
 
-Before generating a prompt, check that the user has provided enough material to fill the 8-element framework. Treat the input as sufficient when it includes at least:
+生成提示词前，检查用户是否提供了足够素材来填充 8 要素框架。满足以下条件时视为输入充足：
 
-- A scene idea, subject, or theme.
-- A desired visual style or use context (film/ad/animation/CG).
+- 一个场景创意、主体或主题。
+- 一个期望的视觉风格或使用上下文（电影/广告/动画/CG）。
 
-If sufficient, proceed and fill gaps with reasonable defaults, marked clearly.
+若充足，直接进行并用合理默认值填补空白，清晰标注。
 
-If insufficient, infer from context then confirm:
+若不充足，从上下文中推断后确认：
 
 ```markdown
 我先确认一下这个分镜的方向：
-- 场景/主题：[inferred]
-- 主体/角色：[inferred]
-- 动作：[inferred]
+- 场景/主题：[推断的]
+- 主体/角色：[推断的]
+- 动作：[推断的]
 - 目标风格：电影级故事板 / 黑白线稿 / 动画预演 / 广告提案
 - 目标工具：Midjourney / Flux / 即梦 / 可灵 / GPT Image
 
 确认吗？调整一句我就生成提示词。
 ```
 
-If the user says "直接生成", proceed with assumptions and mark them.
+若用户说"直接生成"，以假设进行并标注。
 
-## The 8-Element Framework
+## 8 要素框架
 
-Every storyboard prompt must address these eight dimensions. The model cannot invent missing critical information — if the user hasn't provided it, make a justified assumption and note it.
+每条分镜提示词必须涵盖这八个维度。模型不能凭空发明缺失的关键信息——若用户未提供，做合理假设并注明。
 
 | # | Element | 中文 | What it answers |
 |---|---------|------|-----------------|
-| 1 | Scene | 场景 | Where and when does this take place? |
-| 2 | Subject | 主体 | Who or what is the focus? Appearance? Wardrobe? |
-| 3 | Action | 动作 | What is the subject doing? State, direction? |
-| 4 | Camera | 镜头 | Shot size, angle, movement? |
-| 5 | Composition | 构图 | How is the frame arranged? Subject position? |
-| 6 | Lighting | 光线 | Key light, fill, color temp, quality? |
-| 7 | Mood | 情绪 | What emotional atmosphere? |
-| 8 | Story Purpose | 叙事目的 | Why does this shot exist? What does it communicate? |
+| 1 | Scene | 场景 | 发生在何时何地？ |
+| 2 | Subject | 主体 | 聚焦于谁或什么？外观？服装？ |
+| 3 | Action | 动作 | 主体在做什么？状态、方向？ |
+| 4 | Camera | 镜头 | 景别、角度、运动？ |
+| 5 | Composition | 构图 | 画框如何安排？主体位置？ |
+| 6 | Lighting | 光线 | 主光、辅光、色温、质感？ |
+| 7 | Mood | 情绪 | 什么样的情绪氛围？ |
+| 8 | Story Purpose | 叙事目的 | 为什么这个镜头存在？它传达了 什么？ |
 
-This framework applies whether the user needs a film noir detective scene, an animation fantasy shot, or a luxury product commercial. The elements stay the same; only the values change.
+此框架适用于用户需要黑色电影侦探场景、动画奇幻镜头或奢侈品广告。要素不变，只改变值。
 
-## Output Format
+## 输出格式
 
-Write the prompt in two layers. First, show the structured breakdown so the user can verify every element. Then, provide the compressed prompt ready for pasting into an image generator.
+分两层写出提示词。首先展示结构化拆解，让用户验证每个要素。然后提供可粘贴到图像生成器的压缩提示词。
 
 ```markdown
 ## Shot Breakdown
 
-**Scene:** [time · location · environment details]
-**Subject:** [character/object · appearance · wardrobe · state]
-**Action:** [what the subject is doing · movement direction · state]
-**Camera:** [shot size] · [angle] · [movement]
-**Composition:** [framing approach · subject position · depth layers]
-**Lighting:** [key light direction/quality] · [fill] · [color temp] · [atmosphere]
-**Mood:** [2-3 emotional keywords]
-**Story Purpose:** [narrative function — establish/reveal/emphasize/transition]
+**Scene:** [时间 · 地点 · 环境细节]
+**Subject:** [角色/物体 · 外观 · 服装 · 状态]
+**Action:** [主体在做什么 · 运动方向 · 状态]
+**Camera:** [景别] · [角度] · [运动]
+**Composition:** [构图方式 · 主体位置 · 层次深度]
+**Lighting:** [主光方向/质感] · [辅光] · [色温] · [氛围]
+**Mood:** [2-3 个情绪关键词]
+**Story Purpose:** [叙事功能——establish/reveal/emphasize/transition]
 
 ## Prompt
 
-[Compressed prompt in 40-100 words, English or Chinese depending on user preference. End with style keywords.]
+[压缩提示词，40-100 词，根据用户偏好使用英文或中文。以风格关键词收尾。]
 ```
 
-### Prompt Compression Rules
+### 提示词压缩规则
 
-The compressed prompt should flow naturally as one paragraph. Order elements by visual priority: Scene → Subject → Action → Camera → Composition → Lighting → Mood, then append style keywords. Do not use bullet points or labels in the compressed prompt — it must read as a single descriptive passage that image generators parse well.
+压缩提示词应作为一个自然段落流畅展开。按视觉优先级排列要素: Scene → Subject → Action → Camera → Composition → Lighting → Mood，然后附加风格关键词。压缩提示词中不得使用项目符号或标签——它必须读起来像一段图像生成器能良好解析的单一描述性段落。
 
-### Style Keywords
+### 风格关键词
 
-Always append these to the compressed prompt. Choose the set that matches the user's intent:
+始终将这些附加到压缩提示词末尾。选择与用户意图匹配的集合：
 
-**Film storyboard:**
+**Film storyboard 电影分镜:**
 ```
 professional storyboard panel, film storyboard frame, director treatment, cinematic composition, pre-production visualization, black and white storyboard sketch, clean pencil drawing, highly detailed, production-ready storyboard
 ```
 
-**Animation storyboard:**
+**Animation storyboard 动画分镜:**
 ```
 animation storyboard, pre-production planning board, clean pencil sketch, animation keyframe planning, animatic reference frame, production storyboard panel
 ```
 
-**Commercial storyboard:**
+**Commercial storyboard 商业广告分镜:**
 ```
 commercial storyboard, advertising shot planning, director treatment frame, high-end product storyboard, professional production board, clean composition, white background
 ```
 
-**Color/finished style (when user explicitly wants color):**
+**Color/finished style 彩色/完成风格（用户明确要求彩色时）:**
 ```
 professional storyboard panel, cinematic composition, color storyboard, production design, film pre-visualization, highly detailed
 ```
 
-## Domain Templates
+## 领域模板
 
-### Film / Drama Template
+### Film / Drama Template 电影/剧情模板
 
-Use when the user describes a narrative scene with characters, tension, or emotional arc.
+当用户描述含角色、张力或情绪弧线的叙事场景时使用。
 
 ```
-Scene: [time of day] · [location] · [weather/atmosphere]
-Subject: [character name/type] · [age] · [appearance] · [wardrobe]
-Action: [physical action with direction and state]
-Camera: [shot size from WS to ECU] · [angle low/high/eye] · [static/push/track]
-Composition: [rule of thirds / centered / leading lines] · [foreground/midground/background layers]
-Lighting: [key source] · [quality soft/hard] · [color temp warm/cool] · [special: rim/volumetric/practical]
-Mood: [2-3 words: tense/suspenseful/melancholic/hopeful/epic]
+Scene: [时间段] · [地点] · [天气/氛围]
+Subject: [角色名称/类型] · [年龄] · [外观] · [服装]
+Action: [含方向和状态的物理动作]
+Camera: [WS 到 ECU 的景别] · [low/high/eye 角度] · [static/push/track]
+Composition: [rule of thirds / centered / leading lines] · [前景/中景/背景层次]
+Lighting: [主光源] · [soft/hard 质感] · [warm/cool 色温] · [特殊: rim/volumetric/practical]
+Mood: [2-3 词: tense/suspenseful/melancholic/hopeful/epic]
 Story Purpose: [establish location / introduce character / build tension / reveal clue / transition]
 ```
 
-### Animation Template
+### Animation Template 动画模板
 
-Use when the user describes animated or fantasy content.
+当用户描述动画或奇幻内容时使用。
 
 ```
-Scene: [fantasy/real-world location] · [time/magical atmosphere]
-Subject: [character type] · [age] · [design features] · [costume]
-Action: [dynamic or emotional action with flow direction]
-Camera: [shot size] · [three-quarter view / profile / bird's eye] · [dynamic movement]
-Composition: [rule of thirds / dynamic perspective] · [depth layers]
-Lighting: [soft/diffuse magical light] · [warm/cool/fantasy glow] · [atmosphere]
+Scene: [奇幻/现实地点] · [时间/魔法氛围]
+Subject: [角色类型] · [年龄] · [设计特征] · [服装]
+Action: [含流动方向的动态或情绪化动作]
+Camera: [景别] · [three-quarter view / profile / bird's eye] · [动态运动]
+Composition: [rule of thirds / dynamic perspective] · [层次深度]
+Lighting: [soft/diffuse magical light] · [warm/cool/fantasy glow] · [氛围]
 Mood: [wonder / adventure / fantasy / dreamlike / epic]
 Story Purpose: [introduce world / show character emotion / reveal destination / emphasize scale]
 ```
 
-### Advertising / Product Template
+### Advertising / Product Template 广告/产品模板
 
-Use for product commercials, luxury goods, brand films.
+用于产品广告、奢侈品、品牌影片。
 
 ```
-Scene: [clean studio / lifestyle environment / abstract backdrop]
-Subject: [product name/type] · [key visual features] · [material/texture]
-Action: [slow reveal / rotation / interaction with light or environment]
+Scene: [干净影棚 / 生活方式环境 / 抽象背景]
+Subject: [产品名称/类型] · [关键视觉特征] · [材质/质感]
+Action: [缓慢揭示 / 旋转 / 与光或环境的交互]
 Camera: [CU / ECU for product detail] · [eye level / top-down] · [slow push-in / orbit / static]
-Composition: [centered / negative space] · [product as hero, minimal distraction]
+Composition: [centered / negative space] · [产品为主角，最小干扰]
 Lighting: [rim light for edge definition] · [soft fill] · [dramatic / elegant / high key]
 Mood: [luxury / elegant / premium / minimal / aspirational]
 Story Purpose: [hero product / emphasize craftsmanship / lifestyle association / brand closer]
 ```
 
-### Universal Template (when domain is unclear)
+### Universal Template 通用模板（领域不明确时）
 
-The most general template — use when the user's domain doesn't fit the above, or as default.
+最通用的模板——当用户领域不适用以上分类时使用，或作为默认。
 
 ```
-Scene: [time · location · environment]
+Scene: [时间 · 地点 · 环境]
 
-Subject: [character / object · appearance · state]
+Subject: [角色 / 物体 · 外观 · 状态]
 
-Action: [what is happening · movement direction]
+Action: [正在发生什么 · 运动方向]
 
-Camera: [shot size · angle · movement]
+Camera: [景别 · 角度 · 运动]
 
-Composition: [framing · subject placement · depth]
+Composition: [构图 · 主体位置 · 深度]
 
-Lighting: [key · fill · color temp · special qualities]
+Lighting: [主光 · 辅光 · 色温 · 特殊质感]
 
-Mood: [emotional keywords]
+Mood: [情绪关键词]
 
-Story Purpose: [why this shot matters]
+Story Purpose: [这个镜头为什么重要]
 
 Style: [professional storyboard panel, cinematic composition, clean pencil sketch, highly detailed, production-ready storyboard]
 ```
 
-## Scene Generator
+## Scene Generator 场景生成器
 
-When the user provides only a theme (e.g., "未来赛博朋克城市" or "暴雨中的侦探") without complete scene details, first generate a scene breakdown, then build the prompt from it.
+当用户只提供主题（如"未来赛博朋克城市"或"暴雨中的侦探"）而没有完整场景细节时，先生成场景拆解，然后基于它构建提示词。
 
-Template:
+模板：
 
 ```markdown
-根据主题「[user's theme]」，我先展开一个场景方案：
+根据主题「[用户的主题]」，我先展开一个场景方案：
 
-**场景描述:** [2-3 sentences establishing time, place, atmosphere]
-**主体描述:** [1-2 sentences on the main subject]
-**动作描述:** [1 sentence on the key action]
-**镜头建议:** [shot size + angle]
-**光线建议:** [key light + atmosphere]
-**情绪建议:** [2-3 mood words]
-**分镜重点:** [what this shot should emphasize]
+**场景描述:** [2-3 句建立时间、地点、氛围]
+**主体描述:** [1-2 句关于主要主体]
+**动作描述:** [1 句关于关键动作]
+**镜头建议:** [景别 + 角度]
+**光线建议:** [主光 + 氛围]
+**情绪建议:** [2-3 个情绪词]
+**分镜重点:** [此镜头应强调什么]
 
 确认这个方向后，我生成完整提示词。
 ```
 
-## Quality Bar
+## Quality Bar 质量门槛
 
-- Every prompt must address all 8 elements. If the user hasn't provided one, make a note of the assumption.
-- The compressed prompt should be usable as-is in any major image generator without modification.
-- Style keywords must not include unsafe studio/franchise/celebrity names — use descriptive equivalents.
-- If the user asks for Chinese output, write the breakdown in Chinese but keep style keywords in English (they perform better in image generators).
-- A reader unfamiliar with the project should understand the full scene from just the compressed prompt.
+- 每条提示词必须涵盖全部 8 个要素。若用户未提供某个，标注假设。
+- 压缩提示词应可直接用于任何主流图像生成器而无需修改。
+- 风格关键词不得包含不安全的工作室/系列/名人名称——使用描述性等效词。
+- 若用户要求中文输出，以中文写拆解部分但保留风格关键词为英文（它们在图像生成器中表现更好）。
+- 不熟悉项目的读者仅凭压缩提示词就应能理解整个场景。

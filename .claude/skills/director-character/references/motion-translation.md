@@ -1,176 +1,176 @@
 # Motion Translation — 微动作单元库
 
-## Core Principle
+## 核心原则
 
-AI video models cannot understand emotional labels. They need physical actions. Every emotion must be translated into visible body behavior at the granular level of individual body parts.
+AI 视频模型无法理解情绪标签。它们需要物理动作。每种情绪都必须翻译为可观察到的身体行为，精确到各个身体部位的粒度级别。
 
-## Micro Motion Unit Library
+## 微动作单元库
 
-Every body part has a set of expressible micro-motions. Use these as building blocks.
+每个身体部位都有一组可表达的微动作。将它们作为构建块使用。
 
-### Head
+### Head 头部
 | Motion | Visual | Emotional Signal |
 |--------|--------|-----------------|
-| slow turn | gradual head rotation | Awareness, attention shift, recognition |
-| downward tilt | chin lowers toward chest | Shame, sadness, submission, thinking |
-| slight shake | small lateral oscillation | Disbelief, rejection, "no" |
-| freeze | complete stillness | Shock, focus, threat assessment |
-| quick turn | rapid rotation | Surprise, alarm, instinct |
-| upward tilt | chin rises | Defiance, hope, looking up at something |
+| slow turn 缓慢转头 | 头部逐渐旋转 | 感知、注意力转移、认出 |
+| downward tilt 低头 | 下颌向胸部降低 | 羞愧、悲伤、顺从、思考 |
+| slight shake 微摇头 | 小幅度横向摆动 | 不相信、拒绝、"不" |
+| freeze 静止 | 完全不动 | 震惊、专注、威胁评估 |
+| quick turn 快速转头 | 快速旋转 | 惊讶、警觉、本能反应 |
+| upward tilt 仰头 | 下颌抬起 | 反抗、希望、仰望某物 |
 
-### Eyes
+### Eyes 眼睛
 | Motion | Visual | Emotional Signal |
 |--------|--------|-----------------|
-| eye dart | rapid gaze shifts | Anxiety, searching, lying |
-| long stare | sustained focus on one point | Fascination, threat, love, dissociation |
-| avoid gaze | looking away from interaction | Shame, guilt, discomfort, lying |
-| blink delay | longer pauses between blinks | Focus, tension, shock |
-| rapid blink | fast blinking | Stress, overwhelm, holding back tears |
-| eye widen | visible sclera increase | Fear, surprise, realization |
-| eye narrow | lids lower, aperture shrinks | Suspicion, anger, focus, threat |
-| soften gaze | muscles around eyes relax | Love, trust, calm, acceptance |
+| eye dart 快速扫视 | 目光快速移动 | 焦虑、搜寻、说谎 |
+| long stare 长时间凝视 | 持续聚焦一点 | 着迷、威胁、爱、解离 |
+| avoid gaze 回避视线 | 从互动中移开目光 | 羞愧、内疚、不适、说谎 |
+| blink delay 延迟眨眼 | 眨眼间隔延长 | 专注、紧张、震惊 |
+| rapid blink 快速眨眼 | 眨眼频率加快 | 压力、不堪重负、忍住眼泪 |
+| eye widen 睁大眼睛 | 巩膜可见面积增大 | 恐惧、惊讶、顿悟 |
+| eye narrow 眯眼 | 眼睑降低、孔径缩小 | 怀疑、愤怒、专注、威胁 |
+| soften gaze 眼神柔化 | 眼周肌肉放松 | 爱、信任、平静、接纳 |
 
-### Mouth
+### Mouth 嘴部
 | Motion | Visual | Emotional Signal |
 |--------|--------|-----------------|
-| lips part slightly | small gap between lips | Surprise, anticipation, about to speak |
-| tighten lips | lips press together | Anger, restraint, determination |
-| lip tremble | micro-vibration of lip | About to cry, fear, cold, extreme emotion |
-| slight smile | corners lift minimally | Amusement, recognition, bittersweet |
-| jaw tighten | masseter muscle visible | Anger, tension, grinding through pain |
-| silent breath | mouth slightly open, breath visible | Exhaustion, relief, cold environment |
+| lips part slightly 微张嘴唇 | 双唇间出现小间隙 | 惊讶、期待、欲言又止 |
+| tighten lips 抿紧嘴唇 | 双唇紧压 | 愤怒、克制、决心 |
+| lip tremble 嘴唇颤抖 | 唇部微振动 | 快要哭、恐惧、寒冷、极端情绪 |
+| slight smile 浅笑 | 嘴角微上扬 | 愉悦、认可、苦乐参半 |
+| jaw tighten 下颚收紧 | 咬肌可见 | 愤怒、紧张、强忍痛苦 |
+| silent breath 无声呼吸 | 嘴微张、呼吸可见 | 疲惫、解脱、寒冷环境 |
 
-### Shoulders
+### Shoulders 肩部
 | Motion | Visual | Emotional Signal |
 |--------|--------|-----------------|
-| drop | shoulders visibly lower | Sadness, defeat, release of tension, exhaustion |
-| tense/raise | shoulders lift toward ears | Fear, anxiety, cold, anticipation |
-| relax | tension visibly drains | Safety, relief, trust, comfort |
-| uneven | one shoulder higher | Uncertainty, hesitation, internal conflict |
+| drop 下沉 | 肩膀明显降低 | 悲伤、挫败、释放紧张、疲惫 |
+| tense/raise 紧张/提升 | 肩膀向耳朵方向抬起 | 恐惧、焦虑、寒冷、预期 |
+| relax 放松 | 紧张感明显消散 | 安全、解脱、信任、舒适 |
+| uneven 不对称 | 一侧肩膀更高 | 不确定、犹豫、内心冲突 |
 
-### Hands
+### Hands 手部
 | Motion | Visual | Emotional Signal |
 |--------|--------|-----------------|
-| finger curl | fingers slowly close into palm | Anger building, restraint, gathering resolve |
-| hand tremble | micro-vibration of hands | Fear, cold, withdrawal, extreme emotion |
-| hand relax | fingers open, palm visible | Trust, surrender, openness, relief |
-| tap/fidget | repetitive small movements | Anxiety, impatience, boredom, thinking |
-| grip tighten | hand closes around object | Determination, anger, fear, holding on |
-| reach out | hand extends toward something/someone | Desire, connection, help, pleading |
+| finger curl 手指卷曲 | 手指缓慢向掌心收拢 | 愤怒积聚、克制、积聚决心 |
+| hand tremble 手颤抖 | 手部微振动 | 恐惧、寒冷、戒断反应、极端情绪 |
+| hand relax 手放松 | 手指张开、掌心可见 | 信任、投降、开放、解脱 |
+| tap/fidget 敲击/烦躁动作 | 重复性小动作 | 焦虑、不耐烦、无聊、思考 |
+| grip tighten 握紧 | 手围绕物体收紧 | 决心、愤怒、恐惧、坚持 |
+| reach out 伸手 | 手向某物/某人伸展 | 渴望、连接、求助、恳求 |
 
-### Body (Full)
+### Body (Full) 身体整体
 | Motion | Visual | Emotional Signal |
 |--------|--------|-----------------|
-| step forward | one foot advances | Courage, aggression, approach, decision |
-| step back | one foot retreats | Fear, retreat, reconsideration, shock |
-| freeze posture | entire body stops | Threat, shock, decision moment |
-| slow collapse | body lowers gradually | Defeat, exhaustion, grief, relief |
-| lean forward | torso inclines toward | Interest, intimacy, aggression |
-| lean back | torso inclines away | Discomfort, surprise, withdrawal |
-| weight shift | weight moves between feet | Uncertainty, impatience, preparation to move |
+| step forward 前进一步 | 一只脚向前迈出 | 勇气、攻击性、接近、决定 |
+| step back 后退一步 | 一只脚向后撤回 | 恐惧、撤退、重新考虑、震惊 |
+| freeze posture 冻结姿态 | 整个身体停止运动 | 威胁、震惊、决定时刻 |
+| slow collapse 缓慢下沉 | 身体逐渐降低 | 挫败、疲惫、悲伤、解脱 |
+| lean forward 前倾 | 躯干倾向目标 | 兴趣、亲密、攻击性 |
+| lean back 后仰 | 躯干远离目标 | 不适、惊讶、退缩 |
+| weight shift 重心转移 | 重心在双脚间移动 | 不确定、不耐烦、准备行动 |
 
-## Emotion → Full Body Mapping
+## 情绪→全身映射
 
-For each primary emotion, combine micro-motions into a complete physical expression:
+对每种主要情绪，将微动作组合为完整的身体表达：
 
-### Sadness / Grief
+### Sadness / Grief 悲伤
 ```
-Head: downward tilt, minimal movement
-Eyes: avoid gaze, slow blink, eyelids lower
-Mouth: lips tremble or press together
-Shoulders: drop, collapsed forward
-Hands: still, possibly gripping something
-Body: weight heavy, minimal movement
-Breathing: slow, deep, occasionally catching
-```
-
-### Fear / Terror
-```
-Head: freeze or quick micro-turns scanning
-Eyes: widen, eye dart, rapid blink
-Mouth: lips part slightly, silent breath
-Shoulders: tense, raised toward ears
-Hands: tremble or grip tight
-Body: slight lean back, weight on back foot
-Breathing: shallow, rapid, held during peak fear
+头部: 低头、最小幅度运动
+眼睛: 回避视线、慢速眨眼、眼睑下垂
+嘴部: 嘴唇颤抖或紧抿
+肩部: 下沉、向前塌陷
+手部: 静止、可能紧握某物
+身体: 重心沉重、最小幅度运动
+呼吸: 缓慢、深沉、偶尔卡顿
 ```
 
-### Anger / Rage
+### Fear / Terror 恐惧
 ```
-Head: chin slightly raised or forward
-Eyes: narrow, fixed stare at target
-Mouth: jaw tight, lips compressed
-Shoulders: tense, squared
-Hands: fists or gripping, finger curl
-Body: forward lean, coiled energy
-Breathing: controlled, deliberate, heavy exhales
-```
-
-### Love / Affection
-```
-Head: slight tilt, micro-nods
-Eyes: soften, long gaze, slow blink
-Mouth: slight smile, lips relaxed
-Shoulders: relaxed, open posture
-Hands: relaxed, open, reach toward
-Body: lean forward slightly, open stance
-Breathing: slow, calm, synchronized with partner
+头部: 静止或快速微转动扫视
+眼睛: 睁大、快速扫视、快速眨眼
+嘴部: 嘴唇微张、无声呼吸
+肩部: 紧张、向耳朵方向抬起
+手部: 颤抖或握紧
+身体: 轻微后仰、重心在后脚
+呼吸: 浅、快速、恐惧峰值时屏息
 ```
 
-### Shock / Surprise
+### Anger / Rage 愤怒
 ```
-Head: freeze or slight recoil
-Eyes: widen fully, fixed on source, no blink
-Mouth: lips part, jaw drops slightly
-Shoulders: tense, slight raise
-Hands: freeze mid-action, may cover mouth
-Body: complete stillness, weight freezes
-Breathing: held (apnea), then sharp inhale
-```
-
-### Tension / Anxiety
-```
-Head: micro-movements, scanning
-Eyes: eye dart, avoid sustained contact
-Mouth: lips tight or slight chewing
-Shoulders: tense, uneven
-Hands: fidget, tap, rub together
-Body: weight shifts frequently, unstable posture
-Breathing: shallow, irregular
+头部: 下颌微抬或前伸
+眼睛: 眯眼、固定凝视目标
+嘴部: 下颚紧绷、嘴唇紧抿
+肩部: 紧张、平方
+手部: 握拳或抓紧、手指卷曲
+身体: 前倾、积蓄能量
+呼吸: 受控、刻意、沉重呼气
 ```
 
-## Micro Expression System
+### Love / Affection 爱/好感
+```
+头部: 微倾、微点头
+眼睛: 眼神柔化、长时间凝视、慢速眨眼
+嘴部: 浅笑、嘴唇放松
+肩部: 放松、开放体态
+手部: 放松、张开、伸向对方
+身体: 轻微前倾、开放站姿
+呼吸: 缓慢、平静、与对方同步
+```
 
-Facial micro-expressions that communicate subtext:
+### Shock / Surprise 震惊/惊讶
+```
+头部: 静止或微后退
+眼睛: 完全睁大、固定在来源上、不眨眼
+嘴部: 嘴唇张开、下颌微垂
+肩部: 紧张、微抬
+手部: 动作中途冻结、可能捂嘴
+身体: 完全静止、重心冻结
+呼吸: 屏息（呼吸暂停），然后急促吸气
+```
 
-| Emotion | Eyebrow | Eyelid | Nose | Jaw/Lip |
+### Tension / Anxiety 紧张/焦虑
+```
+头部: 微动作、扫视
+眼睛: 快速扫视、回避持续接触
+嘴部: 嘴唇紧绷或轻微咬牙
+肩部: 紧张、不对称
+手部: 烦躁动作、敲击、搓手
+身体: 重心频繁转移、不稳定姿态
+呼吸: 浅、不规律
+```
+
+## 微表情系统
+
+传达潜台词的微表情：
+
+| Emotion | Eyebrow 眉毛 | Eyelid 眼睑 | Nose 鼻子 | Jaw/Lip 下颌/嘴唇 |
 |---------|---------|--------|------|---------|
-| Fear | Raised, pulled together | Upper lid raised, lower tense | Nostrils may flare | Lips stretch horizontally |
-| Sadness | Inner corners raised | Upper lid droops | — | Lip corners down, tremble |
-| Anger | Lowered, pulled together | Upper lid lowered, lower tense | Nostrils flare | Lips pressed or square open |
-| Disgust | Lowered | Lower lid raised | Nose wrinkles | Upper lip raised |
-| Surprise | Raised, arched | Upper raised, lower relaxed | — | Jaw drops |
-| Contempt | — | — | — | One lip corner tightened/raised |
+| Fear 恐惧 | 抬起、聚拢 | 上睑抬起、下睑紧张 | 鼻孔可能扩张 | 嘴唇横向拉伸 |
+| Sadness 悲伤 | 内角抬起 | 上睑下垂 | — | 嘴角向下、颤抖 |
+| Anger 愤怒 | 压低、聚拢 | 上睑压低、下睑紧张 | 鼻孔扩张 | 嘴唇紧抿或方形张开 |
+| Disgust 厌恶 | 压低 | 下睑抬起 | 鼻翼起皱 | 上唇抬起 |
+| Surprise 惊讶 | 抬起、拱形 | 上睑抬起、下睑放松 | — | 下颌下垂 |
+| Contempt 轻蔑 | — | — | — | 一侧嘴角收紧/抬起 |
 
-## Camera-Motion Sync
+## Camera-Motion Sync 摄影机-动作同步
 
-Motion must synchronize with camera behavior:
+动作必须与摄影机行为同步：
 
-| Camera Movement | Body Should... |
+| Camera Movement | Body Should... 身体应... |
 |----------------|----------------|
-| Push-in | Intensify emotion — micro-tension increases |
-| Pull-out | Withdraw — body becomes still, emotion distances |
-| Handheld | Match instability — body micro-shake, uneven posture |
-| Static | Internalize — external stillness, internal emotion builds |
-| Orbit | Complexify — mixed body signals, relationship tension |
+| Push-in 推近 | 强化情绪——微张力增加 |
+| Pull-out 拉远 | 抽离——身体变静止，情绪疏远 |
+| Handheld 手持 | 匹配不稳定——身体微颤抖，不对称体态 |
+| Static 定镜 | 内化——外部静止，内部情绪积聚 |
+| Orbit 环绕 | 复杂化——混合身体信号，关系张力 |
 
-## Motion Timing Rules
+## 动作时间规则
 
 | Motion Type | Duration | Example |
 |-------------|----------|---------|
-| Micro-motion (face) | 0.2-1s | Blink, eye dart, lip tremble |
-| Emotional gesture | 1-3s | Head turn, shoulder drop, hand reach |
-| Behavioral action | 2-5s | Walk, sit, pick up object |
-| Climactic movement | 3-6s | Collapse, embrace, dramatic turn |
+| Micro-motion (face) 微动作 | 0.2-1s | 眨眼、快速扫视、嘴唇颤抖 |
+| Emotional gesture 情绪手势 | 1-3s | 转头、肩下沉、伸手 |
+| Behavioral action 行为动作 | 2-5s | 走路、坐下、拿起物品 |
+| Climactic movement 高潮动作 | 3-6s | 崩溃、拥抱、戏剧性转身 |
 
-All motions must phase: start → develop → complete. No instantaneous complex actions.
+所有动作必须分阶段进行：开始 → 发展 → 完成。不允许瞬时间完成复杂动作。

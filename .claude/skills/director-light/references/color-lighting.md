@@ -1,69 +1,69 @@
-# Color & Lighting Knowledge
+# Color & Lighting Knowledge — 色彩与光影知识
 
-## Emotion → Color Mapping
+## Emotion → Color Mapping（情绪→色彩映射）
 
-| Emotion | Dominant Color | Temperature | Saturation | Contrast |
-|---------|---------------|-------------|------------|----------|
-| Sadness/Loneliness | Blue-gray | Cold | Desaturated | Low |
-| Love/Romance | Warm gold, amber | Warm | Medium | Soft |
-| Fear/Horror | Green, dark desaturated | Cold | Very low | High |
-| Anger/Conflict | Red, high contrast | Hot | High | Very high |
-| Peace/Resolution | Soft blue, warm white | Neutral-warm | Medium | Low |
-| Mystery | Deep purple, shadow | Cold-warm mix | Variable | High |
-| Power/Luxury | Black, gold, silver | Cool | Low-mid | High |
-| Hope/Optimism | Warm yellow, soft green | Warm | Medium | Soft |
+| 情绪 | 主色 | 色温 | 饱和度 | 对比度 |
+|------|------|------|--------|--------|
+| 悲伤/孤独 | 蓝灰 | 冷 | 去饱和 | 低 |
+| 爱/浪漫 | 暖金、琥珀 | 暖 | 中 | 柔和 |
+| 恐惧/恐怖 | 绿、深色去饱和 | 冷 | 极低 | 高 |
+| 愤怒/冲突 | 红、高对比 | 热 | 高 | 极高 |
+| 平和/收束 | 柔蓝、暖白 | 中性-暖 | 中 | 低 |
+| 神秘 | 深紫、阴影 | 冷-暖混合 | 可变 | 高 |
+| 权力/奢华 | 黑、金、银 | 冷 | 低-中 | 高 |
+| 希望/乐观 | 暖黄、柔绿 | 暖 | 中 | 柔和 |
 
-## Lighting Types
+## Lighting Types（光影类型）
 
-| Type | Emotional Function |
-|------|-------------------|
-| Natural Light | Realism, documentary, authenticity |
-| Hard Light | Conflict, harsh truth, pressure |
-| Soft Diffused Light | Romance, dream, memory, beauty |
-| Neon/Colored Light | Technology, night, urban, surreal |
-| Silhouette/Backlight | Mystery, emotional hiding, reveal |
-| Practical Light | Diegetic realism (lamps, windows, screens) |
-| Volumetric Light | Atmosphere, beams, divine, epic |
-| Flicker Light | Instability, tension, fear, decay |
+| Type | 情绪功能 |
+|------|---------|
+| Natural Light（自然光） | 真实、纪录、本真 |
+| Hard Light（硬光） | 冲突、残酷真相、压迫 |
+| Soft Diffused Light（柔光） | 浪漫、梦境、回忆、美感 |
+| Neon/Colored Light（霓虹光） | 科技、夜晚、都市、超现实 |
+| Silhouette/Backlight（剪影光） | 神秘、情绪隐藏、揭示 |
+| Practical Light（实景光） | 画面内真实光源（灯、窗、屏幕） |
+| Volumetric Light（体积光） | 氛围、光束、神圣、史诗 |
+| Flicker Light（闪烁光） | 不稳定、紧张、恐惧、衰败 |
 
-## Emotional Lighting
+## Emotional Lighting（情绪光影）
 
-| Emotion | Lighting Approach |
-|---------|------------------|
-| Warm | Intimacy, safety, nostalgia |
-| Cold | Isolation, fear, rationality |
-| Mixed Temperature | Emotional conflict, transition |
-| Flicker | Instability, tension, danger |
+| 光影特征 | 情绪效果 |
+|----------|---------|
+| Warm（暖光） | 亲密、安全、怀旧 |
+| Cold（冷光） | 孤立、恐惧、理性 |
+| Mixed Temperature（混合色温） | 情绪冲突、过渡 |
+| Flicker（闪烁） | 不稳定、紧张、危险 |
 
-## Lighting Direction Rules
+## Lighting Direction Rules（光源方向规则）
 
-- Key light: primary source — must have narrative or diegetic motivation
-- Fill light: controls shadow density — softer = more romantic/gentle
-- Rim/Backlight: separates subject from background — essential for depth
-- Shadow quality: hard shadows = tension; soft shadows = comfort
+- Key light（主光）：主要光源——必须有叙事或情节内动机
+- Fill light（辅助光）：控制阴影密度——越柔 = 越浪漫/温和
+- Rim/Backlight（轮廓/逆光）：将主体与背景分离——对景深至关重要
+- Shadow quality（阴影质量）：硬阴影 = 紧张；柔阴影 = 舒适
 
-## Color Script Rules
+## Color Script Rules（色彩脚本规则）
 
-- Color must evolve with narrative — static palette = missed opportunity
-- Each narrative phase (act/scene block) needs a defined palette
-- Temperature shifts must be motivated (time, location, emotion)
-- Pixar-style approach: one dominant color per emotional beat
+- 色彩必须随叙事演变——静态调色板 = 错失机会
+- 每个叙事阶段（幕/场景块）需要有定义的调色板
+- 色温变化必须有动机（时间、地点、情绪）
+- Pixar风格方法：每个情绪节拍对应一个主导色
 
-## Lighting Continuity Rules
+## Lighting Continuity Rules（光影连续性规则）
 
-- Key light direction consistent within each scene
-- Color temperature shifts must be narratively motivated
-- Shadow quality evolves, doesn't reset arbitrarily
-- Practical sources established in scene persist across shots
-- No unmotivated "beauty lighting"
+- 同场景内主光方向保持一致
+- 色温变化必须有叙事动机
+- 阴影质量递进演化，不随意重置
+- 场景中建立的实景光源在后续镜头中持续存在
+- 禁止无动机的"美化布光"
 
-## Common Lighting Templates
+## Common Lighting Templates（常用光影模板）
 
-**Romantic:**
-Warm key (golden hour / practical lamp) + soft fill + subtle warm rim + shallow DOF
+**浪漫风格：**
+暖色主光（Golden hour / 实景灯）+ 柔辅助光 + 微暖轮廓光 + Shallow DOF
 
-**Tension/Thriller:**
-Hard key from unusual angle + deep shadows + minimal fill + cool temp + high contrast
+**紧张/惊悚风格：**
+非常规角度硬主光 + 深阴影 + 最少的辅助光 + 冷色温 + 高对比度
 
-**Luxury/Commercial:**
-Large soft key + strong rim/backlight + cool shadows + controlled reflections + high-key
+**奢华/商业风格：**
+大面积柔主光 + 强轮廓/逆光 + 冷调阴影 + 受控反射 + 高调光

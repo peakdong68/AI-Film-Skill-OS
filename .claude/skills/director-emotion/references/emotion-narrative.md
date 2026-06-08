@@ -1,52 +1,52 @@
-# Emotion Narrative Knowledge
+# 情绪叙事知识
 
-## Emotional Arc Pattern
+## 情绪弧线模式
 
 ```
-Calm → Tension → Conflict → Collapse → Resolution
+平静 → 紧张 → 冲突 → 崩溃 → 解决
 ```
 
-## Emotional Beats
+## 情绪节拍
 
-Key turning points where emotion shifts. Each beat:
-- Triggered by a narrative event
-- Shifts emotional state from A → B
-- Usually 4-6 beats per 30-second film
+情绪转变的关键转折点。每个节拍：
+- 由叙事事件触发
+- 将情绪状态从 A 转变为 B
+- 通常每 30 秒影片有 4-6 个节拍
 
-## Intensity Scoring (1-10)
+## 强度评分（1-10）
 
-- 1-3: Calm, neutral, establishing
-- 4-6: Building tension, curiosity, engagement
-- 7-8: High emotion, conflict, stakes
-- 9-10: Peak, crisis, climax, revelation
+- 1-3: 平静、中性、建立
+- 4-6: 建立紧张、好奇、参与
+- 7-8: 高情绪、冲突、赌注
+- 9-10: 顶点、危机、高潮、揭示
 
-## Character Emotion Drift
+## 角色情绪漂移
 
-Each character's emotional state must:
-- Be traceable across the full duration
-- Change in response to narrative events
-- Never randomly reset
-- Remain internally consistent with their psychological profile
+每个角色的情绪状态必须：
+- 在完整时长内可追踪
+- 随叙事事件而改变
+- 绝不随机重置
+- 与其心理画像保持内在一致
 
-## Emotion-to-Scene Binding Rules
+## 情绪→场景绑定规则
 
-- Every scene must have an assigned emotional value
-- No emotionally neutral scenes allowed
-- Emotion must change across duration — static emotion is boring
-- Each scene's emotion must be mappable to camera + lighting decisions
+- 每场戏必须有被赋予的情绪值
+- 不允许情绪中立的场景
+- 情绪必须在时长内变化——静态情绪是无聊的
+- 每场戏的情绪必须可映射到摄影机 + 灯光决策
 
-## Narrative Rhythm
+## 叙事节奏
 
-Rhythm density patterns:
-- Slow cinema: long static shots, minimal cuts, breathing room
-- Standard drama: varied pace, building and releasing
-- Action/thriller: fast cuts, handheld, quick rhythm changes
-- Silence as structure: deliberate pauses, no-sound moments
+节奏密度模式：
+- 慢电影: 长静态镜头、最少剪辑、呼吸空间
+- 标准戏剧: 节奏多变、建立和释放
+- 动作/惊悚: 快速剪辑、手持、快速节奏变化
+- 沉默作为结构: 刻意停顿、无声时刻
 
-## Output Elements
+## 输出元素
 
-1. emotional_arc_map — full emotional journey
-2. narrative_structure — act breakdown
-3. emotional_beats — key turning points
-4. intensity_timeline — 1-10 across % duration
-5. character_emotion_drift — per-character emotional trajectory
+1. emotional_arc_map — 完整情绪旅程
+2. narrative_structure — 幕结构拆解
+3. emotional_beats — 关键转折点
+4. intensity_timeline — 1-10 在时长百分比上的分布
+5. character_emotion_drift — 每个角色的情绪轨迹

@@ -1,91 +1,91 @@
-# Character Identity Knowledge
+# 角色身份知识
 
-## Character Identity Core Fields
+## 角色身份核心字段
 
-- character_name
-- age_range (numeric, not "young" or "old")
-- gender_expression
-- narrative_role (protagonist / antagonist / supporting / observer)
-- emotional_identity (core emotional state)
-- psychological_state
-- story_function (what they accomplish)
+- 角色名称
+- 年龄范围（用数字，不可用"年轻"或"老"）
+- 性别表达
+- 叙事角色 (protagonist / antagonist / supporting / observer)
+- 情绪身份（核心情绪状态）
+- 心理状态
+- 故事功能（该角色完成什么）
 
-## Visual Identity Parameters
+## 视觉身份参数
 
-### Face System (must lock all)
-- face_shape, skin_tone (with undertone), eye_shape, eye_color
-- eyebrow shape/thickness/arch, nose shape/bridge/tip
-- mouth shape/lip fullness, jaw/chin shape/definition
-- distinguishing features (scars, moles, freckles, asymmetry)
+### Face System 面部（必须全部锁定）
+- 脸型、肤色（含底色）、眼型、眼睛颜色
+- 眉毛形状/粗细/弧度、鼻子形状/鼻梁/鼻尖
+- 嘴型/嘴唇饱满度、下颌/下巴形状/轮廓
+- 特征标记（疤痕、痣、雀斑、不对称）
 
-### Hair System
-- style, length (relative to features), color (specific shade), texture, part direction
+### Hair System 发型
+- 风格、长度（相对五官）、颜色（具体色调）、质感、分线方向
 
-### Body System
-- body_type, height (relative), build, posture, movement_signature
+### Body System 体型
+- 体型、身高（相对）、体格、体态、动作签名
 
-### Wardrobe System
-- signature_outfit (complete description)
-- color_palette (2-4 defining colors)
-- fabric_language (materials)
-- fit (loose / tailored / oversized / structured)
-- accessory_rules
+### Wardrobe System 服装
+- 标志性服装（完整描述）
+- 色彩方案（2-4 个定义颜色）
+- 面料语言（材质）
+- 版型 (loose / tailored / oversized / structured)
+- 配饰规则
 
-### Signature Props
-- Fixed items that always appear with the character
+### Signature Props 标志道具
+- 始终与角色同时出现的固定物品
 
-## Continuity Lock Classification
+## 连续性锁定分类
 
-### Hard Locks (NEVER change)
-- Face identity — shape, features, proportions
-- Hair — style, length, color, texture
-- Body type — build, height proportion
-- Wardrobe — signature outfit, color palette
-- Age — no aging or de-aging between shots
+### Hard Locks 硬锁定（绝不改变）
+- 面部身份——形状、五官、比例
+- 发型——风格、长度、颜色、质感
+- 体型——体格、身高比例
+- 服装——标志性服装、色彩方案
+- 年龄——镜头间不得变老或变年轻
 
-### Soft Variations (ALLOWED to change)
-- Lighting on face (different angles, intensities)
-- Emotional expression (within defined range)
-- Camera angle (different perspectives)
-- Environmental effects (wind, rain on face/hair)
+### Soft Variations 软变化（允许改变）
+- 面部光影（不同角度、强度）
+- 情绪表达（在定义范围内）
+- 摄影机角度（不同视角）
+- 环境效果（风、雨对面部/发型的影响）
 
-### Forbidden Changes
-- Face swap / AI regenerated face
-- Random wardrobe changes
-- Age jumps
-- Style shift (realistic → anime)
-- Hair color/style change (unless story-motivated and explicitly noted)
+### Forbidden Changes 禁止变化
+- 换脸 / AI 重新生成面部
+- 随机服装变化
+- 年龄跳变
+- 风格切换 (realistic → anime)
+- 发色/发型变化（除非剧情驱动且明确标注）
 
-## Emotion → Motion Mapping
+## 情绪→动作映射
 
-| Emotion | Physical Manifestation |
+| 情绪 | 身体表现 |
 |---------|----------------------|
-| Sadness | Shoulders drop, chin lowers, breathing slows, eyes avoid contact |
-| Anger | Jaw tightens, stillness, narrowed eyes, controlled breathing |
-| Fear | Micro-freeze, slight step back, rapid eye movement, shallow breath |
-| Affection | Hesitant approach, stolen glances, breathing becomes shallow |
-| Shock | Complete stillness, eyes widen, mouth slightly open |
-| Joy | Relaxed posture, genuine smile, open body language |
+| Sadness 悲伤 | 肩膀下沉，下巴放低，呼吸变慢，眼神回避 |
+| Anger 愤怒 | 下颚收紧，静止不动，眯起眼睛，控制呼吸 |
+| Fear 恐惧 | 微冻结，微退半步，快速眼动，浅呼吸 |
+| Affection 好感 | 犹豫靠近，偷看，呼吸变浅 |
+| Shock 震惊 | 完全静止，眼睛睁大，嘴唇微张 |
+| Joy 喜悦 | 放松姿态，真诚微笑，开放肢体语言 |
 
-## Eye Direction Logic
+## 眼神逻辑
 
-- Default gaze pattern per character
-- Thinking/processing direction
-- Deception tell
-- Attraction glance pattern
-- Threat response eye movement
+- 每个角色的默认凝视模式
+- 思考/处理方向
+- 说谎破绽
+- 被吸引时的目光模式
+- 受威胁时的眼部运动
 
-## Character Sheet Image Prompt
+## 角色设定图提示词
 
-Layout: full body front + side profile + 3/4 view + back view + face close-up
-Expression range: neutral + 2-3 key emotions
-Style: cinematic realism, consistent across views
-Lighting: neutral studio, clean background
-Negative: no text, no watermark, no face distortion, no identity variance
+布局: 全身正面 + 侧面轮廓 + 3/4 视图 + 背面视图 + 面部特写
+表情范围: 中性 + 2-3 个关键情绪
+风格: cinematic realism，各视图保持一致
+灯光: neutral studio，干净背景
+负面约束: no text, no watermark, no face distortion, no identity variance
 
-## Multi-Character Rules
+## 多角色规则
 
-- Visual contrast design between characters (size, color, shape language)
-- Shared lighting rules
-- Interaction rules (distance norms, eye contact patterns, touch boundaries)
-- Relationship map with power dynamics
+- 角色间视觉对比设计（体型、色彩、造型语言）
+- 共享光影规则
+- 互动规则（距离规范、眼神接触模式、触碰边界）
+- 含权力动态的关系图
