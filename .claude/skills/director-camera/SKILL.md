@@ -11,6 +11,12 @@ Design the camera system that defines *how* the film is shot — not what happen
 
 Works independently for camera design or is invoked by `director-core` at STATE 2.
 
+
+## Loaded Resources
+
+This skill ships with reference knowledge files. Load them when:
+- For complete shot type grammar, camera movement vocabulary, and emotion-to-camera mapping tables, read `references/camera-grammar.md`
+- For the six shot semantics (Observe/Immerse/Reveal/Confront/Isolate/Expand) and visual priority decision logic, read `references/shot-semantics.md`
 ## The Core Principle
 
 > The camera is not a recording device. It is an emotional subject.

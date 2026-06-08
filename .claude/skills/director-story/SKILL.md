@@ -11,6 +11,11 @@ Transform a story idea or script into a professional narrative blueprint. This s
 
 This skill works independently for script analysis or is invoked by `director-core` at STATE 1.
 
+
+## Loaded Resources
+
+This skill ships with reference knowledge files. Load them when:
+- For the scene purpose taxonomy and complete narrative structure templates, read `references/script-breakdown.md`
 ## Input Gate
 
 Accept any of these as starting material:

@@ -11,6 +11,11 @@ Design the visual mood system that gives the film its emotional texture. This sk
 
 Works independently for lighting/color design or is invoked by `director-core` at STATE 2.
 
+
+## Loaded Resources
+
+This skill ships with reference knowledge files. Load them when:
+- For emotion-to-color mapping tables, lighting types, scene palette templates, and common lighting presets, read `references/color-lighting.md`
 ## The Core Principle
 
 > Light and color are emotional actors, not environmental defaults.

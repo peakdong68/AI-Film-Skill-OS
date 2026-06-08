@@ -11,6 +11,12 @@ Design the emotional journey that drives audience experience through the film. T
 
 Works independently for emotional design or is invoked by `director-core` at STATE 1.
 
+
+## Loaded Resources
+
+This skill ships with reference knowledge files. Load them when:
+- For emotional arc patterns and intensity scoring templates, read `references/emotion-narrative.md`
+- For temporal flow types (linear/compressed/expanded) and emotion curve shapes, read `references/temporal-flow.md`
 ## Input Gate
 
 Requires at minimum:

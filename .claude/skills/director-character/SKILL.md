@@ -13,6 +13,12 @@ The most common failure in AI video production is character drift (换脸/换衣
 
 Works independently for character design or is invoked by `director-core` at STATE 3.
 
+
+## Loaded Resources
+
+This skill ships with reference knowledge files. Load them when:
+- For the complete visual identity parameter checklist and identity lock specifications, read `references/character-identity.md`
+- For the micro-motion unit library, emotion-to-full-body mapping, and micro-expression system, read `references/motion-translation.md`
 ## The Core Principle
 
 > Character consistency in AI video is not a prompt-tuning problem — it's an identity-specification problem.

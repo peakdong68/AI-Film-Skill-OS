@@ -11,6 +11,11 @@ This is the master orchestrator for the AI Film OS pipeline. It ensures every AI
 
 This skill does not generate creative content itself. It routes to the appropriate sub-skills at each phase and validates outputs before advancing.
 
+
+## Loaded Resources
+
+This skill ships with reference knowledge files. Load them when:
+- For detailed state flow rules and multi-part structure specifications, read `references/production-state-machine.md`
 ## The Production Pipeline
 
 ```

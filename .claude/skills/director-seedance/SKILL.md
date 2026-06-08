@@ -13,6 +13,11 @@ The compiler's job is to transform director language into machine-executable mot
 
 Works independently for prompt compilation or is invoked by `director-core` at STATE 5.
 
+
+## Loaded Resources
+
+This skill ships with reference knowledge files. Load them when:
+- For the standard Seedance prompt structure, 6 core rules, platform adaptation table, and multi-part continuity rules, read `references/seedance-templates.md`
 ## The Compilation Principle
 
 > Seedance prompts are not descriptions. They are motion instructions.
