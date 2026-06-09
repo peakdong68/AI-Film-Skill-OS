@@ -123,12 +123,16 @@ Route to `director-character`.
 - [ ] Behavior system covers emotional range
 - [ ] User confirmed all character identity definitions
 
-**State 3 output**: Character identity definitions (text-level design documents).
+**State 3 output**: Character identity definitions (text-level design document).
 
-**After STATE 3 confirmation, route to `character-image-prompt`:**
-This sub-skill compiles character identity definitions into platform-ready character sheet image generation prompts (MJ/Flux/Jimeng/Kling). The user then generates actual character reference images. These images are required as `@[character ref]` inputs for STATE 6 (Seedance video prompts).
+**STATE 3 confirmed — ask the user:**
 
-Proceed to STATE 4 (Prompt Packaging) — character image generation and prompt package compilation can run in parallel.
+> Character identity definitions are locked. Do you want to generate character reference images?
+
+- **Yes →** Route to `character-image-prompt` to compile definitions into platform-ready Character Sheet prompts (MJ/Flux/Jimeng/Kling). User then generates actual character reference images. These images serve as `@[character ref]` input for STATE 6, improving cross-shot identity consistency.
+- **No / Not needed →** Skip character image generation. Character identity will be described textually in the prompt package. Note: this may reduce identity consistency in video output compared to using reference images.
+
+Character image generation (if chosen) and STATE 4 prompt package compilation can proceed in parallel.
 
 ### STATE 4 — Prompt Packaging (Film-Level Short Film Prompt Package)
 
@@ -204,7 +208,7 @@ Route to `seedance-video-prompt`.
 
 **Pre-flight Checklist (all must be YES):**
 - [ ] Storyboard images generated?
-- [ ] Character reference images available?
+- [ ] Character reference images available? (or user explicitly chose to skip)
 - [ ] Product images locked (if applicable)?
 - [ ] Background images locked (if applicable)?
 - [ ] Music style and BPM determined?
@@ -246,23 +250,27 @@ director-story ────→ director-emotion
          director-camera ──→ director-light
                 │
                 ↓
-         director-character ──→ character-image-prompt [character image prompts → MJ/Flux/Jimeng]
-                │                         │
-                │                         ↓ (user generates character reference images)
-                ↓                         │
-         director-prompt-packager [STATE 4: film-level prompt package]
-                │                         │
-                ↓ (user confirms package)  │
-                │                         │
+         director-character ──→ [User: generate character images?]
+                │                   │ YES                    │ NO
+                │                   ↓                        │
+                │         character-image-prompt             │
+                │         [Character Sheet prompts]          │
+                │                   │                        │
+                │                   ↓ (User generates        │
+                │               character ref images)        │
+                │                   │                        │
+                ↓                   ↓                        ↓
+         director-prompt-packager [STATE 4: Film-Level Prompt Package]
+                │
+                ↓ (User confirms package)
+                │
          storyboard-sketch / storyboard-prompt / storyboard-master / storyboard-ecommerce
-         [STATE 5: generate storyboard blueprint images]
-                │                         │
-                ↓                         │
-                └─────────┬───────────────┘
-                          ↓
-         seedance-video-prompt [STATE 6: image-reference-level video prompts → Seedance 2.0]
-                          │
-                          ↓
+         [STATE 5: Generate storyboard blueprint images]
+                │
+                ↓
+         seedance-video-prompt [STATE 6: Image-ref video prompts → Seedance 2.0]
+                │
+                ↓
          [Final Validation → Export]
 ```
 
