@@ -1,6 +1,6 @@
 # Seedance Production Pipeline Workflow — Bundled Reference Knowledge
 
-Extracted from Seedance 2.0 Operating System for the `director-prompt-packager` skill. Source: Seedance 2.0 Pipeline + Professional Filmmaking Standards (v5.4.5).
+Provides `director-prompt-packager` with Seedance production pipeline knowledge.
 
 ## Professional Production Workflow
 

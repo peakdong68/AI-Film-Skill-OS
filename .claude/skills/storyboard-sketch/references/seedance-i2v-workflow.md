@@ -1,6 +1,6 @@
 # Seedance I2V Workflow — Bundled Reference Knowledge
 
-Provides `storyboard-sketch` with Seedance image-to-video (I2V) specific storyboard planning knowledge. Source: Seedance 2.0 (v5.4.5).
+Provides `storyboard-sketch` with Seedance image-to-video (I2V) specific storyboard planning knowledge.
 
 ## Seedance Operation Modes
 

@@ -1,6 +1,6 @@
 # Anti-Slop Lexicon — Shared Reference Knowledge
 
-Shared by all prompt-generation skills. Source: Seedance 2.0 Operating System (v5.4.5).
+Shared by all prompt-generation skills.
 
 ## Core Rule
 

@@ -1,7 +1,5 @@
 # Seedance 2.0 Platform Constraints — Shared Reference Knowledge
 
-Source: Seedance 2.0 Operating System (v5.4.5).
-
 ## Prompt Word Count Limits
 
 | Language | Limit | Rationale |

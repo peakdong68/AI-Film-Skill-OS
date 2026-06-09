@@ -1,6 +1,6 @@
 # Seedance Cinematography Shot Language — Bundled Reference Knowledge
 
-Extracted from Seedance 2.0 Operating System for the `director-camera` skill. Provides Seedance platform-specific camera guidance. Source: Seedance 2.0 Cinematography Shot Language (v5.4.5).
+Provides `director-camera` with Seedance platform-specific camera guidance.
 
 ## Shot Contract
 
