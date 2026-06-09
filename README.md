@@ -19,12 +19,7 @@
     director-    director-  director-  director-  director-  director-    character-       seedance-
      story       emotion    camera     light     character   prompt-       image-           video-
     (剧本结构)   (情绪曲线)  (镜头语法)  (光影色彩)  (角色锁定)  packager      prompt           prompt
-                                                          (文本编译)   (角色生图提示词)  (L5视频生成)
-                                                              │
-                                             调用 Storyboard 技能
-                                                │    │    │
-                                                ▼    ▼    ▼
-                                         sketch prompt master ecommerce
+                                                          (提示包编译)  (角色生图提示词)  (L5视频生成)
 
                   Storyboard 系列（独立使用）
                   ┌─────────────────────────────┐
@@ -62,13 +57,13 @@ STATE 3   CHARACTER        角色身份定义
    ├──→ character-image-prompt  → 编译为生图平台提示词 → 用户去 MJ/Flux/即梦 生成角色参考图
    │
    ▼
-STATE 4   STORYBOARD       分镜帧生成（可与角色生图并行）
-   │      (storyboard-sketch / storyboard-prompt / storyboard-master / storyboard-ecommerce)
-   │      输出: Storyboard Boards + Shot Plan
-   ▼
-STATE 5   PROMPT PKG       编译为文本级图像生成提示词包
+STATE 4   PROMPT PKG       编译为电影级短片提示包（分镜设计+镜头语言+声音设计+Seedance分解方案）
    │      (director-prompt-packager)
-   │      输出: Storyboard Prompt Package → 用户拿去 MJ/Flux/即梦 生图
+   │      输出: Film-Level Prompt Package → 用户确认
+   ▼
+STATE 5   STORYBOARD       生成分镜蓝图图像（可与角色生图并行）
+   │      (storyboard-sketch / storyboard-prompt / storyboard-master / storyboard-ecommerce)
+   │      输出: Storyboard Blueprint Images → 供 STATE 6 @[ref] 引用
    ▼
 STATE 6   SEEDANCE         编译为 Seedance 2.0 视频平台可执行提示词
    │      (seedance-video-prompt)
@@ -87,9 +82,10 @@ STATE 8   EXPORT           打包交付
 | 锁 | 规则 |
 |----|------|
 | Story Lock | 剧本结构确认后才能进行视觉设计 |
-| Visual Lock | 摄影+光影定义后才能生成分镜 |
-| Character Lock | 角色身份定义确认后才能生成角色生图提示词 |
-| Storyboard Lock | 全部分镜确认后才能生成视频指令 |
+| Visual Lock | 摄影+光影定义后才能编译提示包 |
+| Character Lock | 角色身份定义确认后才能编译提示包 |
+| Package Lock | 提示包确认后才能生成分镜蓝图 |
+| Storyboard Lock | 分镜蓝图确认后才能生成视频指令 |
 | Prompt Lock | 全部预检项通过后才能最终导出 |
 
 ## 各技能详情
@@ -132,10 +128,10 @@ STATE 8   EXPORT           打包交付
 - **输出**: 可直接粘贴到生图平台的角色设定板提示词
 
 ### director-prompt-packager
-- **职责**: 文本级编译器——所有前期制作产物 → 结构化分镜图像提示词包
-- **能力**: 8段 Prompt 结构、连续性绑定、多 Part 系统
-- **输出**: Storyboard Prompt Package（供 MJ/Flux/即梦 生成分镜图）
-- **注意**: 此为文本中间产物，**不是** Seedance 视频提示词
+- **职责**: 文本级编译器——STATE 1-3 所有设计产物 → 完整的电影级短片提示包
+- **能力**: 结构化分镜设计 + 镜头语言规范 + 声音设计方向 + Seedance Part 分解方案
+- **输出**: Film-Level Prompt Package（导演愿景总文档，用户确认后进入 STATE 5 分镜蓝图生成）
+- **注意**: 此为文本中间产物，**不是** Seedance 视频提示词。提示包确认后，分镜蓝图图像由 STATE 5 生成
 
 ### seedance-video-prompt (NEW)
 - **职责**: L5 视频生成编译器——分镜图像 + 角色参考图 → Seedance 2.0 可执行提示词
@@ -176,9 +172,9 @@ STATE 8   EXPORT           打包交付
 | "设计光影风格和色彩脚本" | `director-light` |
 | "创建角色身份定义并锁定" | `director-character` |
 | "把角色身份定义编译为生图提示词" | `character-image-prompt` |
-| "把这些分镜文本编译为图像提示词包" | `director-prompt-packager` |
+| "把故事+视觉+角色编译为电影短片提示包" | `director-prompt-packager` |
 | "把分镜图+角色图编译为 Seedance 2.0 视频提示词" | `seedance-video-prompt` |
-| "生成分镜草图给Seedance用" | `storyboard-sketch` |
+| "生成分镜蓝图图给Seedance用" | `storyboard-sketch` |
 | "写一个分镜画面提示词给MJ" | `storyboard-prompt` |
 | "做一张导演提案板分镜总览图" | `storyboard-master` |
 | "做TK带货视频分镜/服装导演分镜" | `storyboard-ecommerce` |
@@ -209,7 +205,7 @@ STATE 8   EXPORT           打包交付
 3. **情绪驱动**: 摄影机、光影、节奏的选择都必须有情绪理由
 4. **动作优先**: AI 视频模型需要物理动作描述，不是情绪标签
 5. **连续性绑定**: 多 Part 视频必须引用前一个输出作为连续性基线
-6. **三层编译**: director-character(定义) → character-image-prompt(生图) → seedance-video-prompt(视频)
+6. **三层编译**: director-character(定义) → character-image-prompt(角色生图) + director-prompt-packager(提示包) → storyboard-*(分镜蓝图) → seedance-video-prompt(视频)
 7. **定义与提示分离**: 角色/分镜的"定义文档"和"生图提示词"由不同技能产出
 
 ## 知识来源

@@ -39,11 +39,12 @@ AI Film Skill OS — AI 视频/电影制作的 Claude Code 技能体系。
 
 ### 两层编译
 ```
-角色/分镜定义（文本级）
-  → character-image-prompt（编译为 Character Sheet 提示词，适配 MJ/Flux/即梦/GPT Image）
-  → director-prompt-packager（编译为分镜板提示词，适配多平台）
-  → 用户去生图平台生成图像
-  → seedance-video-prompt（编译为 Seedance 2.0 视频提示词，引用已生成的图像）
+角色/故事定义（文本级，STATE 1-3）
+  → character-image-prompt（编译为 Character Sheet 生图提示词，适配 MJ/Flux/即梦/GPT Image）
+  → director-prompt-packager（编译为电影级短片提示包：分镜设计 + 镜头语言 + 声音设计 + Seedance 分解方案）
+  → 用户确认提示包
+  → storyboard-* 系列（生成分镜蓝图图像，STATE 5）
+  → seedance-video-prompt（编译为 Seedance 2.0 视频提示词，引用已生成的图像，STATE 6）
 ```
 
 ### Character Sheet 定义
@@ -57,8 +58,8 @@ STATE 0 → 输入采集
 STATE 1 → 故事与情绪设计
 STATE 2 → 视觉设计（摄影机 + 光影）
 STATE 3 → 角色锁定 → character-image-prompt
-STATE 4 → 分镜规划
-STATE 5 → 提示词封装（文本级）→ director-prompt-packager
+STATE 4 → 提示词封装（电影级短片提示包）→ director-prompt-packager
+STATE 5 → 分镜蓝图生成（图像级）→ storyboard-* 系列
 STATE 6 → Seedance 视频提示词（图像引用级）→ seedance-video-prompt
 STATE 7 → 最终验证
 STATE 8 → 导出就绪
@@ -137,10 +138,10 @@ STATE 8 → 导出就绪
 
 ## 已知问题与教训
 
-### 问题 1: 技能命名与实际职能不符
+### 问题 1: 技能命名与实际职能不符 ✅ 已修复
 - **现象**: `director-seedance` 产出文本级分镜提示词包，但名称暗示是 Seedance 平台提示词
-- **修复**: 重命名为 `director-prompt-packager`，新增真正的 `seedance-video-prompt` 技能
-- **教训**: 先明确技能边界和产出物类型，再命名
+- **修复**: 重命名为 `director-prompt-packager`，新增真正的 `seedance-video-prompt` 技能；STATE 4/5 调换顺序——提示包编译先于分镜图像生成
+- **教训**: 先明确技能边界和产出物类型，再命名；文本级设计文档应在图像生成之前
 
 ### 问题 2: 缺少角色生图提示词技能
 - **现象**: `director-character` 产出角色身份定义，但没有任何技能将定义编译为生图平台可用的提示词

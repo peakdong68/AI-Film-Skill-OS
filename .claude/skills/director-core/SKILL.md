@@ -23,8 +23,8 @@ STATE 0 → 输入采集
 STATE 1 → 故事与情绪设计
 STATE 2 → 视觉设计（摄影机 + 光影）
 STATE 3 → 角色锁定
-STATE 4 → 分镜规划
-STATE 5 → 提示词封装（文本级）
+STATE 4 → 提示词封装（电影级短片提示包）
+STATE 5 → 分镜蓝图生成（图像级）
 STATE 6 → Seedance 视频提示词（图像引用级）
 STATE 7 → 最终验证
 STATE 8 → 导出就绪
@@ -32,11 +32,11 @@ STATE 8 → 导出就绪
 
 每个状态产生经过验证的产出物后，下一个状态才解锁。严禁跳过状态。
 
-**STATE 5 与 STATE 6 的关键区别：**
-- STATE 5（`director-prompt-packager`）：编译**文本级**分镜提示词包，供 AI 图像生成器（MJ/Flux/即梦）使用。输出：用于生成分镜图像的结构化文本提示词。**绝不产出视频平台提示词。**
-- STATE 6（`seedance-video-prompt`）：编译**图像引用级**视频提示词，供 Seedance 2.0 / Runway / Sora / Kling 使用。输入：已生成的分镜图像 + 角色参考图。输出：平台可执行的视频生成提示词。
+**STATE 4 与 STATE 6 的关键区别：**
+- STATE 4（`director-prompt-packager`）：编译**文本级**电影短片提示包——将故事、视觉设计、角色身份整合为结构化的分镜设计、镜头语言、声音设计和 Seedance 分解方案。输出是完整的导演愿景文档，供用户确认后作为 STATE 5 分镜蓝图的生成基础。**绝不产出视频平台提示词。**
+- STATE 6（`seedance-video-prompt`）：编译**图像引用级**视频提示词，供 Seedance 2.0 / Runway / Sora / Kling 使用。输入：已生成的分镜蓝图图像 + 角色参考图。输出：平台可执行的视频生成提示词。
 
-**STATE 5 → STATE 6 的职责分离是管线设计的基础。绝不可跨越。**
+**STATE 4 → STATE 6 的职责分离是管线设计的基础。绝不可跨越。**
 
 ## 阶段锁规则
 
@@ -45,11 +45,12 @@ STATE 8 → 导出就绪
 | 锁 | 规则 |
 |------|------|
 | **Story Lock（故事锁）** | 故事结构和情绪弧线必须在视觉设计前确认 | 
-| **Visual Lock（视觉锁）** | 摄影机语言和光影系统必须在分镜前定义 |
-| **Character Lock（角色锁）** | 角色身份定义必须在生图提示词生成前确认 |
-| **Storyboard Lock（分镜锁）** | 所有分镜帧必须在 Seedance 提示词前确认 |
+| **Visual Lock（视觉锁）** | 摄影机语言和光影系统必须在提示词封装前定义 |
+| **Character Lock（角色锁）** | 角色身份定义必须在提示词封装前确认 |
+| **Package Lock（提示包锁）** | 电影短片提示包必须经用户确认后才能进入分镜蓝图生成 |
+| **Storyboard Lock（分镜锁）** | 分镜蓝图图像必须在 Seedance 提示词前确认 |
 | **Prompt Lock（提示词锁）** | 所有预检项必须在最终导出前通过 |
-| **Output Boundary Lock（输出边界锁）** | STATE 5 输出不得提及 Seedance/Runway/Sora/Kling 视频平台 |
+| **Output Boundary Lock（输出边界锁）** | STATE 4 输出不得提及 Seedance/Runway/Sora/Kling 视频平台 |
 
 如果任何锁被打破，立即停止并返回到最早的未完成状态。
 
@@ -127,56 +128,62 @@ STATE 8 → 导出就绪
 **STATE 3 确认后，路由到 `character-image-prompt`：**
 此子技能将角色身份定义编译为平台可用的角色设定板生图提示词（MJ/Flux/即梦/可灵）。用户随后生成实际的角色参考图。这些图像作为 STATE 6（Seedance 视频提示词）的 `@[角色引用]` 输入所必需。
 
-进入 STATE 4（分镜）——分镜与角色生图可以并行进行。
+进入 STATE 4（提示词封装）——角色生图与提示包编译可以并行进行。
 
-### STATE 4 — 分镜规划
-
-路由到 `storyboard-sketch`（用于 Seedance I2V）或 `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce`（用于图像生成器分镜板）。
-
-**必需产出物：**
-- 分镜帧计划（每板 3-8 帧）
-- 逐镜头拆解（摄影机、动作、情绪、目的）
-- 跨所有帧的连续性锚点
-
-**验证门控：**
-- [ ] 分镜板数量与计划时长匹配
-- [ ] 每帧都有叙事目的
-- [ ] 角色身份在所有帧中保持一致
-- [ ] 用户已确认所有分镜帧
-
-**State 4 输出**：分镜板 + 镜头计划。进入 STATE 5。
-
-### STATE 5 — 提示词封装（文本级）
+### STATE 4 — 提示词封装（电影级短片提示包）
 
 路由到 `director-prompt-packager`。
 
-**这是一个文本级编译器。** 它为 AI 图像生成器（Midjourney、Flux、即梦、可灵）生成结构化的提示词包。输出**不是** Seedance 视频提示词——它是生成分镜图像的输入。
+**这是一个文本级编译器。** 它将 STATE 1-3 的所有设计产物（故事结构 + 情绪弧线 + 摄影机语言 + 灯光系统 + 角色身份）编译为一份完整的**电影级短片提示包**。这份提示包是导演愿景的总文档，包含：
+
+- 结构化的分镜设计（逐镜头的场景、动作、情绪目的）
+- 镜头语言规范（景别、角度、运动、构图）
+- 灯光与色彩脚本
+- 声音设计方向
+- 适配 Seedance 的 Part 分解方案（每 Part ≤ 15s，多 Part 连续性绑定）
+
+输出**不是** Seedance 视频提示词——它是 STATE 5（分镜蓝图生成）和 STATE 6（Seedance 视频提示词）的设计基础。
 
 **输出边界（硬约束）：**
-- STATE 5 输出**严禁**提及 Seedance 2.0 / Runway / Sora / Kling 等视频平台名称
+- STATE 4 输出**严禁**提及 Seedance 2.0 / Runway / Sora / Kling 等视频平台名称
 - 不得出现"在 Seedance 中生成"、"Seedance 2.0 提示词"、"按 Shot 顺序在 Seedance 生成"等表述
 - 所有生成指令必须指向图像生成器（即梦/MJ/Flux/可灵图像模式）
 
-**必需产出物：**
-- 每个分镜帧的结构化提示词块
-- 镜头间的连续性上下文锁定
-- 每镜头的负面约束块
-- 多 Part 连续性绑定（用于 >15 秒的视频）
-
 **预检清单（必须全部为 YES）：**
-- [ ] 所有分镜已完成？
-- [ ] 用户确认了所有分镜？
-- [ ] 角色定义已完成？
-- [ ] 用户确认了角色？
-- [ ] 视觉语言已定义？
+- [ ] 故事结构已确认？
+- [ ] 情绪弧线已确认？
+- [ ] 视觉语言（摄影机 + 灯光）已定义？
+- [ ] 角色身份已锁定并确认？
 - [ ] 时长和画幅比例已锁定？
 - [ ] **输出边界合规：未提及 Seedance / Runway / Sora / Kling？**
 
 如有任何答案为 NO，停止并返回到缺失的阶段。
 
-**State 5 输出**：分镜提示词包（文本级，供 AI 图像生成器使用）。进入 STATE 6。
+**State 4 输出**：电影级短片提示包（文本级导演愿景文档）。进入 STATE 5。
 
-**用户下一步**：使用提示词包在 MJ/Flux/即梦 中生成分镜图像。
+**用户下一步**：确认提示包内容。确认后进入 STATE 5 生成分镜蓝图图像。
+
+### STATE 5 — 分镜蓝图生成（图像级）
+
+路由到 `storyboard-sketch`（用于 Seedance I2V 草图）或 `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce`（用于生成完整分镜蓝图图像）。
+
+**这是在 STATE 4 确认后的图像生成阶段。** 将已确认的提示包中的分镜设计编译为 AI 图像生成器可执行的分镜蓝图提示词，生成可视化的分镜板图像。这些图像作为 STATE 6 的 `@[分镜引用]` 输入。
+
+**核心认知：生产中只需要分镜蓝图板（一张或多张总览图），而非逐帧独立图像。** 分镜蓝图展示全片镜头序列、节奏结构和视觉语言——作为 Seedance 的叙事蓝图输入，而非逐镜头渲染素材。
+
+**必需产出物：**
+- 分镜蓝图板（1-N 张总览图，展示镜头序列 + 节奏结构）
+- 逐镜头视觉描述（每个镜头的主体、构图、摄影机、灯光情绪）
+- 跨帧连续性锚点
+
+**验证门控：**
+- [ ] 分镜蓝图板覆盖全片镜头
+- [ ] 每帧都有叙事目的
+- [ ] 角色身份在所有帧中保持一致（引用 STATE 3 锁定）
+- [ ] 视觉语言与 STATE 2 定义一致
+- [ ] 用户已确认分镜蓝图
+
+**State 5 输出**：分镜蓝图图像（供 Seedance `@[ref]` 引用）。进入 STATE 6。
 
 ### STATE 6 — Seedance 视频提示词（图像引用级）
 
@@ -243,13 +250,14 @@ director-story ────→ director-emotion
                 │                         │
                 │                         ↓ (用户生成角色参考图)
                 ↓                         │
+         director-prompt-packager [STATE 4: 电影级短片提示包]
+                │                         │
+                ↓ (用户确认提示包)          │
+                │                         │
          storyboard-sketch / storyboard-prompt / storyboard-master / storyboard-ecommerce
+         [STATE 5: 生成分镜蓝图图像]        │
                 │                         │
                 ↓                         │
-         director-prompt-packager [STATE 5: 文本级提示词包 → 供图像生成器]
-                │                         │
-                ↓ (用户通过 MJ/Flux/即梦 生成分镜图像)
-                │                         │
                 └─────────┬───────────────┘
                           ↓
          seedance-video-prompt [STATE 6: 图像引用级视频提示词 → Seedance 2.0]
@@ -265,11 +273,12 @@ director-story ────→ director-emotion
 | "我有一个创意，帮我拍成电影" | 留在 director-core，从 STATE 0 开始 |
 | "我已有剧本，需要视觉设计" | 从 STATE 2 进入 |
 | "我已有角色身份定义，需要生图提示词" | 路由到 `character-image-prompt` |
-| "我已有分镜帧（文本），需要图像提示词" | 从 STATE 5 进入 |
-| "我已有分镜图像 + 角色图，需要 Seedance 2.0 提示词" | 从 STATE 6 进入 |
+| "我已有故事+视觉+角色设计，需要编译提示包" | 从 STATE 4 进入 |
+| "我已有提示包（文本），需要生成分镜蓝图图" | 从 STATE 5 进入 |
+| "我已有分镜蓝图图像 + 角色图，需要 Seedance 2.0 提示词" | 从 STATE 6 进入 |
 | "我只想要角色身份定义" | 直接路由到 director-character |
 | "修复我出问题的 AI 视频，角色一直变脸" | 从 STATE 3 进入（重新锁定角色），然后 STATE 6 |
-| "电商直播/带货/服装视频分镜" | 从 STATE 4 进入，路由到 storyboard-ecommerce |
+| "电商直播/带货/服装视频分镜" | 从 STATE 4 进入编译提示包，或从 STATE 5 进入直接生成分镜蓝图 |
 
 ## 状态追踪器
 
