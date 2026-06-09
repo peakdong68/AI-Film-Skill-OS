@@ -1,6 +1,6 @@
 ---
 name: storyboard-prompt
-description: Generate professional storyboard frame prompts for AI image generators (Midjourney, Flux, 即梦, 可灵, GPT Image, Runway, Veo). Use when the user asks for storyboard prompts, shot planning prompts, 分镜提示词, storyboard frame generation, film pre-visualization prompts, animation storyboard, commercial storyboard, single-frame storyboard, or needs to write structured prompts that produce cinema-grade storyboard panel images. Also use when the user gives a vague scene idea and wants it turned into a professional storyboard shot description.
+description: Generate professional storyboard frame prompts for AI image generators (Midjourney, Flux, Jimeng, Kling, GPT Image, Runway, Veo). Use when the user asks for storyboard prompts, shot planning prompts, 分镜提示词, storyboard frame generation, film pre-visualization prompts, animation storyboard, commercial storyboard, single-frame storyboard, or needs to write structured prompts that produce cinema-grade storyboard panel images. Also use when the user gives a vague scene idea and wants it turned into a professional storyboard shot description.
 ---
 
 # Storyboard Prompt
@@ -39,16 +39,16 @@ If the user says "just generate", proceed with assumptions and mark them.
 
 Every storyboard prompt must address these eight dimensions. The model cannot invent missing critical information — if the user hasn't provided it, make a justified assumption and note it.
 
-| # | Element | 中文 | What it answers |
+| # | Element | Chinese | What it answers |
 |---|---------|------|-----------------|
-| 1 | Scene | 场景 | Where and when does this take place? |
-| 2 | Subject | 主体 | Who or what is the focus? Appearance? Wardrobe? |
-| 3 | Action | 动作 | What is the subject doing? State, direction? |
-| 4 | Camera | 镜头 | Shot size, angle, movement? |
-| 5 | Composition | 构图 | How is the frame arranged? Subject position? |
-| 6 | Lighting | 光线 | Key light, fill, color temp, quality? |
-| 7 | Mood | 情绪 | What emotional atmosphere? |
-| 8 | Story Purpose | 叙事目的 | Why does this shot exist? What does it communicate? |
+| 1 | Scene | Scene | Where and when does this take place? |
+| 2 | Subject | Subject | Who or what is the focus? Appearance? Wardrobe? |
+| 3 | Action | Action | What is the subject doing? State, direction? |
+| 4 | Camera | Camera | Shot size, angle, movement? |
+| 5 | Composition | Composition | How is the frame arranged? Subject position? |
+| 6 | Lighting | Lighting | Key light, fill, color temp, quality? |
+| 7 | Mood | Mood | What emotional atmosphere? |
+| 8 | Story Purpose | Story Purpose | Why does this shot exist? What does it communicate? |
 
 This framework applies whether the user needs a film noir detective scene, an animation fantasy shot, or a luxury product commercial. The elements stay the same; only the values change.
 

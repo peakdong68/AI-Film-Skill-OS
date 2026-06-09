@@ -210,11 +210,11 @@ Each shot card follows a strict unified structure:
 
 ```
 ┌──────────────────────────┐
-│ 01 | LS 全景 | 0:00-0:02 │  ← gray header bar
+│ 01 | LS (Full Shot) | 0:00-0:02 │  ← gray header bar
 │                          │
 │   [Cinematic Preview]    │  ← realistic fashion shot preview
 │                          │
-│ 自然入画，建立人物关系    │  ← ≤15 char director note
+│ Natural entrance, establish character presence │  ← director note in Chinese
 └──────────────────────────┘
 ```
 

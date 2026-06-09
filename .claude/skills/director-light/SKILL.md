@@ -108,13 +108,13 @@ SCENE [N]: [name]
 Track color temperature across the full duration:
 
 ```
-Warm ┤         ╭──╮
-     │        ╱    ╲
-Neut ┤───────╱      ╲──────
-     │      ╱        ╲
-Cool ┤╭────╱          ╲────
-     │╲
-     0%──────25%──────50%──────75%──────100%
+Warm ┤ ╭──╮
+ │ ╱ ╲
+Neut ┤───────╱ ╲──────
+ │ ╱ ╲
+Cool ┤╭────╱ ╲────
+ │╲
+ 0%──────25%──────50%──────75%──────100%
 ```
 
 Annotate temperature shifts with narrative events — a shift from warm to cold should correspond to a story beat.

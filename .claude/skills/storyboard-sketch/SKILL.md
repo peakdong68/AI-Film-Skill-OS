@@ -105,7 +105,7 @@ Repeat the frame block for each shot. End with a compact "Board Notes" section o
 - **Composition**: Shot size (see Quick Reference), camera angle, framing approach. Use plain terms like "wide shot", "over-shoulder", "low angle", "centered", "rule of thirds".
 - **Lighting & Mood**: Key light direction and quality, color temperature, atmosphere. E.g. "warm rim light from window, soft fill, tense atmosphere".
 - **I2V motion note**: How the Seedance image-to-video should animate this frame. Camera movement + subject movement + transition logic. One sentence.
-- **Story purpose**: What narrative function this shot serves — e.g. "establish spatial sense of the scene", "reveal character emotional shift", "强调产品质感" -- need to find actual, "build suspense for next shot". This is the single most important addition from professional storyboard practice: every shot must have a clear narrative reason to exist.
+- **Story purpose**: What narrative function this shot serves — e.g. "establish spatial environment", "reveal character emotional shift", "emphasize product texture", "build suspense for the next shot". This is the single most important addition from professional storyboard practice: every shot must have a clear narrative reason to exist.
 - **Continuity**: What must remain identical to other frames — character identity, wardrobe, props, lighting direction, screen geography.
 
 ## Prompt Style
@@ -310,9 +310,9 @@ Art direction notes: Avoid excessive glare, emphasize material authenticity, bru
 
 # Quick Reference
 
-## Shot Size 景别速查
+## Shot Size Quick Reference
 
-| Code | Name | 中文 | Use |
+| Code | Name | Chinese | Use |
 |------|------|------|-----|
 | EWS | Extreme Wide Shot | 超远景 | Establish vast environment |
 | WS | Wide Shot | 全景/远景 | Full body in environment |
@@ -325,9 +325,9 @@ Art direction notes: Avoid excessive glare, emphasize material authenticity, bru
 | OTS | Over-Shoulder | 过肩 | From behind, showing subject |
 | POV | Point of View | 主观视角 | Through character's eyes |
 
-## Camera Movement 运镜速查
+## Camera Movement Quick Reference
 
-| Type | 中文 | Behavior |
+| Type | Chinese | Behavior |
 |------|------|----------|
 | Static | 定镜 | No movement, locked frame |
 | Push-in | 推 | Camera moves toward subject |
@@ -341,9 +341,9 @@ Art direction notes: Avoid excessive glare, emphasize material authenticity, bru
 | Steadicam | 稳定器 | Smooth floating movement |
 | FPV | 第一人称 | Drone-like dynamic movement |
 
-## Camera Angle 机位角度速查
+## Camera Angle Quick Reference
 
-| Angle | 中文 | Effect |
+| Angle | Chinese | Effect |
 |-------|------|--------|
 | Eye Level | 平视 | Neutral, relatable |
 | Low Angle | 仰拍 | Power, dominance, epic |
@@ -352,9 +352,9 @@ Art direction notes: Avoid excessive glare, emphasize material authenticity, bru
 | Dutch Angle | 斜角 | Unease, disorientation |
 | Profile | 侧面 | Observation, silhouette |
 
-## Composition 构图速查
+## Composition Quick Reference
 
-| Type | 中文 | When to use |
+| Type | Chinese | When to use |
 |------|------|-------------|
 | Rule of Thirds | 三分法 | Balanced, natural framing |
 | Centered | 居中 | Emphasis, symmetry, product focus |
@@ -364,9 +364,9 @@ Art direction notes: Avoid excessive glare, emphasize material authenticity, bru
 | Frame Within Frame | 框中框 | Layers, voyeurism, focus |
 | Foreground Silhouette | 前景剪影 | Depth, mystery |
 
-## Lighting 光线速查
+## Lighting Quick Reference
 
-| Type | 中文 | Mood |
+| Type | Chinese | Mood |
 |------|------|------|
 | High Key | 高调光 | Bright, optimistic, commercial |
 | Low Key | 低调光 | Dark, dramatic, film noir |
@@ -377,9 +377,9 @@ Art direction notes: Avoid excessive glare, emphasize material authenticity, bru
 | Hard Light | 硬光 | Gritty, harsh, high contrast |
 | Practical Light | 实景光 | Diegetic sources, realism |
 
-## Narrative Purpose 叙事目的速查
+## Narrative Purpose Quick Reference
 
-| Purpose | 中文 | Typical shot |
+| Purpose | Chinese | Typical shot |
 |---------|------|--------------|
 | Establish | 建立空间 | Wide/environment opening |
 | Introduce | 引入角色 | Character entrance or reveal |

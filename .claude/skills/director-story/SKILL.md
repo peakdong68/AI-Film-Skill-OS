@@ -1,6 +1,6 @@
 ---
 name: director-story
-description: Deconstruct a story idea, script, or concept into a director-grade narrative structure with scene breakdown, causal chain analysis, and director intent. Use when the user needs script analysis, story structure design, 剧本拆解, scene decomposition, narrative architecture, 3-act or 5-act structure, or when director-core routes to STATE 1 (Story Design). Also use when the user has a vague story idea and needs it turned into a structured scene sequence before proceeding to storyboard.
+description: Deconstruct a story idea, script, or concept into a director-grade narrative structure with scene breakdown, causal chain analysis, and director intent. Use when the user needs script analysis, story structure design, script breakdown, scene decomposition, narrative architecture, 3-act or 5-act structure, or when director-core routes to STATE 1 (Story Design). Also use when the user has a vague story idea and needs it turned into a structured scene sequence before proceeding to storyboard.
 ---
 
 # Director Story — Script Director Engine

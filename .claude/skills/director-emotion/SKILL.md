@@ -33,13 +33,13 @@ Define the full emotional journey:
 
 ```
 [Calm / Stable]
-    ↓
+ ↓
 [Building Tension / Curiosity]
-    ↓
+ ↓
 [Escalation / Conflict]
-    ↓
+ ↓
 [Peak / Crisis / Climax]
-    ↓
+ ↓
 [Release / Resolution / New State]
 ```
 
@@ -69,8 +69,8 @@ Map intensity (1-10) across the full duration:
 
 ```
 0% ────── 25% ────── 50% ────── 75% ────── 100%
- 3         5          8          9          4
-[intro]  [build]   [climax]  [peak]    [release]
+ 3 5 8 9 4
+[intro] [build] [climax] [peak] [release]
 ```
 
 ### 4. Character Emotion Drift (Character Emotion Drift)
@@ -123,6 +123,6 @@ Map rhythm density (cuts per time segment) and identify where silence or stillne
 
 When invoked by `director-core`:
 - Load the narrative structure from `director-story`
-- Produce the full Emotional Blueprint  
+- Produce the full Emotional Blueprint 
 - Present for user confirmation
 - Feed the emotion-to-visual mapping into STATE 2 (Visual Design)
