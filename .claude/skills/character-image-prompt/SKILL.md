@@ -1,9 +1,9 @@
 ---
 name: character-image-prompt
-description: Compile character identity definitions from director-character into multi-view cinematic Character Sheet prompts for GPT Image. Produces character design sheets for AI video consistency control — NOT single portraits, NOT artistic identity boards. Use when the user has a character reference image or a director-character definition and needs a GPT Image-ready Character Sheet prompt. Also use when director-core routes after STATE 3 completion.
+description: Compile character identity definitions from director-character into multi-view cinematic Character Sheet prompts for AI image generators (MJ/Flux/即梦/GPT Image). Produces character design sheets for AI video consistency control — NOT single portraits, NOT artistic identity boards. Use when the user has a character reference image or a director-character definition and needs a Character Sheet prompt ready for AI image generation platforms. Also use when director-core routes after STATE 3 completion.
 ---
 
-# Character Image Prompt — GPT Image Character Sheet Compiler
+# Character Image Prompt — Character Sheet Compiler
 
 ## Overview
 
@@ -14,7 +14,7 @@ description: Compile character identity definitions from director-character into
                     ↓
          [Compiler]
                     ↓
-     GPT Image Character Sheet Prompt
+   Character Sheet Prompt (MJ / Flux / 即梦 / GPT Image)
 ```
 
 **Core Definition:**
@@ -36,8 +36,6 @@ description: Compile character identity definitions from director-character into
 
 ## Output Structure — 12-Section Character Sheet Profile
 
-Follows the Seedance 2.0 Complete Character Profile Template (from prd2.md).
-
 | Section | Content | Purpose |
 |---------|---------|---------|
 | [0] | Character Reference ID | ID, role, priority, continuity importance, reference tag |
@@ -51,7 +49,7 @@ Follows the Seedance 2.0 Complete Character Profile Template (from prd2.md).
 | [8] | Character Sheet View Requirements | Required views checklist |
 | [9] | Visual Style Settings | Style, realism level, lighting, color mood, lens feel, background |
 | [10] | Seedance Reference Settings | Lock switches, reference priority, reference boundaries |
-| **[11]** | **Character Sheet Image Prompt** | **← Final deliverable. Ready to paste into GPT Image.** |
+| **[11]** | **Character Sheet Image Prompt** | **← Final deliverable. Ready to paste into AI image generators.** |
 | [12] | Negative Prompt | Negative constraint checklist |
 
 > **Note:** Sections [0]-[10] are the compiler's working data sourced from director-character. Section [11] is the deliverable. Section [12] is the constraint appendix.
@@ -191,7 +189,7 @@ All views and all downstream Seedance prompts must maintain:
 2. Derive visual style settings [9] from project context
 3. Fill Character Sheet Image Prompt [11] template
 4. Attach Negative Prompt [12]
-5. Deliver: sections [11] + [12] are ready to paste into GPT Image
+5. Deliver: sections [11] + [12] are ready to paste into the user's chosen AI image generator
 
 ---
 
@@ -203,14 +201,14 @@ User already has a character image. The prompt uses the image as the identity so
 
 - Prompt says: "using the reference image as identity source"
 - Character appearance is locked by the reference
-- GPT Image focuses on creating the multi-view Character Sheet layout
+- The image generator focuses on creating the multi-view Character Sheet layout
 
 ### Mode B: Without Reference Image
 
 User only has director-character definition. The prompt includes full appearance details.
 
 - Prompt fills in all face/hair/body/wardrobe fields from the character profile
-- GPT Image generates both the character appearance AND the multi-view layout
+- The image generator creates both the character appearance AND the multi-view layout
 
 ---
 
@@ -234,15 +232,17 @@ consistent identity with {Character Name} character sheet
 
 ---
 
-## Platform: GPT Image
+## Platform Adaptation
 
-| Aspect | Requirement |
-|--------|-------------|
-| Language | Primary project language. English for proper names and design labels |
-| Prompt style | Structured, directive — not prose |
-| Negative constraints | Separate negative prompt block |
-| Aspect ratio | `16:9` |
-| Parameters | No additional parameters needed |
+The Character Sheet prompt is platform-agnostic. Adjust per target platform:
+
+| Platform | Language | Adjustments | Parameters |
+|----------|----------|-------------|------------|
+| **Midjourney** | English (default) | Keep as-is | `--ar 16:9 --style raw --v 6.1` |
+| **Flux** | English (default) | Keep as-is, natural flow | None needed |
+| **GPT Image** | English (default) | Keep as-is | None needed |
+| **即梦 (Jimeng)** | Translate to Chinese | Preserve multi-view structure, add negative keywords to negative prompt | None needed |
+| **可灵 (Kling)** | Translate to Chinese | Strong consistency emphasis, add negative keywords | None needed |
 
 ---
 
@@ -255,7 +255,7 @@ consistent identity with {Character Name} character sheet
 - [ ] Background is neutral, not distracting
 - [ ] No "artistic identity board" language — uses "cinematic character design board" instead
 - [ ] No grid/blueprint/catalog layout forced — style is derived from project context
-- [ ] No --ar / --style / --v parameters
+- [ ] Platform adaptations applied if targeting 即梦/可灵 (Chinese translation)
 
 ---
 
@@ -265,5 +265,5 @@ Invoked by `director-core` or independently after STATE 3:
 
 1. Load character profile from `director-character`
 2. Compile into [0]-[12] complete Character Sheet Profile + Image Prompt
-3. User confirms, then pastes [11] into GPT Image to generate Character Sheet image
+3. User confirms, then pastes [11] into their chosen AI image generator to generate Character Sheet image
 4. Generated Character Sheet serves as `@[character ref]` for STATE 6 `seedance-video-prompt`
