@@ -1,222 +1,222 @@
 ---
 name: seedance-video-prompt
-description: Compile storyboard images, character reference images, and product reference images into Seedance 2.0 / Runway / Sora / Kling video platform-executable prompts. This is the final L5 video generation layer compiler in the AI Film OS pipeline. Use for generating Seedance 2.0 prompts, video generation prompts, storyboard-to-video prompts, or when director-core routes to STATE 6 (Video Prompt Compilation). Use when the user has generated storyboard images and character reference images and needs them converted into executable prompts for video platforms like Seedance. Trigger words: Seedance 2.0 prompt, video generation prompt, storyboard to video, Seedance prompt, video generation prompt.
+description: 将分镜图像、角色参考图、产品参考图编译为 Seedance 2.0 / Runway / Sora / Kling 视频平台可执行的视频生成提示词。这是 AI Film OS 管线中 L5 视频生成层的最终编译器。用于生成 Seedance 2.0 提示词、视频生成提示词、分镜图转视频提示词，或 director-core 路由到 STATE 6（视频提示词编译）时。当用户已生成分镜图像和角色参考图，需要将其转换为 Seedance 等视频平台的可执行提示词时使用。触发词：Seedance 2.0 提示、视频生成提示词、分镜转视频、Seedance prompt、video generation prompt。
 ---
 
-# Seedance Video Prompt — L5 Video Generation Compiler
+# Seedance Video Prompt — L5 视频生成编译器
 
-## Overview
+## 概览
 
-This is the final compiler of **L5 — VIDEO GENERATION LAYER** in the AI Film OS pipeline. It receives generated storyboard images, character reference images, product reference images, and background reference images, and compiles them into Seedance 2.0 / Runway / Sora / Kling video platform-executable prompts.
+这是 AI Film OS 管线中 **L5 — VIDEO GENERATION LAYER（视频生成层）** 的最终编译器。它接收已生成的分镜图像（storyboard images）、角色参考图（character reference images）、产品参考图（product reference images）和背景参考图，并将它们编译为 Seedance 2.0 / Runway / Sora / Kling 视频平台可执行的视频生成提示词。
 
-**Key distinctions:**
-- `director-prompt-packager` (STATE 5): Text-level compiler → produces storyboard prompts for AI image generators
-- `seedance-video-prompt` (STATE 6): Image-reference-level compiler → produces Seedance 2.0 executable prompts for video platforms
+**关键区别：**
+- `director-prompt-packager`（STATE 5）：文本级编译器 → 产出 AI 图像生成器用的分镜提示词
+- `seedance-video-prompt`（STATE 6）：图像引用级编译器 → 产出视频平台用的 Seedance 2.0 可执行提示词
 
-## Compilation Principle
+## 编译原则
 
-> Seedance 2.0 prompts are **image-reference-driven motion instructions**. They reference locked visual assets (storyboard images, character images, product images) and add temporal motion descriptions.
+> Seedance 2.0 提示词是**图像引用驱动的运动指令**。它引用已锁定的视觉资产（分镜图、角色图、产品图），为其添加时间维度上的运动描述。
 
-The compiler translates three layers into a single Seedance 2.0 executable prompt:
-1. **Visual Lock Layer** (what to reference) → @[storyboard] @[character] @[product] @[background]
-2. **Motion Instruction Layer** (how to move) → continuous camera movement + character action + environmental dynamics
-3. **Constraint Rule Layer** (what must not appear) → negative constraints + continuity preservation
+编译器将三个层级翻译为一条 Seedance 2.0 可执行提示词：
+1. **视觉锁定层**（引用什么）→ @[分镜图] @[角色图] @[产品图] @[背景图]
+2. **运动指令层**（怎么动）→ 连续摄影机运动 + 角色动作 + 环境动态
+3. **约束规则层**（不能出现什么）→ 负面约束 + 连续性保持
 
-## Input Requirements
+## 输入要求
 
-Before compilation, verify these assets are ready:
+编译前，验证以下资产是否就绪：
 
-- [ ] Storyboard frame images (from AI image generators like MJ/Flux/Jimeng) — each panel as a continuous cinematic beat
-- [ ] Character reference images (from director-character or user-provided) — authoritative character identity lock
-- [ ] (Optional) Product reference images — lock product color, pattern, silhouette
-- [ ] (Optional) Background reference images — lock spatial structure, lighting, color tone
-- [ ] Project metadata: total duration, aspect ratio, music style
+- [ ] 分镜帧图像（来自 AI 图像生成器如 MJ/Flux/即梦）——每个面板作为一个连续电影节拍
+- [ ] 角色参考图（来自 director-character 或用户提供）——权威的角色身份锁定
+- [ ] （可选）产品参考图——锁定产品颜色、图案、版型
+- [ ] （可选）背景参考图——锁定空间结构、光线、色调
+- [ ] 项目元数据：总时长、画幅比例、音乐风格
 
-If any critical asset is missing, prompt the user to generate the corresponding images first.
+如有任何关键资产缺失，提示用户先使用 AI 图像生成器生成对应图像。
 
-## Output Structure: Seedance 2.0 Video Prompt
+## 输出结构：Seedance 2.0 Video Prompt
 
-### Complete Template
+### 完整模板
 
 ```
-Seedance 2.0 Prompt:
+Seedance 2.0 提示：
 
-Use @[storyboard image 1] as the authoritative shot blueprint. Do not render the storyboard itself. Ignore all borders, panel frames, text, labels, titles, color swatches, director bar graphics, and layout elements. Treat each panel as a continuous cinematic beat.
-The entire video must play as one continuously developing master shot with no visible cuts; each panel is a sampled stage of the same uninterrupted camera movement, not separate shots.
-Use a single virtual lens / same-lens continuous camera movement; scale changes come only from physical camera movement.
-Use @[character image 1] as the authoritative character reference.
+使用 @[分镜图片1] 作为权威的镜头蓝图。不要渲染故事板本身。忽略所有边框、面板框架、文本、标签、标题、色板、导演条图形和布局元素。将每个面板视为一个连续的电影节拍。
+整个视频必须作为一个连续发展的主镜头播放，没有可见的剪切；每个面板是同一不间断相机移动的采样阶段，而不是单独的镜头。
+使用一个虚拟镜头/同一镜头连续相机移动；比例变化仅来自物理相机移动。
+使用 @[角色图片1] 作为权威的角色参考。
 
-[Add multi-character or product references here if applicable]
+[若有多角色或产品引用，在此添加]
 
-Music: [music style, BPM, mood]
-[Subject action description, expanded on a timeline, each segment corresponding to a storyboard panel]
-[Negative constraint list]
+音乐：[音乐风格、BPM、情绪]
+[主体动作描述，按时间线展开，每段对应一个分镜面板]
+[负面约束列表]
 ```
 
-## Detailed Specification
+## 详细规范
 
-### 1. Image Reference Zone (@[ref] Syntax)
+### 1. 图像引用区（@[ref] 语法）
 
-Every Seedance 2.0 prompt must begin with the image reference zone:
+每条 Seedance 2.0 提示词必须以图像引用区开头：
 
-| Reference Type | Format | Description |
+| 引用类型 | 格式 | 说明 |
 |----------|------|------|
-| Storyboard | `@[storyboard image 1]` | Authoritative shot blueprint — used for action planning reference, do not render the storyboard itself |
-| Character | `@[character image 1]` | Authoritative character reference — locks face, hair, body type, skin tone |
-| Product | `@[product image 1]` | Locks color, pattern, silhouette, position |
-| Background | `@[background image 1]` | Locks spatial structure, lighting, color tone, display arrangement |
+| 分镜图 | `@[分镜图片1]` | 权威的镜头蓝图——用作动作规划参考，不要渲染分镜表本身 |
+| 角色图 | `@[角色图片1]` | 权威的角色参考——锁定面部、发型、体型、肤色 |
+| 产品图 | `@[产品图片1]` | 锁定颜色、图案、版型、位置 |
+| 背景图 | `@[背景图片1]` | 锁定空间结构、光线、色调、陈列 |
 
-**Reference rules:**
-- Storyboard reference must declare: "Ignore all borders, panel frames, text, labels, titles, color swatches, director bar graphics, and layout elements"
-- Character reference must declare: "Keep the same model's primary features"
-- Product reference must declare lock parameters: "Strictly lock color, print pattern, print color, size, position, silhouette"
+**引用规则：**
+- 分镜图引用必须声明："忽略所有边框、面板框架、文本、标签、标题、色板、导演条图形和布局元素"
+- 角色图引用必须声明："保持同一位模特的主体特征"
+- 产品图引用必须声明锁定参数："严格锁定颜色、印花图案、印花颜色、大小、位置、版型"
 
-### 2. Continuous Camera Movement Zone
+### 2. 连续镜头运动区
 
-**Core principle: The entire video plays as one continuously developing master shot with no visible cuts.**
+**核心原则：整个视频作为一个连续发展的主镜头播放，没有可见剪切。**
 
-Each storyboard panel is a sampled stage of the same uninterrupted camera movement:
-- Use a single virtual lens / same-lens continuous camera movement
-- Scale changes come only from physical camera movement (push-in/pull-out/tracking)
-- No jump cuts between panels — smooth motion transitions
+每个分镜面板是同一不间断相机移动的采样阶段：
+- 使用一个虚拟镜头/同一镜头连续相机移动
+- 比例变化仅来自物理相机移动（推近/拉远/跟拍）
+- 面板之间无跳切——运动平滑过渡
 
-Motion description expands on a timeline, each panel corresponding to a natural language paragraph:
+运动描述按时间线展开，每个面板对应一个自然语言段落：
 
 ```
-1. [Opening shot for panel 1 — establish space and initial state]
-2. [Motion phase for panel 2 — character action or environmental change]
-3. [Motion phase for panel 3 — continue progression]
+1. [面板1对应的开场镜头——建立空间与初始状态]
+2. [面板2对应的运动阶段——角色动作或环境变化]
+3. [面板3对应的运动阶段——持续推进]
 ...
-N. [Closing shot for panel N — emotional landing point]
+N. [面板N对应的收尾镜头——情绪落点]
 ```
 
-### 3. Music/Rhythm Zone
+### 3. 音乐/节奏区
 
 ```
-Music: [style description], BPM [range], [additional notes like no narration, no dialogue]
+音乐：[风格描述]，BPM [范围]，[额外说明如无旁白、无说话]
 ```
 
-Common music style references:
-- Fashion/apparel: lo-fi hip-hop / chill trap / fashion beat, BPM 90-110
-- Drama/film: cinematic ambient / orchestral swell, BPM 60-80
-- Action/fast-paced: electronic / drum & bass, BPM 120-140
-- Warm/lifestyle: acoustic guitar / soft piano, BPM 70-90
+常见音乐风格参考：
+- 时尚/服装: lo-fi hip-hop / chill trap / fashion beat, BPM 90-110
+- 剧情/电影: cinematic ambient / orchestral swell, BPM 60-80
+- 动作/快节奏: electronic / drum & bass, BPM 120-140
+- 温暖/生活: acoustic guitar / soft piano, BPM 70-90
 
-### 4. Action Description Standards
+### 4. 动作描述规范
 
-- **One action phase per panel**, not independent shots
-- Actions transition naturally through camera movement (push-in → tracking → orbit → pull-out)
-- Fabric, hair, environmental elements produce realistic dynamics with movement
-- If there is a turn or back angle, declare the back must have no pattern/text/logo
+- **每个面板一个动作阶段**，而非独立镜头
+- 动作之间通过摄影机运动自然过渡（推近→跟拍→环绕→回拉）
+- 布料、头发、环境元素随动作产生真实动态
+- 若有转身或背部角度，声明背面必须无图案/无文字/无logo
 
-### 5. Negative Constraint Zone
+### 5. 负面约束区
 
-Must include (adjusted per scene):
-
-```
-No subtitles, no watermark, no brand logo.
-No face distortion, no identity drift, no character face swap.
-No wardrobe deformation, no print drift, no product appearance inconsistency.
-No scene drift, no spatial reset, no environment jump.
-No new characters, no extra characters.
-No unnatural motion, no CGI artifacting.
-[Scene-specific constraints]
-```
-
-## Full Examples
-
-### Example 1: Fantasy Short Film
+必须包含的负面约束（按场景调整）：
 
 ```
-Seedance 2.0 Prompt:
-
-Use @[storyboard ref] as the authoritative shot blueprint. Do not render the storyboard itself. Ignore all borders, panel frames, text, labels, titles, color swatches, director bar graphics, and layout elements. Treat each panel as a continuous cinematic beat.
-The entire video must play as one continuously developing master shot with no visible cuts; each panel is a sampled stage of the same uninterrupted camera movement, not separate shots.
-Use a single virtual lens / same-lens continuous camera movement; scale changes come only from physical camera movement.
-Use @[character ref] as the authoritative C1 character reference.
-
-Create a cinematic 16:9 video showing C1 falling through a nightmare temporal void that collapses into a moonlit gothic castle bedroom, where she wakes up and says "FATHER".
-
-Final style: stylized fantasy, faithful to the referenced sculptural anime-fantasy character, matte graphite-inspired surfaces, cold silver-blue moonlight, deep soft volumetric shadows, thin time-fragment effects, collapsing dream debris, elegant high-end cinematic camera movement.
-
-1. Begin with an endless black space, no floor, sky, or horizon, C1 falling at frame center, very long white hair streaming upward, one hand reaching out for stability, as the camera falls with her.
-2. Camera begins a smooth falling orbit, shattered clocks, floating doors, ancient castle fragments, moonlit forest branches, ruined city pieces, battlefield debris, and forgotten faces rushing past at different depths.
-3. A stone step or ledge briefly appears below C1; she reaches for it but it dissolves before contact, the camera falling past her on the same downward path.
-4. Different eras collide around her, castle arches, battlefield banners, city ruins, and clock faces spinning faster, distorting the frame like runaway time travel.
-5. Recognizable bedroom elements flash through the nightmare: a bed frame, a curtain, a tall gothic window, a stone wall, and a nightstand appear and vanish while C1 continues falling.
-6. The falling axis narrows toward a partially formed bed below; nightmare debris funnels inward, windows, curtains, crystal chandelier, and stone walls trying to lock into place.
-7. C1 slams into the bed, not into darkness or stone, all void fragments, time shards, and castle architecture collapsing into the mattress point on contact.
-8. Reality silently snaps into form: the castle bedroom fully materializes around the bed, moonlight streams through the tall gothic window, stone walls and furniture becoming solid, nightmare residue gradually dissipating.
-9. Without cutting, C1 jolts upright in bed, rapid breathing, eyes wide with fear, scanning the room to test if she is awake, then quietly says "FATHER".
-10. Camera continues its residual momentum, slowly pulling back on the same axis, revealing the vast moonlit castle room, ancient stone architecture, lonely furniture, and C1 looking small in the bed under the cold light.
+禁止字幕、水印、品牌logo。
+禁止面部变形、身份漂移、角色换脸。
+禁止服饰变形、印花漂移、产品外观不一致。
+禁止场景漂移、空间重置、环境跳变。
+禁止新增人物、多余角色。
+禁止不自然运动、CGI伪影。
+[场景特有约束]
 ```
 
-### Example 2: E-Commerce Menswear Livestream
+## 完整示例
+
+### 示例 1：奇幻电影短片
 
 ```
-Seedance 2.0 Prompt:
+Seedance 2.0 提示：
 
-Modern urban trendy menswear brand, high-quality e-commerce livestream environment. Scene is a real warm-toned walk-in closet and menswear showroom, highlighting young male fashion styling and lifestyle expression.
+使用 @[storyboard ref] 作为权威的镜头蓝图。不要渲染故事板本身。忽略所有边框、面板框架、文本、标签、标题、色板、导演条图形和布局元素。将每个面板视为一个连续的电影节拍。
+整个视频必须作为一个连续发展的主镜头播放，没有可见的剪切；每个面板是同一不间断相机移动的采样阶段，而不是单独的镜头。
+使用一个虚拟镜头/同一镜头连续相机移动；比例变化仅来自物理相机移动。
+使用 @[character ref] 作为权威的 C1 角色参考。
 
-Use @[background image 1] as the fixed background reference, strictly maintaining spatial structure, lighting, color tone, and background display stability.
-Use @[character image 1] as the authoritative character reference, keeping the same model's primary features, natural face. Replace the model's printed t-shirt with @[product image 1], strictly locking color, front print pattern, print color, size, position, loose dropped-shoulder silhouette.
-Use @[storyboard image 1] as the authoritative video storyboard narrative blueprint, used for action planning reference, do not render the storyboard itself. Exclude all panel borders, text, labels, titles, and layout elements. Treat each storyboard panel as an independent sequential shot guide. Strictly follow panel order, camera angles, action flow, timing rhythm.
+创建一个电影般的 16:9 视频，展示 C1 穿越噩梦时空虚空坠落，该虚空坍缩成一个月光照耀的哥特式城堡卧室，在那里她醒来并说"FATHER"。
 
-Music: lo-fi hip-hop / chill trap / fashion beat, BPM 90-110, no narration, no dialogue.
+最终风格：风格化奇幻，忠实于参考的雕塑式动漫-奇幻角色，哑光石墨启发的表面，冷银蓝色月光，深邃柔和的体积阴影，细薄的时间碎片效果，坍塌的梦境碎片，优雅高端电影相机运动。
 
-Model movement natural and fluid, fabric produces realistic wrinkles and slight swinging with movement. If a turn or back angle appears, the t-shirt back must be solid color with no pattern, no text, no logo.
-
-No subtitles, no watermark, no brand logo, no back print, no back text, no print drift, no clothing deformation, no scene drift, no new characters.
+1. 以无尽的黑色空间开始，C1 在画面中央坠落，长发向上飘散，一只手伸出寻求稳定，同时相机与她一同坠落。
+2. 相机开始平滑的坠落轨道，破碎的时钟、漂浮的门、古堡碎片在不同深度中急速掠过。
+3. 一个石阶瞬间出现在 C1 下方；她伸向它，但它在接触前溶解，相机在同一向下路径下从她下方掉落。
+4. 不同时代在她周围碰撞，城堡拱门、战场旗帜、城市废墟和时钟面更快地螺旋，扭曲画面。
+5. 可识别的卧室元素在噩梦中闪现：床架、窗帘、高哥特式窗户、石墙出现又消失。
+6. 坠落轴线向下方部分形成的床收窄；噩梦碎片向内漏斗状汇聚，窗户、窗帘、水晶吊灯和石墙试图锁定到位。
+7. C1 猛烈坠入床中，所有虚空碎片、时间碎片和城堡建筑在接触瞬间坍塌进床垫点。
+8. 现实无声地骤然成形：城堡卧室完全在床周围具现，月光透过高哥特式窗户倾泻而入，石墙和家具变得坚实。
+9. 无剪切，C1 在床上猛然坐起，急促呼吸，眼睛睁大充满恐惧，扫视房间以测试自己是否醒来，然后静静地说"FATHER"。
+10. 相机继续其剩余动量，在同一轴线上缓慢拉回，揭示广阔的月光城堡房间，古石建筑、孤寂的家具，以及 C1 在冷光下床中显得渺小。
 ```
 
-## Validation Checklist
+### 示例 2：电商男装直播
 
-Before delivering the final Seedance 2.0 prompt, verify each item:
+```
+Seedance 2.0 提示：
 
-- [ ] Storyboard reference correct, declared "do not render the storyboard itself"
-- [ ] Character reference correct, declared "keep the same model's primary features"
-- [ ] Product reference correct (if applicable), locked color/pattern/silhouette/position
-- [ ] Background reference correct (if applicable), locked spatial structure/lighting/color tone
-- [ ] Continuous camera movement description covers all storyboard panels
-- [ ] Each panel corresponds to one motion phase (1-N numbering clear)
-- [ ] Declared "no visible cuts" and "same uninterrupted camera movement"
-- [ ] Music style and BPM specified
-- [ ] Fabric/hair dynamic description (if applicable)
-- [ ] Back-side constraint declared (if applicable)
-- [ ] Negative constraint list complete (no subtitles/watermark/logo/drift/deformation/new characters)
-- [ ] Prompt can be directly pasted into Seedance 2.0 platform for use
+现代都市潮流男装品牌，高品质电商直播环境。场景为真实暖色衣帽间与男装展示间，突出年轻男性时尚穿搭与生活方式表达。
 
-## Common Scene Adaptations
+使用 @[背景图片1] 作为固定背景参考，严格保持空间结构、光线、色调和背景陈列稳定。
+使用 @[角色图片1] 作为权威的角色参考，保持同一位模特的主体特征，面部自然。模特印花T恤替换成 @[产品图片1] ，严格锁定颜色、正面印花图案，印花颜色、大小、位置，宽松落肩版型。
+使用 @[分镜图片1] 作为权威的视频分镜叙事蓝图，用作动作规划参考，不要渲染分镜表本身。排除所有面板边框、文本、标签、标题和布局元素。将每个分镜面板视为独立的顺序镜头指南。严格遵循面板顺序、摄像机角度、动作流程、时机节奏。
 
-### Fashion/Apparel Videos
-- Must lock product color, print position, silhouette
-- Fabric dynamics (wrinkles, swing) must be described
-- Back-side constraint (solid color, no pattern, no text)
-- Music: lo-fi hip-hop / chill trap, BPM 90-110
+音乐：lo-fi hip-hop / chill trap / fashion beat，BPM 90-110，无旁白、无说话。
 
-### Product Showcase Videos
-- Product reference locks appearance
-- Background reference locks environment
-- Camera movement focused on push-in/orbit/detail
-- No product appearance drift
+模特动作自然流畅，布料随动作产生真实褶皱和轻微摆动。若出现转身或背部角度，T恤背面必须为纯色无图案、无文字、无logo。
 
-### Drama Short Films
-- Character reference locks identity
-- Storyboard reference locks narrative rhythm
-- Continuous camera movement throughout
-- Emotional progression, not reset
+禁止字幕、水印、品牌logo、背部印花、背部文字、印花漂移、服饰变形、场景漂移、新增人物。
+```
 
-### Multi-Character Scenes
-- Each character has separate @[character N] reference
-- Declare spatial relationships between characters remain stable
-- No character identity swap or drift
+## 验证清单
 
-## Integration
+交付最终 Seedance 2.0 提示词前，逐项验证：
 
-When invoked by `director-core`:
-- Confirm STATE 5 is complete (storyboard images have been generated)
-- Load all visual reference assets (storyboard images, character images, product images, background images)
-- Compile Seedance 2.0 executable prompts
-- Execute validation checklist
-- Present for final user review
-- Upon confirmation, mark STATE 6 complete
+- [ ] 分镜图引用正确，声明了"不要渲染故事板本身"
+- [ ] 角色图引用正确，声明了"保持同一位模特的主体特征"
+- [ ] 产品图引用正确（如适用），锁定了颜色/图案/版型/位置
+- [ ] 背景图引用正确（如适用），锁定了空间结构/光线/色调
+- [ ] 连续镜头运动描述覆盖所有分镜面板
+- [ ] 每个面板对应一个运动阶段（1-N 编号清晰）
+- [ ] 声明了"没有可见剪切"和"同一不间断相机移动"
+- [ ] 音乐风格和 BPM 已指定
+- [ ] 布料/头发动态描述（如适用）
+- [ ] 背面约束声明（如适用）
+- [ ] 负面约束列表完整（禁止字幕/水印/logo/漂移/变形/新增人物）
+- [ ] 提示词可直接粘贴到 Seedance 2.0 平台使用
+
+## 常见场景适配
+
+### 服装/时尚视频
+- 必须锁定产品颜色、印花位置、版型
+- 布料动态（褶皱、摆动）必须有描述
+- 背面约束（纯色无图案无文字）
+- 音乐: lo-fi hip-hop / chill trap, BPM 90-110
+
+### 产品展示视频
+- 产品图引用锁定外观
+- 背景图引用锁定环境
+- 摄影机运动以推近/环绕/细节为主
+- 禁止产品外观漂移
+
+### 剧情短片
+- 角色图引用锁定身份
+- 分镜图引用锁定叙事节奏
+- 连续镜头运动贯穿全片
+- 情绪演进而非重置
+
+### 多角色场景
+- 每个角色单独 @[角色图N] 引用
+- 声明角色间空间关系保持不变
+- 禁止角色身份互换或漂移
+
+## 集成
+
+被 `director-core` 调用时：
+- 确认 STATE 5 已完成（分镜图像已生成）
+- 加载所有视觉参考资产（分镜图、角色图、产品图、背景图）
+- 编译 Seedance 2.0 可执行提示词
+- 执行验证清单
+- 呈现供最终用户审核
+- 确认后，标记 STATE 6 完成
