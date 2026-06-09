@@ -1,6 +1,6 @@
 ---
 name: director-core
-description: Master orchestrator for the AI film production pipeline. Controls the production state machine, enforces phase locking, manages checkpoints, and routes to all director sub-skills in the correct sequence. Use when the user wants to produce a complete AI film/video from an idea or script — this is the entry point that ensures every phase is validated before the next begins. Triggers on: making an AI film, producing a video from idea, directing a Seedance project, 拍AI电影, 制作AI视频, AI导演流程, film production pipeline, or any multi-phase video creation request.
+description: Master orchestrator for the AI film production pipeline. Controls the production state machine, enforces phase locking, manages checkpoints, and routes to all director sub-skills in the correct sequence. Use when the user wants to produce a complete AI film/video from an idea or script — this is the entry point that ensures every phase is validated before the next begins. Triggers on: making an AI film, producing a video from idea, directing a Seedance project, 拍AI电影, 制作AI视频, AI导演流程, film production pipeline, or any multi-phase video creation request. Also triggers on any video/film production request including电商直播, 带货视频, 服装视频, 品牌视频, product video, fashion film, commercial video.
 ---
 
 # Director Core — Production State Machine
@@ -24,12 +24,17 @@ STATE 1 → STORY & EMOTION DESIGN
 STATE 2 → VISUAL DESIGN (CAMERA + LIGHTING)
 STATE 3 → CHARACTER LOCK
 STATE 4 → STORYBOARD PLANNING
-STATE 5 → PROMPT COMPILATION
-STATE 6 → FINAL VALIDATION
-STATE 7 → EXPORT READY
+STATE 5 → PROMPT PACKAGING (TEXT-LEVEL)
+STATE 6 → SEEDANCE VIDEO PROMPT (IMAGE-REF LEVEL)
+STATE 7 → FINAL VALIDATION
+STATE 8 → EXPORT READY
 ```
 
 Each state produces a validated artifact before the next state unlocks. Skipping states is forbidden.
+
+**Key distinction between STATE 5 and STATE 6:**
+- STATE 5 (`director-prompt-packager`): Compiles TEXT-LEVEL storyboard prompt packages for AI image generators (MJ/Flux/即梦). Output: structured text prompts to generate storyboard images.
+- STATE 6 (`seedance-video-prompt`): Compiles IMAGE-REFERENCE video prompts for Seedance 2.0 / Runway / Sora / Kling. Input: generated storyboard images + character images. Output: platform-executable video generation prompts.
 
 ## Phase Lock Rules
 
@@ -112,13 +117,18 @@ Route to `director-character`.
 - [ ] All characters have identity locks
 - [ ] Visual parameters are specific enough to reproduce
 - [ ] Behavior system accounts for emotional range
-- [ ] User has confirmed all character sheets
+- [ ] User has confirmed all character identity definitions
 
-**State 3 output**: Character Sheets + Identity Locks. Proceed to STATE 4.
+**State 3 output**: Character Identity Definitions (text-level design docs).
+
+**After STATE 3 confirmation, route to `character-image-prompt`:**
+This sub-skill compiles the character identity definitions into platform-ready character sheet image generation prompts (MJ/Flux/即梦/可灵). The user then generates actual character reference images. These images are required as `@[character ref]` inputs for STATE 6 (Seedance Video Prompt).
+
+Proceed to STATE 4 (Storyboard) — Storyboard and character image generation can run in parallel.
 
 ### STATE 4 — STORYBOARD PLANNING
 
-Route to `storyboard-sketch` (for Seedance I2V) or `storyboard-prompt` / `storyboard-master` (for image generator boards).
+Route to `storyboard-sketch` (for Seedance I2V) or `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce` (for image generator boards).
 
 **Required artifacts:**
 - Storyboard frame plan (3-8 frames per board)
@@ -133,12 +143,14 @@ Route to `storyboard-sketch` (for Seedance I2V) or `storyboard-prompt` / `storyb
 
 **State 4 output**: Storyboard Boards + Shot Plan. Proceed to STATE 5.
 
-### STATE 5 — PROMPT COMPILATION
+### STATE 5 — PROMPT PACKAGING (TEXT-LEVEL)
 
-Route to `director-seedance`.
+Route to `director-prompt-packager`.
+
+**This is a text-level compiler.** It produces structured prompt packages for AI image generators (Midjourney, Flux, 即梦, 可灵). The output is NOT a Seedance video prompt — it is the input for generating storyboard images.
 
 **Required artifacts:**
-- Seedance-ready video prompts per shot
+- Structured prompt blocks per storyboard frame
 - Continuity context locks between shots
 - Negative constraint blocks per shot
 - Multi-part continuity bindings (for videos > 15s)
@@ -153,9 +165,34 @@ Route to `director-seedance`.
 
 If any answer is NO, halt and return to the missing phase.
 
-**State 5 output**: Seedance Video Prompt Pack. Proceed to STATE 6.
+**State 5 output**: Storyboard Prompt Package (text-level, for AI image generators). Proceed to STATE 6.
 
-### STATE 6 — FINAL VALIDATION
+**Next step for user**: Use the prompt package to generate storyboard images in MJ/Flux/即梦.
+
+### STATE 6 — SEEDANCE VIDEO PROMPT (IMAGE-REF LEVEL)
+
+Route to `seedance-video-prompt`.
+
+**This is the L5 video generation compiler.** It takes generated storyboard images, character reference images, and product/background references as `@[ref]` inputs, and compiles them into Seedance 2.0 / Runway / Sora / Kling platform-executable video prompts.
+
+**Required inputs:**
+- Generated storyboard images (from AI image generators)
+- Character reference images (for identity lock)
+- Product reference images (optional, for product lock)
+- Background reference images (optional, for environment lock)
+
+**Pre-Check Checklist (all must be YES):**
+- [ ] Storyboard images generated?
+- [ ] Character reference images available?
+- [ ] Product images locked (if applicable)?
+- [ ] Background images locked (if applicable)?
+- [ ] Music style and BPM decided?
+
+If any answer is NO, prompt the user to provide the missing references.
+
+**State 6 output**: Seedance 2.0 Video Prompt (platform-executable). Proceed to STATE 7.
+
+### STATE 7 — FINAL VALIDATION
 
 Quality pass across all artifacts:
 
@@ -163,16 +200,16 @@ Quality pass across all artifacts:
 - **Visual check**: Is the visual language consistent across all shots?
 - **Character check**: Is character identity preserved in every prompt?
 - **Continuity check**: Do spatial geography, lighting, and time flow feel continuous?
-- **Execution check**: Is every prompt directly usable in the target tool?
+- **Execution check**: Is the Seedance prompt directly usable in the target platform?
 
-**State 6 output**: Validated prompt pack. Proceed to STATE 7.
+**State 7 output**: Validated video prompt. Proceed to STATE 8.
 
-### STATE 7 — EXPORT READY
+### STATE 8 — EXPORT READY
 
 Package the final deliverable:
-- Full prompt list in execution order
+- Full Seedance 2.0 prompt in execution order
+- Image reference role map (which @[ref] maps to which image)
 - Context continuity notes for multi-part generation
-- Reference image role map (if reference images were provided)
 - Delivery format notes (duration, aspect ratio, platform)
 
 ## Dependency Graph
@@ -185,15 +222,22 @@ director-story ────→ director-emotion
          director-camera ──→ director-light
                 │
                 ↓
-         director-character
-                │
-                ↓
-         storyboard-sketch / storyboard-prompt / storyboard-master
-                │
-                ↓
-         director-seedance
-                │
-                ↓
+         director-character ──→ character-image-prompt [character image prompts for MJ/Flux/即梦]
+                │                         │
+                │                         ↓ (user generates character reference images)
+                ↓                         │
+         storyboard-sketch / storyboard-prompt / storyboard-master / storyboard-ecommerce
+                │                         │
+                ↓                         │
+         director-prompt-packager [STATE 5: text-level prompt package for image generators]
+                │                         │
+                ↓ (user generates storyboard images via MJ/Flux/即梦)
+                │                         │
+                └─────────┬───────────────┘
+                          ↓
+         seedance-video-prompt [STATE 6: image-ref video prompt for Seedance 2.0]
+                          │
+                          ↓
          [FINAL VALIDATION → EXPORT]
 ```
 
@@ -203,9 +247,12 @@ director-story ────→ director-emotion
 |---|---|
 | "I have an idea, make it into a film" | Stay in director-core, start STATE 0 |
 | "I already have a script, need visual design" | Enter at STATE 2 |
-| "I have storyboard frames, need Seedance prompts" | Enter at STATE 5 |
-| "I just want the character sheet" | Route directly to director-character |
-| "Fix my broken AI video, character keeps changing" | Enter at STATE 3 (re-lock character), then STATE 5 |
+| "I have a character identity, need image generation prompts" | Route to `character-image-prompt` |
+| "I have storyboard frames (text), need image prompts" | Enter at STATE 5 |
+| "I have storyboard images + character images, need Seedance 2.0 prompts" | Enter at STATE 6 |
+| "I just want the character identity definition" | Route directly to director-character |
+| "Fix my broken AI video, character keeps changing" | Enter at STATE 3 (re-lock character), then STATE 6 |
+| "电商直播/带货/服装视频分镜" | Enter at STATE 4, route to storyboard-ecommerce |
 
 ## Status Tracker
 

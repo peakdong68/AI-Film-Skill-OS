@@ -1,6 +1,6 @@
 ---
 name: director-character
-description: Design and lock character identity for AI film production — character sheets, visual identity parameters, behavior systems, emotion-to-motion mapping, and multi-character relationship management. Use when the user needs character design, 角色设定, character consistency, 角色一致性, character sheet creation, or when director-core routes to STATE 3 (Character Lock). Also use when AI-generated characters keep changing faces or outfits across shots — this skill builds the identity lock that prevents character drift.
+description: Design and lock character identity for AI film production — character sheets, visual identity parameters, behavior systems, emotion-to-motion mapping, and multi-character relationship management. Use when the user needs character design, 角色设定, character consistency, 角色一致性, character sheet creation, or when director-core routes to STATE 3 (Character Lock). Also use when AI-generated characters keep changing faces or outfits across shots — this skill builds the identity lock that prevents character drift. Note: this skill produces character identity DEFINITIONS (text-level design docs). For compiling these into executable image generation prompts, use the character-image-prompt skill.
 ---
 
 # Director Character — Character Consistency Engine
@@ -12,6 +12,8 @@ Design character identity with enough specificity that AI video generators can m
 The most common failure in AI video production is character drift (换脸/换衣/崩风格). This skill is the primary defense against it.
 
 Works independently for character design or is invoked by `director-core` at STATE 3.
+
+**Important:** This skill produces **character identity definitions** (text-level design documents). It does NOT produce executable image generation prompts. For compiling these definitions into platform-ready character sheet image prompts (MJ/Flux/即梦/可灵), use the `character-image-prompt` skill.
 
 
 ## Loaded Resources
@@ -142,10 +144,13 @@ Joy → relaxed posture, genuine smile reaching eyes, open body language
 - Style shift (photorealistic → anime)
 - Hair color or style change (unless story-motivated and explicitly noted)
 
-### 5. Character Sheet Prompt (角色设定图提示词)
+### 5. Character Sheet Image Layout Reference (角色设定图布局参考)
 
-Generate a prompt for creating the character reference sheet image:
+This section provides a **view coverage template** — it defines what visual angles and states the character sheet should cover. It is NOT an executable image generation prompt.
 
+To compile the full character identity definition into platform-ready image generation prompts (MJ/Flux/即梦/可灵), route to the `character-image-prompt` skill, which follows the Seedance 2.0 Character Sheet specification (see `prd2.md` / `prd3.md`).
+
+View coverage requirements:
 ```
 Character sheet layout: full body front view, side profile, 3/4 view, back view
 Face detail: close-up front, neutral expression
@@ -179,9 +184,18 @@ Visual Contrast Design:
 - Hard locks must be explicitly referenced in every Seedance prompt that features the character.
 - Multi-character scenes must define interaction rules to prevent AI confusion.
 
+## Downstream Pipeline
+
+This skill produces a **character identity definition** (text-level design doc). After user confirmation:
+
+1. Route to `character-image-prompt` → compiles identity into platform-ready image generation prompts
+2. User generates character reference images (MJ/Flux/即梦/可灵)
+3. Generated character images are used as `@[character ref]` in `seedance-video-prompt` (STATE 6)
+
 ## Integration
 
 When invoked by `director-core`:
 - The Character Identity Core and Visual Identity System become the single source of truth for all downstream prompts
-- The Continuity Lock System's Hard Locks must be embedded in every Seedance prompt via `director-seedance`
-- Character sheets must be confirmed by the user before STATE 4 (Storyboard)
+- After STATE 3 completion, route to `character-image-prompt` to compile into image generation prompts
+- The Continuity Lock System's Hard Locks must be embedded in every Seedance prompt via `seedance-video-prompt`
+- Character identity definition must be confirmed by the user before proceeding to image prompt generation

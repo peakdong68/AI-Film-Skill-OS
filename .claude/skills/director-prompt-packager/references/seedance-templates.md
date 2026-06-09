@@ -1,4 +1,4 @@
-# Seedance Prompt Templates — Core Knowledge
+# Prompt Packager Templates — Core Knowledge
 
 ## The Conversion Formula
 
@@ -8,11 +8,11 @@ Storyboard Panel
   → STEP 2: Convert to Film Grammar (shot type, camera, angle, lighting)
   → STEP 3: Add Motion Layer (body, facial, environmental, camera)
   → STEP 4: Add Continuity Lock (same character, wardrobe, location)
-  → STEP 5: Compress into AI Prompt Language
-  = Seedance Prompt
+  → STEP 5: Compress into AI Image Prompt Language
+  = Storyboard Image Prompt
 ```
 
-## Standard Seedance 2.0 Prompt Structure
+## Standard Image Prompt Structure
 
 ### 1. Context Lock
 ```
@@ -79,7 +79,7 @@ Rules:
 ❌ "He is nervous"
 ✔ "His fingers tap the table, he glances at the door repeatedly, jaw tightens"
 
-The AI video model needs physical actions, not emotional labels.
+The AI image model needs physical actions, not emotional labels.
 
 ## Multi-Part Generation Rules
 
@@ -99,10 +99,9 @@ For videos > 15 seconds, split into Parts:
 
 | Platform | Prompt Density | Language | Key Adaptation |
 |----------|---------------|----------|----------------|
-| Seedance 2.0 | Full structured blocks | CN or EN | Explicit continuity locks |
-| Runway Gen-3 | Concise | EN preferred | Plain-language camera |
-| Sora | Natural flow | EN | Implicit continuity |
-| Kling | Strong motion emphasis | CN preferred | Explicit negatives |
+| Midjourney | Concise keywords | EN | Visual-first, style tokens |
+| Flux | Natural language | EN | Detailed descriptions |
+| 即梦/可灵 | Rich detail | CN preferred | Strong visual sense |
 
 ## Compilation Workflow
 
@@ -112,7 +111,7 @@ Shot Data (storyboard + character + camera + lighting)
   → Conflict Resolution (fix contradictions)
   → Prompt Structuring (8-section format)
   → Compression (minimum words, maximum executability)
-  → Seedance Final Prompt
+  → Storyboard Image Prompt
 ```
 
 ## Validation Checklist (per shot)
