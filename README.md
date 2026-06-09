@@ -1,185 +1,186 @@
-# AI Film Skill OS — 技能体系文档
+# AI Film Skill OS — Skill System Documentation
 
-## 概览
+## Overview
 
-本项目为 AI 视频/电影制作提供 13 个 Claude Code 技能，分为两大体系：
+This project provides 13 Claude Code skills for AI video/film production, organized into two suites:
 
-- **Storyboard 系列 (4个)**：生成分镜图提示词，面向 AI 图像生成器和 Seedance I2V
-- **Director 系列 (9个)**：完整的 AI 电影制作管线，从创意到可执行视频提示词
+- **Storyboard Series (4)**: Generate storyboard image prompts for AI image generators and Seedance I2V
+- **Director Series (9)**: Complete AI film production pipeline, from creative concept to executable video prompts
 
-## 技能地图
+## Skill Map
 
 ```
                     ┌─────────────────────────┐
                     │     director-core         │
-                    │   (状态机·阶段锁·总控)    │
+                    │  (State Machine · Phase  │
+                    │   Locks · Orchestrator)  │
                     └──────────┬──────────────┘
            ┌─────────┬────────┼────────┬─────────┬──────────┬──────────────┬──────────────────┐
            ▼         ▼        ▼        ▼         ▼          ▼              ▼                  ▼
     director-    director-  director-  director-  director-  director-    character-       seedance-
      story       emotion    camera     light     character   prompt-       image-           video-
-    (剧本结构)   (情绪曲线)  (镜头语法)  (光影色彩)  (角色锁定)  packager      prompt           prompt
-                                                          (提示包编译)  (角色生图提示词)  (L5视频生成)
+ (Script Struct) (Emotion)  (Camera)   (Lighting) (Char Lock) packager      prompt           prompt
+                                                         (Prompt Package) (Char Img Prompt) (L5 Video Gen)
 
-                  Storyboard 系列（独立使用）
+                  Storyboard Series (Standalone)
                   ┌─────────────────────────────┐
                   │ storyboard-sketch            │
-                  │ Seedance I2V 分镜草图规划    │
+                  │ Seedance I2V Storyboard Plan │
                   ├─────────────────────────────┤
                   │ storyboard-prompt            │
-                  │ 单帧分镜提示词 → MJ/Flux/即梦 │
+                  │ Single Frame Prompts → MJ/Flux/Jimeng │
                   ├─────────────────────────────┤
                   │ storyboard-master            │
-                  │ 分镜总览图 → 导演提案板       │
+                  │ Master Sheet → Director Board │
                   ├─────────────────────────────┤
                   │ storyboard-ecommerce         │
-                  │ 电商带货/直播/服装分镜        │
+                  │ E-commerce/Livestream/Fashion │
                   └─────────────────────────────┘
 ```
 
-## Director 管线 (AI 电影制作流程)
+## Director Pipeline (AI Film Production Workflow)
 
 ```
-STATE 0   INPUT            收集创意、时长、风格、参考图
+STATE 0   INPUT            Collect creative brief, duration, style, references
    │
-STATE 1   STORY            剧本结构 + 情绪曲线
+STATE 1   STORY            Script structure + emotional arc
    │      (director-story + director-emotion)
-   │      输出: Script Blueprint + Emotional Timeline
+   │      Output: Script Blueprint + Emotional Timeline
    ▼
-STATE 2   VISUAL           摄影机语言 + 色彩脚本
+STATE 2   VISUAL           Camera language + color script
    │      (director-camera + director-light)
-   │      输出: Visual Language Blueprint
+   │      Output: Visual Language Blueprint
    ▼
-STATE 3   CHARACTER        角色身份定义
+STATE 3   CHARACTER        Character identity definitions
    │      (director-character)
-   │      输出: Character Identity Definitions
+   │      Output: Character Identity Definitions
    │
-   ├──→ character-image-prompt  → 编译为生图平台提示词 → 用户去 MJ/Flux/即梦 生成角色参考图
+   ├──→ character-image-prompt  → Compile to image gen prompts → User generates character refs on MJ/Flux/Jimeng
    │
    ▼
-STATE 4   PROMPT PKG       编译为电影级短片提示包（分镜设计+镜头语言+声音设计+Seedance分解方案）
+STATE 4   PROMPT PKG       Compile to film-level short film prompt package (storyboard design + camera language + sound design + Seedance decomposition)
    │      (director-prompt-packager)
-   │      输出: Film-Level Prompt Package → 用户确认
+   │      Output: Film-Level Prompt Package → User confirms
    ▼
-STATE 5   STORYBOARD       生成分镜蓝图图像（可与角色生图并行）
+STATE 5   STORYBOARD       Generate storyboard blueprint images (can run parallel with character image gen)
    │      (storyboard-sketch / storyboard-prompt / storyboard-master / storyboard-ecommerce)
-   │      输出: Storyboard Blueprint Images → 供 STATE 6 @[ref] 引用
+   │      Output: Storyboard Blueprint Images → for STATE 6 @[ref] inputs
    ▼
-STATE 6   SEEDANCE         编译为 Seedance 2.0 视频平台可执行提示词
+STATE 6   SEEDANCE         Compile to Seedance 2.0 video platform executable prompts
    │      (seedance-video-prompt)
-   │      输入: 已生成的分镜图 + 角色参考图 + 产品图
-   │      输出: Seedance 2.0 / Runway / Sora / Kling Video Prompt
+   │      Input: generated storyboard images + character refs + product images
+   │      Output: Seedance 2.0 / Runway / Sora / Kling Video Prompt
    ▼
-STATE 7   VALIDATE         质量校验
+STATE 7   VALIDATE         Quality verification
    ▼
-STATE 8   EXPORT           打包交付
+STATE 8   EXPORT           Package deliverables
 ```
 
-### 阶段锁 (Phase Locks)
+### Phase Locks
 
-每个阶段必须通过验证才能进入下一阶段，严禁跳步：
+Each phase must pass verification before the next unlocks. Skipping is forbidden:
 
-| 锁 | 规则 |
-|----|------|
-| Story Lock | 剧本结构确认后才能进行视觉设计 |
-| Visual Lock | 摄影+光影定义后才能编译提示包 |
-| Character Lock | 角色身份定义确认后才能编译提示包 |
-| Package Lock | 提示包确认后才能生成分镜蓝图 |
-| Storyboard Lock | 分镜蓝图确认后才能生成视频指令 |
-| Prompt Lock | 全部预检项通过后才能最终导出 |
+| Lock | Rule |
+|------|------|
+| Story Lock | Script structure must be confirmed before visual design |
+| Visual Lock | Camera + lighting must be defined before prompt package compilation |
+| Character Lock | Character identity must be confirmed before prompt package compilation |
+| Package Lock | Prompt package must be user-confirmed before storyboard blueprint generation |
+| Storyboard Lock | Storyboard blueprint must be confirmed before video prompt generation |
+| Prompt Lock | All pre-checks must pass before final export |
 
-## 各技能详情
+## Skill Details
 
 ### director-core
-- **职责**: 总管控制器，不生成内容，负责调度和验证
-- **触发**: 制作AI电影、完整视频项目、multi-phase 视频创作
-- **路由**: 按阶段自动调用其他 Director 技能
+- **Role**: Master orchestrator; does not generate content—routes and validates
+- **Triggers**: AI film production, full video projects, multi-phase video creation
+- **Routing**: Automatically invokes other Director skills per phase
 
 ### director-story
-- **职责**: 剧本→导演级叙事结构
-- **能力**: 3/5幕结构、场景目的分析、因果链构建、导演意图层
-- **输出**: Script Director Blueprint
+- **Role**: Script → director-grade narrative structure
+- **Capabilities**: 3/5-act structure, scene purpose analysis, causal chain construction, director intent layer
+- **Output**: Script Director Blueprint
 
 ### director-emotion
-- **职责**: 设计观众情绪旅程
-- **能力**: 情绪曲线、情绪节拍、强度评分、情绪→视觉映射表
-- **输出**: Emotional Blueprint
+- **Role**: Design the audience's emotional journey
+- **Capabilities**: Emotion curve, emotional beats, intensity scoring, emotion→visual mapping table
+- **Output**: Emotional Blueprint
 
 ### director-camera
-- **职责**: 摄影机语言系统设计
-- **能力**: 镜头类型语法、运动语法、情绪→摄影机映射、构图规则
-- **输出**: Cinematography Blueprint
+- **Role**: Camera language system design
+- **Capabilities**: Shot type grammar, movement syntax, emotion→camera mapping, composition rules
+- **Output**: Cinematography Blueprint
 
 ### director-light
-- **职责**: 色彩脚本与光影设计
-- **能力**: Color Script、情绪→色彩映射、灯光推进图、场景专属调色板
-- **输出**: Color & Lighting Blueprint
+- **Role**: Color script and lighting design
+- **Capabilities**: Color Script, emotion→color mapping, lighting progression diagram, scene-specific palettes
+- **Output**: Color & Lighting Blueprint
 
 ### director-character
-- **职责**: 角色身份定义与锁定（防崩脸/换衣）
-- **能力**: 面部/发型/体型/服装四维锁定、情绪→动作映射、多层锁定系统
-- **输出**: Character Identity Definitions（文本级设计文档）
-- **注意**: 此技能产出角色身份**定义**，不产出生图提示词。生图提示词由 `character-image-prompt` 编译
+- **Role**: Character identity definition and locking (prevents face drift / outfit changes)
+- **Capabilities**: Face/hair/body/wardrobe 4-axis locking, emotion→action mapping, multi-layer locking system
+- **Output**: Character Identity Definitions (text-level design document)
+- **Note**: This skill produces character identity **definitions**, not image generation prompts. Image prompts are compiled by `character-image-prompt`
 
 ### character-image-prompt (NEW)
-- **职责**: 角色身份定义 → 生图平台可执行提示词（MJ/Flux/即梦/可灵）
-- **能力**: 12段完整角色档案 + 多视角角色设定板生图提示词 + Negative Prompt
-- **输入**: `director-character` 产出的角色身份定义
-- **输出**: 可直接粘贴到生图平台的角色设定板提示词
+- **Role**: Character identity definitions → image generation platform executable prompts (MJ/Flux/Jimeng/Kling)
+- **Capabilities**: 12-section character profile + multi-view character sheet image prompts + Negative Prompt
+- **Input**: Character identity definitions from `director-character`
+- **Output**: Copy-paste-ready character sheet prompts for image generation platforms
 
 ### director-prompt-packager
-- **职责**: 文本级编译器——STATE 1-3 所有设计产物 → 完整的电影级短片提示包
-- **能力**: 结构化分镜设计 + 镜头语言规范 + 声音设计方向 + Seedance Part 分解方案
-- **输出**: Film-Level Prompt Package（导演愿景总文档，用户确认后进入 STATE 5 分镜蓝图生成）
-- **注意**: 此为文本中间产物，**不是** Seedance 视频提示词。提示包确认后，分镜蓝图图像由 STATE 5 生成
+- **Role**: Text-level compiler — all STATE 1-3 design outputs → complete film-level short film prompt package
+- **Capabilities**: Structured storyboard design + camera language specs + sound design direction + Seedance Part decomposition plan
+- **Output**: Film-Level Prompt Package (Director's Vision Master Document; after user confirmation, proceeds to STATE 5 storyboard blueprint generation)
+- **Note**: This is a text intermediate artifact, **NOT** a Seedance video prompt. Storyboard blueprint images are generated by STATE 5 after package confirmation
 
 ### seedance-video-prompt (NEW)
-- **职责**: L5 视频生成编译器——分镜图像 + 角色参考图 → Seedance 2.0 可执行提示词
-- **能力**: @[ref] 图像引用语法、连续长镜头运动描述、音乐节奏指定、负面约束
-- **输入**: 已生成的分镜图像 + 角色参考图 + 产品图
-- **输出**: Seedance 2.0 / Runway / Sora / Kling 平台可直接使用的视频生成提示词
+- **Role**: L5 video generation compiler — storyboard images + character refs → Seedance 2.0 executable prompts
+- **Capabilities**: @[ref] image reference syntax, continuous long-take motion description, music tempo specification, negative constraints
+- **Input**: Generated storyboard images + character reference images + product images
+- **Output**: Seedance 2.0 / Runway / Sora / Kling platform-ready video generation prompts
 
 ---
 
 ### storyboard-sketch
-- **职责**: Seedance I2V 分镜草图规划（文本描述）
-- **双模式**: Compact Frame Prompts + Storyboard Master Sheet
-- **输出**: 文字分镜帧描述 + I2V 运动说明
+- **Role**: Seedance I2V storyboard planning (text description)
+- **Dual Mode**: Compact Frame Prompts + Storyboard Master Sheet
+- **Output**: Text storyboard frame descriptions + I2V motion notes
 
 ### storyboard-prompt
-- **职责**: 单帧分镜图提示词（→ MJ/Flux/即梦/可灵）
-- **框架**: 8要素（Scene/Subject/Action/Camera/Composition/Lighting/Mood/Story Purpose）
-- **输出**: 可粘贴到图像生成器的分镜帧提示词
+- **Role**: Single-frame storyboard image prompts (→ MJ/Flux/Jimeng/Kling)
+- **Framework**: 8 elements (Scene/Subject/Action/Camera/Composition/Lighting/Mood/Story Purpose)
+- **Output**: Copy-paste-ready storyboard frame prompts for image generators
 
 ### storyboard-master
-- **职责**: 分镜总览图/导演提案板（→ 图像生成器）
-- **结构**: 4区（Shot Grid + Rhythm + Camera Movement + Visual Language）
-- **输出**: 完整导演提案板提示词
+- **Role**: Storyboard master sheet / director treatment board (→ image generators)
+- **Structure**: 4 zones (Shot Grid + Rhythm + Camera Movement + Visual Language)
+- **Output**: Complete director treatment board prompt
 
 ### storyboard-ecommerce
-- **职责**: 电商带货/直播/服装分镜
-- **子模式**: Social Commerce Board + Fashion Director Board
-- **输出**: 含产品参考区+人物参考区的电商分镜提示词
+- **Role**: E-commerce / livestream / fashion storyboard
+- **Sub-modes**: Social Commerce Board + Fashion Director Board
+- **Output**: E-commerce storyboard prompts with product reference zones + character reference zones
 
-## 使用场景路由
+## Usage Scenario Routing
 
-| 你想做什么 | 加载哪个技能 |
-|-----------|------------|
-| "我有一个故事创意，帮我拍成AI电影" | `director-core`（自动调度全部流程） |
-| "分析这个剧本的结构" | `director-story` |
-| "设计这部电影的情绪曲线" | `director-emotion` |
-| "设计镜头语言和摄影机运动" | `director-camera` |
-| "设计光影风格和色彩脚本" | `director-light` |
-| "创建角色身份定义并锁定" | `director-character` |
-| "把角色身份定义编译为生图提示词" | `character-image-prompt` |
-| "把故事+视觉+角色编译为电影短片提示包" | `director-prompt-packager` |
-| "把分镜图+角色图编译为 Seedance 2.0 视频提示词" | `seedance-video-prompt` |
-| "生成分镜蓝图图给Seedance用" | `storyboard-sketch` |
-| "写一个分镜画面提示词给MJ" | `storyboard-prompt` |
-| "做一张导演提案板分镜总览图" | `storyboard-master` |
-| "做TK带货视频分镜/服装导演分镜" | `storyboard-ecommerce` |
+| What you want to do | Which skill to load |
+|---------------------|---------------------|
+| "I have a story idea, help me make an AI film" | `director-core` (auto-schedules full pipeline) |
+| "Analyze this script's structure" | `director-story` |
+| "Design this film's emotional curve" | `director-emotion` |
+| "Design camera language and movement" | `director-camera` |
+| "Design lighting style and color script" | `director-light` |
+| "Create and lock character identity definitions" | `director-character` |
+| "Compile character identity definitions into image prompts" | `character-image-prompt` |
+| "Compile story+visuals+characters into a film prompt package" | `director-prompt-packager` |
+| "Compile storyboard images + character refs into Seedance 2.0 video prompts" | `seedance-video-prompt` |
+| "Generate storyboard blueprint for Seedance" | `storyboard-sketch` |
+| "Write a storyboard frame prompt for MJ" | `storyboard-prompt` |
+| "Create a director treatment board master sheet" | `storyboard-master` |
+| "Create TikTok commerce video / fashion director storyboard" | `storyboard-ecommerce` |
 
-## 文件结构
+## File Structure
 
 ```
 .claude/skills/
@@ -198,18 +199,18 @@ STATE 8   EXPORT           打包交付
 └── storyboard-ecommerce/SKILL.md
 ```
 
-## 关键设计原则
+## Key Design Principles
 
-1. **阶段不可跳**: 禁止从创意直接跳到 Seedance 提示词——必须逐阶段验证
-2. **角色锁死**: 面部/发型/体型/服装四维参数必须在每一帧中保持一致
-3. **情绪驱动**: 摄影机、光影、节奏的选择都必须有情绪理由
-4. **动作优先**: AI 视频模型需要物理动作描述，不是情绪标签
-5. **连续性绑定**: 多 Part 视频必须引用前一个输出作为连续性基线
-6. **三层编译**: director-character(定义) → character-image-prompt(角色生图) + director-prompt-packager(提示包) → storyboard-*(分镜蓝图) → seedance-video-prompt(视频)
-7. **定义与提示分离**: 角色/分镜的"定义文档"和"生图提示词"由不同技能产出
+1. **No Phase Skipping**: Forbidden to jump from idea directly to Seedance prompts — must verify each phase
+2. **Character Lockdown**: Face/hair/body/wardrobe 4-axis parameters must remain consistent across every frame
+3. **Emotion-Driven**: Camera, lighting, and pacing choices must all have emotional justification
+4. **Action-First**: AI video models need physical action descriptions, not emotion labels
+5. **Continuity Binding**: Multi-part videos must reference the previous output as continuity baseline
+6. **Three-Tier Compilation**: director-character(definition) → character-image-prompt(character image gen) + director-prompt-packager(prompt package) → storyboard-*(storyboard blueprint) → seedance-video-prompt(video)
+7. **Definition/Prompt Separation**: Character and storyboard "definition documents" and "image generation prompts" are produced by different skills
 
-## 知识来源
+## Knowledge Sources
 
-- `reference/Director/` — AI Film OS 完整架构、核心技能系统、引擎规格、模块化规则
-- `reference/Storyboard/` — 分镜提示词规范、总览图设计框架、电商分镜模板
-- `reference/seedance-20/` — Seedance 2.0 操作系统技能包（参考）
+- `reference/Director/` — AI Film OS complete architecture, core skill systems, engine specifications, modular rules
+- `reference/Storyboard/` — Storyboard prompt specifications, master sheet design framework, e-commerce storyboard templates
+- `reference/seedance-20/` — Seedance 2.0 operating system skill package (reference)
