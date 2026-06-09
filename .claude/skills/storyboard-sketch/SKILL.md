@@ -14,6 +14,14 @@ Turn a scene idea, script, or concept into a storyboard plan for Seedance image-
 
 Favor clarity, continuity, and sketchability over polished cinematic prose in both modes.
 
+## Load Resources
+
+This skill includes bundled reference knowledge. Load when needed:
+
+- For Seedance I2V workflow, operation modes, motion note specifications, and failure fixes — read `references/seedance-i2v-workflow.md`
+- For anti-slop word replacement — read shared reference `../references/anti-slop-lexicon.md`
+- For Seedance platform constraints (word limits, @[ref] format) — read `../references/seedance-platform.md`
+
 ## Mode Selection Gate
 
 Before generating output, decide which mode to use:
