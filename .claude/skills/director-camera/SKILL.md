@@ -18,6 +18,7 @@ description: 为 AI 电影制作设计摄影机系统——摄影机语言、镜
 - 获取六种镜头语义学（观察/沉浸/揭示/对峙/孤立/扩展）和视觉优先级决策逻辑，阅读 `references/shot-semantics.md`
 - 获取 Seedance 平台特定的镜头合约、景别使用指南和运动语法，阅读 `references/seedance-shot-language.md`
 - 需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
+- 获取双语电影摄影速查表（景别、运动、角度、构图、灯光、叙事目的），阅读 `../references/cinematography-quick-reference.md`
 
 ## 核心原则
 
