@@ -1,128 +1,128 @@
 ---
 name: director-emotion
-description: 设计 AI 电影的情绪架构——情绪曲线、叙事节奏、强度评分和情绪→镜头映射。用于情绪设计、情绪曲线、叙事节奏、节奏设计、情绪弧线规划，或当 director-core 路由到 STATE 1（情绪设计）时。也适用于故事感觉平淡、用户想控制观众情绪体验、或需要将抽象感觉映射为具体视觉决策的情况。Design the emotional architecture of an AI film — emotion curves, narrative rhythm, intensity scoring, and emotion-to-shot mapping.
+description: Design the emotional architecture of an AI film — emotion curves, narrative rhythm, intensity scoring, and emotion-to-shot mapping. Use when the user needs emotional design, 情绪曲线, narrative pacing, rhythm design, emotional arc planning, or when director-core routes to STATE 1 (Emotion Design). Also use when the story feels flat, the user wants to control audience emotional experience, or needs to map abstract feelings to concrete visual decisions.
 ---
 
-# Director Emotion — 叙事情绪引擎
+# Director Emotion — Narrative Emotion Engine
 
-## 概览
+## Overview
 
-设计驱动观众体验的情绪旅程。此技能接收叙事结构（来自 `director-story`），并叠加一条情绪时间线：张力在哪里建立、在哪里释放、每个场景的感觉是什么、以及这些感觉如何映射到摄影机和视觉决策。输出是指导摄影、光影和节奏选择的情绪蓝图。
+Design the emotional journey that drives audience experience through the film. This skill takes a narrative structure (from `director-story`) and overlays an emotional timeline: where tension builds, where it releases, how each scene feels, and how those feelings map to camera and visual decisions. The output is the emotional blueprint that guides cinematography, lighting, and rhythm choices.
 
-可独立用于情绪设计，或由 `director-core` 在 STATE 1 调用。
+Works independently for emotional design or is invoked by `director-core` at STATE 1.
 
-## 加载资源
 
-本技能附带以下参考知识文件，在相应场景下读取：
-- 需要情绪弧线模式、情绪节拍结构和强度评分规则时，读取 `references/emotion-narrative.md`
-- 需要时间流类型（线性流/压缩流/扩展流）和情绪曲线类型（上升/下降/爆发/波动）时，读取 `references/temporal-flow.md`
+## Loaded Resources
 
-## 输入门
+This skill ships with reference knowledge files. Load them when:
+- For emotional arc patterns and intensity scoring templates, read `references/emotion-narrative.md`
+- For temporal flow types (linear/compressed/expanded) and emotion curve shapes, read `references/temporal-flow.md`
+## Input Gate
 
-至少需要：
-- 叙事结构或场景列表（来自 `director-story` 或用户提供）
-- 类型或情绪基调参考
+Requires at minimum:
+- A narrative structure or scene list (from `director-story` or user-provided)
+- A genre or emotional tone reference
 
-如果不足，询问："这个故事的总体情绪基调是什么？比如悬疑、浪漫、压抑、史诗？"
+If insufficient, ask: "这个故事的总体情绪基调是什么？比如悬疑、浪漫、压抑、史诗？"
 
-## 输出结构
+## Output Structure
 
-### 1. Emotional Arc Map（情绪曲线）
+### 1. Emotional Arc Map (情绪曲线)
 
-定义完整的情绪旅程：
-
-```
-[平静 / 稳定]
-    ↓
-[张力建立 / 好奇]
-    ↓
-[升级 / 冲突]
-    ↓
-[顶点 / 危机 / 高潮]
-    ↓
-[释放 / 解决 / 新状态]
-```
-
-为每个阶段分配：
-- **阶段名称**：如 "不安"、"发现"、"对峙"、"崩溃"、"接纳"
-- **情绪关键词**：2-3 个词捕捉主导感受
-- **强度级别**：1-10
-- **时长**：占总时长的百分比
-- **归属场景**：映射到场景列表
-
-### 2. Emotional Beats（情绪节拍）
-
-识别情绪转换的关键转折点：
+Define the full emotional journey:
 
 ```
-节拍 1：[事件] → 情绪从 [A] 转为 [B]
-节拍 2：[事件] → 情绪从 [B] 转为 [C]
-节拍 3：[事件] → 情绪从 [C] 转为 [D]
+[Calm / Stable]
+    ↓
+[Building Tension / Curiosity]
+    ↓
+[Escalation / Conflict]
+    ↓
+[Peak / Crisis / Climax]
+    ↓
+[Release / Resolution / New State]
+```
+
+For each phase, assign:
+- **Phase name**: e.g. "Unease", "Discovery", "Confrontation", "Collapse", "Acceptance"
+- **Emotional keywords**: 2-3 words capturing the dominant feeling
+- **Intensity level**: 1-10
+- **Duration**: percentage of total runtime
+- **Which scenes belong here**: map to the scene list
+
+### 2. Emotional Beats (情绪节拍)
+
+Identify the key turning points where emotion shifts:
+
+```
+Beat 1: [event] → emotion shifts from [A] to [B]
+Beat 2: [event] → emotion shifts from [B] to [C]
+Beat 3: [event] → emotion shifts from [C] to [D]
 ...
 ```
 
-每个节拍是观众情绪状态发生变化的时刻。这些是摄影机决策的锚点——影片中最重要的镜头。
+Each beat is a moment where the audience's emotional state changes. These are the anchor points for camera decisions — the most important shots in the film.
 
-### 3. Intensity Timeline（情绪强度分布）
+### 3. Intensity Timeline (情绪强度分布)
 
-映射整个时长的强度（1-10）：
+Map intensity (1-10) across the full duration:
 
 ```
 0% ────── 25% ────── 50% ────── 75% ────── 100%
  3         5          8          9          4
-[引入]   [建立]     [高潮]     [顶点]     [释放]
+[intro]  [build]   [climax]  [peak]    [release]
 ```
 
-### 4. Character Emotion Drift（角色情绪变化）
+### 4. Character Emotion Drift (角色情绪变化)
 
-为每个主要角色定义各自独立的情绪轨迹：
+For each major character, define their individual emotional trajectory:
 
 ```
-角色 [A]：
-- 场景 1：[情绪状态] → 强度 [N]
-- 场景 2：[情绪状态] → 强度 [N]
+Character [A]:
+- Scene 1: [emotional state] → intensity [N]
+- Scene 2: [emotional state] → intensity [N]
 - ...
-- 弧线：[从 X 到 Y 贯穿整个故事]
+- Arc: [from X to Y across the story]
 ```
 
-这对角色一致性至关重要——角色的情绪状态必须演进，而非重置。
+This is critical for character consistency — the character's emotional state must evolve, not reset.
 
-### 5. Emotion-to-Visual Mapping（情绪→视觉映射）
+### 5. Emotion-to-Visual Mapping (情绪→视觉映射)
 
-定义每种主要情绪如何转化为视觉决策：
+Define how each primary emotion translates into visual decisions:
 
-| 情绪 | Camera | Lighting | Color | Pace |
+| Emotion | Camera | Lighting | Color | Pace |
 |---------|--------|----------|-------|------|
-| 紧张 Tension | handheld / tight framing | flicker / high contrast | cold / desaturated | accelerating |
-| 浪漫 Romance | slow orbit / close-up | warm soft light | gold / amber | slow, breathing |
-| 恐惧 Fear | close-up / Dutch angle | low key / shadows | blue-green / dark | erratic |
-| 悲伤 Sadness | wide / static / negative space | soft diffused | blue-gray | very slow |
-| 力量 Power | low angle / symmetrical | dramatic rim | high contrast | controlled, steady |
-| 神秘 Mystery | partial framing / silhouettes | backlight / practical | muted / shadowed | deliberate pause |
+| Tension | handheld / tight framing | flicker / high contrast | cold / desaturated | accelerating |
+| Romance | slow orbit / close-up | warm soft light | gold / amber | slow, breathing |
+| Fear | close-up / Dutch angle | low key / shadows | blue-green / dark | erratic |
+| Sadness | wide / static / negative space | soft diffused | blue-gray | very slow |
+| Power | low angle / symmetrical | dramatic rim | high contrast | controlled, steady |
+| Mystery | partial framing / silhouettes | backlight / practical | muted / shadowed | deliberate pause |
 
-将此表用作 `director-emotion` 与 `director-camera` / `director-light` 之间的桥梁。
+Use this as the bridge between `director-emotion` and `director-camera` / `director-light`.
 
-### 6. Rhythm Structure（节奏结构）
+### 6. Rhythm Structure (节奏结构)
 
-定义整部影片的剪辑节奏：
+Define the editing rhythm across the film:
 
 ```
-[慢] → [建立] → [快] → [更快] → [骤然停顿] → [缓慢释放]
+[Slow] → [Building] → [Fast] → [Faster] → [Abrupt stop] → [Slow release]
 ```
 
-映射节奏密度（每时间段剪切数）并识别静默或静止应占主导的位置。
+Map rhythm density (cuts per time segment) and identify where silence or stillness should dominate.
 
-## 约束
+## Constraints
 
-- 每个场景必须被分配一个情绪值——不允许情绪中性场景。
-- 情绪必须在全片中发生变化——静态情绪令人乏味。
-- 角色情绪变化必须与叙事一致——不允许无动机的情绪转变。
-- 情绪→视觉映射必须作为输入传递给 `director-camera` 和 `director-light`。
+- Every scene must be assigned an emotional value — no emotionally neutral scenes.
+- Emotion must change across the duration — static emotion is boring.
+- Character emotion drift must be consistent with the narrative — no unmotivated emotional shifts.
+- The emotion-to-visual mapping must be handed to `director-camera` and `director-light` as input.
 
-## 与 director-core 的集成
+## Integration with director-core
 
-当被 `director-core` 调用时：
-- 从 `director-story` 加载叙事结构
-- 产出完整的情绪蓝图
-- 提交用户确认
-- 将情绪→视觉映射输入 STATE 2（视觉设计）
+When invoked by `director-core`:
+- Load the narrative structure from `director-story`
+- Produce the full Emotional Blueprint  
+- Present for user confirmation
+- Feed the emotion-to-visual mapping into STATE 2 (Visual Design)

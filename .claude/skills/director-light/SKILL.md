@@ -1,169 +1,169 @@
 ---
 name: director-light
-description: 为 AI 电影制作设计色彩脚本和光影系统——情绪→色彩映射、光影推进图、场景调色板设计和视觉温度控制。用于光影设计、光影设计、色彩脚本、色彩脚本、氛围灯光、视觉氛围，或当 director-core 路由到 STATE 2（视觉设计）时。也适用于影片视觉平淡、用户想要 Pixar 风格的色彩脚本、或需要跨镜头保持光影连续性的情况。Design the color script and lighting system for AI film production — emotion-to-color mapping, lighting progression, scene palette design, and visual temperature control.
+description: Design the color script and lighting system for AI film production — emotion-to-color mapping, lighting progression, scene palette design, and visual temperature control. Use when the user needs lighting design, 光影设计, color script, 色彩脚本, mood lighting, visual atmosphere, or when director-core routes to STATE 2 (Visual Design). Also use when the film feels visually flat, the user wants a Pixar-style color script, or needs to maintain lighting continuity across shots.
 ---
 
-# Director Light — 色彩与光影智能引擎
+# Director Light — Color & Lighting Intelligence Engine
 
-## 概览
+## Overview
 
-设计赋予影片情绪质感的视觉氛围系统。此技能构建两个相互关联的系统：Color Script（色彩脚本），将情绪旅程映射到整个时长的特定调色板；Lighting Design（光影设计），指定每个场景的光源、质量和演进。输出确保每一帧都有视觉一致性和情绪意图性。
+Design the visual mood system that gives the film its emotional texture. This skill builds two interconnected systems: a Color Script that maps the emotional journey to specific palettes across the full duration, and a Lighting Design that specifies light sources, qualities, and progression for each scene. The output ensures visual consistency and emotional intentionality in every frame.
 
-可独立用于光影/色彩设计，或由 `director-core` 在 STATE 2 调用。
+Works independently for lighting/color design or is invoked by `director-core` at STATE 2.
 
-## 加载资源
 
-本技能附带以下参考知识文件，在相应场景下读取：
-- 需要完整的情绪→色彩映射表、灯光类型速查、场景调色板模板、常见灯光预设方案时，读取 `references/color-lighting.md`
+## Loaded Resources
 
-## 核心原则
+This skill ships with reference knowledge files. Load them when:
+- For emotion-to-color mapping tables, lighting types, scene palette templates, and common lighting presets, read `references/color-lighting.md`
+## The Core Principle
 
-> 光和色彩是情绪演员，不是环境默认值。
+> Light and color are emotional actors, not environmental defaults.
 
-每个光影和色彩决策都必须服务于叙事。暖、冷、对比度、饱和度——这些是控制观众感受的工具，不仅仅是审美偏好。
+Every lighting and color decision must serve the narrative. Warmth, cold, contrast, saturation — these are tools for controlling audience feeling, not just aesthetic preferences.
 
-## 输出结构
+## Output Structure
 
-### 1. Global Color Script（全片色彩脚本）
+### 1. Global Color Script (全片色彩脚本)
 
-设计贯穿整部影片的色彩旅程——类似 Pixar 的色彩脚本。为每个叙事阶段（映射自 `director-emotion` 的情绪弧线）：
+Design the color journey across the full film duration — similar to a Pixar color script. For each narrative phase (mapped from `director-emotion`'s emotional arc):
 
 ```
-阶段 1 [名称]：[时长占比%]
-- 主导调色板：[2-3 种颜色，含色值或描述性名称]
-- 饱和度级别：[low / medium / high]
-- 对比度级别：[low / medium / high]
-- 色温：[warm / cool / neutral / mixed]
-- 视觉参考：[用一句话描述画面质感]
+Phase 1 [name]: [duration %]
+- Dominant palette: [2-3 colors with hex or descriptive names]
+- Saturation level: [low / medium / high]
+- Contrast level: [low / medium / high]
+- Temperature: [warm / cool / neutral / mixed]
+- Visual reference: [one-line description of the look]
 
-阶段 2 [名称]：[时长占比%]
+Phase 2 [name]: [duration %]
 ...
 ```
 
-色彩脚本必须展示演进——色彩必须随故事而变化，不能静止。
+The color script must show progression — color must evolve with the story, not remain static.
 
-### 2. Emotion-to-Color Mapping（情绪→色彩映射）
+### 2. Emotion-to-Color Mapping (情绪→色彩映射)
 
-定义色彩语言：
+Define the color language:
 
-| 情绪 | 主导色彩 | 色温 | 饱和度 | 对比度 |
+| Emotion | Dominant Color | Temperature | Saturation | Contrast |
 |---------|---------------|-------------|------------|----------|
-| 悲伤/孤独 Sadness | 蓝灰 Blue-gray | 冷 Cold | 低饱和 Desaturated | 低 Low |
-| 爱/浪漫 Love | 暖金/琥珀 Warm gold, amber | 暖 Warm | 中 Medium | 柔 Soft |
-| 恐惧/惊悚 Fear | 绿/暗去饱和 Green, dark | 冷 Cold | 极低 Very low | 高 High |
-| 愤怒/冲突 Anger | 红/高对比 Red, high contrast | 热 Hot | 高 High | 极高 Very high |
-| 平静/释然 Peace | 柔蓝/暖白 Soft blue, warm white | 中性暖 Neutral-warm | 中 Medium | 低 Low |
-| 神秘 Mystery | 深紫/阴影 Deep purple, shadow | 冷暖混合 Cold-warm mix | 可变 Variable | 高 High |
-| 权力/奢华 Power | 黑/金/银 Black, gold, silver | 冷 Cool | 中低 Low-mid | 高 High |
-| 希望/乐观 Hope | 暖黄/柔绿 Warm yellow, soft green | 暖 Warm | 中 Medium | 柔 Soft |
+| Sadness / Loneliness | Blue-gray | Cold | Desaturated | Low |
+| Love / Romance | Warm gold, amber | Warm | Medium | Soft |
+| Fear / Horror | Green, dark desaturated | Cold | Very low | High |
+| Anger / Conflict | Red, high contrast | Hot | High | Very high |
+| Peace / Resolution | Soft blue, warm white | Neutral-warm | Medium | Low |
+| Mystery | Deep purple, shadow | Cold-warm mix | Variable | High |
+| Power / Luxury | Black, gold, silver | Cool | Low-mid | High |
+| Hope / Optimism | Warm yellow, soft green | Warm | Medium | Soft |
 
-### 3. Lighting Progression Map（光影推进图）
+### 3. Lighting Progression Map (光影推进图)
 
-定义光影如何随叙事变化：
+Define how lighting changes across the narrative:
 
 ```
-场景 1：[光影方案] → 情绪功能：[为什么]
-场景 2：[光影方案] → 如何从场景 1 演变而来
+Scene 1: [lighting setup] → emotional function: [why]
+Scene 2: [lighting setup] → how it evolves from Scene 1
 ...
 ```
 
-为每个场景的光影指定：
+For each scene's lighting, specify:
 
-**灯光类型：**
-| 类型 | 中文 | 情绪功能 |
+**Lighting Types:**
+| Type | 中文 | Emotional Function |
 |------|------|-------------------|
-| Natural Light | 自然光 | 现实感、纪录片质感 |
-| Hard Light | 硬光 | 冲突、压力、残酷真相 |
-| Soft Diffused Light | 柔光 | 浪漫、梦境、回忆 |
-| Neon / Colored Light | 霓虹光 | 科技、夜晚、都市、超现实 |
-| Silhouette / Backlight | 剪影光 | 神秘、情绪隐藏、揭示 |
-| Practical Light | 实景光 | 剧情内光源（灯、窗户、屏幕） |
-| Volumetric Light | 体积光 | 氛围、光束、上帝之光 |
-| Flicker Light | 闪烁光 | 不稳定、紧张、恐惧 |
+| Natural Light | 自然光 | Realism, documentary feel |
+| Hard Light | 硬光 | Conflict, pressure, harsh truth |
+| Soft Diffused Light | 柔光 | Romance, dream, memory |
+| Neon / Colored Light | 霓虹光 | Technology, night, urban, surreal |
+| Silhouette / Backlight | 剪影光 | Mystery, emotional hiding, reveal |
+| Practical Light | 实景光 | Diegetic sources (lamps, windows, screens) |
+| Volumetric Light | 体积光 | Atmosphere, beams, god rays |
+| Flicker Light | 闪烁光 | Instability, tension, fear |
 
-**光线方向：**
-- 主光位置和动机
-- 辅助光强度和质量
-- 轮廓光/背光用于主体分离
-- 每个光源的色温
-- 阴影质量（软/硬）和方向
+**Lighting Direction:**
+- Key light position and motivation
+- Fill light intensity and quality
+- Rim/backlight for subject separation
+- Color temperature of each source
+- Shadow quality (hard/soft) and direction
 
-### 4. Scene Palette System（场景专属调色板）
+### 4. Scene Palette System (场景专属调色板)
 
-为每个场景锁定调色板：
-
-```
-SCENE [N]：[名称]
-- Key light 主光：[来源、方向、色温、质量]
-- Fill 辅助光：[来源、强度、色温]
-- Rim 轮廓光：[来源、颜色、目的]
-- Ambient 环境光：[整体色调]
-- Shadows 阴影：[密度、色调偏好]
-- Special 特殊：[体积光、实景光、反射]
-- Palette lock 调色板锁定：[此场景中必须保持一致的元素]
-```
-
-### 5. Visual Temperature Curve（冷暖变化曲线）
-
-追踪整个时长的色温：
+For each scene, lock the palette:
 
 ```
-暖 Warm ┤         ╭──╮
-         │        ╱    ╲
-中 Neut ┤───────╱      ╲──────
-         │      ╱        ╲
-冷 Cool ┤╭────╱          ╲────
-         │╲
-         0%──────25%──────50%──────75%──────100%
+SCENE [N]: [name]
+- Key light: [source, direction, color temp, quality]
+- Fill: [source, intensity, color temp]
+- Rim: [source, color, purpose]
+- Ambient: [overall color cast]
+- Shadows: [density, color bias]
+- Special: [volumetric, practical, reflections]
+- Palette lock: [what must stay consistent in this scene]
 ```
 
-用叙事事件标注温度转换——从暖到冷的转变应对应一个故事节拍。
+### 5. Visual Temperature Curve (冷暖变化曲线)
 
-### 6. Lighting Continuity Rules（光影连续性）
+Track color temperature across the full duration:
 
-全片必须遵守的规则：
+```
+Warm ┤         ╭──╮
+     │        ╱    ╲
+Neut ┤───────╱      ╲──────
+     │      ╱        ╲
+Cool ┤╭────╱          ╲────
+     │╲
+     0%──────25%──────50%──────75%──────100%
+```
 
-- 主光方向在同一场景内必须保持一致
-- 色温变化必须有动机（时间变化、地点变化、情绪转折）
-- 阴影质量应演进，而非随意重置
-- 在一个镜头中建立的实景光源必须在同一场景的后续镜头中持续存在
-- 不允许无动机的"美颜灯光"——每个光源必须有叙事或剧情内的理由
+Annotate temperature shifts with narrative events — a shift from warm to cold should correspond to a story beat.
 
-## 情绪灯光模板
+### 6. Lighting Continuity Rules (光影连续性)
 
-常见灯光氛围的快速参考：
+Rules that must hold across the film:
 
-**浪漫 Romantic：**
-- 单侧暖主光（黄金时刻或实景灯）
-- 柔辅光减少阴影
-- 微暖轮廓光做发丝光
-- 浅景深带散景
-- 轻微暖色调色
+- Key light direction must remain consistent within each scene
+- Color temperature shifts must be motivated (time of day, location change, emotional shift)
+- Shadow quality should evolve, not reset arbitrarily
+- Practical light sources established in one shot must persist in subsequent shots of the same scene
+- No unmotivated "beauty lighting" — every light source must have a narrative or diegetic reason
 
-**紧张/惊悚 Tension / Thriller：**
-- 非常规角度的硬主光（低位或高位）
-- 深阴影伴最少辅光
-- 冷色温
-- 实景光源（闪烁荧光灯、街灯）
-- 高对比度调色
+## Emotional Lighting Templates
 
-**奢华/商业 Luxury / Commercial：**
-- 大面积柔主光均匀照明
-- 强轮廓光/背光做产品边缘界定
-- 冷调阴影增加深度
-- 表面受控反射
-- 干净的高调调色
+Quick-reference for common lighting moods:
 
-## 约束
+**Romantic:**
+- Warm key from one side (golden hour or practical lamp)
+- Soft fill to reduce shadows
+- Subtle warm rim for hair light
+- Shallow DOF with bokeh
+- Slight warm color grade
 
-- 每个场景必须有确定的主光光源——不允许纯环境光。
-- 色彩必须随叙事演进——静态调色板 = 错失的机会。
-- 光影连续性必须在分镜交付前验证。
-- 同一场景的镜头之间不允许无动机的色调跳变。
+**Tension / Thriller:**
+- Hard key from unusual angle (low or high)
+- Deep shadows with minimal fill
+- Cool color temperature
+- Practical sources (flickering fluorescent, street light)
+- High contrast grade
 
-## 集成
+**Luxury / Commercial:**
+- Large soft key for even illumination
+- Strong rim/backlight for product edge definition
+- Cool-toned shadows for depth
+- Controlled reflections on surfaces
+- Clean, high-key color grade
 
-当被 `director-core` 调用时：
-- 从 `director-emotion` 加载情绪蓝图以构建情绪→色彩映射
-- 与 `director-camera` 对齐以确保视觉语言一致
-- 场景调色板系统直接输入到分镜和提示词编译
+## Constraints
+
+- Every scene must have a defined key light source — no ambient-only lighting.
+- Color must evolve with the narrative — static palette = missed opportunity.
+- Lighting continuity must be verified before storyboard handoff.
+- No unmotivated color grade shifts between shots of the same scene.
+
+## Integration
+
+When invoked by `director-core`:
+- Load emotional blueprint from `director-emotion` for the Emotion-to-Color Mapping
+- Align with `director-camera` for consistent visual language
+- The Scene Palette System feeds directly into storyboard and prompt compilation

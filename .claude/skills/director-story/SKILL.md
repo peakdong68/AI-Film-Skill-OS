@@ -1,137 +1,137 @@
 ---
 name: director-story
-description: 将故事创意、剧本或概念拆解为导演级叙事结构，包含场景拆解、因果链分析和导演意图。用于剧本分析、故事结构设计、剧本拆解、场景分解、叙事架构、3幕或5幕结构，或当 director-core 路由到 STATE 1（故事设计）时。也适用于用户只有模糊故事创意、需要将其转化为结构化场景序列后再进入分镜的情况。Deconstruct a story idea, script, or concept into a director-grade narrative structure with scene breakdown, causal chain analysis, and director intent.
+description: Deconstruct a story idea, script, or concept into a director-grade narrative structure with scene breakdown, causal chain analysis, and director intent. Use when the user needs script analysis, story structure design, 剧本拆解, scene decomposition, narrative architecture, 3-act or 5-act structure, or when director-core routes to STATE 1 (Story Design). Also use when the user has a vague story idea and needs it turned into a structured scene sequence before proceeding to storyboard.
 ---
 
-# Director Story — 剧本导演引擎
+# Director Story — Script Director Engine
 
-## 概览
+## Overview
 
-将故事创意或剧本转化为专业叙事蓝图。此技能应用导演级分析：将故事拆分为幕、提取场景目的、构建因果链、定义每个场景在叙事上必须实现的目标。输出是所有下游系统（情绪、摄影机、分镜、提示词）赖以构建的结构基础。
+Transform a story idea or script into a professional narrative blueprint. This skill applies director-level analysis: breaking the story into acts, extracting scene purpose, building the causal chain, and defining what each scene must achieve narratively. The output is the structural foundation that all downstream systems (emotion, camera, storyboard, prompt) build upon.
 
-此技能可独立用于剧本分析，或由 `director-core` 在 STATE 1 调用。
+This skill works independently for script analysis or is invoked by `director-core` at STATE 1.
 
-## 加载资源
 
-本技能附带以下参考知识文件，在相应场景下读取：
-- 需要场景目的分类体系、3/5 幕叙事结构完整模板和因果链构建规则时，读取 `references/script-breakdown.md`
+## Loaded Resources
 
-## 输入门
+This skill ships with reference knowledge files. Load them when:
+- For the scene purpose taxonomy and complete narrative structure templates, read `references/script-breakdown.md`
+## Input Gate
 
-接受以下任一项作为起始素材：
-- 故事概念（一句话至一段）
-- 剧本或剧本片段
-- 节拍大纲或故事提案
-- 场景列表
-- 带有角色描述的主题概念
+Accept any of these as starting material:
+- A story concept (one sentence to one paragraph)
+- A script or script excerpt
+- A beat outline or treatment
+- A scene list
+- A thematic concept with character description
 
-如果用户提供的故事素材少于 20 个词，先询问更多细节再继续。如果他们说 "直接生成"，从现有素材展开并标注假设。
+If the user provides fewer than 20 words of story material, ask for more detail before proceeding. If they say "直接生成", expand from the available material and mark assumptions.
 
-## 输出结构
+## Output Structure
 
-每项分析都必须产出一份包含以下 5 个部分的剧本导演蓝图：
+Every analysis must produce a Script Director Blueprint with these 5 sections:
 
-### 1. Narrative Structure Map（叙事结构）
+### 1. Narrative Structure Map (叙事结构)
 
-选择并填充一种结构：
+Select and populate one structure:
 
-**三幕结构：**
+**3-Act Structure:**
 ```
-Act 1：Setup 建立 — [世界、角色、现状]
-  转折点 1：[激励事件]
-Act 2：Confrontation 对抗 — [递增的障碍、复杂化]
-  中点转折：[不可逆的变化]
-  转折点 2：[至暗时刻 / 危机]
-Act 3：Resolution 解决 — [高潮、新平衡]
-```
-
-**五幕结构：**
-```
-Act 1：Exposition 铺陈 — [建立世界和角色]
-Act 2：Rising Action 推进 — [复杂化累积]
-Act 3：Climax 高潮 — [冲突顶点、决定性时刻]
-Act 4：Falling Action 回落 — [后果展开]
-Act 5：Denouement 结局 — [解决、新状态]
+Act 1: Setup — [world, character, status quo]
+  Turning Point 1: [inciting incident]
+Act 2: Confrontation — [rising obstacles, complications]
+  Midpoint Shift: [irreversible change]
+  Turning Point 2: [darkest moment / crisis]
+Act 3: Resolution — [climax, new equilibrium]
 ```
 
-短内容（≤30s）默认用三幕。长篇（>60s）考虑五幕。
-
-### 2. Scene Breakdown Map（场景拆解）
-
-为每个场景定义：
-
+**5-Act Structure:**
 ```
-SCENE [N]：[场景标题]
-- 场景目的：[这个场景为什么存在于叙事中]
-- 情绪功能：[观众感受到什么情绪？]
-- 叙事功能：[推进剧情 / 揭示角色 / 构建世界 / 制造张力 / 解决]
-- 参与角色：[谁出场]
-- 冲突类型：[内心 / 人际 / 外部 / 环境]
-- 进入状态 → 退出状态：[场景结束时改变了什么？]
+Act 1: Exposition — [world and character established]
+Act 2: Rising Action — [complications accumulate]
+Act 3: Climax — [peak conflict, decisive moment]
+Act 4: Falling Action — [consequences unfold]
+Act 5: Denouement — [resolution, new state]
 ```
 
-### 3. Causal Chain（因果链）
+For short-form content (≤30s), default to 3-act. For long-form (>60s), consider 5-act.
 
-定义驱动叙事前进的因果链条：
+### 2. Scene Breakdown Map (场景拆解)
+
+For each scene, define:
 
 ```
-事件 A → 触发 → 事件 B → 导致 → 事件 C
+SCENE [N]: [scene title]
+- Scene purpose: [why this scene exists in the narrative]
+- Emotional function: [what emotion does the audience feel?]
+- Narrative function: [advance plot / reveal character / build world / create tension / resolve]
+- Characters involved: [who appears]
+- Conflict type: [internal / interpersonal / external / environmental]
+- Entry state → Exit state: [what changes by scene end?]
 ```
 
-映射依赖关系：
+### 3. Causal Chain (因果链)
+
+Define the chain of causation that drives the narrative forward:
+
 ```
-[场景 1 事件] → 导致 → [场景 2 状况] → 迫使 → [场景 3 决定] → 最终导向 → [高潮]
+Event A → triggers → Event B → consequence → Event C
 ```
 
-对每个链接验证："如果去掉这个事件，下一个场景还成立吗？" 如果成立，因果链接就太弱。
+Map dependencies:
+```
+[Scene 1 event] → causes → [Scene 2 situation] → forces → [Scene 3 decision] → results in → [Climax]
+```
 
-### 4. Director Intent Layer（导演意图层）
+For each link, verify: "If I remove this event, does the next scene still make sense?" If yes, the causal link is weak.
 
-为每个场景回答三个导演问题：
+### 4. Director Intent Layer (导演意图层)
 
-| 问题 | 揭示什么 |
+For every scene, answer three director questions:
+
+| Question | What it reveals |
 |---|---|
-| 这个场景为什么存在？ | 叙事合理性——如果删掉它而不损失任何东西，它就不该存在 |
-| 这个场景后改变了什么？ | 增量——观众认知、角色状态、张力级别 |
-| 观众带着什么情绪离开？ | 情绪残留——什么感觉会被带入下一个场景 |
+| Why does this scene exist? | Narrative justification — if you can cut it without losing anything, it shouldn't exist |
+| What changes after this scene? | The delta — audience knowledge, character state, tension level |
+| What emotion does the audience leave with? | Emotional residual — what feeling carries into the next scene |
 
-### 5. Storyboard Readiness Check（分镜准备度）
+### 5. Storyboard Readiness Check (分镜准备度)
 
-评估叙事结构是否准备好进入分镜：
+Assess whether the narrative structure is ready for storyboard:
 
-- [ ] 每个场景都有明确目的
-- [ ] 因果链没有断点
-- [ ] 情绪弧线覆盖完整时长
-- [ ] 角色动机驱动剧情，而非巧合
-- [ ] 每个场景的导演意图清晰
+- [ ] Every scene has a clear purpose
+- [ ] Causal chain has no gaps
+- [ ] Emotional arc covers the full duration
+- [ ] Character motivations drive plot, not coincidence
+- [ ] Director intent is clear for every scene
 
-如有未勾选项，在交付给分镜前标注缺失内容。
+If any item is unchecked, note what's missing before handing off to storyboard.
 
-## 场景目的分类法
+## Scene Purpose Taxonomy
 
-用以下类别对所有场景进行目的分类。每个场景必须至少归属一个：
+Use these categories to classify scene purpose. Every scene must fall into at least one:
 
-| 类别（Category） | 中文 | 特征（Signal） |
+| Category | 中文 | Signal |
 |---|---|---|
-| Establish | 建立 | 引入世界、角色或现状 |
-| Advance | 推进 | 通过行动或决定推动剧情 |
-| Reveal | 揭示 | 暴露信息、角色真相或利害关系 |
-| Escalate | 升级 | 增加张力、利害关系或冲突 |
-| Contrast | 对比 | 并置两种状态、角色或理念 |
-| Transition | 过渡 | 连接主要叙事段落 |
-| Resolve | 收束 | 终结弧线、回答问题、达成闭合 |
+| Establish | 建立 | Introduce world, character, or status quo |
+| Advance | 推进 | Move plot forward through action or decision |
+| Reveal | 揭示 | Expose information, character truth, or stakes |
+| Escalate | 升级 | Increase tension, stakes, or conflict |
+| Contrast | 对比 | Juxtapose two states, characters, or ideas |
+| Transition | 过渡 | Bridge between major narrative blocks |
+| Resolve | 收束 | Conclude an arc, answer a question, reach closure |
 
-## 约束
+## Constraints
 
-- 无目的的场景不可存在——如果场景仅为美学原因存在，标注并请用户确认。
-- 无孤立事件——每个事件必须连接到因果链。
-- 无未经审视的导演意图——每个场景必须通过三个问题。
-- 准备度检查通过前不得交付分镜。
+- No scene without a purpose — if a scene exists only for aesthetic reasons, mark it and ask the user to confirm.
+- No orphaned events — every event must connect to the causal chain.
+- No unexamined director intent — every scene must pass the three questions.
+- No handoff to storyboard until the Readiness Check passes.
 
-## 与 director-core 的集成
+## Integration with director-core
 
-当被 `director-core` 在 STATE 1 调用时：
-- 产出完整的剧本导演蓝图
-- 提交给用户确认
-- 确认后，标记 STATE 1 完成
-- 蓝图输入到 `director-emotion` 以构建情绪时间线
+When invoked by `director-core` at STATE 1:
+- Produce the full Script Director Blueprint
+- Present for user confirmation
+- Upon confirmation, signal STATE 1 complete
+- The blueprint feeds into `director-emotion` for the emotional timeline
