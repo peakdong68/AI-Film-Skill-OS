@@ -315,88 +315,14 @@ Hook抓眼球 → 问题呈现 → 解决方案 → 效果展示 → CTA引导
 ```
 
 ---
+## 加载资源
 
-# Quick Reference 速查表
+此技能包含内置参考知识。需要时加载：
 
-## Shot Size 景别速查
-
-| Code | Name | 中文 | Use 用途 |
-|------|------|------|-----|
-| EWS | Extreme Wide Shot | 超远景 | 建立广袤环境 |
-| WS | Wide Shot | 全景/远景 | 环境中展示全身 |
-| FS | Full Shot | 全身 | 完整人物，从头到脚 |
-| MLS | Medium Long Shot | 中全景 | 膝盖以上 |
-| MS | Medium Shot | 中景 | 腰部以上 |
-| MCU | Medium Close-Up | 中特写 | 胸部以上 |
-| CU | Close-Up | 特写 | 面部或产品细节 |
-| ECU | Extreme Close-Up | 超特写 | 眼睛、质感、微小细节 |
-| OTS | Over-Shoulder | 过肩 | 从角色背后拍摄，展示前景主体 |
-| POV | Point of View | 主观视角 | 通过角色眼睛观看 |
-
-## Camera Movement 运镜速查
-
-| Type | 中文 | Behavior 行为 |
-|------|------|----------|
-| Static | 定镜 | 无运动，锁定画框 |
-| Push-in | 推 | 摄影机向主体移动 |
-| Pull-out | 拉 | 摄影机远离主体 |
-| Pan | 摇 | 在轴线上水平旋转 |
-| Tilt | 俯仰 | 在轴线上垂直旋转 |
-| Dolly/Track | 移/轨道 | 摄影机物理横向移动 |
-| Crane | 升降 | 摄影机升高或降低 |
-| Orbit | 环绕 | 围绕主体做圆周运动 |
-| Handheld | 手持 | 轻微自然抖动 |
-| Steadicam | 稳定器 | 平滑漂浮运动 |
-| FPV | 第一人称 | 无人机式动态运动 |
-
-## Camera Angle 机位角度速查
-
-| Angle | 中文 | Effect 效果 |
-|-------|------|--------|
-| Eye Level | 平视 | 中立、亲切 |
-| Low Angle | 仰拍 | 力量感、支配感、史诗感 |
-| High Angle | 俯拍 | 脆弱感、概览视角 |
-| Bird's Eye | 鸟瞰 | 上帝视角、地图视图 |
-| Dutch Angle | 斜角 | 不安、迷失方向 |
-| Profile | 侧面 | 观察、剪影 |
-
-## Composition 构图速查
-
-| Type | 中文 | When to use 何时用 |
-|------|------|-------------|
-| Rule of Thirds | 三分法 | 平衡、自然的取景 |
-| Centered | 居中 | 强调、对称、产品聚焦 |
-| Leading Lines | 引导线 | 深度、将目光引向主体 |
-| Symmetry | 对称 | 秩序、形式感、建筑 |
-| Negative Space | 负空间 | 孤立、极简、留白 |
-| Frame Within Frame | 框中框 | 层次感、窥视感、聚焦 |
-| Foreground Silhouette | 前景剪影 | 深度、神秘感 |
-
-## Lighting 光线速查
-
-| Type | 中文 | Mood 情绪 |
-|------|------|------|
-| High Key | 高调光 | 明亮、乐观、商业 |
-| Low Key | 低调光 | 黑暗、戏剧性、黑色电影 |
-| Rim Light | 轮廓光 | 分离感、英雄镜头、产品边缘 |
-| Volumetric | 体积光 | 氛围感、光束、上帝之光 |
-| Golden Hour | 黄金时刻 | 温暖、怀旧、自然美 |
-| Soft Diffuse | 柔光 | 柔和、讨喜、美感 |
-| Hard Light | 硬光 | 粗粝、严酷、高对比 |
-| Practical Light | 实景光 | 叙事内光源、真实感 |
-
-## Narrative Purpose 叙事目的速查
-
-| Purpose | 中文 | Typical shot 典型镜头 |
-|---------|------|--------------|
-| Establish | 建立空间 | 全景/环境开场 |
-| Introduce | 引入角色 | 角色入场或亮相 |
-| Emphasize | 强化信息 | 细节特写、产品聚焦 |
-| Reveal | 揭示转折 | 关键物品发现、情绪转变 |
-| Transition | 过渡衔接 | 场景或节拍之间的桥梁 |
-| Build tension | 制造悬念 | 缓推、暗调取景、画外音 |
-| Release | 释放/收尾 | 解决、品牌标签、CTA |
-| Contrast | 对比冲突 | 尺度、情绪或状态的并置 |
+- 获取 Seedance I2V 工作流、操作模式和运动备注规范，阅读 `references/seedance-i2v-workflow.md`
+- 需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
+- 获取双语景别、摄影机运动、角度、构图、灯光和叙事目的速查表，阅读 `references/quick-reference.md`
+- 获取 Seedance 平台约束（字数限制、@[ref] 格式），阅读共享参考 `../references/seedance-platform.md`
 
 ---
 
@@ -404,7 +330,7 @@ Hook抓眼球 → 问题呈现 → 解决方案 → 效果展示 → CTA引导
 
 - 读者应能通过浏览帧标题和草图提示词理解整个场景。
 - 每条提示词应可作为一张分镜面板绘制。
-- 每帧必须有清晰的故事目的——回答了"这个镜头为什么存在"。
+- 每帧必须有清晰的故事目的——回答"这个镜头为什么存在"。
 - 规划板应在最终 Seedance 提示词写作之前就具备可用性。
 - 若用户要求中文输出，以简洁中文按相同结构书写全部提示词。
-- 对于总览图模式，四个区（Shot Grid, Rhythm, Camera, Visual Language）应构成一份连贯的规划文档，而非仅仅是镜头罗列。
+- 对于总览图模式，四个区（分镜网格、节奏、摄影机、视觉语言）应构成一份连贯的规划文档，而非仅仅是镜头罗列。
