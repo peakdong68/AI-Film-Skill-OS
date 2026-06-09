@@ -13,7 +13,7 @@ This is the final compiler of **L5 — VIDEO GENERATION LAYER** in the AI Film O
 - `director-prompt-packager` (STATE 4): Text-level compiler → produces a film-level short film prompt package (storyboard design + camera language + sound design + Seedance decomposition plan). **Not a video platform prompt.**
 - `seedance-video-prompt` (STATE 6): Image-reference-level compiler → produces Seedance 2.0 executable prompts for video platforms.
 
-**Knowledge Dependency:** This skill draws from the Seedance 2.0 prompt methodology in `reference/seedance-20/` — including the Director Formula, @[ref] role mapping, compression rules, anti-slop, and I2V best practices.
+**Knowledge Dependency:** Seedance 2.0 prompt methodology is built into this skill — including the Director Formula, @[ref] role mapping, compression rules, anti-slop, and I2V best practices.
 
 ## Platform Hard Constraints
 
@@ -42,7 +42,7 @@ All uploaded image/video/audio assets use the `@[description]` format:
 
 > Seedance 2.0 prompts are **image-reference-driven motion instructions**. They reference locked visual assets (storyboard images, character images, product images), adding temporal motion descriptions to them. **Only describe what the image cannot convey** — motion, camera, lighting changes, time progression, sound.
 
-Drawing from the Director Formula in `reference/seedance-20/`:
+Seedance Director Formula:
 
 ```
 Subject + Action + Scene + Camera + Lighting/Style + Audio + Constraints
@@ -65,7 +65,7 @@ Before compiling, verify these assets are ready:
 
 If any critical asset is missing, prompt the user to generate the corresponding image using an AI image generator first.
 
-## Reference Role Mapping (from seedance-20 reference-workflow)
+## Reference Role Mapping
 
 Before writing prompts, assign a **unique primary role** to each uploaded asset. Role mapping prevents accidental cross-contamination between identity, logo, scene ownership, and camera instructions.
 
@@ -176,7 +176,7 @@ No unnatural motion, no CGI artifacts.
 [Scene-specific constraints]
 ```
 
-## I2V Core Principles (from seedance-20 i2v-guide)
+## I2V Core Principles
 
 **Only describe what the image cannot convey.** A static image already contains subject identity, product form, clothing, color palette, composition, background. Re-describing these static details typically causes drift. Only add to the image: motion, camera, time progression, lighting changes, sound, preservation constraints.
 
@@ -196,7 +196,7 @@ No unnatural motion, no CGI artifacts.
 | Background change | Preserve environment layout, only animate lighting/weather/atmosphere |
 | Hand deformation | Simplify hand motion or exclude hands from the main action |
 
-## Mode Gates (from seedance-20 seedance-prompt)
+## Mode Gates
 
 | Mode | Compilation Priority | Common Error | Fix |
 |------|---------|---------|------|
@@ -204,7 +204,7 @@ No unnatural motion, no CGI artifacts.
 | **I2V** | Preserve visible identity; add motion | Re-describing image until product or face drifts | Write `strictly preserve @[image 1]`; only add dynamic changes |
 | **R2V** | Assign independent roles to each asset | One asset asked to simultaneously control identity, pose, scene, and style | Split roles or prioritize the most important role |
 
-## Compression Rules (from seedance-20 seedance-prompt-short)
+## Compression Rules
 
 When prompts are too long, trim in this order:
 
@@ -216,7 +216,7 @@ When prompts are too long, trim in this order:
 @[image 1] as reference, strictly preserve [subject] unchanged; only add [action/light/camera]. Sound: [cue]. Constraints: [what must not change].
 ```
 
-## Anti-Slop Lexicon (from seedance-20 anti-slop-lexicon)
+## Anti-Slop Lexicon
 
 Replace hollow evaluation words with observable production language:
 
