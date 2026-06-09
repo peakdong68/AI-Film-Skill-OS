@@ -10,10 +10,16 @@ description: 将分镜图像、角色参考图、产品参考图编译为 Seedan
 这是 AI Film OS 管线中 **L5 — VIDEO GENERATION LAYER（视频生成层）** 的最终编译器。它接收已生成的分镜图像（storyboard images）、角色参考图（character reference images）、产品参考图（product reference images）和背景参考图，并将它们编译为 Seedance 2.0 / Runway / Sora / Kling 视频平台可执行的视频生成提示词。
 
 **关键区别：**
-- `director-prompt-packager`（STATE 5）：文本级编译器 → 产出 AI 图像生成器用的分镜提示词
+- `director-prompt-packager`（STATE 4）：文本级编译器 → 产出电影级短片提示包（分镜设计 + 镜头语言 + 声音设计 + Seedance 分解方案）。**非视频平台提示词。**
 - `seedance-video-prompt`（STATE 6）：图像引用级编译器 → 产出视频平台用的 Seedance 2.0 可执行提示词
 
-**依赖知识库：** Seedance 2.0 提示词方法论已内置于此技能——包括 Director Formula、@[ref] 角色映射、压缩规则、anti-slop 和 I2V 最佳实践。
+## 加载资源
+
+此技能包含内置参考知识。需要时加载：
+
+- 获取 Director Formula、@[ref] 角色映射、I2V 原则、压缩规则、anti-slop 词库和模式门——阅读 `references/seedance-methodology.md`
+
+---
 
 ## 平台硬约束
 
