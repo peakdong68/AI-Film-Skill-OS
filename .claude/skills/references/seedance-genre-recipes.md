@@ -1,46 +1,46 @@
-# Seedance Genre Recipes — Bundled Reference
+# Seedance 类型配方 — 内置参考知识
 
-Standardized video genre patterns with prompt skeletons. Use as starting patterns, not rigid templates. Pick the recipe matching the outcome, then customize subject, action, camera, lighting, audio, and constraints.
+标准化的视频类型模式与提示词骨架。作为起始模式使用，非刚性模板。选择匹配目标的配方，然后自定义主体、动作、摄影机、灯光、音频和约束。
 
-## Recipe Families
+## 配方家族
 
-| Family | Best use | Core pattern |
+| 类型 | 最佳用途 | 核心模式 |
 |---|---|---|
-| Product | Ads, ecommerce, hero shots, material reveals. | `product anchor + one material change + controlled camera + logo preservation` |
-| Lifestyle | Human use, food, travel, social clips. | `simple action + lived environment + handheld or natural light + ambient sound` |
-| Drama | Emotion, dialogue, short narrative beats. | `character tag + gesture + motivated camera + silence or sparse sound` |
-| Music video | Beat sync, dance, stylized edits. | `rhythm reference + visible beat changes + light pulses + clear character blocking` |
-| Landscape | Establishing shots, nature, atmosphere. | `slow camera + weather motion + layered depth + natural sound` |
-| Commercial | Brand-safe polish and function. | `problem/use/result beat + precise product constraint + clean light` |
-| Animation | Original characters and stylized motion. | `medium + shape language + palette + elastic or weighted motion` |
-| VFX | Transformations, particles, weather, energy. | `source + material behavior + interaction + dissipation endpoint` |
-| First/last frame | In-between transitions, product state changes, character pose targets. | `first frame + last frame + continuous transition + identity locks` |
-| Commercial campaign | 6/10/15/30s variants, vertical/social cutdowns, textless/localized masters. | `hook + product proof + end state + cutdown matrix + delivery notes` |
+| 产品（Product） | 广告、电商、英雄镜头、材质揭示 | `产品锚点 + 一次材质变化 + 受控摄影机 + logo 保留` |
+| 生活方式（Lifestyle） | 人物使用、美食、旅行、社交片段 | `简单动作 + 生活化环境 + 手持或自然光 + 环境音` |
+| 剧情（Drama） | 情绪、对白、短叙事节拍 | `角色标签 + 动作 + 有动机的摄影机 + 静默或稀疏音效` |
+| 音乐视频（Music video） | 节奏同步、舞蹈、风格化剪辑 | `节奏参考 + 可见节拍变化 + 光线脉冲 + 清晰角色调度` |
+| 风景（Landscape） | 定场镜头、自然、氛围 | `慢速摄影机 + 天气运动 + 层次深度 + 自然音效` |
+| 商业广告（Commercial） | 品牌安全的精致感和功能 | `问题/使用/结果节拍 + 精确产品约束 + 干净光线` |
+| 动画（Animation） | 原创角色和风格化运动 | `媒介 + 形状语言 + 调色板 + 弹性或加权运动` |
+| 视觉特效（VFX） | 变换、粒子、天气、能量 | `源 + 材质行为 + 交互 + 消散终点` |
+| 首/末帧（First/last frame） | 中间过渡、产品状态变化、角色姿势目标 | `首帧 + 末帧 + 连续过渡 + 身份锁定` |
+| 商业营销（Commercial campaign） | 6/10/15/30s 变体、竖屏/社交版、无字/本地化母版 | `钩子 + 产品证明 + 结束状态 + 版本矩阵 + 交付备注` |
 
-## Prompt Skeletons
+## 提示词骨架
 
-**Product I2V:**
+**产品 I2V：**
 ```
 [Image1] is the product reference; preserve logo, label, shape, and materials exactly.
 [One material or light change]. Camera: [single move]. Lighting: [physical source].
 Sound: [ambient/SFX].
 ```
 
-**Drama T2V:**
+**剧情 T2V：**
 ```
 Character A [visible emotional action] in [specific setting].
 Camera: [motivated framing]. Lighting: [motivated source].
 Sound: [ambient or short dialogue]. End state: [changed expression/action].
 ```
 
-**Reference Motion:**
+**参考运动：**
 ```
 [Video1] provides only [camera/action/timing] reference; do not transfer identity,
 costume, logo, or environment. New subject: [authorized/original subject].
 [Action and endpoint].
 ```
 
-**First/Last Frame:**
+**首/末帧：**
 ```
 [Image1] is the first frame. [Image2] is the last frame.
 Preserve [identity/product/scene anchors]. Generate a continuous transition from
@@ -48,19 +48,19 @@ Preserve [identity/product/scene anchors]. Generate a continuous transition from
 Sound: [ambient/SFX].
 ```
 
-**Animation:**
+**动画：**
 ```
 Original [character archetype] [action] in [environment].
 Style: [medium, line quality, texture, palette]. Motion: [rhythm].
 Camera and sound: [simple support].
 ```
 
-## Selection Rule
+## 选择规则
 
-When multiple goals compete, prioritize the recipe that protects the most fragile requirement:
+多目标竞争时，优先选择保护最脆弱需求的配方：
 
-Product identity > camera spectacle.
-Lip-sync > large head motion.
-Character consistency > complex choreography.
-First/last-frame target accuracy > extra style changes.
-Safety and authorization > style mimicry.
+产品身份 > 摄影机奇观。
+唇形同步 > 大幅度头部运动。
+角色一致性 > 复杂编舞。
+首/末帧目标精度 > 额外风格变化。
+安全性和授权 > 风格模仿。

@@ -1,6 +1,6 @@
-# Storyboard Quick Reference — Bundled Reference
+# 电影摄影速查表 — 共享参考知识
 
-Bilingual cinematography reference tables for storyboard prompt writing.
+分镜提示词写作的双语电影摄影参考表。
 
 ## Shot Size
 
