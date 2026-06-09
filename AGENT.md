@@ -34,14 +34,14 @@ AI Film Skill OS — AI 视频/电影制作的 Claude Code 技能体系。
 
 ### 定义与编译分离
 - "定义"技能产出文本级设计文档（如 `director-character` → 角色身份定义）
-- "编译"技能将定义文档转化为平台可执行提示词（如 `character-image-prompt` → GPT Image Character Sheet 提示词）
+- "编译"技能将定义文档转化为平台可执行提示词（如 `character-image-prompt` → AI 生图平台 Character Sheet 提示词）
 - 不能在一个技能中混合定义和编译
 
 ### 两层编译
 ```
 角色/分镜定义（文本级）
-  → character-image-prompt（编译为 GPT Image Character Sheet 提示词）
-  → director-prompt-packager（编译为分镜板提示词，可选 MJ/Flux/即梦/GPT Image）
+  → character-image-prompt（编译为 Character Sheet 提示词，适配 MJ/Flux/即梦/GPT Image）
+  → director-prompt-packager（编译为分镜板提示词，适配多平台）
   → 用户去生图平台生成图像
   → seedance-video-prompt（编译为 Seedance 2.0 视频提示词，引用已生成的图像）
 ```
