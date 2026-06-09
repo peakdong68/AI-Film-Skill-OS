@@ -1,6 +1,6 @@
 # Seedance 摄影机镜头语言 — 内置参考知识
 
-提取自 Seedance 2.0 操作系统，为 `director-camera` 技能提供 Seedance 平台特定的摄影机指导。来源：Seedance 2.0 Cinematography Shot Language（v5.4.5）。
+为 `director-camera` 技能提供 Seedance 平台特定的摄影机指导。
 
 ## 镜头合约（Shot Contract）
 

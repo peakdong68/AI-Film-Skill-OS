@@ -1,6 +1,6 @@
 # Seedance 制作管线工作流 — 内置参考知识
 
-提取自 Seedance 2.0 操作系统，为 `director-prompt-packager` 提供 Seedance 制作管线知识。来源：Seedance 2.0 Pipeline + Professional Filmmaking Standards（v5.4.5）。
+为 `director-prompt-packager` 提供 Seedance 制作管线知识。
 
 ## 专业制作流程
 

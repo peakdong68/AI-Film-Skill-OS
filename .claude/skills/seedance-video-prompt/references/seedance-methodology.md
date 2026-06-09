@@ -1,6 +1,6 @@
 # Seedance 2.0 提示词方法论 — 内置参考知识
 
-从 Seedance 2.0 操作系统中提取并适配，供 `seedance-video-prompt` 技能使用。来源：Seedance 2.0 操作系统（v5.4.5）。
+供 `seedance-video-prompt` 技能使用。
 
 ---
 

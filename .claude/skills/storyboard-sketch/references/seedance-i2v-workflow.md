@@ -1,6 +1,6 @@
 # Seedance I2V 工作流 — 内置参考知识
 
-为 `storyboard-sketch` 技能提供 Seedance 图生视频（I2V）特定的分镜规划知识。来源：Seedance 2.0（v5.4.5）。
+为 `storyboard-sketch` 技能提供 Seedance 图生视频（I2V）特定的分镜规划知识。
 
 ## Seedance 操作模式
 
