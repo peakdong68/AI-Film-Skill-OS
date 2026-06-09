@@ -13,7 +13,7 @@ description: 将分镜图像、角色参考图、产品参考图编译为 Seedan
 - `director-prompt-packager`（STATE 5）：文本级编译器 → 产出 AI 图像生成器用的分镜提示词
 - `seedance-video-prompt`（STATE 6）：图像引用级编译器 → 产出视频平台用的 Seedance 2.0 可执行提示词
 
-**依赖知识库：** 此技能提取 `reference/seedance-20/` 中的 Seedance 2.0 提示词方法论——包括 Director Formula、@[ref] 角色映射、压缩规则、anti-slop 和 I2V 最佳实践。
+**依赖知识库：** Seedance 2.0 提示词方法论已内置于此技能——包括 Director Formula、@[ref] 角色映射、压缩规则、anti-slop 和 I2V 最佳实践。
 
 ## 平台硬约束
 
@@ -42,7 +42,7 @@ description: 将分镜图像、角色参考图、产品参考图编译为 Seedan
 
 > Seedance 2.0 提示词是**图像引用驱动的运动指令**。它引用已锁定的视觉资产（分镜图、角色图、产品图），为其添加时间维度上的运动描述。**只描述图像无法呈现的内容**——运动、摄影机、光线变化、时间推进、声音。
 
-借鉴 `reference/seedance-20/` 的 Director Formula：
+Seedance Director Formula：
 
 ```
 Subject + Action + Scene + Camera + Lighting/Style + Audio + Constraints
@@ -65,7 +65,7 @@ Subject + Action + Scene + Camera + Lighting/Style + Audio + Constraints
 
 如有任何关键资产缺失，提示用户先使用 AI 图像生成器生成对应图像。
 
-## 参考角色映射（来自 seedance-20 reference-workflow）
+## 参考角色映射
 
 在撰写提示词之前，为每个上传资产分配**唯一主角色**。角色映射防止身份、logo、场景所有权、摄影机指令之间的意外互串。
 
@@ -176,7 +176,7 @@ N. [面板N对应的收尾镜头——情绪落点]
 [场景特有约束]
 ```
 
-## I2V 核心法则（来自 seedance-20 i2v-guide）
+## I2V 核心法则
 
 **只描述图像无法呈现的内容。** 静态图像已包含主体身份、产品形态、服装、调色板、构图、背景。重新描述这些静态细节通常导致漂移。仅为图像添加：运动、摄影机、时间推进、光线变化、声音、保留约束。
 
@@ -196,7 +196,7 @@ N. [面板N对应的收尾镜头——情绪落点]
 | 背景变化 | 保留环境布局，仅动画化光线/天气/氛围 |
 | 手部变形 | 简化手部动作或将手部排除在主动作之外 |
 
-## 模式门（来自 seedance-20 seedance-prompt）
+## 模式门
 
 | 模式 | 编译优先级 | 常见错误 | 修复 |
 |------|---------|---------|------|
@@ -204,7 +204,7 @@ N. [面板N对应的收尾镜头——情绪落点]
 | **I2V** | 保留可见身份；添加运动 | 重新描述图像直到产品或面部漂移 | 写 `严格保留 @[图1]`；仅添加动态变化 |
 | **R2V** | 为每个资源分配独立角色 | 一个资源被要求同时控制身份、姿势、场景和风格 | 拆分角色或优先最重要的角色 |
 
-## 压缩规则（来自 seedance-20 seedance-prompt-short）
+## 压缩规则
 
 提示词过长时，按此顺序删减：
 
@@ -216,7 +216,7 @@ N. [面板N对应的收尾镜头——情绪落点]
 @[图1]为参考，严格保持[主体]不变；仅加入[动作/光线/镜头]。声音：[提示]。约束：[不变项]。
 ```
 
-## Anti-Slop 去水词（来自 seedance-20 anti-slop-lexicon）
+## Anti-Slop 去水词
 
 将空洞评价词替换为可观察的生产语言：
 
