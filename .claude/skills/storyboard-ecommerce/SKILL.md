@@ -15,6 +15,8 @@ Use this skill for commerce/livestream/social shopping storyboards. For general 
 ## Load Resources
 
 For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
+- For bilingual cinematography quick reference tables, read `../references/cinematography-quick-reference.md`.
+- For product and commercial genre recipe patterns, read `../references/seedance-genre-recipes.md`.
 
 ## Sub-Mode Gate
 

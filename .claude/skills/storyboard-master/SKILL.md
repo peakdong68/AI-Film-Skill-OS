@@ -15,6 +15,7 @@ Use this skill for multi-shot master sheets. For single-frame storyboard prompts
 ## Load Resources
 
 For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
+- For bilingual cinematography quick reference tables, read `../references/cinematography-quick-reference.md`.
 
 ## Mode Gate
 
