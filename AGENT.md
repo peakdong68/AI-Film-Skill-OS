@@ -34,16 +34,22 @@ AI Film Skill OS — AI 视频/电影制作的 Claude Code 技能体系。
 
 ### 定义与编译分离
 - "定义"技能产出文本级设计文档（如 `director-character` → 角色身份定义）
-- "编译"技能将定义文档转化为平台可执行提示词（如 `character-image-prompt` → 生图平台提示词）
+- "编译"技能将定义文档转化为平台可执行提示词（如 `character-image-prompt` → GPT Image Character Sheet 提示词）
 - 不能在一个技能中混合定义和编译
 
 ### 两层编译
 ```
 角色/分镜定义（文本级）
-  → character-image-prompt / director-prompt-packager（编译为生图提示词）
-  → 用户去 MJ/Flux/即梦 生成图像
-  → seedance-video-prompt（编译为 Seedance 2.0 视频提示词）
+  → character-image-prompt（编译为 GPT Image Character Sheet 提示词）
+  → director-prompt-packager（编译为分镜板提示词，可选 MJ/Flux/即梦/GPT Image）
+  → 用户去生图平台生成图像
+  → seedance-video-prompt（编译为 Seedance 2.0 视频提示词，引用已生成的图像）
 ```
+
+### Character Sheet 定义
+- 角色设定参考图 = "用于AI视频一致性控制的多视角电影级角色设计板（Character Sheet）"
+- `character-image-prompt` 产出 Character Sheet，不是"艺术身份板（Artistic Identity Board）"，不是单人肖像
+- Character Sheet 是 AI 视频跨镜头一致性的参考资产，遵循 12段角色档案模板
 
 ### 管线状态机（STATE 0-8）
 ```
@@ -111,6 +117,7 @@ STATE 8 → 导出就绪
 ### 参考知识使用规范
 - `reference/` 下的文档是**知识来源**，为技能设计提供背景和模板
 - 技能文件提取其中的**规则和模板**融合到自身逻辑中，而非直接引用
+- `reference/CHARACTER/` 下的"艺术身份板"模板与 prd 系列的"Character Sheet"模板是两种不同产物——技能需明确自己产出的类型
 - 示例：角色设定板12段模板 → `character-image-prompt` 充分吸收后自包含，不写"参见 prd2.md"
 
 ### 输出文档命名
@@ -154,3 +161,8 @@ STATE 8 → 导出就绪
 - **现象**: `main` 分支上新创建的三个技能文件（character-image-prompt、seedance-video-prompt、director-prompt-packager）误写为中文
 - **修复**: 重写为英文版本，然后合并到 zh-cn 再翻译回中文
 - **教训**: 在 main 分支工作时应保持英文，zh-cn 分支单独维护中文翻译
+
+### 问题 6: 角色生图产物类型混淆（艺术身份板 vs Character Sheet）
+- **现象**: `character-image-prompt` 曾按 `reference/CHARACTER/` 的"艺术性角色身份设定板（Artistic Identity Board）"格式输出——不对称布局、纯白背景、宽松视图选择，与 Seedance 管线（prd2/prd3）定义的"用于AI视频一致性控制的多视角电影级角色设计板（Character Sheet）"不符
+- **修复**: 对齐 prd2 12段模板和 prd3 强制视图清单（front/side/3-4/rear/face close-up/hair/hand/expression sheet），使用中性背景 + 专业布局，默认风格为电影级写实而非强制"艺术性"
+- **教训**: `reference/` 下可能存在多种不同用途的模板（艺术展示 vs AI训练一致性），技能必须明确引用正确的规范来源，不能混用
