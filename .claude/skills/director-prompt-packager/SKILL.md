@@ -29,6 +29,7 @@ This skill includes bundled reference knowledge. Load when needed:
 - For Seedance production pipeline workflows and continuity rules, read `references/pipeline-workflow.md`
 - For anti-slop lexicon replacement, read shared reference `../references/anti-slop-lexicon.md`
 - For Seedance platform constraints (word limits, @[ref] format), read `../references/seedance-platform.md`
+- For genre recipe families and prompt skeletons (product, lifestyle, drama, etc.), read `../references/seedance-genre-recipes.md`
 
 ## Pipeline Position
 

@@ -20,6 +20,7 @@ This skill includes bundled reference knowledge. Load when needed:
 - For Director Formula, @[ref] role mapping, I2V principles, compression rules, anti-slop lexicon, and mode gates — read `references/seedance-methodology.md`
 - For Seedance platform constraints (word limits, @[ref] format, Part limits), read shared reference `../references/seedance-platform.md`
 - For a more detailed anti-slop replacement table, read shared reference `../references/anti-slop-lexicon.md`
+- For genre recipe families and prompt skeletons (product, drama, first/last frame, etc.), read `../references/seedance-genre-recipes.md`
 
 ---
 
