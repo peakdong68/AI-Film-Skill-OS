@@ -1,117 +1,119 @@
 ---
 name: director-camera
-description: Design the cinematography system for AI film production — camera language, shot types, movement grammar, composition rules, spatial blocking, and emotion-driven camera decisions. Use when the user needs camera design, 摄影机语言, shot planning, cinematography direction, 镜头设计, camera movement planning, or when director-core routes to STATE 2 (Visual Design). Also use when the user asks "how should this be shot" or needs to translate emotional intent into concrete camera decisions.
+description: 为 AI 电影制作设计摄影机系统——摄影机语言、镜头类型、运动语法、构图规则、空间调度和情绪驱动的摄影机决策。用于摄影机设计、摄影机语言、镜头规划、电影摄影指导、镜头设计、摄影机运动规划，或 director-core 路由到 STATE 2（视觉设计）时。也用于用户询问"这个该怎么拍"或需要将情绪意图转化为具体摄影机决策时。
 ---
 
-# Director Camera — Cinematography Director AI
+# Director Camera — 电影摄影指导 AI
 
-## Overview
+## 概览
 
-Design the camera system that defines *how* the film is shot — not what happens in the scene, but how the camera sees it. This skill builds a complete cinematography blueprint: shot type grammar, movement vocabulary, framing philosophy, spatial blocking, and emotional camera mapping. The output ensures every shot in the downstream storyboard and prompt systems has a grounded cinematographic reason for existing.
+设计定义电影*如何被拍摄*的摄影机系统——不是场景中发生什么，而是摄影机如何观看它。此技能构建完整的摄影蓝图：镜头类型语法、运动词汇、取景哲学、空间调度和情绪摄影机映射。输出确保下游分镜和提示词系统中的每一个镜头都有扎实的电影摄影存在理由。
 
-Works independently for camera design or is invoked by `director-core` at STATE 2.
+可独立用于摄影机设计，也可被 `director-core` 在 STATE 2 调用。
 
+## 加载资源
 
-## Loaded Resources
+此技能附带参考知识文件。在以下情况下加载：
+- 获取完整的镜头类型语法、摄影机运动词汇和情绪到摄影机映射表，阅读 `references/camera-grammar.md`
+- 获取六种镜头语义学（观察/沉浸/揭示/对峙/孤立/扩展）和视觉优先级决策逻辑，阅读 `references/shot-semantics.md`
 
-This skill ships with reference knowledge files. Load them when:
-- For complete shot type grammar, camera movement vocabulary, and emotion-to-camera mapping tables, read `references/camera-grammar.md`
-- For the six shot semantics (Observe/Immerse/Reveal/Confront/Isolate/Expand) and visual priority decision logic, read `references/shot-semantics.md`
-## The Core Principle
+## 核心原则
 
-> The camera is not a recording device. It is an emotional subject.
+> 摄影机不是记录设备。它是一个有情绪的主体。
 
-Every camera decision must answer three questions:
-1. **What am I looking at?** (Subject)
-2. **Why am I looking at it this way?** (Intent — driven by emotion)
-3. **How does the camera move?** (Motion — driven by narrative rhythm)
+每个摄影机决策必须回答三个问题：
+1. **我在看什么？**（主体）
+2. **我为什么这样看它？**（意图——由情绪驱动）
+3. **摄影机如何运动？**（运动——由叙事节奏驱动）
 
-## Output Structure
+## 输出结构
 
-### 1. Camera Language System (摄影机语言系统)
+### 1. 摄影机语言系统
 
-Define the visual grammar for the entire film:
+为全片定义视觉语法：
 
-**Shot Type Grammar:**
-| Type | 中文 | Narrative Function |
-|------|------|-------------------|
-| Wide Shot | 远景 | Establish world, show isolation, define spatial relationships |
-| Medium Shot | 中景 | Carry narrative action, show behavior and interaction |
-| Close-Up | 特写 | Reveal emotion, internal state, psychological detail |
-| Extreme Close-Up | 超特写 | Decisive moment, emotional peak, visual anchor |
-| Over-Shoulder | 过肩 | Relationship tension, dialogue structure, perspective |
-| POV | 主观视角 | Immersive experience, identification with character |
-| Top-Down | 鸟瞰 | Control, isolation, god-like perspective |
-| Low Angle | 仰拍 | Power, threat, importance, heroism |
+**镜头类型语法：**
 
-For the specific project, select the primary shot types and explain *why* this grammar fits the story.
+| 类型 | 叙事功能 |
+|------|---------|
+| 远景 | 建立世界、表现孤立、定义空间关系 |
+| 中景 | 承载叙事动作、表现行为和互动 |
+| 特写 | 揭示情绪、内在状态、心理细节 |
+| 超特写 | 决定性时刻、情绪峰值、视觉锚点 |
+| 过肩 | 关系张力、对话结构、视角 |
+| 主观视角 | 沉浸体验、角色认同 |
+| 鸟瞰 | 控制、孤立、神圣视角 |
+| 仰拍 | 力量、威胁、重要感、英雄气 |
 
-**Movement Grammar:**
-| Movement | 中文 | Emotional Function |
-|----------|------|-------------------|
-| Static | 定镜 | Oppression, observation, stillness, waiting |
-| Slow Dolly-In | 缓推 | Emotional deepening, psychological pressure |
-| Dolly-Out | 拉远 | Emotional withdrawal, loneliness |
-| Tracking | 跟移 | Following action, participation, pursuit |
-| Orbit | 环绕 | Relationship complexity, romance, surrealism |
-| Handheld | 手持 | Realism, instability, tension, documentary feel |
-| Crane | 升降 | Spatial revelation, epic scale |
-| Whip Pan | 快速摇 | Emotional burst, rapid transition, disorientation |
+为具体项目选择主要镜头类型，并解释*为什么*这套语法适合这个故事。
 
-**Focus Grammar:**
-- **Rack Focus**: Attention transfer between subjects
-- **Shallow Depth of Field**: Emotional isolation, subject emphasis
-- **Deep Focus**: Environmental relationship, layered storytelling
+**运动语法：**
 
-### 2. Emotional Camera System (情绪摄影系统)
+| 运动 | 情绪功能 |
+|------|---------|
+| 定镜 | 压抑、观察、静止、等待 |
+| 缓推 | 情绪深入、心理压力 |
+| 拉远 | 情绪抽离、孤独感 |
+| 跟移 | 追踪动作、参与感、追逐 |
+| 环绕 | 关系复杂性、浪漫、超现实 |
+| 手持 | 写实感、不稳定、张力、纪录片感 |
+| 升降 | 空间揭示、史诗尺度 |
+| 快速摇 | 情绪爆发、快速过渡、迷失感 |
 
-Map every primary emotion in the film to camera behavior:
+**焦点语法：**
+- **变焦转移**：注意力在主体间切换
+- **浅景深**：情绪孤立、主体强调
+- **深焦**：环境关系、层次叙事
 
-| Emotion | Shot | Movement | Angle | Focus |
-|---------|------|----------|-------|-------|
-| Sadness / Loneliness | Wide | Static / slow push-in | Eye level | Shallow DOF |
-| Fear / Tension | Close-up | Handheld micro-shake | Dutch / eye level | Tight |
-| Romance / Intimacy | Close-up / OTS | Slow orbit / dolly | Eye level | Soft focus |
-| Mystery | Wide / silhouette | Static / slow reveal | Low / obstructed | Deep |
-| Power / Dominance | Medium / low angle | Slow controlled dolly | Low angle | Symmetrical |
-| Shock | ECU | Sudden stillness | Eye level | Sharp |
-| Action / Urgency | Medium | Tracking / handheld | Dynamic | Following |
+### 2. 情绪摄影系统
 
-This mapping table is the critical bridge — every shot in the storyboard should trace back to a row in this table.
+将影片中每个主要情绪映射到摄影机行为：
 
-### 3. Spatial Composition System (空间构图系统)
+| 情绪 | 镜头 | 运动 | 角度 | 焦点 |
+|------|------|------|------|------|
+| 悲伤/孤独 | 远景 | 定镜/缓推 | 平视 | 浅景深 |
+| 恐惧/张力 | 特写 | 手持微晃 | 斜角/平视 | 紧凑 |
+| 浪漫/亲密 | 特写/过肩 | 缓环绕/推 | 平视 | 柔焦 |
+| 神秘 | 远景/剪影 | 定镜/缓揭示 | 低角度/遮挡 | 深焦 |
+| 力量/支配 | 中景/仰拍 | 缓控推轨 | 仰拍 | 对称 |
+| 震惊 | 超特写 | 突然静止 | 平视 | 锐利 |
+| 动作/紧迫 | 中景 | 跟移/手持 | 动态 | 跟随 |
 
-**Framing Rules:**
-- **Rule of Thirds**: Balanced, natural composition — default for most narrative
-- **Center Framing**: Ritual, power, symmetry — use for moments of significance
-- **Negative Space**: Loneliness, isolation, emotional weight — subject pushed to edge
-- **Foreground Obstruction**: Voyeurism, mystery, hidden observation
-- **Frame Within Frame**: Layers, confinement, focus
+此映射表是关键桥梁——分镜中的每一个镜头都应追溯到本表中的某一行。
 
-**Depth Design:**
-- Foreground → midground → background layering
-- Environmental storytelling through object placement
-- Spatial tension: distance between characters = emotional distance
+### 3. 空间构图系统
 
-**Blocking Design (人物调度):**
-- Character position = emotional relationship
-- Distance = psychological gap
-- Movement direction = narrative tension
-- Eye-line continuity = spatial logic
+**取景规则：**
+- **三分法**：平衡、自然的构图——多数叙事的默认选择
+- **居中构图**：仪式感、力量、对称——用于重要时刻
+- **负空间**：孤独、隔离、情绪重量——主体推向边缘
+- **前景遮挡**：偷窥感、神秘、隐藏观察
+- **框中框**：层次、禁锢、聚焦
 
-### 4. Camera Continuity System (镜头连续性)
+**深度设计：**
+- 前景 → 中景 → 背景分层
+- 通过物体摆放进行环境叙事
+- 空间张力：角色之间的距离 = 情感距离
 
-Rules that must hold across all shots:
+**人物调度：**
+- 角色位置 = 情感关系
+- 距离 = 心理鸿沟
+- 移动方向 = 叙事张力
+- 视线连续性 = 空间逻辑
 
-- **Direction consistency**: Screen direction (left-to-right / right-to-left) must not flip within a scene unless a crossing shot is explicitly designed
-- **Scale progression**: Avoid jumping between extreme shot sizes without transition shots
-- **Spatial geography**: The physical layout of the space must remain stable — chairs don't move, doors stay in the same place
-- **Lighting direction**: Key light direction must remain consistent per scene unless a diegetic source moves
-- **180-degree rule**: The camera stays on one side of the action axis within a scene unless a neutral shot breaks the line
+### 4. 镜头连续性系统
 
-### 5. Camera Prompt Template (摄影机提示词模板)
+必须跨所有镜头保持的规则：
 
-For every shot in the storyboard, the camera instruction must follow this template:
+- **方向一致性**：屏幕方向（左到右/右到左）在同一场景内不得翻转，除非明确设计越轴镜头
+- **景别递进**：避免在没有过渡镜头的情况下跳跃极端景别
+- **空间地理**：空间的物理布局必须保持稳定——椅子不移动，门保持在原位
+- **灯光方向**：每场景的主光方向必须保持一致，除非叙事内光源移动
+- **180 度规则**：摄影机在同一场景内保持在动作轴一侧，除非有中性镜头打破轴线
+
+### 5. 摄影机提示词模板
+
+分镜中的每个镜头，摄影机指令必须遵循此模板：
 
 ```
 Shot type: [WS / MS / CU / ECU / OTS / POV]
@@ -119,21 +121,21 @@ Angle: [eye-level / low / high / Dutch / top-down]
 Movement: [static / dolly-in / dolly-out / tracking / orbit / handheld / crane]
 Lens behavior: [shallow DOF / deep focus / rack focus to X]
 Framing: [rule of thirds / centered / negative space / frame-in-frame]
-Emotional intent: [why this camera choice for this moment]
+Emotional intent: [为什么在此时刻选择这个摄影机设置]
 ```
 
-## Constraints
+## 约束
 
-- No shot without an emotional reason — "it looks cool" is not a valid cinematographic decision.
-- No random camera movement — every movement must serve narrative progression.
-- No breaking the 180-degree rule without a deliberate crossing shot.
-- Camera continuity must be verified across all shots before handing off to storyboard.
-- Handheld movement must be motivated (tension, realism, chaos) — not a default.
+- 没有一个镜头可以没有情绪理由——"看着酷"不是有效的电影摄影决策。
+- 没有随机的摄影机运动——每次运动必须服务于叙事推进。
+- 没有故意越轴镜头时不得打破 180 度规则。
+- 摄影机连续性必须在交接给分镜前跨所有镜头验证。
+- 手持运动必须有动机（张力、写实、混乱）——不能是默认选项。
 
-## Integration
+## 集成
 
-When invoked by `director-core`:
-- Load emotional blueprint from `director-emotion` to inform the Emotional Camera System
-- Produce the Cinematography Blueprint
-- Feed into `director-light` for lighting alignment
-- The Camera Prompt Template feeds directly into storyboard and prompt systems
+被 `director-core` 调用时：
+- 加载 `director-emotion` 的情绪蓝图以构建情绪摄影系统
+- 产出电影摄影蓝图
+- 输入 `director-light` 以对齐灯光设计
+- 摄影机提示词模板直接输入分镜和提示词系统
