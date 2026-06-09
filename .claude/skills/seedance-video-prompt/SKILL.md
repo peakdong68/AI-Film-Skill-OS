@@ -13,7 +13,13 @@ This is the final compiler of **L5 — VIDEO GENERATION LAYER** in the AI Film O
 - `director-prompt-packager` (STATE 4): Text-level compiler → produces a film-level short film prompt package (storyboard design + camera language + sound design + Seedance decomposition plan). **Not a video platform prompt.**
 - `seedance-video-prompt` (STATE 6): Image-reference-level compiler → produces Seedance 2.0 executable prompts for video platforms.
 
-**Knowledge Dependency:** Seedance 2.0 prompt methodology is built into this skill — including the Director Formula, @[ref] role mapping, compression rules, anti-slop, and I2V best practices.
+## Load Resources
+
+This skill includes bundled reference knowledge. Load when needed:
+
+- For Director Formula, @[ref] role mapping, I2V principles, compression rules, anti-slop lexicon, and mode gates — read `references/seedance-methodology.md`
+
+---
 
 ## Platform Hard Constraints
 
