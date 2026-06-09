@@ -14,14 +14,6 @@ Turn a scene idea, script, or concept into a storyboard plan for Seedance image-
 
 Favor clarity, continuity, and sketchability over polished cinematic prose in both modes.
 
-## Load Resources
-
-This skill includes bundled reference knowledge. Load when needed:
-
-- For Seedance I2V workflow, operation modes, motion note specifications, and failure fixes — read `references/seedance-i2v-workflow.md`
-- For anti-slop word replacement — read shared reference `../references/anti-slop-lexicon.md`
-- For Seedance platform constraints (word limits, @[ref] format) — read `../references/seedance-platform.md`
-
 ## Mode Selection Gate
 
 Before generating output, decide which mode to use:
@@ -315,96 +307,22 @@ Art direction notes: Avoid excessive glare, emphasize material authenticity, bru
 ```
 
 ---
+## Load Resources
 
-# Quick Reference
+This skill includes bundled reference knowledge. Load when needed:
 
-## Shot Size Quick Reference
-
-| Code | Name | Chinese | Use |
-|------|------|------|-----|
-| EWS | Extreme Wide Shot | 超远景 | Establish vast environment |
-| WS | Wide Shot | 全景/远景 | Full body in environment |
-| FS | Full Shot | 全身 | Full figure, head to toe |
-| MLS | Medium Long Shot | 中全景 | Knees up |
-| MS | Medium Shot | 中景 | Waist up |
-| MCU | Medium Close-Up | 中特写 | Chest up |
-| CU | Close-Up | 特写 | Face or product detail |
-| ECU | Extreme Close-Up | 超特写 | Eyes, texture, small detail |
-| OTS | Over-Shoulder | 过肩 | From behind, showing subject |
-| POV | Point of View | 主观视角 | Through character's eyes |
-
-## Camera Movement Quick Reference
-
-| Type | Chinese | Behavior |
-|------|------|----------|
-| Static | 定镜 | No movement, locked frame |
-| Push-in | 推 | Camera moves toward subject |
-| Pull-out | 拉 | Camera moves away from subject |
-| Pan | 摇 | Horizontal rotation on axis |
-| Tilt | 俯仰 | Vertical rotation on axis |
-| Dolly/Track | 移/轨道 | Camera physically moves laterally |
-| Crane | 升降 | Camera rises or lowers |
-| Orbit | 环绕 | Circular movement around subject |
-| Handheld | 手持 | Slight natural shake |
-| Steadicam | 稳定器 | Smooth floating movement |
-| FPV | 第一人称 | Drone-like dynamic movement |
-
-## Camera Angle Quick Reference
-
-| Angle | Chinese | Effect |
-|-------|------|--------|
-| Eye Level | 平视 | Neutral, relatable |
-| Low Angle | 仰拍 | Power, dominance, epic |
-| High Angle | 俯拍 | Vulnerability, overview |
-| Bird's Eye | 鸟瞰 | God-like perspective, map view |
-| Dutch Angle | 斜角 | Unease, disorientation |
-| Profile | 侧面 | Observation, silhouette |
-
-## Composition Quick Reference
-
-| Type | Chinese | When to use |
-|------|------|-------------|
-| Rule of Thirds | 三分法 | Balanced, natural framing |
-| Centered | 居中 | Emphasis, symmetry, product focus |
-| Leading Lines | 引导线 | Depth, draw eye to subject |
-| Symmetry | 对称 | Order, formality, architecture |
-| Negative Space | 负空间 | Isolation, minimalism, breathing room |
-| Frame Within Frame | 框中框 | Layers, voyeurism, focus |
-| Foreground Silhouette | 前景剪影 | Depth, mystery |
-
-## Lighting Quick Reference
-
-| Type | Chinese | Mood |
-|------|------|------|
-| High Key | 高调光 | Bright, optimistic, commercial |
-| Low Key | 低调光 | Dark, dramatic, film noir |
-| Rim Light | 轮廓光 | Separation, hero shot, product edge |
-| Volumetric | 体积光 | Atmospheric, beams, god rays |
-| Golden Hour | 黄金时刻 | Warm, nostalgic, natural beauty |
-| Soft Diffuse | 柔光 | Gentle, flattering, beauty |
-| Hard Light | 硬光 | Gritty, harsh, high contrast |
-| Practical Light | 实景光 | Diegetic sources, realism |
-
-## Narrative Purpose Quick Reference
-
-| Purpose | Chinese | Typical shot |
-|---------|------|--------------|
-| Establish | 建立空间 | Wide/environment opening |
-| Introduce | 引入角色 | Character entrance or reveal |
-| Emphasize | 强化信息 | Detail close-up, product focus |
-| Reveal | 揭示转折 | Key object discovery, emotion shift |
-| Transition | 过渡衔接 | Bridge between scenes or beats |
-| Build tension | 制造悬念 | Slow push, dark framing, off-screen sound |
-| Release | 释放/收尾 | Resolution, brand tag, CTA |
-| Contrast | 对比冲突 | Juxtaposition of scale, mood, or status |
+- For Seedance I2V workflow, operating modes, and motion note specifications, read `references/seedance-i2v-workflow.md`
+- For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`
+- For bilingual shot size, camera movement, angle, composition, lighting, and narrative purpose quick reference tables, read `references/quick-reference.md`
+- For Seedance platform constraints (word limits, @[ref] format), read shared reference `../references/seedance-platform.md`
 
 ---
 
 ## Quality Bar
 
-- A reader should understand the whole scene by scanning frame titles and sketch prompts.
-- Each prompt should be drawable as one storyboard panel.
-- Every frame must have a clear story purpose — it answers "why this shot exists."
-- The board should be useful even before final Seedance prompt writing.
-- If the user asks for Chinese output, write all prompts in concise Chinese with the same structure.
-- For Master Sheet mode, the four sections (Shot Grid, Rhythm, Camera, Visual Language) should form a coherent planning document, not just a list of shots.
+- The reader should understand the entire scene by scanning frame titles and sketch prompts.
+- Every prompt should be drawable as a single storyboard panel.
+- Every frame must have a clear story purpose — answering "why does this shot exist."
+- The planning board should be usable before writing final Seedance prompts.
+- If user requests Chinese output, write all prompts in concise Chinese with the same structure.
+- For Master Sheet mode, the four zones (Shot Grid, Rhythm, Camera, Visual Language) should form a coherent planning document, not just a shot list.
