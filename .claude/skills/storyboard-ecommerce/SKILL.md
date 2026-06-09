@@ -11,6 +11,11 @@ Generate professional e-commerce and social commerce storyboard prompts for AI i
 
 Use this skill for commerce/livestream/social shopping storyboards. For general film/animation storyboard prompts, use `storyboard-prompt`. For non-commerce master sheets, use `storyboard-master`. For Seedance I2V planning, use `storyboard-sketch`.
 
+
+## Load Resources
+
+For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
+
 ## Sub-Mode Gate
 
 This skill supports two commerce-specific formats. Choose automatically:

@@ -22,6 +22,14 @@ After the prompt package is confirmed by the user, workflow proceeds to STATE 5 
 
 Can be used standalone for prompt package compilation, or called by `director-core` at STATE 4.
 
+## Load Resources
+
+This skill includes bundled reference knowledge. Load when needed:
+- For prompt packaging templates and conversion formulas, read `references/seedance-templates.md`
+- For Seedance production pipeline workflows and continuity rules, read `references/pipeline-workflow.md`
+- For anti-slop lexicon replacement, read shared reference `../references/anti-slop-lexicon.md`
+- For Seedance platform constraints (word limits, @[ref] format), read `../references/seedance-platform.md`
+
 ## Pipeline Position
 
 ```

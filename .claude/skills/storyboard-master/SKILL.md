@@ -11,6 +11,11 @@ Generate a comprehensive Storyboard Master Sheet prompt — a single visual docu
 
 Use this skill for multi-shot master sheets. For single-frame storyboard prompts, use `storyboard-prompt`. For e-commerce/livestream storyboards with product/creator reference areas, use `storyboard-ecommerce`. For Seedance I2V planning, use `storyboard-sketch`.
 
+
+## Load Resources
+
+For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
+
 ## Mode Gate
 
 The master sheet has two output densities. Choose based on user intent:
