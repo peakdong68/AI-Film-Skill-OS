@@ -1,9 +1,9 @@
 ---
 name: character-image-prompt
-description: Compile character identity definitions from director-character into CHARACTER IDENTITY BOARD prompts for GPT Image. Produces artistic multi-view identity boards with asymmetric cinematic layout — NOT standard character reference sheets or turn-around grids. Use when the user has a character reference image or a director-character definition and needs a GPT Image-ready identity board prompt. Also use when director-core routes after STATE 3 completion.
+description: Compile character identity definitions from director-character into multi-view cinematic Character Sheet prompts for GPT Image. Produces character design sheets for AI video consistency control — NOT single portraits, NOT artistic identity boards. Use when the user has a character reference image or a director-character definition and needs a GPT Image-ready Character Sheet prompt. Also use when director-core routes after STATE 3 completion.
 ---
 
-# Character Image Prompt — GPT Image Identity Board Compiler
+# Character Image Prompt — GPT Image Character Sheet Compiler
 
 ## Overview
 
@@ -12,290 +12,224 @@ description: Compile character identity definitions from director-character into
                     +
             [Project Context]
                     ↓
-         [Compiler: 4-Layer Framework]
+         [Compiler]
                     ↓
-     GPT Image CHARACTER IDENTITY BOARD Prompt
+     GPT Image Character Sheet Prompt
 ```
 
-**Core Principle:**
+**Core Definition:**
 
-> This skill outputs **identity board STRUCTURE instructions**, NOT **character appearance descriptions**.
-> Appearance description is `director-character`'s responsibility, already completed in the character profile.
-> This skill's job is to tell GPT Image **how to LAY OUT the identity board**.
+> Character Sheet = **"Multi-view cinematic character design board for AI video consistency control."**
+>
+> This skill outputs **Character Sheet image prompts**, NOT single portraits, NOT artistic identity boards.
+> The purpose is AI video cross-shot consistency — the Character Sheet is a reference asset that locks character identity across all generated video frames.
 
 **Input Sources:**
 
 | Source | Role |
 |--------|------|
-| Reference Image (recommended) | Visual anchor for character appearance — GPT Image identifies the character from the image |
-| director-character key fields | Name, Role, Core Mood, Visual Keywords (3-8 items) — used for text block and direction derivation |
-| Project Context | Project type, emotional tone — used to derive visual medium and art style |
-
-## Compilation Principle — 4-Layer Framework
-
-```
-[Project Layer] → [Visual Layer] → [Board Structure Layer] → [Output Prompt]
-      ↓                 ↓                   ↓                      ↓
-   project           derived            board layout            GPT Image
-   context           style              rules                   prompt
-```
-
-| Layer | Content | Source |
-|-------|---------|--------|
-| Project Layer | Project type, emotional tone | User-provided |
-| Visual Layer | Visual medium, art style, lighting direction | Compiler derives from project context |
-| Board Structure Layer | Composition anchor, auxiliary modules, study zones, text design, identity lock | Fixed rules (universal across projects) |
-| Output | Self-contained GPT Image prompt ready to paste | Composition of three layers above |
-
-**Note:** There is **no** "subject appearance layer" in the framework. Appearance is carried by the reference image, or auto-derived by GPT Image from visual keywords + project context.
+| Reference Image (recommended) | Visual anchor for character appearance |
+| director-character output | Full character profile: face, hair, body, wardrobe, props, expression system |
+| Project Context | Project type, emotional tone — used to derive visual style direction |
 
 ---
 
-## Input Requirements
+## Output Structure — 12-Section Character Sheet Profile
 
-### Extract from director-character (key fields only — full profile NOT required)
-
-- [ ] Name
-- [ ] Role / Identity
-- [ ] Core Mood (one sentence)
-- [ ] Visual Keywords (3-8 items)
-
-### Extract from Project Context
-
-- [ ] Project Type (animation / film / game / ad / short video / other)
-- [ ] Emotional Tone (warm / dark / sci-fi / mysterious / passionate / healing / other)
-
-### Reference Image (optional but recommended)
-
-- [ ] Existing character image (full body or half body, from GPT Image / MJ / Flux / etc.)
-
----
-
-## Visual Direction — Derivation Rules
-
-The compiler derives visual direction from project context. These are NOT manually specified by the user.
-
-| Derived Item | Rule |
-|-------------|------|
-| **Visual Medium** | Film → cinematic realism; Animation → stylized anime/semi-realistic; Game → concept design; Ad → commercial photography/editorial; Short video → semi-realistic/illustration |
-| **Art Style** | Dark/sci-fi → high-contrast editorial; Warm/healing → soft natural light; Mysterious/suspense → low-key restrained cinematography; Passionate/action → dynamic concept design |
-| **Lighting** | Lonely/reserved → top light + rim light; Oppressive/mysterious → cool high-contrast; Warm/intimate → soft diffused light |
-| **Color Temperature** | Warm (intimate/heroic/healing) / Cool (detached/mysterious/sci-fi) / Neutral (documentary/realistic) |
-
----
-
-## Output
-
-The compiler produces a single deliverable — the GPT Image prompt. Optional working data sections provide compilation traceability.
+Follows the Seedance 2.0 Complete Character Profile Template (from prd2.md).
 
 | Section | Content | Purpose |
 |---------|---------|---------|
-| [W0] | Project Summary | Compiler input snapshot (from project context) |
-| [W1] | Subject Identity Key | Compiler input snapshot (from director-character) |
-| [W2] | Visual Direction | Compiler inference result (from derivation rules) |
-| **[P]** | **GPT Image Identity Board Prompt** | **← Final deliverable. Ready to paste.** |
+| [0] | Character Reference ID | ID, role, priority, continuity importance, reference tag |
+| [1] | Core Identity | Age, occupation, personality, emotional function, visual signature, keywords |
+| [2] | Face Identity Lock | Face shape, skin tone, eyes, eyebrows, nose, mouth, jaw, distinguishing features |
+| [3] | Hair Lock | Length, style, color, texture, parting, movement |
+| [4] | Body Lock | Height, body type, build, posture, movement style, signature gesture |
+| [5] | Wardrobe Lock | Main outfit, color palette, fabric, fit, accessories, alternative outfits |
+| [6] | Prop Lock | Primary/secondary props, signature items, interaction style |
+| [7] | Expression System | Emotion range with physical manifestations (3-5 key emotions) |
+| [8] | Character Sheet View Requirements | Required views checklist |
+| [9] | Visual Style Settings | Style, realism level, lighting, color mood, lens feel, background |
+| [10] | Seedance Reference Settings | Lock switches, reference priority, reference boundaries |
+| **[11]** | **Character Sheet Image Prompt** | **← Final deliverable. Ready to paste into GPT Image.** |
+| [12] | Negative Prompt | Negative constraint checklist |
 
-> `[W0]` `[W1]` `[W2]` are compiler working data — they show traceability. `[P]` is the deliverable.
+> **Note:** Sections [0]-[10] are the compiler's working data sourced from director-character. Section [11] is the deliverable. Section [12] is the constraint appendix.
 
 ---
 
-## [P] GPT Image Identity Board Prompt — Universal Template
-
-This is the **universal mother template**. It accepts any subject type and visual medium. The compiler fills all `{...}` slots from `[W0]` `[W1]` `[W2]`.
+## [11] Character Sheet Image Prompt — Template
 
 ```
-Create a 16:9 artistic CHARACTER IDENTITY BOARD.
+Professional cinematic character sheet showing {Character Name},
+age {Age},
 
-[Subject]
-{If reference image available: Use the reference image. Perform color correction. Maintain subject identity accuracy.}
-{If no reference image: Create character appearance based on the following keywords: {Visual Keywords}.}
-Subject type: Human character.
-Visual medium: {Visual Medium}.
+{face shape}, {jawline}, {skin tone}, {skin texture},
+{eye shape}, {eye color},
+{eyebrow description},
+{nose description}, {lip description},
+{hair length}, {hair style}, {hair color}, {hair texture},
 
-Background: Pure white or soft off-white. No environment, no scene, no logo, no watermark, no decorative elements.
+{body type}, {height}, {posture},
 
-[Design Direction]
-Do NOT create a standard character reference sheet.
-Create a cinematic artistic identity board that feels like: a high-end animation studio character study page + an art book layout + an editorial design spread + a production-grade concept study page.
-Overall visual feel: Minimal, premium, memorable, art-directed, asymmetric layout, breathing room.
-Use: Large areas of negative space, intentional imbalance, varied image scales, varied visual rhythm.
-Avoid: Grid layout, catalog layout, blueprint style, repetitive arrangement, mechanical symmetry, standard turn-around sheet arrangement.
+wearing {wardrobe full description},
+{accessories if any},
 
-[Critical Layout Rules]
-No character images may overlap. Every view must have clear spacing and breathing room.
-Keep all full-body views, portraits, silhouettes, and detail studies visually distinct from each other.
-No cropping faces, no hiding limbs, no stacking characters, no merging poses.
+show front view, side view, 3/4 view, rear view,
+full body standing pose, {signature pose 1}, {signature pose 2},
+face close-up, hair detail, hand detail,
+expression sheet: {emotion 1}, {emotion 2}, {emotion 3}, {emotion 4}, {emotion 5},
 
-[Subject Composition Anchor]
-Place one large off-center hero {full body / three-quarter body} shot as the visual anchor for the entire board.
-Subject pose: {Signature Pose}.
-Embodies character qualities: {Character Qualities}.
+professional character design sheet,
+neutral background,
+cinematic realism,
+high detail skin texture, visible fabric weave,
+clean presentation layout,
+consistent identity across all views
+```
 
-[Subject Identity Lock]
-All views must maintain strict identity consistency.
+### With Reference Image Variant
 
-Face:
-{Face shape}. {Skin tone description}, {skin texture}.
-{Eye shape}, {eye color}, {eye features}.
-{Eyebrow description}, {eyebrow features}.
-{Nose description}. {Mouth/lip description}.
-Jaw {jaw description}.
-{Distinguishing facial features if any}.
+```
+Professional cinematic character sheet using the reference image as identity source,
+perform color correction, maintain subject identity accuracy,
 
-Hair:
-{Hair style description}, {length}.
-Color {hair color}, {hair texture}.
-{Part direction if any}.
+show front view, side view, 3/4 view, rear view,
+full body standing pose, {signature pose 1}, {signature pose 2},
+face close-up, hair detail, hand detail,
+expression sheet: {emotion 1}, {emotion 2}, {emotion 3}, {emotion 4}, {emotion 5},
 
-Body:
-{Body type}. Height {height}.
-Posture {posture description}.
-
-Wardrobe:
-{Full outfit from director-character Wardrobe System}.
-Color palette: {color palette}.
-Fabric language: {fabric description}.
-Fit: {fit description}.
-Accessories: {accessories list}.
-
-Props:
-{Props list. Write "No fixed props" if none}.
-
-[Auxiliary Study Modules]
-Arrange the following auxiliary study modules around the anchor with clean spacing. Each module should feel like an independent study page — no overlapping, no merging poses, no stacking characters, no cropping faces, no hiding limbs.
-Select appropriate modules based on character type:
-
-• Neutral full body front
-• Full body back
-• Full body side
-• {Signature pose 1}
-• {Signature pose 2}
-• {Behavior/action pose}
-• Expressive portrait study (face close-up)
-
-[Art Study Zones]
-
-Small silhouette study zone: 2-4 simplified pure black character silhouettes showing silhouette readability across different poses.
-
-Small expression study zone: Show subtle emotional variations.
-{Emotion 1}: {physical manifestation}
-{Emotion 2}: {physical manifestation}
-{Emotion 3}: {physical manifestation}
-{Emotion 4}: {physical manifestation}
-{Emotion 5}: {physical manifestation}
-
-Small detail study zone: Magnified details of key visual features.
-• Facial structure details
-• Hair texture details
-• Fabric and tailoring details
-• {Accessory/prop details if any}
-
-[Text Design Block]
-Add a minimal, premium identity information block. Keep it minimal, bold, and art-directed. Use only:
-
-NAME: {Character Name}
-ROLE: {Narrative Role}
-CORE MOOD: {Core Emotion}
-VISUAL SIGNATURE: {Visual Keywords}
-
-Optional: Small handwritten-style labels, minimal arrows, editor marks, brief annotations. Keep restrained.
-
-[Identity Lock Declaration]
-All views maintain: Same facial structure, same facial proportions, same hairstyle, same hair color, same outfit, same body proportions, same silhouette character, same posture language, same visual personality, same visual DNA.
-
-[Readability Optimization]
-Ensure: Clear silhouette, clear facial features, clear hair outline, clear clothing outline, clear body structure, clear hand expression, clear posture language, clear expression range, clear visual hierarchy.
-Suitable for future image generation and video character consistency training.
-
-[Final Style Requirements]
-Minimal, cinematic, premium, art book quality, clean, expressive, production-grade, elegant, AI-training-friendly, visually memorable.
-
-The final image should feel like an artistic character identity board designed to help AI models understand the character's face, silhouette, clothing, posture, and emotional range.
-Focus on helping understand: Identity features, silhouette language, form structure, material characteristics, posture patterns, emotional range, visual DNA.
+same face, same hair, same body, same wardrobe as reference image,
+professional character design sheet,
+neutral background,
+cinematic realism,
+clean presentation layout,
+consistent identity across all views
 ```
 
 ---
 
-## Board Design Rules (Fixed — Apply to All Prompts)
+## [12] Negative Prompt
 
-| Rule | ✅ DO | ❌ DO NOT |
-|------|-------|-----------|
-| Layout | Asymmetric, breathing spacing, varied scales, intentional imbalance | Grid, blueprint, catalog, mechanical symmetry |
-| Background | Pure white / soft off-white | Gray studio, gradient, environment, scene |
-| Anchor | One large off-center hero view | Centered, equally sized, tiled |
-| View Separation | Clear spacing, each view = independent study page | Overlapping, stacking, merging poses |
-| Cropping | Full body/face/limbs visible | Face crop, limb cut-off, hidden body parts |
-| Text | Name / Role / Core Mood / Visual Signature only | Paragraphs, bios, stats, UI-style text blocks |
-| Decorations | None | Watermark, logo, borders, brand elements |
+```
+no face change
+no hairstyle change
+no body proportion change
+no random age shift
+no wardrobe change
+no extra accessories
+no extra characters
+no duplicate characters
+no distorted face
+no bad anatomy
+no extra fingers
+no identity drift
+no inconsistent skin tone
+no random props
+no cartoon style unless requested
+no anime unless requested
+no over-stylization
+no watermark
+no logo
+no text
+no poster layout
+no text-heavy poster layout
+```
+
+---
+
+## View Requirements (Mandatory)
+
+Every Character Sheet MUST include:
+
+| View | Required | Notes |
+|------|----------|-------|
+| Front view | ✓ | Full body |
+| Side view | ✓ | Full body |
+| 3/4 view | ✓ | Full body |
+| Rear view | ✓ | Full body or silhouette |
+| Face close-up | ✓ | Neutral expression, front |
+| Hair detail | ✓ | Close-up showing texture |
+| Hand detail | ✗ | If hands are narratively important |
+| Full body standing pose | ✓ | Signature stance |
+| Walking pose | ✗ | If movement is important |
+| Action pose | ✗ | If character has signature action |
+| Expression sheet | ✓ | 3-5 emotion variations |
+
+---
+
+## Visual Style Settings
+
+| Parameter | Default | Alternatives |
+|-----------|---------|-------------|
+| Visual Style | Cinematic realism | Stylized anime, semi-realistic, concept art, editorial, 3D render — derived from project type |
+| Lighting | Neutral studio lighting with subtle rim light | Dramatic rim light, soft diffused, high-contrast — derived from emotional tone |
+| Background | Neutral gray or soft gradient studio backdrop | Clean off-white — must NOT distract from character |
+| Lens feel | 50mm portrait | 85mm editorial, 35mm situational |
+| Layout | Clean professional presentation | Asymmetric editorial (if project calls for it) |
+
+---
+
+## Consistency Lock
+
+All views and all downstream Seedance prompts must maintain:
+
+| Lock | Scope |
+|------|-------|
+| Face Lock | Face shape, features, proportions, age |
+| Hair Lock | Length, style, color, texture |
+| Body Lock | Build, height proportion, limb features |
+| Wardrobe Lock | Main outfit, accessories, shoes |
+| Prop Lock | Fixed items, weapons, ornaments |
+| Mood Lock | Personality, emotional baseline |
+
+---
+
+## Compilation Workflow
+
+1. Load character profile from `director-character` output → fill sections [0]-[10]
+2. Derive visual style settings [9] from project context
+3. Fill Character Sheet Image Prompt [11] template
+4. Attach Negative Prompt [12]
+5. Deliver: sections [11] + [12] are ready to paste into GPT Image
 
 ---
 
 ## Two Input Modes
 
-### Mode A: With Reference Image (Recommended)
+### Mode A: With Reference Image
 
-User already has a character image (from GPT Image / MJ / Flux / photography etc.) and needs a multi-view identity board.
+User already has a character image. The prompt uses the image as the identity source.
 
-**Prompt key difference:**
-```
-[Subject]
-Use the reference image. Perform color correction. Maintain subject identity accuracy.
-```
-
-Character appearance is locked by the reference image. The prompt only controls identity board structure and layout. No need to fill in face/hair/body/wardrobe appearance parameters — this information is already in the image.
+- Prompt says: "using the reference image as identity source"
+- Character appearance is locked by the reference
+- GPT Image focuses on creating the multi-view Character Sheet layout
 
 ### Mode B: Without Reference Image
 
-User does not yet have a character image and needs to generate an identity board from scratch.
+User only has director-character definition. The prompt includes full appearance details.
 
-**Prompt key difference:**
-```
-[Subject]
-Create character appearance based on the following keywords: {Visual Keywords}.
-```
-
-GPT Image auto-derives the full appearance from keywords + project context. The compiler does NOT manually fill in face/hair/body/wardrobe details — these are autonomously derived by GPT Image.
+- Prompt fills in all face/hair/body/wardrobe fields from the character profile
+- GPT Image generates both the character appearance AND the multi-view layout
 
 ---
 
 ## Multi-Look Extension
 
-When a character has multiple outfits, generate one additional prompt per outfit, referencing the primary board:
+When a character has multiple outfits, generate additional prompts per outfit:
 
 ```
-Create a 16:9 artistic CHARACTER IDENTITY BOARD, outfit variant of the same character {Name}.
+Same character identity as {Character Name} character sheet,
+same face, same hair, same body, same skin tone,
 
-[Subject]: Same face, same hair, same body, same skin tone as the {Name} primary identity board. Use the reference image.
+wardrobe changed to: {new outfit description},
 
-[Wardrobe Change]: {New outfit keyword description}.
+show front view, side view, 3/4 view, rear view,
+full body standing pose,
 
-[Composition Anchor]: Same hero pose as the primary board, wearing the new outfit.
-[Auxiliary Views]: Full body front, full body back, full body side, all in the new outfit.
-
-Pure white background. No environment. Style consistent with the {Name} primary identity board.
-```
-
----
-
-## Multi-Character Contrast Block
-
-For projects with multiple characters, append after individual prompts:
-
-```
-[Multi-Character Visual Contrast Design]
-
-{Character A} ←→ {Character B}
-
-Size contrast: {Height and body type differences}
-Color palette contrast: {A palette} vs {B palette} — {contrast effect}
-Shape language contrast: {A shapes} vs {B shapes}
-Texture contrast: {A textures} vs {B textures}
-Lighting rules: Differentiated expression under shared lighting logic
-Interaction rules:
-  - Distance norm: {Typical distance}
-  - Gaze patterns: {Respective eye behaviors}
-  - Touch boundaries: {Rules}
-  - Power dynamic: {Dominance relationship}
+neutral background,
+cinematic realism,
+consistent identity with {Character Name} character sheet
 ```
 
 ---
@@ -304,27 +238,23 @@ Interaction rules:
 
 | Aspect | Requirement |
 |--------|-------------|
-| Language | Primary language of the project (Chinese for zh-cn, English for main). English only for proper names and design term labels |
-| Prompt style | Structured sections, not prose |
-| Negative constraints | Embedded as positive rules ("Do NOT..." / "Avoid..." / "No..."), not a separate negative prompt list |
-| Aspect ratio | `16:9` declared at the start of the prompt |
-| Parameters | No additional parameters needed (GPT Image does not use --ar / --style / --v) |
+| Language | Primary project language. English for proper names and design labels |
+| Prompt style | Structured, directive — not prose |
+| Negative constraints | Separate negative prompt block |
+| Aspect ratio | `16:9` |
+| Parameters | No additional parameters needed |
 
 ---
 
 ## Validation Checklist
 
-- [ ] Prompt is self-contained — directly pastable into GPT Image with no meta-instructions
-- [ ] All `{...}` placeholders are filled with actual data
-- [ ] No grid/blueprint/catalog/turn-around sheet language
-- [ ] No detailed per-field face/hair/body/wardrobe appearance descriptions (appearance is carried by reference image or auto-derived by GPT Image)
-- [ ] Background: "Pure white / soft off-white"
-- [ ] Layout rules include "asymmetric", "large negative space", "no overlapping", "no merging poses"
-- [ ] Identity lock covers structure + proportions + hair + wardrobe + silhouette + visual DNA
-- [ ] Silhouette study zone (2-4 simplified black silhouettes) present
-- [ ] Expression study zone present
-- [ ] Detail study zone present
-- [ ] Text block: Name / Role / Core Mood / Visual Signature only — four fields
+- [ ] [11] Character Sheet Image Prompt is self-contained — directly pastable
+- [ ] All required views listed (front, side, 3/4, rear, face close-up, expression sheet)
+- [ ] Face/hair/body/wardrobe parameters match director-character definition
+- [ ] [12] Negative Prompt covers all constraint items
+- [ ] Background is neutral, not distracting
+- [ ] No "artistic identity board" language — uses "cinematic character design board" instead
+- [ ] No grid/blueprint/catalog layout forced — style is derived from project context
 - [ ] No --ar / --style / --v parameters
 
 ---
@@ -333,9 +263,7 @@ Interaction rules:
 
 Invoked by `director-core` or independently after STATE 3:
 
-1. Extract key fields from `director-character` (Name / Role / Core Mood / Keywords)
-2. Obtain project context from user (type / emotional tone)
-3. Confirm whether a reference image is available
-4. Derive visual direction → fill the universal template → output the GPT Image prompt
-5. User pastes into GPT Image → generates CHARACTER IDENTITY BOARD image
-6. Generated image serves as `@[character ref]` for STATE 6 `seedance-video-prompt`
+1. Load character profile from `director-character`
+2. Compile into [0]-[12] complete Character Sheet Profile + Image Prompt
+3. User confirms, then pastes [11] into GPT Image to generate Character Sheet image
+4. Generated Character Sheet serves as `@[character ref]` for STATE 6 `seedance-video-prompt`
