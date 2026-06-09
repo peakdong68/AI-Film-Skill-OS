@@ -1,84 +1,86 @@
 ---
 name: character-image-prompt
-description: Compile character identity definitions from director-character into multi-view cinematic Character Sheet prompts for GPT Image. Produces character design sheets for AI video consistency control — NOT single portraits, NOT artistic identity boards. Use when the user has a character reference image or a director-character definition and needs a GPT Image-ready Character Sheet prompt. Also use when director-core routes after STATE 3 completion.
+description: 将 director-character 产出的角色身份定义编译为 GPT Image 的多视角电影级角色设计板（Character Sheet）提示词。产出用于 AI 视频一致性控制的角色设定图——非单人肖像，非艺术身份板。当用户已有角色参考图像或 director-character 角色定义，需要生成 GPT Image 可用的 Character Sheet 提示词时使用。亦在 director-core 于 STATE 3 完成后路由至此。
 ---
 
-# Character Image Prompt — GPT Image Character Sheet Compiler
+# 角色生图提示词 — GPT Image 角色设计板编译器
 
-## Overview
+## 概览
 
 ```
-[Reference Image] or [director-character key fields]
-                    +
-            [Project Context]
-                    ↓
-         [Compiler]
-                    ↓
-     GPT Image Character Sheet Prompt
+[参考图像] 或 [director-character 关键字段]
+              +
+        [项目上下文]
+              ↓
+          [编译器]
+              ↓
+  GPT Image 角色设计板（Character Sheet）提示词
 ```
 
-**Core Definition:**
+**核心定义：**
 
-> Character Sheet = **"Multi-view cinematic character design board for AI video consistency control."**
+> 角色设定参考图 = **"用于AI视频一致性控制的多视角电影级角色设计板（Character Sheet）"**
 >
-> This skill outputs **Character Sheet image prompts**, NOT single portraits, NOT artistic identity boards.
-> The purpose is AI video cross-shot consistency — the Character Sheet is a reference asset that locks character identity across all generated video frames.
+> 本技能产出的是 **Character Sheet 生图提示词**，不是单人肖像，不是艺术身份板。
+> 目的是 AI 视频跨镜头角色一致性——Character Sheet 是锁定角色身份、贯穿所有生成视频帧的参考资产。
 
-**Input Sources:**
+**输入来源：**
 
-| Source | Role |
-|--------|------|
-| Reference Image (recommended) | Visual anchor for character appearance |
-| director-character output | Full character profile: face, hair, body, wardrobe, props, expression system |
-| Project Context | Project type, emotional tone — used to derive visual style direction |
-
----
-
-## Output Structure — 12-Section Character Sheet Profile
-
-Follows the Seedance 2.0 Complete Character Profile Template (from prd2.md).
-
-| Section | Content | Purpose |
-|---------|---------|---------|
-| [0] | Character Reference ID | ID, role, priority, continuity importance, reference tag |
-| [1] | Core Identity | Age, occupation, personality, emotional function, visual signature, keywords |
-| [2] | Face Identity Lock | Face shape, skin tone, eyes, eyebrows, nose, mouth, jaw, distinguishing features |
-| [3] | Hair Lock | Length, style, color, texture, parting, movement |
-| [4] | Body Lock | Height, body type, build, posture, movement style, signature gesture |
-| [5] | Wardrobe Lock | Main outfit, color palette, fabric, fit, accessories, alternative outfits |
-| [6] | Prop Lock | Primary/secondary props, signature items, interaction style |
-| [7] | Expression System | Emotion range with physical manifestations (3-5 key emotions) |
-| [8] | Character Sheet View Requirements | Required views checklist |
-| [9] | Visual Style Settings | Style, realism level, lighting, color mood, lens feel, background |
-| [10] | Seedance Reference Settings | Lock switches, reference priority, reference boundaries |
-| **[11]** | **Character Sheet Image Prompt** | **← Final deliverable. Ready to paste into GPT Image.** |
-| [12] | Negative Prompt | Negative constraint checklist |
-
-> **Note:** Sections [0]-[10] are the compiler's working data sourced from director-character. Section [11] is the deliverable. Section [12] is the constraint appendix.
+| 来源 | 作用 |
+|------|------|
+| 参考图像（推荐） | 角色外观的视觉锚点 |
+| director-character 输出 | 完整角色档案：面部、发型、体型、服装、道具、表情系统 |
+| 项目上下文 | 项目类型、情绪基调——用于推导视觉风格方向 |
 
 ---
 
-## [11] Character Sheet Image Prompt — Template
+## 输出结构 — 12段角色设计板档案
+
+遵循 Seedance 2.0 完整角色档案模板（来自 prd2.md）。
+
+| 段 | 内容 | 用途 |
+|----|------|------|
+| [0] | Character Reference ID | 角色标识、叙事角色、优先级、一致性权重、引用标签 |
+| [1] | Core Identity | 年龄、职业、性格、情绪功能、视觉签名、关键词 |
+| [2] | Face Identity Lock | 脸型、肤色、眼型眼色、眉型、鼻型、嘴型、下颌、识别特征 |
+| [3] | Hair Lock | 长度、发型、发色、发质、分线、动态 |
+| [4] | Body Lock | 身高、体型、体态、动作风格、标志性手势 |
+| [5] | Wardrobe Lock | 主服装、颜色调色板、面料、合身度、配饰、替换服装 |
+| [6] | Prop Lock | 主/次要道具、标志物品、互动方式 |
+| [7] | Expression System | 表情范围及体态表现（3-5种关键情绪） |
+| [8] | Character Sheet View Requirements | 必含视角清单 |
+| [9] | Visual Style Settings | 风格、写实度、灯光、色彩情绪、镜头感、背景 |
+| [10] | Seedance Reference Settings | 锁定开关、引用优先级、引用边界 |
+| **[11]** | **Character Sheet Image Prompt** | **← 最终交付物。可直接粘贴到 GPT Image。** |
+| [12] | Negative Prompt | 负面约束清单 |
+
+> **说明：** [0]-[10] 是编译器从 director-character 加载的工作数据。[11] 是交付物。[12] 是约束附录。
+
+---
+
+## [11] Character Sheet Image Prompt — 模板
+
+### 无参考图像时
 
 ```
-Professional cinematic character sheet showing {Character Name},
-age {Age},
+Professional cinematic character sheet showing {角色名称},
+age {年龄},
 
-{face shape}, {jawline}, {skin tone}, {skin texture},
-{eye shape}, {eye color},
-{eyebrow description},
-{nose description}, {lip description},
-{hair length}, {hair style}, {hair color}, {hair texture},
+{脸型}, {下颌}, {肤色}, {肤质},
+{眼型}, {眼色},
+{眉型},
+{鼻型}, {嘴型/唇型},
+{发长}, {发型}, {发色}, {发质},
 
-{body type}, {height}, {posture},
+{体型}, {身高}, {体态},
 
-wearing {wardrobe full description},
-{accessories if any},
+wearing {全套服装描述},
+{配饰列表},
 
 show front view, side view, 3/4 view, rear view,
-full body standing pose, {signature pose 1}, {signature pose 2},
+full body standing pose, {签名姿态1}, {签名姿态2},
 face close-up, hair detail, hand detail,
-expression sheet: {emotion 1}, {emotion 2}, {emotion 3}, {emotion 4}, {emotion 5},
+expression sheet: {情绪1}, {情绪2}, {情绪3}, {情绪4}, {情绪5},
 
 professional character design sheet,
 neutral background,
@@ -88,16 +90,16 @@ clean presentation layout,
 consistent identity across all views
 ```
 
-### With Reference Image Variant
+### 有参考图像时
 
 ```
 Professional cinematic character sheet using the reference image as identity source,
 perform color correction, maintain subject identity accuracy,
 
 show front view, side view, 3/4 view, rear view,
-full body standing pose, {signature pose 1}, {signature pose 2},
+full body standing pose, {签名姿态1}, {签名姿态2},
 face close-up, hair detail, hand detail,
-expression sheet: {emotion 1}, {emotion 2}, {emotion 3}, {emotion 4}, {emotion 5},
+expression sheet: {情绪1}, {情绪2}, {情绪3}, {情绪4}, {情绪5},
 
 same face, same hair, same body, same wardrobe as reference image,
 professional character design sheet,
@@ -138,132 +140,132 @@ no text-heavy poster layout
 
 ---
 
-## View Requirements (Mandatory)
+## 必含视角（强制）
 
-Every Character Sheet MUST include:
+每个 Character Sheet 必须包含：
 
-| View | Required | Notes |
-|------|----------|-------|
-| Front view | ✓ | Full body |
-| Side view | ✓ | Full body |
-| 3/4 view | ✓ | Full body |
-| Rear view | ✓ | Full body or silhouette |
-| Face close-up | ✓ | Neutral expression, front |
-| Hair detail | ✓ | Close-up showing texture |
-| Hand detail | ✗ | If hands are narratively important |
-| Full body standing pose | ✓ | Signature stance |
-| Walking pose | ✗ | If movement is important |
-| Action pose | ✗ | If character has signature action |
-| Expression sheet | ✓ | 3-5 emotion variations |
-
----
-
-## Visual Style Settings
-
-| Parameter | Default | Alternatives |
-|-----------|---------|-------------|
-| Visual Style | Cinematic realism | Stylized anime, semi-realistic, concept art, editorial, 3D render — derived from project type |
-| Lighting | Neutral studio lighting with subtle rim light | Dramatic rim light, soft diffused, high-contrast — derived from emotional tone |
-| Background | Neutral gray or soft gradient studio backdrop | Clean off-white — must NOT distract from character |
-| Lens feel | 50mm portrait | 85mm editorial, 35mm situational |
-| Layout | Clean professional presentation | Asymmetric editorial (if project calls for it) |
+| 视角 | 必含 | 说明 |
+|------|------|------|
+| 正面全身（Front view） | ✓ | |
+| 侧面全身（Side view） | ✓ | |
+| 3/4角度全身（3/4 view） | ✓ | |
+| 背面全身/轮廓（Rear view） | ✓ | |
+| 面部特写（Face close-up） | ✓ | 中性表情，正面 |
+| 发型细节（Hair detail） | ✓ | 展示发质纹理 |
+| 手部细节（Hand detail） | ✗ | 若手部有叙事重要性 |
+| 全身站姿（Full body standing pose） | ✓ | 标志性站姿 |
+| 行走姿态（Walking pose） | ✗ | 若动态重要 |
+| 动作姿态（Action pose） | ✗ | 若有标志性动作 |
+| 表情变化（Expression sheet） | ✓ | 3-5种情绪变化 |
 
 ---
 
-## Consistency Lock
+## 视觉风格设置
 
-All views and all downstream Seedance prompts must maintain:
-
-| Lock | Scope |
-|------|-------|
-| Face Lock | Face shape, features, proportions, age |
-| Hair Lock | Length, style, color, texture |
-| Body Lock | Build, height proportion, limb features |
-| Wardrobe Lock | Main outfit, accessories, shoes |
-| Prop Lock | Fixed items, weapons, ornaments |
-| Mood Lock | Personality, emotional baseline |
+| 参数 | 默认值 | 可选 |
+|------|--------|------|
+| 视觉风格 | 电影级写实（cinematic realism） | 风格化动漫、半写实、概念设计风、编辑艺术风、3D渲染——根据项目类型推导 |
+| 灯光 | 中性影棚光 + 轻微轮廓光 | 戏剧性轮廓光、柔光漫射、高对比——根据情绪基调推导 |
+| 背景 | 中性灰色或柔和渐变影棚背景 | 干净米白色——不能干扰角色识别 |
+| 镜头感 | 50mm 人像 | 85mm 编辑风、35mm 场景感 |
+| 版式 | 干净专业展示布局 | 非对称编辑布局（如项目风格需要） |
 
 ---
 
-## Compilation Workflow
+## 一致性锁定
 
-1. Load character profile from `director-character` output → fill sections [0]-[10]
-2. Derive visual style settings [9] from project context
-3. Fill Character Sheet Image Prompt [11] template
-4. Attach Negative Prompt [12]
-5. Deliver: sections [11] + [12] are ready to paste into GPT Image
+所有视图和所有下游 Seedance 提示词必须保持：
 
----
-
-## Two Input Modes
-
-### Mode A: With Reference Image
-
-User already has a character image. The prompt uses the image as the identity source.
-
-- Prompt says: "using the reference image as identity source"
-- Character appearance is locked by the reference
-- GPT Image focuses on creating the multi-view Character Sheet layout
-
-### Mode B: Without Reference Image
-
-User only has director-character definition. The prompt includes full appearance details.
-
-- Prompt fills in all face/hair/body/wardrobe fields from the character profile
-- GPT Image generates both the character appearance AND the multi-view layout
+| 锁定项 | 范围 |
+|--------|------|
+| 面部锁定 | 脸型、五官、比例、年龄感 |
+| 发型锁定 | 长度、发型、发色、发质 |
+| 体型锁定 | 身材比例、身高感、肢体特征 |
+| 服装锁定 | 主服装、配饰、鞋子 |
+| 道具锁定 | 固定物品、武器、饰品 |
+| 情绪锁定 | 性格气质、情绪基调 |
 
 ---
 
-## Multi-Look Extension
+## 编译流程
 
-When a character has multiple outfits, generate additional prompts per outfit:
+1. 从 `director-character` 输出加载角色档案 → 填入 [0]-[10] 段
+2. 根据项目上下文推导 [9] 视觉风格设置
+3. 填入 [11] Character Sheet Image Prompt 模板
+4. 附加 [12] Negative Prompt
+5. 交付：[11] + [12] 可直接粘贴到 GPT Image
+
+---
+
+## 两种输入模式
+
+### 模式 A：有参考图像
+
+用户已有角色图像。提示词使用图像作为身份来源。
+
+- 提示词中写："using the reference image as identity source"
+- 角色外观由参考图像锁定
+- GPT Image 专注于创建多视角 Character Sheet 布局
+
+### 模式 B：无参考图像
+
+用户仅有 director-character 角色定义。提示词包含完整外观细节。
+
+- 提示词填入所有面部/发型/体型/服装字段
+- GPT Image 同时生成角色外观和多视角布局
+
+---
+
+## 多Look扩展
+
+角色有多套服装时，为每套额外生成提示词：
 
 ```
-Same character identity as {Character Name} character sheet,
+Same character identity as {角色名称} character sheet,
 same face, same hair, same body, same skin tone,
 
-wardrobe changed to: {new outfit description},
+wardrobe changed to: {新服装描述},
 
 show front view, side view, 3/4 view, rear view,
 full body standing pose,
 
 neutral background,
 cinematic realism,
-consistent identity with {Character Name} character sheet
+consistent identity with {角色名称} character sheet
 ```
 
 ---
 
-## Platform: GPT Image
+## 平台：GPT Image
 
-| Aspect | Requirement |
-|--------|-------------|
-| Language | Primary project language. English for proper names and design labels |
-| Prompt style | Structured, directive — not prose |
-| Negative constraints | Separate negative prompt block |
-| Aspect ratio | `16:9` |
-| Parameters | No additional parameters needed |
-
----
-
-## Validation Checklist
-
-- [ ] [11] Character Sheet Image Prompt is self-contained — directly pastable
-- [ ] All required views listed (front, side, 3/4, rear, face close-up, expression sheet)
-- [ ] Face/hair/body/wardrobe parameters match director-character definition
-- [ ] [12] Negative Prompt covers all constraint items
-- [ ] Background is neutral, not distracting
-- [ ] No "artistic identity board" language — uses "cinematic character design board" instead
-- [ ] No grid/blueprint/catalog layout forced — style is derived from project context
-- [ ] No --ar / --style / --v parameters
+| 项 | 要求 |
+|----|------|
+| 语言 | 提示词整体为英文（Character Sheet 的国际通用格式），中文仅用于角色档案段落的解释 |
+| Prompt 风格 | 结构化、指令式——非散文 |
+| 负面约束 | 单独 Negative Prompt 块 |
+| 画幅 | `16:9` |
+| 参数 | 无需附加参数 |
 
 ---
 
-## Integration
+## 验证清单
 
-Invoked by `director-core` or independently after STATE 3:
+- [ ] [11] Character Sheet Image Prompt 自包含——可直接粘贴
+- [ ] 所有必含视角已列出（front, side, 3/4, rear, face close-up, expression sheet）
+- [ ] 面部/发型/体型/服装参数与 director-character 定义一致
+- [ ] [12] Negative Prompt 覆盖全部约束项
+- [ ] 背景为中性，不干扰角色识别
+- [ ] 无"艺术身份板"用语——使用"电影级角色设计板"
+- [ ] 无强制网格/蓝图/目录式布局——风格由项目上下文推导
+- [ ] 无 --ar / --style / --v 参数
 
-1. Load character profile from `director-character`
-2. Compile into [0]-[12] complete Character Sheet Profile + Image Prompt
-3. User confirms, then pastes [11] into GPT Image to generate Character Sheet image
-4. Generated Character Sheet serves as `@[character ref]` for STATE 6 `seedance-video-prompt`
+---
+
+## 集成
+
+由 `director-core` 调用或 STATE 3 后独立使用：
+
+1. 从 `director-character` 加载角色档案
+2. 编译为 [0]-[12] 完整 Character Sheet Profile + Image Prompt
+3. 用户确认后，将 [11] 粘贴到 GPT Image 生成 Character Sheet 图像
+4. 生成的 Character Sheet 作为 `@[character ref]` 用于 STATE 6 `seedance-video-prompt`
