@@ -313,7 +313,7 @@ This skill includes bundled reference knowledge. Load when needed:
 
 - For Seedance I2V workflow, operating modes, and motion note specifications, read `references/seedance-i2v-workflow.md`
 - For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`
-- For bilingual shot size, camera movement, angle, composition, lighting, and narrative purpose quick reference tables, read `references/quick-reference.md`
+- For bilingual shot size, camera movement, angle, composition, lighting, and narrative purpose quick reference tables, read `../references/cinematography-quick-reference.md`
 - For Seedance platform constraints (word limits, @[ref] format), read shared reference `../references/seedance-platform.md`
 
 ---
