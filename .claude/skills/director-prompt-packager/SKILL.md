@@ -15,6 +15,34 @@ To compile storyboard images into Seedance 2.0 video prompts, use `seedance-vide
 
 Works independently for prompt compilation or is invoked by `director-core` at STATE 5.
 
+## Output Boundary (Hard Constraint)
+
+> **STATE 5 produces AI image generator prompts ONLY. Never video platform prompts.**
+
+This hard constraint prevents the most common pipeline error — pasting image generation prompts into Seedance 2.0 video platforms.
+
+**Never mention these video platform names in ANY STATE 5 output:**
+
+- Seedance 2.0
+- Runway
+- Sora
+- Kling (Kling video mode)
+
+**Absolutely forbidden in STATE 5 outputs:**
+
+- "Generate shot by shot in Seedance 2.0"
+- "Use directly in Seedance"
+- "Seedance 2.0 prompt"
+- "Generate sequentially in Seedance"
+- Any language suggesting this prompt can be used directly on a video platform
+
+**Correct downstream language (image generators only):**
+
+- "Paste this prompt into Jimeng/MJ/Flux/Kling image mode to generate storyboard frame images"
+- "The generated storyboard images will serve as @[ref] inputs for STATE 6 (seedance-video-prompt)"
+
+Violating this boundary causes users to mis-input image prompts into video platforms, resulting in failed or corrupted generations. The STATE 5 → STATE 6 separation of concerns is foundational to the pipeline design — never cross it.
+
 ## Compilation Principle
 
 > Storyboard prompts are not descriptions. They are motion instructions.
@@ -127,6 +155,11 @@ No style shift (maintain cinematic realism throughout).
 - Each shot's Context Lock references the previous shot
 - Multi-part videos (>15s) must carry forward: previous_video_reference + current_storyboard_reference
 
+### Rule 7: Output Platform Boundary
+- Every prompt's closing generation instruction **must explicitly point to an image generator** (Jimeng/MJ/Flux/Kling image mode)
+- Must never read "generate in Seedance" or "Seedance 2.0 prompt"
+- When using Chinese Jimeng/Kling, close with image platform parameters like `--ar 9:16 --style raw`
+
 ## Multi-Part Continuity System
 
 For videos exceeding 15 seconds, split into Parts and bind them:
@@ -169,22 +202,38 @@ Before delivering the final prompt pack, verify every shot:
 - [ ] Context lock references the correct previous shot
 - [ ] Duration is specified
 - [ ] Prompt is executable as-is in AI image generators
+- [ ] **Output boundary compliant: no mention of Seedance / Runway / Sora / Kling video platforms**
+- [ ] **Generation instruction points to image platform (Jimeng/MJ/Flux/Kling), not a video platform**
 
 ## Platform Adaptation
 
 Adjust prompt density and specificity per target image generation platform:
 
-| Platform | Prompt Style |
-|----------|-------------|
-| **Midjourney** | Concise English, visual keywords first |
-| **Flux** | Natural language description, rich detail |
-| **Jimeng/Kling** | Chinese-preferred, strong visual sense |
+| Platform | Prompt Style | Recommended Length |
+|----------|-------------|-----|
+| **Midjourney** | Concise English, visual keywords first | EN ≤ 200 words |
+| **Flux** | Natural language description, rich detail | EN ≤ 300 words |
+| **Jimeng/Kling (image)** | Chinese-preferred, strong visual sense | ZH ≤ 300 chars |
+| **GPT Image** | Structured description, avoid sensitive terms | EN ≤ 250 words |
+
+## Anti-Slop
+
+Replace empty evaluation language with observable production language in image generation prompts:
+
+| Empty Word | Replace With |
+|------|-----|
+| cinematic | specific shot scale + camera movement + light source direction |
+| premium | material behavior + light layering + composition |
+| textural / texture | visible fabric fibers + light flowing across material surface |
+| atmospheric | light source color temp + depth of field + environmental dynamic element |
+
+Rule: if a camera, light meter, or physical action cannot detect it — rewrite it.
 
 ## Downstream Pipeline
 
 After this skill produces the text-level prompt package:
 
-1. User pastes prompts into AI image generator → generates storyboard frame images
+1. User pastes prompts into **AI image generator** (Jimeng/MJ/Flux/Kling) → generates storyboard frame images
 2. User feeds storyboard frame images + character reference images → into `seedance-video-prompt` skill
 3. `seedance-video-prompt` compiles into Seedance 2.0 / Runway / Sora / Kling platform-executable video prompts
 
@@ -194,6 +243,6 @@ When invoked by `director-core`:
 - Load all upstream artifacts (storyboard, character, camera, lighting)
 - Verify pre-check checklist (all storyboards confirmed, characters locked, visual language defined)
 - Compile the full prompt pack
-- Run validation checklist
+- Run validation checklist (including output boundary check)
 - Present for final user review
 - Upon confirmation, mark STATE 5 complete

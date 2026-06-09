@@ -11,7 +11,6 @@ This is the master orchestrator for the AI Film OS pipeline. It ensures every AI
 
 This skill does not generate creative content itself. It routes to the appropriate sub-skills at each phase and validates outputs before advancing.
 
-
 ## Loaded Resources
 
 This skill ships with reference knowledge files. Load them when:
@@ -33,8 +32,10 @@ STATE 8 → EXPORT READY
 Each state produces a validated artifact before the next state unlocks. Skipping states is forbidden.
 
 **Key distinction between STATE 5 and STATE 6:**
-- STATE 5 (`director-prompt-packager`): Compiles TEXT-LEVEL storyboard prompt packages for AI image generators (MJ/Flux/即梦). Output: structured text prompts to generate storyboard images.
+- STATE 5 (`director-prompt-packager`): Compiles TEXT-LEVEL storyboard prompt packages for AI image generators (MJ/Flux/Jimeng). Output: structured text prompts to generate storyboard images. **Never produces video platform prompts.**
 - STATE 6 (`seedance-video-prompt`): Compiles IMAGE-REFERENCE video prompts for Seedance 2.0 / Runway / Sora / Kling. Input: generated storyboard images + character images. Output: platform-executable video generation prompts.
+
+**The STATE 5 → STATE 6 separation of concerns is foundational to the pipeline design. Never cross it.**
 
 ## Phase Lock Rules
 
@@ -47,6 +48,7 @@ These are hard constraints. Violating them causes the most common AI video failu
 | **Character Lock** | Character identity sheet must be confirmed before prompt generation |
 | **Storyboard Lock** | All storyboard frames must be confirmed before Seedance prompts |
 | **Prompt Lock** | All pre-check items must pass before final export |
+| **Output Boundary Lock** | STATE 5 output must not mention Seedance / Runway / Sora / Kling video platforms |
 
 If any lock is broken, halt and return to the earliest incomplete state.
 
@@ -122,7 +124,7 @@ Route to `director-character`.
 **State 3 output**: Character Identity Definitions (text-level design docs).
 
 **After STATE 3 confirmation, route to `character-image-prompt`:**
-This sub-skill compiles the character identity definitions into platform-ready character sheet image generation prompts (MJ/Flux/即梦/可灵). The user then generates actual character reference images. These images are required as `@[character ref]` inputs for STATE 6 (Seedance Video Prompt).
+This sub-skill compiles the character identity definitions into platform-ready character sheet image generation prompts (MJ/Flux/Jimeng/Kling). The user then generates actual character reference images. These images are required as `@[character ref]` inputs for STATE 6 (Seedance Video Prompt).
 
 Proceed to STATE 4 (Storyboard) — Storyboard and character image generation can run in parallel.
 
@@ -147,7 +149,12 @@ Route to `storyboard-sketch` (for Seedance I2V) or `storyboard-prompt` / `storyb
 
 Route to `director-prompt-packager`.
 
-**This is a text-level compiler.** It produces structured prompt packages for AI image generators (Midjourney, Flux, 即梦, 可灵). The output is NOT a Seedance video prompt — it is the input for generating storyboard images.
+**This is a text-level compiler.** It produces structured prompt packages for AI image generators (Midjourney, Flux, Jimeng, Kling). The output is NOT a Seedance video prompt — it is the input for generating storyboard images.
+
+**Output boundary (hard constraint):**
+- STATE 5 output must **never** mention Seedance 2.0 / Runway / Sora / Kling video platform names
+- Must not contain "generate in Seedance", "Seedance 2.0 prompt", "generate sequentially in Seedance", etc.
+- All generation instructions must point to image generators (Jimeng/MJ/Flux/Kling image mode)
 
 **Required artifacts:**
 - Structured prompt blocks per storyboard frame
@@ -162,18 +169,24 @@ Route to `director-prompt-packager`.
 - [ ] User confirmed characters?
 - [ ] Visual language defined?
 - [ ] Duration and aspect ratio locked?
+- [ ] **Output boundary compliant: no mention of Seedance / Runway / Sora / Kling?**
 
 If any answer is NO, halt and return to the missing phase.
 
 **State 5 output**: Storyboard Prompt Package (text-level, for AI image generators). Proceed to STATE 6.
 
-**Next step for user**: Use the prompt package to generate storyboard images in MJ/Flux/即梦.
+**Next step for user**: Use the prompt package to generate storyboard images in MJ/Flux/Jimeng.
 
 ### STATE 6 — SEEDANCE VIDEO PROMPT (IMAGE-REF LEVEL)
 
 Route to `seedance-video-prompt`.
 
 **This is the L5 video generation compiler.** It takes generated storyboard images, character reference images, and product/background references as `@[ref]` inputs, and compiles them into Seedance 2.0 / Runway / Sora / Kling platform-executable video prompts.
+
+**Platform hard constraints:**
+- Chinese prompts ≤ 500 characters, English prompts ≤ 1000 words, total ≤ 2000 characters
+- Each @[ref] must be assigned a single primary role (identity / product / environment / action rhythm), using role mapping declaration format
+- Pass anti-slop check: no empty evaluation words (cinematic / epic / beautiful, etc. without physical referents)
 
 **Required inputs:**
 - Generated storyboard images (from AI image generators)
@@ -187,6 +200,8 @@ Route to `seedance-video-prompt`.
 - [ ] Product images locked (if applicable)?
 - [ ] Background images locked (if applicable)?
 - [ ] Music style and BPM decided?
+- [ ] **Prompt character count compliant (ZH ≤ 500 chars)?**
+- [ ] **Anti-slop check passed?**
 
 If any answer is NO, prompt the user to provide the missing references.
 
@@ -201,6 +216,7 @@ Quality pass across all artifacts:
 - **Character check**: Is character identity preserved in every prompt?
 - **Continuity check**: Do spatial geography, lighting, and time flow feel continuous?
 - **Execution check**: Is the Seedance prompt directly usable in the target platform?
+- **Character count check**: Are Chinese prompts ≤ 500 characters?
 
 **State 7 output**: Validated video prompt. Proceed to STATE 8.
 
@@ -222,7 +238,7 @@ director-story ────→ director-emotion
          director-camera ──→ director-light
                 │
                 ↓
-         director-character ──→ character-image-prompt [character image prompts for MJ/Flux/即梦]
+         director-character ──→ character-image-prompt [character image prompts for MJ/Flux/Jimeng]
                 │                         │
                 │                         ↓ (user generates character reference images)
                 ↓                         │
@@ -231,7 +247,7 @@ director-story ────→ director-emotion
                 ↓                         │
          director-prompt-packager [STATE 5: text-level prompt package for image generators]
                 │                         │
-                ↓ (user generates storyboard images via MJ/Flux/即梦)
+                ↓ (user generates storyboard images via MJ/Flux/Jimeng)
                 │                         │
                 └─────────┬───────────────┘
                           ↓
