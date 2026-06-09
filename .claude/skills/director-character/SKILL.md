@@ -148,7 +148,7 @@ Joy → relaxed posture, genuine smile reaching eyes, open body language
 
 This section provides a **view coverage template** — it defines what visual angles and states the character sheet should cover. It is NOT an executable image generation prompt.
 
-To compile the full character identity definition into platform-ready image generation prompts (MJ/Flux/即梦/可灵), route to the `character-image-prompt` skill, which follows the Seedance 2.0 Character Sheet specification (see `prd2.md` / `prd3.md`).
+To compile the full character identity definition into platform-ready image generation prompts (MJ/Flux/即梦/可灵), route to the `character-image-prompt` skill, which follows the multi-view character design board specification.
 
 View coverage requirements:
 ```

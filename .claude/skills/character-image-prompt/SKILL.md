@@ -1,13 +1,13 @@
 ---
 name: character-image-prompt
-description: Compile character identity definitions from director-character into platform-ready character sheet image prompts for AI image generators (Midjourney / Flux / Jimeng / Kling). Follows the Seedance 2.0 Character Sheet specification (prd2.md / prd3.md) — multi-view character design boards, not single portraits. Use for character image prompts, character sheet image prompts, character reference image generation prompts, or when director-core routes after STATE 3 completion. Use when the user has a character identity definition and needs to convert it into structured prompts ready for direct pasting into image generation platforms.
+description: Compile character identity definitions from director-character into platform-ready character sheet image prompts for AI image generators (Midjourney / Flux / Jimeng / Kling). Follows the multi-view character design board specification — producing multi-view character design boards, not single portraits. Use for character image prompts, character sheet image prompts, character reference image generation prompts, or when director-core routes after STATE 3 completion. Use when the user has a character identity definition and needs to convert it into structured prompts ready for direct pasting into image generation platforms.
 ---
 
 # Character Image Prompt — Compiler
 
 ## Overview
 
-This is the **character identity definition → image generation prompt** compiler. It receives character identity definitions from `director-character` and compiles them into platform-ready image prompts following the Seedance 2.0 Character Sheet specification (prd2.md / prd3.md), ready for direct pasting into Midjourney / Flux / Jimeng / Kling.
+This is the **character identity definition → image generation prompt** compiler. It receives character identity definitions from `director-character` and compiles them into platform-ready image prompts following the multi-view character design board specification, ready for direct pasting into Midjourney / Flux / Jimeng / Kling.
 
 **Key distinctions:**
 - `director-character` (STATE 3): Produces character identity **definitions** (text-level design docs) — defines who the character is, what they look like
@@ -44,7 +44,7 @@ If any field is missing, route back to `director-character` for completion.
 
 ### Format: Complete Character Profile + Image Prompt
 
-Follow the 12-section template from prd2.md:
+Follow the 12-section character profile template:
 
 | Section | Content | Description |
 |---------|---------|-------------|
