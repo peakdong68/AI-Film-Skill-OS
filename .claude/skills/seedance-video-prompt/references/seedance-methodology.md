@@ -1,6 +1,6 @@
 # Seedance 2.0 Prompt Methodology — Bundled Reference
 
-Knowledge extracted and adapted for the `seedance-video-prompt` skill. Sources: Seedance 2.0 operating system (v5.4.5).
+Knowledge extracted and adapted for the `seedance-video-prompt` skill.
 
 ---
 
