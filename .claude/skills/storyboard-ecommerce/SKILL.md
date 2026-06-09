@@ -22,7 +22,7 @@ This skill supports two commerce-specific formats. Choose automatically:
 
 ---
 
-## Format A: Social Commerce Board (带货视频故事板)
+## Format A: Social Commerce Board (Shopping Video Board)
 
 For TikTok/Reels/Shorts-style product videos where a creator/host presents a product. Derived from the TK English AI Video Storyboard template.
 
@@ -186,7 +186,7 @@ Do NOT generate: poster style, film concept art, decorative PPT, cyberpunk, over
 
 ---
 
-## Format B: Fashion Director Board (电商服装直播分镜图)
+## Format B: Fashion Director Board (Fashion E-commerce Livestream Storyboard)
 
 For fashion/apparel/lookbook-style shoots where a model showcases clothing without talking-head hosting. Derived from the fashion livestream director storyboard template.
 
@@ -218,69 +218,69 @@ Each shot card follows a strict unified structure:
 └──────────────────────────┘
 ```
 
-Header format: `编号 | 景别缩写 | 时间码`
+Header format: `Shot # | Shot Size Abbrev | Timecode`
 
 Director note rules:
 - ≤15 characters in Chinese
 - Reads like an on-set director's margin note
 - Describes the core visual moment, not abstract concepts
-- Examples: 整理衣摆突出版型 / 45°侧身展示廓形 / 推近展示印花细节
+- Examples: Adjust hem to highlight silhouette / 45° side angle to show structure / Push-in to reveal print detail
 
-### Bottom Module 1: Rhythm Structure (节奏结构图)
+### Bottom Module 1: Rhythm Structure (Rhythm Structure Diagram)
 
-Title: **节奏结构（XX秒 / 卡点剪辑）**
+Title: **Rhythm Structure (XX seconds / Beat-Synced Edit)**
 
 Content organized by music phases:
 
 ```
-| 0–5s   | 铺垫 & 建立  | Kick / Snare          |
-| 5–10s  | 动作展示     | 节奏律动              |
-| 10–15s | 版型细节     | 旋律推进              |
-| 15–20s | 收尾强化     | Drop / 重低音          |
+| 0–5s   | Setup & Establish | Kick / Snare          |
+| 5–10s  | Motion Display   | Rhythm groove         |
+| 10–15s | Fit & Detail     | Melody build          |
+| 15–20s | Closing Emphasis | Drop / Bass           |
 ```
 
 Add a waveform graphic showing intensity, with shot numbers (①②③...) marking time points.
 
-### Bottom Module 2: Camera Movement Diagram (镜头运动路径图)
+### Bottom Module 2: Camera Movement Diagram (Camera Movement Diagram)
 
-Title: **镜头运动路径图（参考）**
+Title: **Camera Movement Diagram (Reference)**
 
 Top-down spatial plan with:
 - Numbered camera positions (①→③→④→⑥→⑧→⑩→⑫)
 - Dashed trajectory arrows
-- Movement type labels: 缓推 / 侧移 / 半环绕 / 定镜 / 推近 / 回拉
+- Movement type labels: Slow Push-in / Lateral Track / Semi-Orbit / Static Hold / Push-in / Pull-back
 
-### Bottom Module 3: Lighting & Atmosphere (光影与氛围)
+### Bottom Module 3: Lighting & Atmosphere (Lighting & Atmosphere)
 
-Title: **光影与氛围（与原图一致）**
+Title: **Lighting & Atmosphere (Consistent with Reference)**
 
 Checklist format:
 ```
-✓ 左前方暖色主光
-✓ 辅助柔光
-✓ 右后方轮廓光
-✓ 墙面干净通透
-✓ 暖白色空间
-✓ 柔和景深
+✓ Warm key light from front-left
+✓ Soft fill light
+✓ Rim light from rear-right
+✓ Clean, transparent walls
+✓ Warm white space
+✓ Soft depth of field
 ```
 
-Keywords: 潮流 / 街头 / 高级感 / 松弛 / 质感
+Keywords: Trendy / Street / Premium / Relaxed / Texture
 
-### Replaceable Zone (主体替换区域)
+### Replaceable Zone (Replaceable Zone)
 
 This is the only area the user needs to customize per project. Keep the rest of the structure fixed.
 
 ```
-【场景】[location description, lighting environment, set details]
-【模特】[single model: gender, age range, hairstyle, accessories, outfit style, expression]
-【产品】[garment: color, wash, fit, print pattern, collar, cuffs, length, hem, fabric texture, proportions]
-【镜头动作】[list of key movements: 自然走入 / 整理衣摆 / 拉袖口 / 45°侧身 / 正面站姿 / 微低头]
+【Scene】[location description, lighting environment, set details]
+【Model】[single model: gender, age range, hairstyle, accessories, outfit style, expression]
+【Product】[garment: color, wash, fit, print pattern, collar, cuffs, length, hem, fabric texture, proportions]
+【Shot Actions】[list of key movements: Natural walk-in / Adjust hem / Pull cuff / 45° side angle / Frontal stance / Slight head tilt]
 ```
 
 ### Visual Style Requirements (Fashion Director Board)
 
 ```
-导演分镜提案板, 商业广告导演分镜板, 电商服装广告Storyboard, 专业镜头语言, 信息层级清晰, 排版整洁, 高级感强, 真实摄影感, 白底或浅灰底
+Director treatment board, commercial ad director storyboard, e-commerce fashion ad storyboard, professional camera language, clear information hierarchy, clean layout, strong premium feel, authentic photography feel, white or light gray background
 ```
 
 Do NOT generate: illustration style, poster style, comic style, UI interface style. Must look like a real director storyboard pitch deck.

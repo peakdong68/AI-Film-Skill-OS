@@ -17,8 +17,8 @@ The master sheet has two output densities. Choose based on user intent:
 
 | If the user says... | Output |
 |---|---|
-| "分镜总览图", "Master Sheet", "Director Treatment Board", "导演提案板", "完整规划", "pre-production blueprint" | **Full Master Sheet** (4 sections, 6-24 shots) |
-| "简版分镜图", "分镜图板", "quick board", "简洁版" | **Concise Director Board** (shot grid only + bottom 3 modules) |
+| "storyboard master sheet", "Master Sheet", "Director Treatment Board", "director treatment board", "full plan", "pre-production blueprint" | **Full Master Sheet** (4 sections, 6-24 shots) |
+| "concise storyboard board", "storyboard panel board", "quick board", "concise version" | **Concise Director Board** (shot grid only + bottom 3 modules) |
 
 When the user specifies shot count, use it. Otherwise default to 6 shots for concise and 12 shots for full.
 
@@ -41,7 +41,7 @@ The full master sheet has four mandatory sections. Write the prompt so the image
 └──────────────┴──────────────┴───────────┘
 ```
 
-### Section 1: Shot Grid (分镜展示区)
+### Section 1: Shot Grid (Shot Grid)
 
 The primary section. Each shot card in the grid must contain:
 
@@ -57,7 +57,7 @@ The primary section. Each shot card in the grid must contain:
 └──────────────────────────┘
 ```
 
-Shot card information format: `编号 | 景别 | 时间码`
+Shot card information format: `Shot # | Shot Size | Timecode`
 
 Layout rules:
 - Arrange shots in reading order (left→right, top→bottom)
@@ -65,7 +65,7 @@ Layout rules:
 - Maintain equal card sizes across the grid
 - White or light gray background for the board
 
-### Section 2: Rhythm & Structure (节奏设计区)
+### Section 2: Rhythm & Structure (Rhythm & Structure)
 
 Display the narrative rhythm and editing structure:
 
@@ -88,7 +88,7 @@ Phase labeling format: `Phase 1: [name] (Shots XX-XX) — [what happens]`
 
 Add a rhythm density line: `[calm] →→ [building] →→→ [peak] →→ [decelerating]`
 
-### Section 3: Camera Movement Diagram (运镜设计区)
+### Section 3: Camera Movement Diagram (Camera Movement Diagram)
 
 A top-down spatial diagram showing camera positions and movements:
 
@@ -99,7 +99,7 @@ A top-down spatial diagram showing camera positions and movements:
 
 Present this as a description the image generator can render: "Top-down floor plan with numbered camera positions connected by dashed trajectory arrows..."
 
-### Section 4: Visual Language (视觉设计区)
+### Section 4: Visual Language (Visual Language)
 
 Design specifications that apply across all shots:
 
@@ -118,7 +118,7 @@ MOOD: [keyword 1] · [keyword 2] · [keyword 3] · [keyword 4] · [keyword 5]
 ART DIRECTION: [1-2 lines of design guidance]
 ```
 
-## Concise Director Board (简版)
+## Concise Director Board (Concise Version)
 
 When the user wants the shorter format, reduce to:
 
@@ -132,7 +132,7 @@ When the user wants the shorter format, reduce to:
 └─────────────────────────────────┘
 ```
 
-Shot cards in concise mode: `#01 | LS 全景 | 0:00-0:02` as header, preview image, and one line of director-style description (≤15 characters in Chinese).
+Shot cards in concise mode: `#01 | LS Wide Shot | 0:00-0:02` as header, preview image, and one line of director-style description (≤15 characters in Chinese).
 
 Bottom modules are simplified but must still include:
 - Rhythm structure: time segments with beat points

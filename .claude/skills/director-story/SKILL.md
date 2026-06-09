@@ -25,13 +25,13 @@ Accept any of these as starting material:
 - A scene list
 - A thematic concept with character description
 
-If the user provides fewer than 20 words of story material, ask for more detail before proceeding. If they say "直接生成", expand from the available material and mark assumptions.
+If the user provides fewer than 20 words of story material, ask for more detail before proceeding. If they say "just generate", expand from the available material and mark assumptions.
 
 ## Output Structure
 
 Every analysis must produce a Script Director Blueprint with these 5 sections:
 
-### 1. Narrative Structure Map (叙事结构)
+### 1. Narrative Structure Map (Narrative Structure)
 
 Select and populate one structure:
 
@@ -56,7 +56,7 @@ Act 5: Denouement — [resolution, new state]
 
 For short-form content (≤30s), default to 3-act. For long-form (>60s), consider 5-act.
 
-### 2. Scene Breakdown Map (场景拆解)
+### 2. Scene Breakdown Map (Scene Breakdown)
 
 For each scene, define:
 
@@ -70,7 +70,7 @@ SCENE [N]: [scene title]
 - Entry state → Exit state: [what changes by scene end?]
 ```
 
-### 3. Causal Chain (因果链)
+### 3. Causal Chain (Causal Chain)
 
 Define the chain of causation that drives the narrative forward:
 
@@ -85,7 +85,7 @@ Map dependencies:
 
 For each link, verify: "If I remove this event, does the next scene still make sense?" If yes, the causal link is weak.
 
-### 4. Director Intent Layer (导演意图层)
+### 4. Director Intent Layer (Director Intent Layer)
 
 For every scene, answer three director questions:
 
@@ -95,7 +95,7 @@ For every scene, answer three director questions:
 | What changes after this scene? | The delta — audience knowledge, character state, tension level |
 | What emotion does the audience leave with? | Emotional residual — what feeling carries into the next scene |
 
-### 5. Storyboard Readiness Check (分镜准备度)
+### 5. Storyboard Readiness Check (Storyboard Readiness)
 
 Assess whether the narrative structure is ready for storyboard:
 
@@ -111,7 +111,7 @@ If any item is unchecked, note what's missing before handing off to storyboard.
 
 Use these categories to classify scene purpose. Every scene must fall into at least one:
 
-| Category | 中文 | Signal |
+| Category | Chinese | Signal |
 |---|---|---|
 | Establish | 建立 | Introduce world, character, or status quo |
 | Advance | 推进 | Move plot forward through action or decision |

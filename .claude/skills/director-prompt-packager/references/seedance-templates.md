@@ -101,7 +101,7 @@ For videos > 15 seconds, split into Parts:
 |----------|---------------|----------|----------------|
 | Midjourney | Concise keywords | EN | Visual-first, style tokens |
 | Flux | Natural language | EN | Detailed descriptions |
-| 即梦/可灵 | Rich detail | CN preferred | Strong visual sense |
+| Jimeng/Kling | Rich detail | Chinese preferred | Strong visual sense |
 
 ## Compilation Workflow
 

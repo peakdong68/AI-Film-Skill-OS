@@ -1,6 +1,6 @@
 ---
 name: character-image-prompt
-description: Compile character identity definitions from director-character into multi-view cinematic Character Sheet prompts for AI image generators (MJ/Flux/即梦/GPT Image). Produces character design sheets for AI video consistency control — NOT single portraits, NOT artistic identity boards. Use when the user has a character reference image or a director-character definition and needs a Character Sheet prompt ready for AI image generation platforms. Also use when director-core routes after STATE 3 completion.
+description: Compile character identity definitions from director-character into multi-view cinematic Character Sheet prompts for AI image generators (MJ/Flux/Jimeng/GPT Image). Produces character design sheets for AI video consistency control — NOT single portraits, NOT artistic identity boards. Use when the user has a character reference image or a director-character definition and needs a Character Sheet prompt ready for AI image generation platforms. Also use when director-core routes after STATE 3 completion.
 ---
 
 # Character Image Prompt — Character Sheet Compiler
@@ -14,7 +14,7 @@ description: Compile character identity definitions from director-character into
                     ↓
          [Compiler]
                     ↓
-   Character Sheet Prompt (MJ / Flux / 即梦 / GPT Image)
+   Character Sheet Prompt (MJ / Flux / Jimeng / GPT Image)
 ```
 
 **Core Definition:**
@@ -241,8 +241,8 @@ The Character Sheet prompt is platform-agnostic. Adjust per target platform:
 | **Midjourney** | English (default) | Keep as-is | `--ar 16:9 --style raw --v 6.1` |
 | **Flux** | English (default) | Keep as-is, natural flow | None needed |
 | **GPT Image** | English (default) | Keep as-is | None needed |
-| **即梦 (Jimeng)** | Translate to Chinese | Preserve multi-view structure, add negative keywords to negative prompt | None needed |
-| **可灵 (Kling)** | Translate to Chinese | Strong consistency emphasis, add negative keywords | None needed |
+| **Jimeng** | Translate to Chinese locale | Preserve multi-view structure, add negative keywords to negative prompt | None needed |
+| **Kling** | Translate to Chinese locale | Strong consistency emphasis, add negative keywords | None needed |
 
 ---
 
@@ -255,7 +255,7 @@ The Character Sheet prompt is platform-agnostic. Adjust per target platform:
 - [ ] Background is neutral, not distracting
 - [ ] No "artistic identity board" language — uses "cinematic character design board" instead
 - [ ] No grid/blueprint/catalog layout forced — style is derived from project context
-- [ ] Platform adaptations applied if targeting 即梦/可灵 (Chinese translation)
+- [ ] Platform adaptations applied if targeting Jimeng/Kling (Chinese translation)
 
 ---
 

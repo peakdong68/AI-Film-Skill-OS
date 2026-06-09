@@ -1,10 +1,10 @@
-# Temporal Flow Types — 时间流叙事
+# Temporal Flow Types — Temporal Flow Narrative
 
 ## The Three Time Flows
 
 Every narrative moment operates in one of three temporal modes. The choice determines shot duration, cut rhythm, and emotional pacing.
 
-### 1. Linear Flow (线性流)
+### 1. Linear Flow (Linear Flow)
 Time passes at a natural, perceptible rate. Action A → Action B → Action C in real sequence.
 
 **When to use**: Standard narrative progression, real-time dialogue, action that needs to be followed
@@ -14,7 +14,7 @@ Time passes at a natural, perceptible rate. Action A → Action B → Action C i
 - Camera: Follows action, maintains spatial continuity
 - Emotion: Builds gradually, step by step
 
-### 2. Compressed Flow (压缩流)
+### 2. Compressed Flow (Compressed Flow)
 Multiple moments collapse into a short time span. Time accelerates.
 
 **When to use**: Montage, passage of time, routine establishment, fast information delivery
@@ -24,7 +24,7 @@ Multiple moments collapse into a short time span. Time accelerates.
 - Camera: Varied, jump cuts permitted, spatial continuity loosened
 - Emotion: Cumulative — each fragment adds emotional weight
 
-### 3. Expanded Flow (扩展流)
+### 3. Expanded Flow (Expanded Flow)
 A single moment stretches. Time decelerates to amplify emotional weight.
 
 **When to use**: Emotional peaks, decisive moments, silence, revelation, climax
@@ -38,7 +38,7 @@ A single moment stretches. Time decelerates to amplify emotional weight.
 
 How emotion changes across time determines the temporal strategy:
 
-### Rise Curve (上升型)
+### Rise Curve (Rise Curve)
 Emotion builds steadily toward a peak.
 
 ```
@@ -48,7 +48,7 @@ Camera: Medium → Close-up → ECU
 Movement: Static → Slow push-in → Hold
 ```
 
-### Fall Curve (下降型)
+### Fall Curve (Fall Curve)
 Emotion fades from intensity to release.
 
 ```
@@ -58,7 +58,7 @@ Camera: Close-up → Medium → Wide
 Movement: Static hold → Slow pull-out → Static
 ```
 
-### Spike Curve (爆发型)
+### Spike Curve (Spike Curve)
 Sudden emotional peak from a calm baseline.
 
 ```
@@ -68,7 +68,7 @@ Camera: Medium → ECU → Wide
 Movement: Static → Sudden stillness → Slow pull-back
 ```
 
-### Wave Curve (波动型)
+### Wave Curve (Wave Curve)
 Emotion oscillates — uncertainty, internal conflict.
 
 ```

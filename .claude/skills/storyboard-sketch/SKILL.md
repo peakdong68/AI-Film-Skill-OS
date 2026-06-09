@@ -20,8 +20,8 @@ Before generating output, decide which mode to use:
 
 | If the user says... | Use this mode |
 |---|---|
-| "分镜草图", "keyframe prompts", "I2V storyboard", "shot-by-shot prompts", "quick preview board", "rough visual frames", or any Seedance-focused prompt request | **Compact Frame Prompts** |
-| "分镜总览图", "Master Sheet", "导演分镜板", "shot list board", "director treatment board", "storyboard planning board", "完整分镜规划", or explicitly asks for a full visual planning layout | **Storyboard Master Sheet** |
+| "storyboard sketch", "keyframe prompts", "rough frame prompts", "I2V storyboard", "shot-by-shot prompts", "quick preview board", "rough visual frames", or any Seedance-focused prompt request | **Compact Frame Prompts** |
+| "storyboard master sheet", "Master Sheet", "director storyboard board", "shot list board", "director treatment board", "storyboard planning board", "complete storyboard plan", or explicitly asks for a full visual planning layout | **Storyboard Master Sheet** |
 
 When the user provides a multi-panel board image: identify whether it's ≤4 panels (treat as Compact Frame Prompts) or ≥5 panels (treat as source for Master Sheet structure).
 
@@ -60,17 +60,17 @@ If insufficient, infer a draft brief from available context before asking the us
 Use this confirmation format:
 
 ```markdown
-我先确认一下分镜基础：
-- 场景核心：[inferred or missing]
-- 主体/角色：[inferred or missing]
-- 地点/情境：[inferred or missing]
-- 输出目标：Seedance image-to-video storyboard sketch
-- 建议规格：[aspect ratio, frame count, style]
+Let me first confirm the storyboard basics:
+- Core scene: [inferred or missing]
+- Subject/Character: [inferred or missing]
+- Location/Situation: [inferred or missing]
+- Output target: Seedance image-to-video storyboard sketch
+- Suggested specs: [aspect ratio, frame count, style]
 
-确认这些方向吗？也可以直接改一句，我再生成分镜草图提示词。
+Can you confirm this direction? Or adjust one line and I will generate the storyboard sketch prompts.
 ```
 
-If the request is urgent or the user explicitly says "直接生成", proceed with reasonable assumptions and mark them clearly.
+If the request is urgent or the user explicitly says proceed directly without confirmation, proceed with reasonable assumptions and mark them clearly.
 
 ## Output Format
 
@@ -105,7 +105,7 @@ Repeat the frame block for each shot. End with a compact "Board Notes" section o
 - **Composition**: Shot size (see Quick Reference), camera angle, framing approach. Use plain terms like "wide shot", "over-shoulder", "low angle", "centered", "rule of thirds".
 - **Lighting & Mood**: Key light direction and quality, color temperature, atmosphere. E.g. "warm rim light from window, soft fill, tense atmosphere".
 - **I2V motion note**: How the Seedance image-to-video should animate this frame. Camera movement + subject movement + transition logic. One sentence.
-- **Story purpose**: What narrative function this shot serves — e.g. "建立场景空间感", "揭示角色情绪转折", "强调产品质感", "为下一镜头制造悬念". This is the single most important addition from professional storyboard practice: every shot must have a clear narrative reason to exist.
+- **Story purpose**: What narrative function this shot serves — e.g. "establish spatial sense of the scene", "reveal character emotional shift", "强调产品质感" -- need to find actual, "build suspense for next shot". This is the single most important addition from professional storyboard practice: every shot must have a clear narrative reason to exist.
 - **Continuity**: What must remain identical to other frames — character identity, wardrobe, props, lighting direction, screen geography.
 
 ## Prompt Style
@@ -155,7 +155,7 @@ Scene: Midnight · narrow alley · rain on brick
 Composition: Wide shot, eye level, leading lines from alley walls
 Lighting & Mood: Street lamp top light, blue ambient, tense
 I2V motion note: Slow lateral track follows the courier walking deeper into the alley.
-Story purpose: 建立场景空间和角色进入状态
+Story purpose: Establish spatial environment and character entrance state
 Continuity: Courier keeps the package in the right hand.
 
 **Frame 2 - The Sound**
@@ -164,7 +164,7 @@ Scene: Same alley · under wall lamp
 Composition: Medium close-up, eye level, centered on face and package
 Lighting & Mood: Overhead lamp as key, rain reflections on face, suspenseful
 I2V motion note: Static hold with a small head turn as the courier hears the ticking.
-Story purpose: 揭示危机信号，建立悬疑转折
+Story purpose: Reveal crisis signal, establish suspense turning point
 Continuity: Same red jacket, same package size and orientation.
 ```
 
@@ -187,7 +187,7 @@ The Master Sheet follows a four-section structure derived from professional film
 - Style: [director treatment board, clean infographic, professional production document]
 - Total shots: [6-18 recommended, auto-adjusted based on content]
 
-## Section 1: Shot Grid (分镜展示区)
+## Section 1: Shot Grid (Shot Grid)
 
 [Grid layout of all shots. Each shot card contains:]
 
@@ -197,7 +197,7 @@ The Master Sheet follows a four-section structure derived from professional film
 | 02 | MS | 00:02-00:04 | ... | ... | ... | ... |
 ...
 
-## Section 2: Rhythm & Structure (节奏设计区)
+## Section 2: Rhythm & Structure (Rhythm & Structure)
 
 Narrative arc:
 [Calm] → [Build] → [Tension/Emphasis] → [Peak/Climax] → [Release/Resolution]
@@ -212,14 +212,14 @@ Shot distribution by phase:
 Rhythm density: [calm → accelerating → peak → decelerating]
 Music beat alignment: [key beat points and which shots they land on]
 
-## Section 3: Camera Movement Diagram (运镜设计区)
+## Section 3: Camera Movement Diagram (Camera Movement Diagram)
 
 Top-down layout:
 - Camera positions marked by shot numbers (① ② ③ ...)
 - Movement trajectories shown as dashed arrows
 - Movement types per shot: [Static / Push-in / Lateral track / Orbit / Handheld / etc.]
 
-## Section 4: Visual Language (视觉设计区)
+## Section 4: Visual Language (Visual Language)
 
 Lighting design: [key light, fill, rim, color temp, atmosphere per phase]
 Color palette: [warm/cool/neutral, dominant colors, contrast level]
@@ -234,36 +234,36 @@ When building a Master Sheet, adapt the narrative arc to the content type. Selec
 
 **Film / Drama:**
 ```
-世界观建立 → 人物发展 → 冲突升级 → 高潮爆发 → 结局
+World-Building → Character Development → Conflict Escalation → Climax → Resolution
 ```
 
 **Advertising / Commercial:**
 ```
-场景建立 → 产品展示 → 卖点强化 → 情绪高潮 → 品牌收尾
+Scene Setup → Product Display → Selling Point Emphasis → Emotional Peak → Brand Close
 ```
 
 **E-commerce / Product:**
 ```
-建立氛围 → 整体展示 → 细节特写 → 使用场景 → 转化收尾
+Atmosphere Setup → Full Display → Detail Close-up → Use Scene → Conversion Close
 ```
 
 **Documentary / Explainer:**
 ```
-背景介绍 → 内容展开 → 重点分析 → 观点强化 → 总结结束
+Background → Content Expansion → Key Analysis → Point Reinforcement → Summary
 ```
 
 **Short Video / Social:**
 ```
-Hook抓眼球 → 问题呈现 → 解决方案 → 效果展示 → CTA引导
+Hook → Problem → Solution → Effect Display → CTA
 ```
 
 ## Master Sheet Example
 
-User request: "做一个高端腕表品牌广告的分镜总览图，6个镜头"
+User request: "make a storyboard master sheet for a high-end watch brand ad, 6 shots"
 
 ```markdown
 **Master Sheet Setup**
-- Project: 高端腕表品牌广告
+- Project: Luxury Watch Brand Ad
 - Aspect ratio: 16:9
 - Style: director treatment board, clean infographic, luxury commercial storyboard
 - Total shots: 6
@@ -272,38 +272,38 @@ User request: "做一个高端腕表品牌广告的分镜总览图，6个镜头"
 
 | # | Shot Size | Timecode | Frame Preview | Action | Camera | Purpose |
 |---|-----------|----------|---------------|--------|--------|---------|
-| 01 | ECU | 00:00-00:02 | 表盘微光闪动, dark void background | 光在表盘上缓缓移动 | Static macro | 制造悬念,建立奢华基调 |
-| 02 | CU | 00:02-00:04 | 表冠与表链连接处的精钢质感 | 极慢旋转展示金属拉丝纹理 | Slow orbit | 展示工艺质感 |
-| 03 | WS | 00:04-00:06 | 腕表置于大理石基座, 柔光环境 | 水滴落在表镜上弹开 | Top-down static | 强化品质感和防水特性 |
-| 04 | MCU | 00:06-00:08 | 模特手腕佩戴, 西装袖口 | 手腕自然抬起看表 | Gentle push-in | 建立佩戴场景和身份感 |
-| 05 | MS | 00:08-00:10 | 模特在落地窗前, 城市夜景背景 | 转身面向窗外, 表盘反光 | Slow dolly back | 融入生活方式场景 |
-| 06 | CU | 00:10-00:12 | 品牌Logo与表盘同框 | 定格, 光晕收拢到Logo | Static hold | 品牌收尾,强化记忆 |
+| 01 | ECU | 00:00-00:02 | Watch dial glints faintly, dark void background | Light moves slowly across the dial | Static macro | Build suspense, establish luxury tone |
+| 02 | CU | 00:02-00:04 | Brushed steel texture at crown-bracelet junction | Ultra-slow rotation reveals brushed metal grain | Slow orbit | Showcase craftsmanship texture |
+| 03 | WS | 00:04-00:06 | Watch on marble pedestal, soft light environment | Water droplet lands on crystal and bounces off | Top-down static | Emphasize quality and water resistance |
+| 04 | MCU | 00:06-00:08 | Model wearing on wrist, suit cuff visible | Wrist naturally lifts to check the time | Gentle push-in | Establish wearing scene and aspirational identity |
+| 05 | MS | 00:08-00:10 | Model at floor-to-ceiling window, city nightscape background | Turns toward window, dial catches reflection | Slow dolly back | Integrate into lifestyle scene |
+| 06 | CU | 00:10-00:12 | Brand logo and dial in same frame | Freeze, light halo closes in on logo | Static hold | Brand closer, reinforce memory |
 
 ## Section 2: Rhythm & Structure
 
 Narrative arc: Mysterious → Elegant → Impressive → Aspirational → Iconic
 
-- Phase 1 (Mystery): Shots 01 — 制造悬念
-- Phase 2 (Detail): Shots 02-03 — 工艺展示
-- Phase 3 (Lifestyle): Shots 04-05 — 场景代入
-- Phase 4 (Brand): Shot 06 — 品牌收尾
+- Phase 1 (Mystery): Shots 01 — Build suspense
+- Phase 2 (Detail): Shots 02-03 — Craftsmanship showcase
+- Phase 3 (Lifestyle): Shots 04-05 — Lifestyle immersion
+- Phase 4 (Brand): Shot 06 — Brand closer
 
 Rhythm density: slow → steady → gentle peak → hold
-Music beat: 舒缓弦乐起 → 02处轻鼓点 → 04处旋律推进 → 06处收束
+Music beat: Gentle strings open → light drum at 02 → melody builds at 04 → resolves at 06
 
 ## Section 3: Camera Movement Diagram
 
-Top-down: ①(正上方) → ②(右环绕) → ③(正上方) → ④(正面推近) → ⑤(后退) → ⑥(静止)
+Top-down: ①(top-down) → ②(right orbit) → ③(top-down) → ④(frontal push-in) → ⑤(pull-back) → ⑥(static hold)
 
 Movement types: Static → Slow orbit → Static → Push-in → Dolly back → Hold
 
 ## Section 4: Visual Language
 
-Lighting design: 柔光主光源, 黑色背景吸收光, 金属高光点缀, 城市暖色夜景
-Color palette: 黑/金/银 为主, 暖白点缀, 低饱和高级感
-Composition style: 居中构图为主, 01用负空间, 04用三分法
-Mood keywords: 奢华 / 克制 / 精密 / 优雅 / 永恒
-Art direction notes: 避免过度炫光, 强调材质真实感, 金属拉丝纹理清晰
+Lighting design: Soft key light, black background absorbs light, metallic highlight accents, warm city nightscape
+Color palette: Black/Gold/Silver dominant, warm white accents, low-saturation premium feel
+Composition style: Centered composition primary, Shot 01 uses negative space, Shot 04 uses rule of thirds
+Mood keywords: Luxurious / Restrained / Precise / Elegant / Timeless
+Art direction notes: Avoid excessive glare, emphasize material authenticity, brushed metal texture clearly visible
 ```
 
 ---

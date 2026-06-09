@@ -1,6 +1,6 @@
 ---
 name: director-character
-description: Design and lock character identity for AI film production — character sheets, visual identity parameters, behavior systems, emotion-to-motion mapping, and multi-character relationship management. Use when the user needs character design, 角色设定, character consistency, 角色一致性, character sheet creation, or when director-core routes to STATE 3 (Character Lock). Also use when AI-generated characters keep changing faces or outfits across shots — this skill builds the identity lock that prevents character drift. Note: this skill produces character identity DEFINITIONS (text-level design docs). For compiling these into executable image generation prompts, use the character-image-prompt skill.
+description: Design and lock character identity for AI film production — character sheets, visual identity parameters, behavior systems, emotion-to-motion mapping, and multi-character relationship management. Use when the user needs character design, character design, character consistency, character consistency, character sheet creation, or when director-core routes to STATE 3 (Character Lock). Also use when AI-generated characters keep changing faces or outfits across shots — this skill builds the identity lock that prevents character drift. Note: this skill produces character identity DEFINITIONS (text-level design docs). For compiling these into executable image generation prompts, use the character-image-prompt skill.
 ---
 
 # Director Character — Character Consistency Engine
@@ -9,11 +9,11 @@ description: Design and lock character identity for AI film production — chara
 
 Design character identity with enough specificity that AI video generators can maintain it across shots. This skill produces a Character Consistency Sheet — a structured identity document that locks face, body, wardrobe, behavior, and emotional expression so the character remains stable through every frame of the film.
 
-The most common failure in AI video production is character drift (换脸/换衣/崩风格). This skill is the primary defense against it.
+The most common failure in AI video production is character drift (face swaps, outfit changes, style breaks). This skill is the primary defense against it.
 
 Works independently for character design or is invoked by `director-core` at STATE 3.
 
-**Important:** This skill produces **character identity definitions** (text-level design documents). It does NOT produce executable image generation prompts. For compiling these definitions into platform-ready character sheet image prompts (MJ/Flux/即梦/可灵), use the `character-image-prompt` skill.
+**Important:** This skill produces **character identity definitions** (text-level design documents). It does NOT produce executable image generation prompts. For compiling these definitions into platform-ready character sheet image prompts (MJ/Flux/Jimeng/Kling), use the `character-image-prompt` skill.
 
 
 ## Loaded Resources
@@ -29,7 +29,7 @@ The AI must receive identical identity parameters in every prompt. Slight variat
 
 ## Output Structure
 
-### 1. Character Identity Core (角色核心身份)
+### 1. Character Identity Core (Character Identity Core)
 
 ```
 CHARACTER: [name]
@@ -42,9 +42,9 @@ CHARACTER: [name]
 - Character arc: [from state A at start → to state B at end]
 ```
 
-### 2. Visual Identity System (视觉身份系统)
+### 2. Visual Identity System (Visual Identity System)
 
-**Face System (面部):**
+**Face System (Face):**
 ```
 - Face shape: [oval / round / angular / heart / square]
 - Skin tone: [specific descriptor with undertone reference]
@@ -58,7 +58,7 @@ CHARACTER: [name]
 - Facial structure notes: [overall impression, bone structure]
 ```
 
-**Hair System (发型):**
+**Hair System (Hair):**
 ```
 - Style: [specific cut name or description]
 - Length: [measured relative to facial features]
@@ -68,7 +68,7 @@ CHARACTER: [name]
 - Movement quality: [how it moves with the character]
 ```
 
-**Body System (体型):**
+**Body System (Body):**
 ```
 - Body type: [ectomorph / mesomorph / endomorph / specific description]
 - Height: [tall / average / short — relative to environment cues]
@@ -77,7 +77,7 @@ CHARACTER: [name]
 - Movement signature: [how they walk, stand, fidget]
 ```
 
-**Wardrobe System (服装):**
+**Wardrobe System (Wardrobe):**
 ```
 - Signature outfit: [complete description of primary costume]
 - Color palette: [2-4 colors that define the character's wardrobe]
@@ -87,15 +87,15 @@ CHARACTER: [name]
 - Layering: [how pieces combine]
 ```
 
-**Signature Props (标志道具):**
+**Signature Props (Signature Props):**
 ```
 - Prop 1: [description, which hand/side, when visible]
 - Prop 2: [description, significance]
 ```
 
-### 3. Cinematic Behavior System (镜头行为系统)
+### 3. Cinematic Behavior System (Cinematic Behavior System)
 
-**Eye Direction Logic (眼神逻辑):**
+**Eye Direction Logic (Eye Direction Logic):**
 ```
 - Default gaze: [direct / averted / scanning / distant]
 - When thinking: [up-right / down-left / etc.]
@@ -104,7 +104,7 @@ CHARACTER: [name]
 - When threatened: [eye movement]
 ```
 
-**Emotion-to-Motion Mapping (情绪→动作映射):**
+**Emotion-to-Motion Mapping (Emotion-to-Motion Mapping):**
 ```
 Sadness → shoulders drop, chin lowers, breathing slows, eyes avoid contact
 Anger → jaw tightens, stillness, narrowed eyes, controlled breathing
@@ -114,7 +114,7 @@ Shock → complete stillness, eyes widen, mouth slightly open, no blink
 Joy → relaxed posture, genuine smile reaching eyes, open body language
 ```
 
-**Movement Signature (动作签名):**
+**Movement Signature (Movement Signature):**
 ```
 - Walking style: [stride length, pace, arm swing, weight distribution]
 - Gesture pattern: [hand talker / reserved / expansive / nervous ticks]
@@ -122,33 +122,33 @@ Joy → relaxed posture, genuine smile reaching eyes, open body language
 - Signature action: [one unique movement that defines them]
 ```
 
-### 4. Continuity Lock System (连续性锁定)
+### 4. Continuity Lock System (Continuity Lock System)
 
-**Hard Locks (不可变):**
+**Hard Locks (Immutable):**
 - [ ] Face identity — face shape, features, proportions
 - [ ] Hair — style, length, color, texture
 - [ ] Body type — build, height proportion
 - [ ] Wardrobe — signature outfit, color palette
 - [ ] Age — no aging or de-aging between shots
 
-**Soft Variations (允许变化):**
+**Soft Variations (Allowed Variations):**
 - Lighting on face (different angles, intensities)
 - Emotional expression (within the defined range)
 - Camera angle (different perspectives of the same face)
 - Environmental effects (wind in hair, rain on face)
 
-**Forbidden Changes (禁止变化):**
+**Forbidden Changes (Forbidden Changes):**
 - Face swap / AI regenerated face
 - Random wardrobe changes
 - Age jumps between shots
 - Style shift (photorealistic → anime)
 - Hair color or style change (unless story-motivated and explicitly noted)
 
-### 5. Character Sheet Image Layout Reference (角色设定图布局参考)
+### 5. Character Sheet Image Layout Reference (Character Sheet Image Layout Reference)
 
 This section provides a **view coverage template** — it defines what visual angles and states the character sheet should cover. It is NOT an executable image generation prompt.
 
-To compile the full character identity definition into platform-ready image generation prompts (MJ/Flux/即梦/可灵), route to the `character-image-prompt` skill, which follows the multi-view character design board specification.
+To compile the full character identity definition into platform-ready image generation prompts (MJ/Flux/Jimeng/Kling), route to the `character-image-prompt` skill, which follows the multi-view character design board specification.
 
 View coverage requirements:
 ```
@@ -161,7 +161,7 @@ Style: cinematic realism, consistent across all views
 Negative: no text, no watermark, no face distortion, no identity variance between views
 ```
 
-### 6. Multi-Character System (多角色系统)
+### 6. Multi-Character System (Multi-Character System)
 
 For projects with multiple characters, add:
 
@@ -189,7 +189,7 @@ Visual Contrast Design:
 This skill produces a **character identity definition** (text-level design doc). After user confirmation:
 
 1. Route to `character-image-prompt` → compiles identity into platform-ready image generation prompts
-2. User generates character reference images (MJ/Flux/即梦/可灵)
+2. User generates character reference images (MJ/Flux/Jimeng/Kling)
 3. Generated character images are used as `@[character ref]` in `seedance-video-prompt` (STATE 6)
 
 ## Integration

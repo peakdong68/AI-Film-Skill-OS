@@ -1,6 +1,6 @@
 ---
 name: director-emotion
-description: Design the emotional architecture of an AI film — emotion curves, narrative rhythm, intensity scoring, and emotion-to-shot mapping. Use when the user needs emotional design, 情绪曲线, narrative pacing, rhythm design, emotional arc planning, or when director-core routes to STATE 1 (Emotion Design). Also use when the story feels flat, the user wants to control audience emotional experience, or needs to map abstract feelings to concrete visual decisions.
+description: Design the emotional architecture of an AI film — emotion curves, narrative rhythm, intensity scoring, and emotion-to-shot mapping. Use when the user needs emotional design, emotion curves, narrative pacing, rhythm design, emotional arc planning, or when director-core routes to STATE 1 (Emotion Design). Also use when the story feels flat, the user wants to control audience emotional experience, or needs to map abstract feelings to concrete visual decisions.
 ---
 
 # Director Emotion — Narrative Emotion Engine
@@ -23,11 +23,11 @@ Requires at minimum:
 - A narrative structure or scene list (from `director-story` or user-provided)
 - A genre or emotional tone reference
 
-If insufficient, ask: "这个故事的总体情绪基调是什么？比如悬疑、浪漫、压抑、史诗？"
+If insufficient, ask: "What is the overall emotional tone of this story? E.g., suspense, romance, oppression, epic?"
 
 ## Output Structure
 
-### 1. Emotional Arc Map (情绪曲线)
+### 1. Emotional Arc Map (Emotion Curve)
 
 Define the full emotional journey:
 
@@ -50,7 +50,7 @@ For each phase, assign:
 - **Duration**: percentage of total runtime
 - **Which scenes belong here**: map to the scene list
 
-### 2. Emotional Beats (情绪节拍)
+### 2. Emotional Beats (Emotional Beats)
 
 Identify the key turning points where emotion shifts:
 
@@ -63,7 +63,7 @@ Beat 3: [event] → emotion shifts from [C] to [D]
 
 Each beat is a moment where the audience's emotional state changes. These are the anchor points for camera decisions — the most important shots in the film.
 
-### 3. Intensity Timeline (情绪强度分布)
+### 3. Intensity Timeline (Intensity Timeline)
 
 Map intensity (1-10) across the full duration:
 
@@ -73,7 +73,7 @@ Map intensity (1-10) across the full duration:
 [intro]  [build]   [climax]  [peak]    [release]
 ```
 
-### 4. Character Emotion Drift (角色情绪变化)
+### 4. Character Emotion Drift (Character Emotion Drift)
 
 For each major character, define their individual emotional trajectory:
 
@@ -87,7 +87,7 @@ Character [A]:
 
 This is critical for character consistency — the character's emotional state must evolve, not reset.
 
-### 5. Emotion-to-Visual Mapping (情绪→视觉映射)
+### 5. Emotion-to-Visual Mapping (Emotion-to-Visual Mapping)
 
 Define how each primary emotion translates into visual decisions:
 
@@ -102,7 +102,7 @@ Define how each primary emotion translates into visual decisions:
 
 Use this as the bridge between `director-emotion` and `director-camera` / `director-light`.
 
-### 6. Rhythm Structure (节奏结构)
+### 6. Rhythm Structure (Rhythm Structure)
 
 Define the editing rhythm across the film:
 

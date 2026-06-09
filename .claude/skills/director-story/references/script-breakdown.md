@@ -16,7 +16,7 @@
 
 ## Scene Purpose Classification
 
-| Category | 中文 | Definition |
+| Category | Chinese | Definition |
 |----------|------|------------|
 | Establish | 建立 | Introduce world, character, or status quo |
 | Advance | 推进 | Move plot forward through action or decision |

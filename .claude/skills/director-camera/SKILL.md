@@ -1,6 +1,6 @@
 ---
 name: director-camera
-description: Design the cinematography system for AI film production — camera language, shot types, movement grammar, composition rules, spatial blocking, and emotion-driven camera decisions. Use when the user needs camera design, 摄影机语言, shot planning, cinematography direction, 镜头设计, camera movement planning, or when director-core routes to STATE 2 (Visual Design). Also use when the user asks "how should this be shot" or needs to translate emotional intent into concrete camera decisions.
+description: Design the cinematography system for AI film production — camera language, shot types, movement grammar, composition rules, spatial blocking, and emotion-driven camera decisions. Use when the user needs camera design, camera language, shot planning, cinematography direction, shot design, camera movement planning, or when director-core routes to STATE 2 (Visual Design). Also use when the user asks "how should this be shot" or needs to translate emotional intent into concrete camera decisions.
 ---
 
 # Director Camera — Cinematography Director AI
@@ -28,42 +28,42 @@ Every camera decision must answer three questions:
 
 ## Output Structure
 
-### 1. Camera Language System (摄影机语言系统)
+### 1. Camera Language System (Camera Language System)
 
 Define the visual grammar for the entire film:
 
 **Shot Type Grammar:**
-| Type | 中文 | Narrative Function |
+| Type | Label | Narrative Function |
 |------|------|-------------------|
-| Wide Shot | 远景 | Establish world, show isolation, define spatial relationships |
-| Medium Shot | 中景 | Carry narrative action, show behavior and interaction |
-| Close-Up | 特写 | Reveal emotion, internal state, psychological detail |
-| Extreme Close-Up | 超特写 | Decisive moment, emotional peak, visual anchor |
-| Over-Shoulder | 过肩 | Relationship tension, dialogue structure, perspective |
-| POV | 主观视角 | Immersive experience, identification with character |
-| Top-Down | 鸟瞰 | Control, isolation, god-like perspective |
-| Low Angle | 仰拍 | Power, threat, importance, heroism |
+| Wide Shot | WS | Establish world, show isolation, define spatial relationships |
+| Medium Shot | MS | Carry narrative action, show behavior and interaction |
+| Close-Up | CU | Reveal emotion, internal state, psychological detail |
+| Extreme Close-Up | ECU | Decisive moment, emotional peak, visual anchor |
+| Over-Shoulder | OTS | Relationship tension, dialogue structure, perspective |
+| POV | POV | Immersive experience, identification with character |
+| Top-Down | Top-Down | Control, isolation, god-like perspective |
+| Low Angle | Low Angle | Power, threat, importance, heroism |
 
 For the specific project, select the primary shot types and explain *why* this grammar fits the story.
 
 **Movement Grammar:**
-| Movement | 中文 | Emotional Function |
+| Movement | Label | Emotional Function |
 |----------|------|-------------------|
-| Static | 定镜 | Oppression, observation, stillness, waiting |
-| Slow Dolly-In | 缓推 | Emotional deepening, psychological pressure |
-| Dolly-Out | 拉远 | Emotional withdrawal, loneliness |
-| Tracking | 跟移 | Following action, participation, pursuit |
-| Orbit | 环绕 | Relationship complexity, romance, surrealism |
-| Handheld | 手持 | Realism, instability, tension, documentary feel |
-| Crane | 升降 | Spatial revelation, epic scale |
-| Whip Pan | 快速摇 | Emotional burst, rapid transition, disorientation |
+| Static | Static | Oppression, observation, stillness, waiting |
+| Slow Dolly-In | Slow Dolly-In | Emotional deepening, psychological pressure |
+| Dolly-Out | Dolly-Out | Emotional withdrawal, loneliness |
+| Tracking | Tracking | Following action, participation, pursuit |
+| Orbit | Orbit | Relationship complexity, romance, surrealism |
+| Handheld | Handheld | Realism, instability, tension, documentary feel |
+| Crane | Crane | Spatial revelation, epic scale |
+| Whip Pan | Whip Pan | Emotional burst, rapid transition, disorientation |
 
 **Focus Grammar:**
 - **Rack Focus**: Attention transfer between subjects
 - **Shallow Depth of Field**: Emotional isolation, subject emphasis
 - **Deep Focus**: Environmental relationship, layered storytelling
 
-### 2. Emotional Camera System (情绪摄影系统)
+### 2. Emotional Camera System (Emotional Camera System)
 
 Map every primary emotion in the film to camera behavior:
 
@@ -79,7 +79,7 @@ Map every primary emotion in the film to camera behavior:
 
 This mapping table is the critical bridge — every shot in the storyboard should trace back to a row in this table.
 
-### 3. Spatial Composition System (空间构图系统)
+### 3. Spatial Composition System (Spatial Composition System)
 
 **Framing Rules:**
 - **Rule of Thirds**: Balanced, natural composition — default for most narrative
@@ -93,13 +93,13 @@ This mapping table is the critical bridge — every shot in the storyboard shoul
 - Environmental storytelling through object placement
 - Spatial tension: distance between characters = emotional distance
 
-**Blocking Design (人物调度):**
+**Blocking Design (Character Blocking):**
 - Character position = emotional relationship
 - Distance = psychological gap
 - Movement direction = narrative tension
 - Eye-line continuity = spatial logic
 
-### 4. Camera Continuity System (镜头连续性)
+### 4. Camera Continuity System (Camera Continuity System)
 
 Rules that must hold across all shots:
 
@@ -109,7 +109,7 @@ Rules that must hold across all shots:
 - **Lighting direction**: Key light direction must remain consistent per scene unless a diegetic source moves
 - **180-degree rule**: The camera stays on one side of the action axis within a scene unless a neutral shot breaks the line
 
-### 5. Camera Prompt Template (摄影机提示词模板)
+### 5. Camera Prompt Template (Camera Prompt Template)
 
 For every shot in the storyboard, the camera instruction must follow this template:
 

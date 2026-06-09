@@ -326,7 +326,7 @@ Before delivering the final Seedance 2.0 prompt, verify item by item:
 
 ### Narrative Short Films
 - Character image reference locks identity, storyboard image reference locks narrative pacing
-- Continuous camera movement贯穿全片
+- Continuous camera movementthroughout the film
 - Emotion evolves, never resets
 - **One segment = one beat = one emotional turn**
 

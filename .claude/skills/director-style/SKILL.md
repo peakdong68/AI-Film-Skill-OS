@@ -23,7 +23,7 @@ Without a defined director personality, visual decisions become arbitrary. With 
 
 Select the dominant profile for the project. One film = one dominant profile. Mixing profiles mid-film causes visual incoherence.
 
-### Profile A — Observer Director (旁观者导演)
+### Profile A — Observer Director (Observer Director)
 
 **Visual Philosophy**: The camera observes. It never interferes. It witnesses.
 
@@ -42,7 +42,7 @@ Narrative: Information is shown, not told. Audience discovers.
 **Reference touchpoints**: Italian Neorealism, observational documentary, Kogonada, slow cinema
 **Visual identity**: *The world exists; the camera notices it.*
 
-### Profile B — Emotional Director (情绪导演)
+### Profile B — Emotional Director (Emotional Director)
 
 **Visual Philosophy**: The camera feels with the character. It participates in their emotional state.
 
@@ -61,7 +61,7 @@ Narrative: Internal emotional journey prioritized over external plot
 **Reference touchpoints**: Wong Kar-wai, Barry Jenkins, intimate cinema
 **Visual identity**: *The camera breathes with the character.*
 
-### Profile C — Immersive Director (沉浸导演)
+### Profile C — Immersive Director (Immersive Director)
 
 **Visual Philosophy**: The camera becomes the audience. First-person experience. No distance.
 
@@ -80,7 +80,7 @@ Narrative: Mystery and discovery — audience learns as character learns
 **Reference touchpoints**: Paul Greengrass, found-footage, immersive journalism, FPV cinema
 **Visual identity**: *You are there. You are in it.*
 
-### Profile D — Epic Director (史诗导演)
+### Profile D — Epic Director (Epic Director)
 
 **Visual Philosophy**: The camera dominates space. Scale over intimacy. Monumental.
 
@@ -99,7 +99,7 @@ Narrative: World-building, historical sweep, mythic structure
 **Reference touchpoints**: Denis Villeneuve, Terrence Malick, epic cinema
 **Visual identity**: *The world is the main character.*
 
-### Profile E — Commercial Director (商业导演)
+### Profile E — Commercial Director (Commercial Director)
 
 **Visual Philosophy**: Attention is the primary currency. Impact over subtlety.
 
@@ -122,11 +122,11 @@ Narrative: Hook → Problem → Solution → Aspiration → CTA
 
 | User says... | Profile |
 |---|---|
-| "像纪录片一样真实" / "自然观察" | Observer (A) |
-| "注重情感表达" / "拍得很走心" / "王家卫风格" | Emotional (B) |
-| "第一人称体验" / "身临其境" / "恐怖片" | Immersive (C) |
-| "史诗感" / "宏大" / "科幻大片" / "维伦纽瓦风格" | Epic (D) |
-| "广告片" / "品牌大片" / "高端商业" | Commercial (E) |
+| "real like a documentary" / "natural observation" | Observer (A) |
+| "focus on emotional expression" / "soulful filmmaking" / "Wong Kar-wai style" | Emotional (B) |
+| "first-person experience" / "immersive" / "horror film" | Immersive (C) |
+| "epic feel" / "grand scale" / "sci-fi blockbuster" / "Villeneuve style" | Epic (D) |
+| "commercial" / "brand film" / "high-end advertising" | Commercial (E) |
 
 ## Director Decision Engine
 

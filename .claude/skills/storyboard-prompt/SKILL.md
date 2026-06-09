@@ -23,17 +23,17 @@ If sufficient, proceed and fill gaps with reasonable defaults, marked clearly.
 If insufficient, infer from context then confirm:
 
 ```markdown
-我先确认一下这个分镜的方向：
-- 场景/主题：[inferred]
-- 主体/角色：[inferred]
-- 动作：[inferred]
-- 目标风格：电影级故事板 / 黑白线稿 / 动画预演 / 广告提案
-- 目标工具：Midjourney / Flux / 即梦 / 可灵 / GPT Image
+Let me first confirm the direction for this storyboard shot:
+- Scene/Theme: [inferred]
+- Subject/Character: [inferred]
+- Action: [inferred]
+- Target style: Cinematic storyboard / B&W line art / Animation previs / Ad pitch
+- Target tool: Midjourney / Flux / Jimeng / Kling / GPT Image
 
-确认吗？调整一句我就生成提示词。
+Does this look right? Adjust one line and I will generate the prompt.
 ```
 
-If the user says "直接生成", proceed with assumptions and mark them.
+If the user says "just generate", proceed with assumptions and mark them.
 
 ## The 8-Element Framework
 
@@ -174,22 +174,22 @@ Style: [professional storyboard panel, cinematic composition, clean pencil sketc
 
 ## Scene Generator
 
-When the user provides only a theme (e.g., "未来赛博朋克城市" or "暴雨中的侦探") without complete scene details, first generate a scene breakdown, then build the prompt from it.
+When the user provides only a theme (e.g., "futuristic cyberpunk city" or "detective in heavy rain") without complete scene details, first generate a scene breakdown, then build the prompt from it.
 
 Template:
 
 ```markdown
-根据主题「[user's theme]」，我先展开一个场景方案：
+Based on the theme "[user's theme]", let me first develop a scene plan:
 
-**场景描述:** [2-3 sentences establishing time, place, atmosphere]
-**主体描述:** [1-2 sentences on the main subject]
-**动作描述:** [1 sentence on the key action]
-**镜头建议:** [shot size + angle]
-**光线建议:** [key light + atmosphere]
-**情绪建议:** [2-3 mood words]
-**分镜重点:** [what this shot should emphasize]
+**Scene Description:** [2-3 sentences establishing time, place, atmosphere]
+**Subject Description:** [1-2 sentences on the main subject]
+**Action Description:** [1 sentence on the key action]
+**Camera Suggestion:** [shot size + angle]
+**Lighting Suggestion:** [key light + atmosphere]
+**Mood Suggestion:** [2-3 mood words]
+**Storyboard Focus:** [what this shot should emphasize]
 
-确认这个方向后，我生成完整提示词。
+Once you confirm this direction, I will generate the full prompt.
 ```
 
 ## Quality Bar

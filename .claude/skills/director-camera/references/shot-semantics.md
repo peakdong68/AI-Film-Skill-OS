@@ -1,4 +1,4 @@
-# Shot Semantics — 镜头语义系统
+# Shot Semantics — Shot Semantics System
 
 ## Core Concept
 
@@ -6,42 +6,42 @@ Every shot has a semantic intent — not just what it shows, but what it *means*
 
 ## The Six Shot Semantics
 
-### 1. Observe (客观观察)
+### 1. Observe (Objective Observation)
 The camera is a neutral witness. No emotional manipulation.
 
 **When to use**: Establishing scenes, information delivery, documentary moments
 **Camera behavior**: Static, eye-level, medium-wide, no movement intrusion
 **Emotional distance**: Maximum — audience maintains objective perspective
 
-### 2. Immerse (沉浸体验)
+### 2. Immerse (Immersive Experience)
 The camera places the audience inside the experience.
 
 **When to use**: Action sequences, subjective moments, first-person discovery
 **Camera behavior**: POV, tracking, handheld, fluid movement
 **Emotional distance**: Zero — audience is the participant
 
-### 3. Reveal (信息揭示)
+### 3. Reveal (Information Reveal)
 The camera controls what the audience knows and when they know it.
 
 **When to use**: Plot twists, character discoveries, mystery solving, product unveils
 **Camera behavior**: Slow push-in, rack focus, obstruction → clarity, crane reveal
 **Emotional distance**: Manipulated — director controls information flow
 
-### 4. Confront (情绪冲突)
+### 4. Confront (Emotional Confrontation)
 The camera intensifies emotional confrontation between characters or ideas.
 
 **When to use**: Arguments, emotional showdowns, internal crisis, moral choice moments
 **Camera behavior**: Tight framing, close-up, Dutch angle, handheld instability
 **Emotional distance**: Minimal — audience feels the tension directly
 
-### 5. Isolate (孤立人物)
+### 5. Isolate (Character Isolation)
 The camera emphasizes a character's separation from their world.
 
 **When to use**: Loneliness, alienation, grief, decision moments, power dynamics
 **Camera behavior**: Wide shot with negative space, distant framing, shallow DOF isolation
 **Emotional distance**: The space between character and world becomes the subject
 
-### 6. Expand (空间扩展)
+### 6. Expand (Spatial Expansion)
 The camera reveals the scale of the world, dwarfing the individual.
 
 **When to use**: World-building, awe, insignificance, freedom, journey beginnings
