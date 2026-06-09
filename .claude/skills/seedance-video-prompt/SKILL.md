@@ -20,6 +20,7 @@ description: 将分镜图像、角色参考图、产品参考图编译为 Seedan
 - 获取 Director Formula、@[ref] 角色映射、I2V 原则、压缩规则、anti-slop 词库和模式门——阅读 `references/seedance-methodology.md`
 - 获取 Seedance 平台约束（字数限制、@[ref] 格式、Part 上限），阅读共享参考 `../references/seedance-platform.md`
 - 需要更详细的去水词对照表时，阅读共享参考 `../references/anti-slop-lexicon.md`
+- 获取类型配方和提示词骨架（产品、剧情、首/末帧等），阅读 `../references/seedance-genre-recipes.md`
 
 ---
 

@@ -16,6 +16,7 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 
 需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
 - 获取双语电影摄影速查表（景别、运动、角度、构图、灯光、叙事目的），阅读 `../references/cinematography-quick-reference.md`
+- 获取产品与商业类型配方模式，阅读 `../references/seedance-genre-recipes.md`
 
 ## 子模式门
 
