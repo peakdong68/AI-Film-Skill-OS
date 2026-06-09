@@ -11,6 +11,11 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 
 此技能用于商业/直播/社交购物类分镜。普通电影/动画分镜提示词请用 `storyboard-prompt`。非电商总览图请用 `storyboard-master`。Seedance I2V 规划请用 `storyboard-sketch`。
 
+
+## 加载资源
+
+需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
+
 ## 子模式门
 
 此技能支持两种商业特定格式。自动选择：

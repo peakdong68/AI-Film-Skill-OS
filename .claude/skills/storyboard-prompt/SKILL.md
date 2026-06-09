@@ -11,6 +11,11 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 
 此技能用于单帧分镜提示词。多镜头总览图请用 `storyboard-master`。电商/直播分镜请用 `storyboard-ecommerce`。Seedance I2V 规划提示词请用 `storyboard-sketch`。
 
+
+## 加载资源
+
+需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
+
 ## 输入门
 
 生成提示词前，检查用户是否提供了足够素材来填充 8 要素框架。满足以下条件时视为输入充足：

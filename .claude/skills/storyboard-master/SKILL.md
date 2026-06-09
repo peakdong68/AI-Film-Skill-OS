@@ -11,6 +11,11 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 
 此技能用于多镜头总览图。单帧分镜提示词请用 `storyboard-prompt`。含产品/创作者参考区的电商/直播分镜请用 `storyboard-ecommerce`。Seedance I2V 规划请用 `storyboard-sketch`。
 
+
+## 加载资源
+
+需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
+
 ## 模式门
 
 总览图有两种输出密度。根据用户意图选择：
