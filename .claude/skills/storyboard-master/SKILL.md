@@ -11,20 +11,19 @@ Generate a comprehensive Storyboard Master Sheet prompt — a single visual docu
 
 Use this skill for multi-shot master sheets. For single-frame storyboard prompts, use `storyboard-prompt`. For e-commerce/livestream storyboards with product/creator reference areas, use `storyboard-ecommerce`. For Seedance I2V planning, use `storyboard-sketch`.
 
-
 ## Load Resources
 
-For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
+- For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
 - For bilingual cinematography quick reference tables, read `../references/cinematography-quick-reference.md`.
 
 ## Mode Gate
 
 The master sheet has two output densities. Choose based on user intent:
 
-| If the user says... | Output |
-|---|---|
-| "storyboard master sheet", "Master Sheet", "Director Treatment Board", "director treatment board", "full plan", "pre-production blueprint" | **Full Master Sheet** (4 sections, 6-24 shots) |
-| "concise storyboard board", "storyboard panel board", "quick board", "concise version" | **Concise Director Board** (shot grid only + bottom 3 modules) |
+| If the user says...                                                                                                                        | Output                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| "storyboard master sheet", "Master Sheet", "Director Treatment Board", "director treatment board", "full plan", "pre-production blueprint" | **Full Master Sheet** (4 sections, 6-24 shots)                 |
+| "concise storyboard board", "storyboard panel board", "quick board", "concise version"                                                     | **Concise Director Board** (shot grid only + bottom 3 modules) |
 
 When the user specifies shot count, use it. Otherwise default to 6 shots for concise and 12 shots for full.
 
@@ -66,6 +65,7 @@ The primary section. Each shot card in the grid must contain:
 Shot card information format: `Shot # | Shot Size | Timecode`
 
 Layout rules:
+
 - Arrange shots in reading order (left→right, top→bottom)
 - Use thin gray borders between cards
 - Maintain equal card sizes across the grid
@@ -82,13 +82,13 @@ Display the narrative rhythm and editing structure:
 
 Rhythm phases should follow the narrative arc. Use one of these templates based on content type:
 
-| Content Type | Arc Pattern |
-|---|---|
-| Film / Drama | Establish → Develop → Conflict → Climax → Resolution |
-| Advertising | Hook → Showcase → Emphasize → Peak → Brand Close |
-| E-commerce | Atmosphere → Display → Detail → Scene → CTA |
-| Documentary | Background → Expand → Analyze → Reinforce → Conclude |
-| Short Video / Social | Hook → Problem → Solution → Effect → CTA |
+| Content Type         | Arc Pattern                                          |
+| -------------------- | ---------------------------------------------------- |
+| Film / Drama         | Establish → Develop → Conflict → Climax → Resolution |
+| Advertising          | Hook → Showcase → Emphasize → Peak → Brand Close     |
+| E-commerce           | Atmosphere → Display → Detail → Scene → CTA          |
+| Documentary          | Background → Expand → Analyze → Reinforce → Conclude |
+| Short Video / Social | Hook → Problem → Solution → Effect → CTA             |
 
 Phase labeling format: `Phase 1: [name] (Shots XX-XX) — [what happens]`
 
@@ -116,6 +116,7 @@ Design specifications that apply across all shots:
 - **Art Direction Notes**: Key visual references, texture, production design intent
 
 Format as a clean specification block:
+
 ```
 LIGHTING: [key direction + quality] / [fill] / [color temp]
 COLOR: [palette description] / [contrast level]
@@ -141,6 +142,7 @@ When the user wants the shorter format, reduce to:
 Shot cards in concise mode: `#01 | LS Wide Shot | 0:00-0:02` as header, preview image, and one line of director-style description (≤15 characters in Chinese).
 
 Bottom modules are simplified but must still include:
+
 - Rhythm structure: time segments with beat points
 - Camera movement: trajectory arrows with shot numbers
 - Lighting & atmosphere: key light sources + mood keywords
@@ -153,6 +155,7 @@ For both modes, present the structured plan first for user review, then the comp
 ## Master Sheet Plan
 
 ### Project Info
+
 - Project: [name/theme]
 - Style: [director treatment board / clean infographic / production document]
 - Aspect ratio: [16:9 recommended]
@@ -160,10 +163,11 @@ For both modes, present the structured plan first for user review, then the comp
 
 ### Section 1: Shot Grid
 
-| # | Size | Timecode | Preview | Action | Camera | Purpose |
-|---|------|----------|---------|--------|--------|---------|
-| 01 | ... | ... | ... | ... | ... | ... |
-| 02 | ... | ... | ... | ... | ... | ... |
+| #   | Size | Timecode | Preview | Action | Camera | Purpose |
+| --- | ---- | -------- | ------- | ------ | ------ | ------- |
+| 01  | ...  | ...      | ...     | ...    | ...    | ...     |
+| 02  | ...  | ...      | ...     | ...    | ...    | ...     |
+
 ...
 
 ### Section 2: Rhythm & Structure
@@ -200,6 +204,7 @@ Storyboard master sheet, director treatment board, creative production blueprint
 ```
 
 For concise boards, reduce to:
+
 ```
 Director storyboard sheet, shot list board, camera movement diagram, rhythm structure, professional production board, clean infographic layout, white background, thin grid borders, ultra detailed
 ```

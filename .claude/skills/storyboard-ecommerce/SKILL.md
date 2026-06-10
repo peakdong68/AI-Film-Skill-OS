@@ -11,10 +11,9 @@ Generate professional e-commerce and social commerce storyboard prompts for AI i
 
 Use this skill for commerce/livestream/social shopping storyboards. For general film/animation storyboard prompts, use `storyboard-prompt`. For non-commerce master sheets, use `storyboard-master`. For Seedance I2V planning, use `storyboard-sketch`.
 
-
 ## Load Resources
 
-For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
+- For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
 - For bilingual cinematography quick reference tables, read `../references/cinematography-quick-reference.md`.
 - For product and commercial genre recipe patterns, read `../references/seedance-genre-recipes.md`.
 
@@ -22,9 +21,9 @@ For anti-slop lexicon replacement when writing prompts, read shared reference `.
 
 This skill supports two commerce-specific formats. Choose automatically:
 
-| User says... | Output format |
-|---|---|
-| "带货视频故事板", "TK storyboard", "TikTok shop video", "短视频带货", product demo with host/creator visible | **Social Commerce Board** (product ref + creator ref + 6-shot breakdown) |
+| User says...                                                                                                       | Output format                                                               |
+| ------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| "带货视频故事板", "TK storyboard", "TikTok shop video", "短视频带货", product demo with host/creator visible       | **Social Commerce Board** (product ref + creator ref + 6-shot breakdown)    |
 | "服装分镜", "fashion storyboard", "电商直播分镜", "导演版分镜图", fashion/apparel with model, no talking-head host | **Fashion Director Board** (shot grid + rhythm + camera + lighting modules) |
 
 ---
@@ -55,14 +54,14 @@ Aspect ratio: 4:3 or 16:9. White background. Black thin borders. Clean grid layo
 
 A horizontal table row with 6 information cells:
 
-| Cell | Content |
-|------|---------|
-| **Product** | Product name from user input |
-| **Audience** | Target audience (e.g., anime fans, desk setup lovers, collectors) |
-| **Core Selling Point** | One-line value proposition |
-| **Hook** | Opening hook line |
-| **Video Goal** | Structure flow (e.g., Hook → Problem → Reveal → Detail → Display → CTA) |
-| **Format** | Platform / aspect ratio / duration / language |
+| Cell                   | Content                                                                 |
+| ---------------------- | ----------------------------------------------------------------------- |
+| **Product**            | Product name from user input                                            |
+| **Audience**           | Target audience (e.g., anime fans, desk setup lovers, collectors)       |
+| **Core Selling Point** | One-line value proposition                                              |
+| **Hook**               | Opening hook line                                                       |
+| **Video Goal**         | Structure flow (e.g., Hook → Problem → Reveal → Detail → Display → CTA) |
+| **Format**             | Platform / aspect ratio / duration / language                           |
 
 ### Creator Reference Area (Left)
 
@@ -70,13 +69,14 @@ Title: **Creator Reference**
 
 Three small reference images of the same creator, demonstrating visual consistency:
 
-| # | Image | Label |
-|---|-------|-------|
-| 1 | Front half-body shot | Front half-body |
-| 2 | Expression close-up | Expression close-up |
-| 3 | Side half-body shot | Side half-body |
+| #   | Image                | Label               |
+| --- | -------------------- | ------------------- |
+| 1   | Front half-body shot | Front half-body     |
+| 2   | Expression close-up  | Expression close-up |
+| 3   | Side half-body shot  | Side half-body      |
 
 Requirements:
+
 - Same person in all three — face shape, hairstyle, outfit, skin tone, and vibe must be consistent.
 - Looks like a real TikTok/Short-form video creator.
 - Background can suggest home desk setup, livestream room, or product-use environment.
@@ -88,13 +88,14 @@ Title: **Product Reference**
 
 Three small reference images of the same product:
 
-| # | Image | Label |
-|---|-------|-------|
-| 1 | Packaging box | Packaging box |
-| 2 | Front view | Front view |
-| 3 | Side/detail view | Side/detail view |
+| #   | Image            | Label            |
+| --- | ---------------- | ---------------- |
+| 1   | Packaging box    | Packaging box    |
+| 2   | Front view       | Front view       |
+| 3   | Side/detail view | Side/detail view |
 
 Requirements:
+
 - Product must be strictly consistent across all three — color, shape, material, packaging, logos, base, key details.
 - If the user's product has no packaging box, generate one matching the product style — but do not alter the product itself.
 - Clean, centered, e-commerce style product photography.
@@ -125,6 +126,7 @@ Each shot card contains:
 If the user doesn't provide a custom shot list, use this proven commerce structure:
 
 **Shot 01: Hook**
+
 - Frame: Creator shows packaging or product reveal, facing camera, attention-grabbing expression.
 - Time: 0–2s
 - Shot type: Medium close-up
@@ -133,6 +135,7 @@ If the user doesn't provide a custom shot list, use this proven commerce structu
 - Subtitle: Catchy one-liner that hooks the viewer
 
 **Shot 02: Problem**
+
 - Frame: Show the problem or gap in the use scenario — empty desk, lack of atmosphere, common pain point.
 - Time: 2–4s
 - Shot type: Medium
@@ -141,6 +144,7 @@ If the user doesn't provide a custom shot list, use this proven commerce structu
 - Subtitle: Question that resonates with the audience's pain point
 
 **Shot 03: Reveal**
+
 - Frame: Creator places product in the scene, becoming the visual center.
 - Time: 4–6s
 - Shot type: Product medium close-up
@@ -149,6 +153,7 @@ If the user doesn't provide a custom shot list, use this proven commerce structu
 - Subtitle: Declaration of the product as solution
 
 **Shot 04: Detail**
+
 - Frame: Close-up of product details — material, texture, finish, key features. Hands may assist but not block.
 - Time: 6–8s
 - Shot type: Close-up
@@ -157,6 +162,7 @@ If the user doesn't provide a custom shot list, use this proven commerce structu
 - Subtitle: Statement about quality or craftsmanship
 
 **Shot 05: Display**
+
 - Frame: Product in real use environment — on desk, shelf, or in situ. Creator admires or interacts.
 - Time: 8–10s
 - Shot type: Medium
@@ -165,6 +171,7 @@ If the user doesn't provide a custom shot list, use this proven commerce structu
 - Subtitle: Lifestyle benefit statement
 
 **Shot 06: CTA**
+
 - Frame: Creator and product together. Creator naturally recommends. Product clearly visible.
 - Time: 10–12s
 - Shot type: Medium close-up
@@ -228,6 +235,7 @@ Each shot card follows a strict unified structure:
 Header format: `Shot # | Shot Size Abbrev | Timecode`
 
 Director note rules:
+
 - ≤15 characters in Chinese
 - Reads like an on-set director's margin note
 - Describes the core visual moment, not abstract concepts
@@ -253,6 +261,7 @@ Add a waveform graphic showing intensity, with shot numbers (①②③...) marki
 Title: **Camera Movement Diagram (Reference)**
 
 Top-down spatial plan with:
+
 - Numbered camera positions (①→③→④→⑥→⑧→⑩→⑫)
 - Dashed trajectory arrows
 - Movement type labels: Slow Push-in / Lateral Track / Semi-Orbit / Static Hold / Push-in / Pull-back
@@ -262,6 +271,7 @@ Top-down spatial plan with:
 Title: **Lighting & Atmosphere (Consistent with Reference)**
 
 Checklist format:
+
 ```
 ✓ Warm key light from front-left
 ✓ Soft fill light
