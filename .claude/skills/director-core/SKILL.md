@@ -33,7 +33,7 @@ STATE 8 → Export Ready
 
 Each state produces validated deliverables before the next state is unlocked. Skipping states is strictly prohibited.
 
-**Key distinction between STATE 4 and STATE 6:**
+**Key distinction between STATE 4 and STATE 5/6:**
 
 - STATE 4 (`director-prompt-packager`): Compiles a **text-level** film-level short film prompt package — integrating story, visual design, and character identity into structured storyboard design, camera language, sound design, and Seedance decomposition plan. The output is a complete director's vision document, which serves as the design foundation for STATE 5 storyboard blueprint generation after user confirmation. **Never outputs video platform prompts.**
 - STATE 6 (`seedance-video-prompt`): Compiles **image-reference-level** video prompts for Seedance 2.0 / Kling. Supports 7 modes (T2V / I2V / R2V / FLF2V / V2V / ...). **Storyboard images optional** — only required for I2V storyboard mode. Output: platform-executable video generation prompts.
@@ -154,13 +154,13 @@ Route to `director-prompt-packager`.
 - Sound design direction
 - Seedance-compatible Part decomposition plan (each Part ≤ 15s, multi-Part continuity binding)
 
-The output is **not** a Seedance video prompt — it is the design foundation for STATE 5 (storyboard blueprint generation) and STATE 6 (Seedance video prompts).
+The output is **not** a Seedance video prompt — it is the design foundation for downstream video generation stages.
 
 **Output Boundary (hard constraint):**
 
 - STATE 4 output must **never** mention video platform names such as Seedance 2.0 / Kling
 - Must not contain phrases like "generate in Seedance", "Seedance 2.0 prompt", "generate shot by shot in Seedance"
-- All generation instructions must point to image generators (Jimeng/MJ/Flux/Kling image mode)
+- The prompt package is a platform-agnostic director-level design document — not bound to any specific image or video generation tool
 
 **Pre-flight Checklist (all must be YES):**
 
@@ -173,11 +173,23 @@ The output is **not** a Seedance video prompt — it is the design foundation fo
 
 If any answer is NO, stop and return to the missing stage.
 
-**State 4 output**: Film-level short film prompt package (text-level director's vision document). Proceed to STATE 5.
+**State 4 output**: Film-level short film prompt package (text-level director's vision document). Proceed to routing decision.
 
-**User next step**: Confirm the prompt package content. After confirmation, proceed to STATE 5 to generate storyboard blueprint images.
+**User next step**: Confirm the prompt package content. After confirmation, do NOT proceed directly to STATE 5. First execute the routing decision to determine the best path forward (see STATE 6 mode selection table for available modes based on resources).
 
-### STATE 5 — Storyboard Blueprint Generation (Image Level)
+### After STATE 4: Routing Decision
+
+After the prompt package is confirmed, determine the best path based on project needs and available resources. Refer to STATE 6 mode selection for which inputs are required per mode. Present 2-3 route options:
+
+| Route | Path | Best for |
+|---|---|---|
+| **A: Storyboard** | STATE 4 → STATE 5 → STATE 6 (I2V storyboard) | Narrative films, complex multi-shot with storyboard-controlled camera |
+| **B: Direct** | STATE 4 → STATE 6 (I2V minimal / FLF2V / T2V / R2V) | Existing ref images, product demos, simple actions, text-only |
+| **C: Hybrid** | STATE 4 → STATE 5 (key shots) + STATE 6 (non-key) | Mix of storyboard-needed and direct-reference shots |
+
+### STATE 5 — Storyboard Blueprint Generation (Image Level, Conditional)
+
+**This stage is only executed when Route A or C is selected.** If Route B (direct to video) is chosen, skip STATE 5.
 
 Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce` (for generating complete storyboard blueprint images).
 
