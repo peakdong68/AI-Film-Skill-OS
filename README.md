@@ -2,7 +2,7 @@
 
 ## 概览
 
-本项目为 AI 视频/电影制作提供 14 个 Claude Code 技能，分为三大体系：
+本项目为 AI 视频/电影制作提供 15 个 Claude Code 技能，分为三大体系：
 
 - **Director 系列 (10个)**：完整的 AI 电影制作管线，从创意到可执行视频提示词
 - **Storyboard 系列 (4个)**：生成分镜图提示词，面向 AI 图像生成器和 Seedance I2V
@@ -110,6 +110,12 @@ STATE 8   EXPORT           专业交付包（含帧对齐/音频淡出/授权备
 - **路由**: 按阶段自动调用其他 Director 技能，支持会话恢复（`STATE.md`）
 - **关键特性**: STATE 5 条件性执行、STATE 6 七模式支持、路由决策机制
 
+### director-interview
+- **职责**: 创意入站访谈——模糊创意/描述充分但缺剧情的输入 → 可执行制作简报
+- **三路径**: 快速通道（创意完整）/ 创意展开（2-3方案供选择）/ 创意访谈（逐项问清）
+- **输出**: 统一制作简报（含创意方向、类型路径、时长、风格、平台、参考素材）
+- **调用者**: `director-core` STATE 0、`director-story` 独立使用
+
 ### director-story
 - **职责**: 剧本→导演级叙事结构
 - **能力**: 3/5幕结构、场景目的分析、因果链构建、导演意图层
@@ -188,6 +194,7 @@ STATE 8   EXPORT           专业交付包（含帧对齐/音频淡出/授权备
 |-----------|------------|
 | "我有一个故事创意，帮我拍成AI电影" | `director-core`（自动调度全部流程） |
 | "分析这个剧本的结构" | `director-story` |
+| "模糊创意需要先展开再分析" | `director-interview` |
 | "设计这部电影的情绪曲线" | `director-emotion` |
 | "选择导演风格/视觉人格" | `director-style` |
 | "设计镜头语言和摄影机运动" | `director-camera` |
@@ -208,6 +215,7 @@ STATE 8   EXPORT           专业交付包（含帧对齐/音频淡出/授权备
 ```
 .claude/skills/
 ├── director-core/SKILL.md + references/
+├── director-interview/SKILL.md
 ├── director-story/SKILL.md + references/
 ├── director-emotion/SKILL.md + references/
 ├── director-style/SKILL.md
@@ -243,7 +251,7 @@ STATE 8   EXPORT           专业交付包（含帧对齐/音频淡出/授权备
 
 ## 知识来源
 
-- `.claude/skills/` — 技能体系主目录，含 14 个技能 + 共享参考资源
+- `.claude/skills/` — 技能体系主目录，含 15 个技能 + 共享参考资源
 - `reference/seedance-20/` — Seedance 2.0 操作系统技能包（参考）
 - `reference/Director/` — AI Film OS 完整架构、核心技能系统、引擎规格
 - `reference/Seedance 2.0 系列提示词官方指南 .md` — 官方提示词编写指南
