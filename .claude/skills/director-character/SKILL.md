@@ -1,179 +1,169 @@
 ---
 name: director-character
-description: Design and lock character identity for AI film production — character identity definitions, visual identity parameters, behavior systems, emotion→action mappings, and multi-character relationship management. Based on Seedance 2.0 official guidelines, recommends separate headshot + full-body character reference approach (multi-view/three-view character sheets are PROHIBITED). Use for character design, character setup, character consistency, character sheet creation, or when director-core routes to STATE 3 (Character Lock). When AI-generated characters repeatedly change faces, outfits, or break style across shots, the identity lock system built by this skill is the core defense. Note: this skill produces character identity **definitions** (text-level design documents). To compile them into executable image generation prompts, use the character-image-prompt skill.
+description: Design and lock character identity for AI film production — character sheets, visual identity parameters, behavior systems, emotion-to-motion mapping, and multi-character relationship management. Use when the user needs character design, character design, character consistency, character consistency, character sheet creation, or when director-core routes to STATE 3 (Character Lock). Also use when AI-generated characters keep changing faces or outfits across shots — this skill builds the identity lock that prevents character drift. Note: this skill produces character identity DEFINITIONS (text-level design docs). For compiling these into executable image generation prompts, use the character-image-prompt skill.
 ---
 
 # Director Character — Character Consistency Engine
 
 ## Overview
 
-Design character identity with sufficient precision that AI video generators can maintain consistency across shots. This skill produces a **Character Consistency Sheet** — a structured identity document that locks face, body type, clothing, behavior, and emotional expression, ensuring the character remains stable in every frame.
+Design character identity with enough specificity that AI video generators can maintain it across shots. This skill produces a Character Consistency Sheet — a structured identity document that locks face, body, wardrobe, behavior, and emotional expression so the character remains stable through every frame of the film.
 
-The most common failure in AI video production is character drift (face-swapping / outfit-changing / style-breaking). This skill is the first line of defense against it.
+The most common failure in AI video production is character drift (face swaps, outfit changes, style breaks). This skill is the primary defense against it.
 
-Can be used independently for character design, or called by `director-core` at STATE 3.
+Works independently for character design or is invoked by `director-core` at STATE 3.
 
-**Important:** This skill produces **character identity definitions** (text-level design documents). It does **not** produce executable image generation prompts. To compile identity definitions into platform-ready character sheet prompts (MJ/Flux/Jimeng/Kling), use the `character-image-prompt` skill.
+**Important:** This skill produces **character identity definitions** (text-level design documents). It does NOT produce executable image generation prompts. For compiling these definitions into platform-ready character sheet image prompts (MJ/Flux/Jimeng/Kling), use the `character-image-prompt` skill.
 
-## Load Resources
 
-This skill includes bundled reference knowledge. Load when needed:
-- For the complete visual identity parameter checklist and identity locking specifications, read `references/character-identity.md`
-- For the micro-motion unit library, emotion-to-full-body-action mapping, and micro-expression system, read `references/motion-translation.md`
+## Loaded Resources
 
-## Core Principle
+This skill ships with reference knowledge files. Load them when:
+- For the complete visual identity parameter checklist and identity lock specifications, read `references/character-identity.md`
+- For the micro-motion unit library, emotion-to-full-body mapping, and micro-expression system, read `references/motion-translation.md`
+## The Core Principle
 
-> Character consistency in AI video is not a prompt-tuning problem — it is an identity specification problem.
+> Character consistency in AI video is not a prompt-tuning problem — it's an identity-specification problem.
 
-The AI must receive the same identity parameters in every prompt. Minor differences in description cause cascading drift. This skill creates the master identity document that all prompts reference.
+The AI must receive identical identity parameters in every prompt. Slight variations in description cause cascading drift. This skill creates the master identity document that all prompts reference.
 
 ## Output Structure
 
-### 1. Character Identity Core
+### 1. Character Identity Core (Character Identity Core)
 
 ```
-Character: [Name]
-- Narrative Role: [Protagonist / Antagonist / Supporting / Observer]
-- Age Range: [e.g. 25-30]
-- Gender Expression: [description]
-- Emotional Identity: [core emotional state — calm, anxious, intense, vulnerable]
-- Psychological Profile: [key traits, motivations, fears]
-- Story Function: [what does this character accomplish in the narrative?]
-- Character Arc: [from starting state A → to ending state B]
+CHARACTER: [name]
+- Narrative role: [protagonist / antagonist / supporting / observer]
+- Age range: [e.g., 25-30]
+- Gender expression: [description]
+- Emotional identity: [core emotional state — calm, anxious, fierce, vulnerable]
+- Psychological profile: [key traits, motivations, fears]
+- Story function: [what does this character accomplish in the narrative?]
+- Character arc: [from state A at start → to state B at end]
 ```
 
-### 2. Visual Identity System
+### 2. Visual Identity System (Visual Identity System)
 
-**Facial System:**
+**Face System (Face):**
 ```
-- Face Shape: [oval / round / angular / heart / square]
-- Skin Tone: [specific descriptor with undertone reference]
-- Eye Shape: [almond / round / hooded / monolid / deep-set]
-- Eye Color: [specific color, NOT "beautiful eyes"]
+- Face shape: [oval / round / angular / heart / square]
+- Skin tone: [specific descriptor with undertone reference]
+- Eye shape: [almond / round / hooded / monolid / deep-set]
+- Eye color: [specific, no "beautiful eyes"]
 - Eyebrows: [shape, thickness, arch]
 - Nose: [shape, bridge, tip]
 - Mouth: [shape, lip fullness]
-- Jaw/Chin: [shape, definition]
-- Distinguishing Features: [scars, moles, freckles, asymmetry]
-- Facial Structure Notes: [overall impression, bone structure]
+- Jaw/chin: [shape, definition]
+- Distinguishing features: [scars, moles, freckles, asymmetry]
+- Facial structure notes: [overall impression, bone structure]
 ```
 
-**Hair System:**
+**Hair System (Hair):**
 ```
-- Hairstyle: [specific cut name or description]
-- Length: [measurement relative to facial features]
-- Color: [specific shade, NOT "brown"]
+- Style: [specific cut name or description]
+- Length: [measured relative to facial features]
+- Color: [specific shade, not "brown"]
 - Texture: [straight / wavy / curly / coiled]
-- Part Direction: [left / right / center / none]
-- Dynamic Quality: [how it moves with the character]
+- Part direction: [left / right / center / none]
+- Movement quality: [how it moves with the character]
 ```
 
-**Body Type System:**
+**Body System (Body):**
 ```
-- Body Type: [lean / average / rounded / specific description]
-- Height: [tall / medium / short — relative to environment reference]
-- Build: [slim / athletic / soft / angular]
-- Posture: [upright / hunched / tense / relaxed]
-- Movement Signature: [how they walk, stand, fidget]
+- Body type: [ectomorph / mesomorph / endomorph / specific description]
+- Height: [tall / average / short — relative to environment cues]
+- Build: [lean / athletic / soft / angular]
+- Posture: [upright / slouched / coiled / relaxed]
+- Movement signature: [how they walk, stand, fidget]
 ```
 
-**Clothing System:**
+**Wardrobe System (Wardrobe):**
 ```
-- Signature Outfit: [complete description of primary clothing]
-- Color Scheme: [2-4 colors that define the character's wardrobe]
-- Fabric Language: [materials — leather, cotton, silk, technical fabric]
-- Fit: [loose / fitted / drop-shoulder / structured]
+- Signature outfit: [complete description of primary costume]
+- Color palette: [2-4 colors that define the character's wardrobe]
+- Fabric language: [materials — leather, cotton, silk, tech fabric]
+- Fit: [loose / tailored / oversized / structured]
 - Accessories: [watch, glasses, jewelry, bag, weapon]
 - Layering: [how pieces combine]
 ```
 
-**Signature Props:**
+**Signature Props (Signature Props):**
 ```
 - Prop 1: [description, which hand/side, when visible]
 - Prop 2: [description, significance]
 ```
 
-### 3. On-Camera Behavior System
+### 3. Cinematic Behavior System (Cinematic Behavior System)
 
-**Eye Logic:**
+**Eye Direction Logic (Eye Direction Logic):**
 ```
-- Default Gaze Direction: [direct / averted / scanning / distant]
-- When Thinking: [up-right / down-left / etc.]
-- When Lying: [behavioral cue]
-- When Attracted: [gaze pattern]
-- When Threatened: [eye movement]
-```
-
-**Emotion → Action Mapping:**
-```
-Sadness → shoulders drop, jaw lowers, breathing slows, gaze averts
-Anger → jaw tightens, stillness, eyes narrow, breath controlled
-Fear → micro-freeze, half-step back, rapid scanning, shallow breathing
-Affection → hesitant approach, stolen glances, breathing shallows
-Shock → complete stillness, eyes widen, mouth slightly open, no blinking
-Joy → posture relaxes, smile reaches eyes, body language opens
+- Default gaze: [direct / averted / scanning / distant]
+- When thinking: [up-right / down-left / etc.]
+- When lying: [behavioral tell]
+- When attracted: [glance pattern]
+- When threatened: [eye movement]
 ```
 
-**Movement Signature:**
+**Emotion-to-Motion Mapping (Emotion-to-Motion Mapping):**
 ```
-- Walking Style: [stride length, speed, arm swing, weight distribution]
-- Gesture Pattern: [gestural / restrained / exaggerated / nervous fidgeting]
-- Stillness Behavior: [state when not actively moving]
-- Signature Action: [define one distinctive movement]
+Sadness → shoulders drop, chin lowers, breathing slows, eyes avoid contact
+Anger → jaw tightens, stillness, narrowed eyes, controlled breathing
+Fear → micro-freeze, slight step back, rapid eye movement, shallow breath
+Affection → hesitant approach, stolen glances, breathing becomes shallow
+Shock → complete stillness, eyes widen, mouth slightly open, no blink
+Joy → relaxed posture, genuine smile reaching eyes, open body language
 ```
 
-### 4. Continuity Lock System
+**Movement Signature (Movement Signature):**
+```
+- Walking style: [stride length, pace, arm swing, weight distribution]
+- Gesture pattern: [hand talker / reserved / expansive / nervous ticks]
+- Stillness behavior: [what they do when not actively moving]
+- Signature action: [one unique movement that defines them]
+```
 
-**Hard Locks (immutable):**
-- [ ] Facial Identity — face shape, features, proportions
-- [ ] Hair — length, style, color, texture
-- [ ] Body Type — build, height proportions
-- [ ] Clothing — signature outfit, color scheme
-- [ ] Age — does not age or de-age across shots
+### 4. Continuity Lock System (Continuity Lock System)
 
-**Soft Variations (allowed to change):**
-- Facial lighting (different angles, different intensity)
-- Emotional expression (within defined range)
-- Camera angle (different views of the same face)
+**Hard Locks (Immutable):**
+- [ ] Face identity — face shape, features, proportions
+- [ ] Hair — style, length, color, texture
+- [ ] Body type — build, height proportion
+- [ ] Wardrobe — signature outfit, color palette
+- [ ] Age — no aging or de-aging between shots
+
+**Soft Variations (Allowed Variations):**
+- Lighting on face (different angles, intensities)
+- Emotional expression (within the defined range)
+- Camera angle (different perspectives of the same face)
 - Environmental effects (wind in hair, rain on face)
 
-**Prohibited Changes:**
-- Face-swapping / AI regenerating a different face
-- Random outfit changes
+**Forbidden Changes (Forbidden Changes):**
+- Face swap / AI regenerated face
+- Random wardrobe changes
 - Age jumps between shots
-- Style mutations (realistic → anime)
-- Hair color or style change (unless story-driven and explicitly noted)
+- Style shift (photorealistic → anime)
+- Hair color or style change (unless story-motivated and explicitly noted)
 
-### 5. Character Reference Image Layout
+### 5. Character Sheet Image Layout Reference (Character Sheet Image Layout Reference)
 
-**Seedance 2.0 critical restriction: Multi-view/three-view character sheets are PROHIBITED as video generation reference.** The model may recognize the same character from different angles as multiple distinct subjects, worsening ID drift and causing twin problems (two identical figures appearing in the same frame).
+This section provides a **view coverage template** — it defines what visual angles and states the character sheet should cover. It is NOT an executable image generation prompt.
 
-The correct character reference layout is **separate headshot + separate full-body image**, uploaded as two independent reference images:
+To compile the full character identity definition into platform-ready image generation prompts (MJ/Flux/Jimeng/Kling), route to the `character-image-prompt` skill, which follows the multi-view character design board specification.
 
+View coverage requirements:
 ```
-Image1: Face Close-Up (Headshot)
-  - Face only, minimize background interference
-  - Expressionless preferred, minimize neck/shoulder area
-  - Frontal, even lighting, neutral studio light
-  - Purpose: lock facial identity (face shape, features, proportions)
-
-Image2: Full-Body Shot
-  - Show signature outfit complete fit, color scheme, body posture
-  - Include signature props and accessories
-  - Neutral studio light, clean background, frontal or 3/4 angle
-  - Purpose: lock clothing, body type, overall styling
-
-In Seedance prompts, reference as:
-  `Subject1`'s facial features reference `Image1` (headshot), styling references `Image2` (full-body).
-
-The more precise the reference needed, the earlier it should appear in the prompt.
+Character sheet layout: full body front view, side profile, 3/4 view, back view
+Face detail: close-up front, neutral expression
+Expression range: neutral, [emotion 1], [emotion 2], [emotion 3]
+Wardrobe: [signature outfit] shown in full
+Lighting: neutral studio light, clean background
+Style: cinematic realism, consistent across all views
+Negative: no text, no watermark, no face distortion, no identity variance between views
 ```
 
-To compile complete character identity definitions into platform-ready image generation prompts (MJ/Flux/Jimeng/Kling), route to the `character-image-prompt` skill, which follows the separate headshot + full-body layout specification.
+### 6. Multi-Character System (Multi-Character System)
 
-### 6. Multi-Character System
-
-For multi-character projects, add:
+For projects with multiple characters, add:
 
 ```
 Character Relationship Map:
@@ -181,33 +171,31 @@ Character Relationship Map:
 [B] ←→ [C]: [relationship type, power dynamic, emotional tone]
 
 Visual Contrast Design:
-- Character A vs B: [body type contrast, color contrast, shape language contrast]
-- Shared Lighting Rules: [how they interact with the same light source]
-- Interaction Rules: [physical distance norms, eye contact patterns, touch boundaries]
+- Character A vs B: [size contrast, color contrast, shape language contrast]
+- Shared lighting rules: [how they interact with the same light source]
+- Interaction rules: [physical distance norms, eye contact patterns, touch boundaries]
 ```
 
 ## Constraints
 
-- Every character must have a complete visual identity system before entering storyboarding.
-- Facial parameters must be specific enough that different prompt writers would produce the same description.
-- Emotion→action mappings must cover the full emotional range the character experiences in the story.
-- Hard locks must be explicitly referenced in every Seedance prompt containing that character.
+- Every character must have a complete Visual Identity System before entering storyboard.
+- Face parameters must be specific enough that two different prompt writers would produce the same description.
+- Emotion-to-motion mapping must cover the full emotional range the character experiences in the story.
+- Hard locks must be explicitly referenced in every Seedance prompt that features the character.
 - Multi-character scenes must define interaction rules to prevent AI confusion.
-- **Multi-view/three-view character sheets are PROHIBITED as Seedance reference** — use separate headshot (face only) + full-body, uploaded separately, with headshot placed first in prompt.
 
 ## Downstream Pipeline
 
-This skill produces **character identity definitions** (text-level design documents). After user confirmation:
+This skill produces a **character identity definition** (text-level design doc). After user confirmation:
 
-1. Route to `character-image-prompt` → compile identity definitions into platform-ready image prompts (separate headshot + full-body, NOT multi-view sheets)
+1. Route to `character-image-prompt` → compiles identity into platform-ready image generation prompts
 2. User generates character reference images (MJ/Flux/Jimeng/Kling)
-3. Generated character reference images (ImageN: headshot + ImageN+1: full-body) serve as Seedance reference input, face reference placed first in prompt
+3. Generated character images are used as `@[character ref]` in `seedance-video-prompt` (STATE 6)
 
 ## Integration
 
-When called by `director-core`:
-- Character Identity Core and Visual Identity System become the single source of truth for all downstream prompts
-- After STATE 3 completion, route to `character-image-prompt` to compile image generation prompts (separate headshot + full-body format)
-- Continuity Lock System hard locks must be embedded in every Seedance prompt via `seedance-video-prompt`
-- Character identity definitions must be user-confirmed before entering image prompt generation
-- **Seedance 2.0 constraint: use separate headshot (face close-up) + full-body; multi-view/three-view character sheets PROHIBITED**
+When invoked by `director-core`:
+- The Character Identity Core and Visual Identity System become the single source of truth for all downstream prompts
+- After STATE 3 completion, route to `character-image-prompt` to compile into image generation prompts
+- The Continuity Lock System's Hard Locks must be embedded in every Seedance prompt via `seedance-video-prompt`
+- Character identity definition must be confirmed by the user before proceeding to image prompt generation
