@@ -37,11 +37,11 @@ Build an initial narrative premise from the answers, then proceed to formal anal
 
 **Creative expansion mode (activates when descriptive but no plot):**
 
-If the user provides brand tone, scene, and style direction but lacks specific narrative action and shot rhythm (e.g., ecommerce/commercial/product brief), do NOT output script structure directly. First offer 2-3 creative options:
+If the user provides descriptive detail (scene, style, tone, etc.) but lacks specific narrative action and shot rhythm (not limited to ecommerce/commercial — also includes theme/atmosphere pieces, nature/landscape, abstract concepts, etc.), do NOT output script structure directly. First offer 2-3 creative options:
 
 
 
-Options should cover different styles (pure showcase / micro-drama / lifestyle MV, etc.). After user confirms direction, proceed to formal structure analysis.
+Options should cover different styles (pure showcase / micro-drama / lifestyle MV / documentary / abstract performance, etc.). After user confirms direction, proceed to formal structure analysis.
 
 If the user insists "just analyze it", expand from available material and annotate assumptions.
 
