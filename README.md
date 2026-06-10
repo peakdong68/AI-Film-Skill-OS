@@ -69,7 +69,7 @@ STATE 5   STORYBOARD       Generate storyboard blueprint images (can run paralle
 STATE 6   SEEDANCE         Compile to Seedance 2.0 video platform executable prompts
    │      (seedance-video-prompt)
    │      Input: generated storyboard images + character refs + product images
-   │      Output: Seedance 2.0 / Runway / Sora / Kling Video Prompt
+   │      Output: Seedance 2.0 / Kling Video Prompt
    ▼
 STATE 7   VALIDATE         Quality verification
    ▼
@@ -138,7 +138,7 @@ Each phase must pass verification before the next unlocks. Skipping is forbidden
 - **Role**: L5 video generation compiler — storyboard images + character refs → Seedance 2.0 executable prompts
 - **Capabilities**: @[ref] image reference syntax, continuous long-take motion description, music tempo specification, negative constraints
 - **Input**: Generated storyboard images + character reference images + product images
-- **Output**: Seedance 2.0 / Runway / Sora / Kling platform-ready video generation prompts
+- **Output**: Seedance 2.0 / Kling platform-ready video generation prompts
 
 ---
 
