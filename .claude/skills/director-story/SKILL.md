@@ -25,7 +25,7 @@ Accept any of the following as starting material:
 - A scene list
 - A thematic concept with character descriptions
 
-**For vague or descriptive-but-no-plot inputs, route to  for creative intake.** The skill auto-selects the best path:
+**For vague or descriptive-but-no-plot inputs, route to `director-interview` for creative intake.** The skill auto-selects the best path:
 
 | Input quality | Path |
 |---|---|
