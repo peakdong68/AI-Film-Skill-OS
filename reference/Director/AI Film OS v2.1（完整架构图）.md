@@ -158,7 +158,7 @@ seedance_prompt_engine
 ## 输出：
 
 ```
-Seedance / Sora / Runway Video Prompts
+Seedance  Video Prompts
 ```
 
 ---

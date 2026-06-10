@@ -25,7 +25,7 @@ STATE 8 → 导出就绪        （打包交付物）
 7. 提示包未确认 → 分镜蓝图禁止生成
 8. 分镜蓝图未确认 → Seedance 提示词禁止生成
 9. 角色未确认 → Seedance 提示词禁止生成
-10. STATE 4 输出严禁提及 Seedance/Runway/Sora/Kling 视频平台
+10. STATE 4 输出严禁提及 Seedance/Kling 视频平台
 
 ## 阶段锁强制执行
 
@@ -55,7 +55,7 @@ STATE 8 → 导出就绪        （打包交付物）
 - 将 STATE 1-3 的所有设计产物编译为电影级短片提示包
 - 包含：结构化分镜设计 + 镜头语言 + 声音设计 + Seedance 分解方案
 - 供用户确认，作为 STATE 5 分镜蓝图生成的输入基础
-- **严禁在输出中提及 Seedance/Runway/Sora/Kling 视频平台**
+- **严禁在输出中提及 Seedance/Kling 视频平台**
 
 **STATE 5（storyboard-sketch/storyboard-prompt/storyboard-master/storyboard-ecommerce）**：图像级生成
 - 使用已确认的提示包生成分镜蓝图图像

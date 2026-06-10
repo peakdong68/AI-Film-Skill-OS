@@ -199,10 +199,7 @@ storyboard_core
 输出可直接用于：
 
 * Seedance 2.0
-* Runway Gen-3
-* Sora
 * Kling AI
-* Pika Labs
 
 ---
 
