@@ -308,4 +308,4 @@ When called by `director-core`:
 - Compile the complete film-level short film prompt package
 - Execute the verification checklist (including output boundary check)
 - Present for final user review
-- Upon confirmation, mark STATE 4 complete, unlock STATE 5
+- Upon confirmation, mark STATE 4 complete, enter routing decision
