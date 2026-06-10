@@ -26,7 +26,7 @@ STATE 2 → Visual Design (Camera + Lighting)
 STATE 3 → Character Lock
 STATE 4 → Prompt Packaging (Film-Level Short Film Prompt Package)
 STATE 5 → Storyboard Blueprint Generation (Image Level)
-STATE 6 → Seedance Video Prompt (Image Reference Level)
+STATE 6 → Seedance 视频提示词（多模式，图像引用级）
 STATE 7 → Final Validation
 STATE 8 → Export Ready
 ```
@@ -36,7 +36,7 @@ Each state produces validated deliverables before the next state is unlocked. Sk
 **Key distinction between STATE 4 and STATE 6:**
 
 - STATE 4 (`director-prompt-packager`): Compiles a **text-level** film-level short film prompt package — integrating story, visual design, and character identity into structured storyboard design, camera language, sound design, and Seedance decomposition plan. The output is a complete director's vision document, which serves as the design foundation for STATE 5 storyboard blueprint generation after user confirmation. **Never outputs video platform prompts.**
-- STATE 6 (`seedance-video-prompt`): Compiles **image-reference-level** video prompts, for use with Seedance 2.0 / Kling. Input: generated storyboard blueprint images + character reference images. Output: platform-executable video generation prompts.
+- STATE 6 (`seedance-video-prompt`): Compiles **image-reference-level** video prompts for Seedance 2.0 / Kling. Supports 7 modes (T2V / I2V / R2V / FLF2V / V2V / ...). **Storyboard images optional** — only required for I2V storyboard mode. Output: platform-executable video generation prompts.
 
 **The STATE 4 → STATE 6 separation of concerns is the foundation of pipeline design. Must never be crossed.**
 
@@ -201,38 +201,56 @@ Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-pr
 
 **State 5 output**: Storyboard blueprint images (for Seedance `@[ref]` reference). Proceed to STATE 6.
 
-### STATE 6 — Seedance Video Prompts (Image Reference Level)
+### STATE 6 — Seedance 视频提示词（图像引用级）
 
-Route to `seedance-video-prompt`.
+路由到 `seedance-video-prompt`。
 
-**This is the L5 video generation compiler.** It receives generated storyboard images, character reference images, and product/background references as `@[ref]` inputs, and compiles them into Seedance 2.0 / Kling platform-executable video prompts.
+**这是 L5 视频生成编译器。** 根据可用参考资源选择生成模式（见下方模式选择），将参考图像/视频/音频编译为 Seedance 2.0 / Kling 平台可执行的视频提示词。
 
-**Platform hard constraints:**
+**分镜蓝图图像不是必须的——它只是 I2V storyboard 模式的一种输入。** 编译器支持七种模式：T2V / I2V minimal / I2V storyboard / R2V / FLF2V / V2V Edit / V2V Extend。
 
-- Chinese prompts ≤ 500 characters, English prompts ≤ 1000 words, total characters ≤ 2000
-- Each @[ref] must be assigned a unique primary role (identity / product / environment / action rhythm), using role mapping declaration format
-- Pass anti-slop check: no empty evaluative words (cinematic / epic / beautiful and other non-physically-referable terms)
+**平台硬约束：**
 
-**Required inputs:**
+- 中文提示词 ≤ 500 字，英文提示词 ≤ 1000 词，总字符数 ≤ 2000
+- 每个 @[ref] 必须分配唯一主角色（身份 / 产品 / 环境 / 动作节奏），使用角色映射声明格式
+- 通过 anti-slop 检查：无空洞评价词（cinematic / epic / beautiful 等无物理指涉词汇）
 
-- Generated storyboard images (from AI image generators)
-- Character reference images (for identity locking)
-- Product reference images (optional, for product locking)
-- Background reference images (optional, for environment locking)
+**可用输入（按模式选择所需）：**
 
-**Pre-flight Checklist (all must be YES):**
+- 分镜蓝图图像（来自 AI 图像生成器）——仅 I2V storyboard 模式需要
+- 角色参考图（推荐，用于身份锁定。如用户在 STATE 3 选择跳过，则以文本描述替代）
+- 产品参考图（可选，用于产品锁定）
+- 背景参考图（可选，用于环境锁定）
+- 首帧/尾帧图像——仅 FLF2V 模式需要
+- 视频片段——仅 V2V Edit/Extend 模式需要
+- 音频片段（可选，用于节奏/氛围参考）
 
-- [ ] Storyboard images generated?
-- [ ] Character reference images available? (or user explicitly chose to skip)
-- [ ] Product images locked (if applicable)?
-- [ ] Background images locked (if applicable)?
-- [ ] Music style and BPM determined?
-- [ ] **Prompt word count compliant (Chinese ≤ 500 chars)?**
-- [ ] **Anti-slop check passed?**
+**模式选择（根据可用输入判断）：**
 
-If any answer is NO, prompt the user to provide missing references.
+| 用户有... | 选择模式 |
+|---|---|
+| 分镜蓝图图像 | I2V (storyboard) |
+| 仅单张参考图（产品/角色/场景） | I2V (minimal) |
+| 首帧 + 尾帧图像 | FLF2V |
+| 多种不同类型参考 | R2V |
+| 视频源需要修改 | V2V Edit |
+| 视频需要延续 | V2V Extend |
+| 仅有文字描述 | T2V |
 
-**State 6 output**: Seedance 2.0 video prompts (platform-executable). Proceed to STATE 7.
+**预检清单（按模式验证）：**
+
+- [ ] 所选模式的必需输入已就绪？
+- [ ] 角色参考图可用？（或用户已明确选择跳过）
+- [ ] 产品图已锁定（如适用）？
+- [ ] 背景图已锁定（如适用）？
+- [ ] 音乐风格和 BPM 已确定？
+- [ ] **提示词字数合规（中文 ≤ 500 字）？**
+- [ ] **anti-slop 检查通过？**
+
+如有必需输入缺失，提示用户提供对应参考。
+
+**State 6 输出**：Seedance 2.0 视频提示词（平台可执行）。进入 STATE 7。
+
 
 ### STATE 7 — Final Validation
 
