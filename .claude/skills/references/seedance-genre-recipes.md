@@ -19,41 +19,16 @@
 
 ## 提示词骨架
 
-**产品 I2V：**
-```
-[Image1] is the product reference; preserve logo, label, shape, and materials exactly.
-[One material or light change]. Camera: [single move]. Lighting: [physical source].
-Sound: [ambient/SFX].
-```
+**产品 I2V：** `[Image1] 为产品参考；精确保留徽标、标签、形状及材质。[一项材质或灯光变化]。摄像机：[单一运动]。灯光：[物理光源]。音效：[环境音/音效]。`
 
-**剧情 T2V：**
-```
-Character A [visible emotional action] in [specific setting].
-Camera: [motivated framing]. Lighting: [motivated source].
-Sound: [ambient or short dialogue]. End state: [changed expression/action].
-```
+**戏剧 T2V：** `角色 A 在 [具体场景] 中执行 [可见的情感动作]。摄像机：[有动机的构图]。灯光：[有动机的光源]。音效：[环境音或简短对话]。结束状态：[表情/动作变化]。`
 
-**参考运动：**
-```
-[Video1] provides only [camera/action/timing] reference; do not transfer identity,
-costume, logo, or environment. New subject: [authorized/original subject].
-[Action and endpoint].
-```
+**参考动作：** `[Video1] 仅提供 [摄像机/动作/时机] 参考；不迁移身份、服装、徽标或环境。新主体：[授权/原创主体]。[动作与终点]。`
 
-**首/末帧：**
-```
-[Image1] is the first frame. [Image2] is the last frame.
-Preserve [identity/product/scene anchors]. Generate a continuous transition from
-[start state] to [end state]. Camera: [locked or one controlled move].
-Sound: [ambient/SFX].
-```
+**首/尾帧：** `[Image1] 为起始帧。[Image2] 为结束帧。保留 [身份/产品/场景锚点]。生成从 [起始状态] 到 [结束状态] 的连续过渡。摄像机：[锁定或单一可控运动]。音效：[环境音/音效]。`
 
-**动画：**
-```
-Original [character archetype] [action] in [environment].
-Style: [medium, line quality, texture, palette]. Motion: [rhythm].
-Camera and sound: [simple support].
-```
+**动画：** `原创 [角色原型] 在 [环境] 中执行 [动作]。风格：[媒介、线条质感、纹理、调色板]。动作：[节奏]。摄像机与音效：[简洁辅助]。`
+
 
 ## 选择规则
 
