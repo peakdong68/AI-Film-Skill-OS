@@ -40,8 +40,11 @@ STATE 1 → 故事与情绪
 STATE 2 → 视觉设计（摄影机 + 灯光）
 STATE 3 → 角色锁定
 STATE 4 → [本技能] 电影级提示包编译 ← 用户确认
-STATE 5 → 分镜蓝图图像生成
-STATE 6 → Seedance 视频提示词
+    ↓
+[路由决策：盘点资源 → 匹配模式 → 选择方案]
+    ↓                        ↓
+STATE 5（条件性）         直通 STATE 6
+分镜蓝图生成              （跳过 STATE 5）
 ```
 
 **核心原则：提示包先于图像。** 让用户先在文本层面确认完整的导演方案，再投入资源生成视觉蓝图。这可以避免因方向错误导致的返工。
@@ -106,7 +109,7 @@ STATE 6 → Seedance 视频提示词
 - 总时长：[Ns]
 - 画幅比例：[16:9 / 9:16 / 1:1]
 - 视觉风格：[风格描述]
-- 目标平台：[图像生成 → Seedance 2.0]
+- 目标平台：[图像生成器（即梦/MJ/Flux），用于 STATE 5 分镜蓝图；或直通 STATE 6]
 
 ---
 
@@ -294,8 +297,9 @@ STATE 6 → Seedance 视频提示词
 此技能产出文本级提示包后，工作流继续：
 
 1. **用户确认提示包** → 所有分镜设计、摄影机语言和声音方向已确认
-2. **STATE 5** → 使用 `storyboard-sketch` / `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce` 生成分镜蓝图图像
-3. **STATE 6** → 使用 `seedance-video-prompt` 将分镜蓝图图像 + 角色参考编译为 Seedance 2.0 可执行视频提示词
+2. **路由决策** → 根据资源选择方案（A: STATE 5 分镜蓝图 / B: 直通 STATE 6）
+3. **STATE 5（条件性）** → 如选方案 A，使用 `storyboard-sketch` / `storyboard-prompt` / `storyboard-master` 生成分镜蓝图图像
+4. **STATE 6** → 使用 `seedance-video-prompt` 将参考素材编译为 Seedance 2.0 可执行视频提示词
 
 ---
 
@@ -308,4 +312,4 @@ STATE 6 → Seedance 视频提示词
 - 编译完整的电影级短片提示包
 - 执行验证清单（含输出边界检查）
 - 提交用户最终审核
-- 确认后标记 STATE 4 完成，解锁 STATE 5
+- 确认后标记 STATE 4 完成，进入路由决策

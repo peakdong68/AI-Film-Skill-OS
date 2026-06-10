@@ -13,8 +13,7 @@ description: 为 AI 电影制作设计色彩脚本和灯光系统——情绪到
 
 ## 加载资源
 
-此技能附带参考知识文件。在以下情况下加载：
-- 获取情绪到色彩映射表、灯光类型、场景调色板模板和常用灯光预设，阅读 `references/color-lighting.md`
+此技能附带参考知识文件。需要时加载共享资源 `../references/cinematography-quick-reference.md` 获取灯光速查表。
 
 ## 核心原则
 
