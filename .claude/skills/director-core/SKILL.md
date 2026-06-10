@@ -288,15 +288,82 @@ director-story ────→ director-emotion
 | "Fix my broken AI video, characters keep changing faces" | Enter from STATE 3 (re-lock characters), then STATE 6 |
 | "E-commerce livestream / product showcase / fashion video storyboard" | Enter from STATE 4 to compile prompt package, or STATE 5 to directly generate storyboard blueprint |
 
-## Status Tracker
+## Session Resume
 
-At the end of each production session, output:
+**On every director-core load, first check if a checkpoint file exists.**
+
+1. Read `.claude/production-checkpoint.md`
+2. **File not found** → Start from STATE 0, begin input collection
+3. **File found** → Parse current state, inform user of progress and ask:
+
+```
+ð Production checkpoint found:
+- Project: [project name]
+- Current progress: STATE N â [name]
+- Completed: STATE 0 â STATE N-1
+- Next step: [action description]
+
+Continue? (reply "continue" to resume from checkpoint, or "restart" to clear progress)
+```
+
+If user chooses "restart", delete or archive the old checkpoint file, start from STATE 0.
+
+## Production Progress Persistence
+
+Production state is persisted via a checkpoint file to ensure recoverability across session interruptions.
+
+### Checkpoint File
+
+- **Path**: `.claude/production-checkpoint.md`
+- **Write triggers**: Immediately after each STATE completion; after each user confirmation of deliverables; at session end
+- **Read trigger**: Every `director-core` load (see "Session Resume" above)
+
+### Checkpoint File Format
+
+```markdown
+## Production Checkpoint
+
+- **Project**: [project name]
+- **Last updated**: [ISO timestamp, e.g. 2026-06-10T14:30:00+08:00]
+- **Current state**: STATE N â [name]
+- **Completed states**: STATE 0, STATE 1, ..., STATE N-1
+- **Pending states**: STATE N+1, STATE N+2, ..., STATE 8
+- **Active locks**: [list of locks in effect]
+- **Next action**: [what the user needs to do or confirm]
+
+### State Artifacts
+
+| State | Status | Summary | Key Output |
+|-------|--------|---------|------------|
+| STATE 0 | â | Input Collection | [Brief: project / duration / style / platform / aspect] |
+| STATE 1 | â | Story & Emotion | [Story structure + emotional arc summary] |
+| STATE 2 | â | Visual Design | [Camera language + lighting/color plan summary] |
+| STATE 3 | â | Character Lock | [Characters Ã N, visual lock params summary] |
+| STATE 4 | ð | Prompt Packaging | [Prompt pack file path or in-progress marker] |
+| STATE 5 | â³ | Storyboard Blueprint | â |
+| STATE 6 | â³ | Video Prompts | â |
+| STATE 7 | â³ | Final Verification | â |
+| STATE 8 | â³ | Export | â |
+
+### Production Brief
+
+- **Duration**: [15s / 30s / 60s / custom]
+- **Aspect ratio**: [16:9 / 9:16 / 1:1]
+- **Platform**: [Seedance / Runway / Sora / Kling]
+- **Style**: [Cinematic / Commercial / Documentary / Anime / ...]
+- **Director mode**: [Observer / Emotional / Immersive / Epic / Commercial]
+```
+
+### End-of-Session Output
+
+In addition to writing the checkpoint file, output a brief status summary in conversation at the end of each session:
 
 ```markdown
 **Production Status**
-- Current state: [STATE N — Name]
+- Current state: [STATE N â Name]
 - Completed states: [list]
 - Pending states: [list]
 - Active locks: [which locks are in effect]
 - Next action: [what the user needs to do or confirm]
+- ð Progress saved to `.claude/production-checkpoint.md`
 ```
