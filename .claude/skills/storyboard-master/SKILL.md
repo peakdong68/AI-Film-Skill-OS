@@ -25,7 +25,10 @@ The master sheet has two output densities. Choose based on user intent:
 | "storyboard master sheet", "Master Sheet", "Director Treatment Board", "director treatment board", "full plan", "pre-production blueprint" | **Full Master Sheet** (4 sections, 6-24 shots)                 |
 | "concise storyboard board", "storyboard panel board", "quick board", "concise version"                                                     | **Concise Director Board** (shot grid only + bottom 3 modules) |
 
-When the user specifies shot count, use it. Otherwise default to 6 shots for concise and 12 shots for full.
+Shot count is determined by the following priority:
+1. **User explicitly specifies** → use directly
+2. **Upstream pipeline artifacts exist** (e.g., scene breakdown from `director-story`, shot plan from `director-prompt-packager`, outputs from `director-core` states) → derive from existing shot/scene breakdowns
+3. **No context available (fallback)** → default to 6 shots for concise, 12 shots for full
 
 ## Full Master Sheet Structure
 
