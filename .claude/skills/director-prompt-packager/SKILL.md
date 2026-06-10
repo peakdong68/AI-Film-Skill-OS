@@ -1,6 +1,6 @@
 ---
 name: director-prompt-packager
-description: "Compiles all pre-production assets (story structure, emotion blueprint, camera language, lighting design, character identity locks) into a complete film-level short film prompt package. This is the text-level compiler in the AI Film OS pipeline — it produces a director's vision master document (containing structured storyboard design, camera language, sound design, and Seedance decomposition plan) for user confirmation, NOT final video platform prompts. Use for short film prompt package compilation, director vision document generation, storyboard design compilation, or when director-core routes to STATE 4 (Prompt Packaging). When the user needs to convert a story idea into an executable storyboard design plan. Note: output is a text-level design document for STATE 5 storyboard blueprint generation and STATE 6 Seedance video prompt compilation."
+description: "将所有前期制作产物（故事结构、情绪蓝图、摄影机语言、灯光设计、角色身份锁定）编译为完整的电影级短片提示包。这是 AI Film OS 管线中的文本级编译器——产出的是供用户确认的导演愿景总文档（含结构化分镜设计、镜头语言、声音设计和 Seedance 分解方案），而非视频生成平台的最终提示词。用于短片提示包编译、导演愿景文档生成、分镜设计方案编译，或 director-core 路由到 STATE 4（提示词封装）时。当用户需要将故事创意转化为可执行的分镜设计方案时使用。注意：输出是文本级设计文档，供 STATE 5 分镜蓝图生成和 STATE 6 Seedance 视频提示词编译使用。"
 ---
 
 # Director Prompt Packager — 电影级短片提示包编译器
