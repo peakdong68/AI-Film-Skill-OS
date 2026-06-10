@@ -1,15 +1,16 @@
 ---
 name: seedance-video-prompt
-description: Compiles storyboard images, character reference images, and product reference images into executable video generation prompts for Seedance 2.0 / Runway / Sora / Kling platforms. This is the final L5 video generation layer compiler in the AI Film OS pipeline. Use for generating Seedance 2.0 prompts, video generation prompts, storyboard-to-video prompts, or when director-core routes to STATE 6 (video prompt compilation). Use when the user has already generated storyboard images and character reference images and needs them converted into executable prompts for Seedance and other video platforms. Trigger words: Seedance 2.0 prompt, video generation prompt, storyboard to video, Seedance prompt, video generation prompt.
+description: Compiles storyboard images, character reference images, and product reference images into executable video generation prompts for Seedance 2.0 / Kling platforms. This is the final L5 video generation layer compiler in the AI Film OS pipeline. Use for generating Seedance 2.0 prompts, video generation prompts, storyboard-to-video prompts, or when director-core routes to STATE 6 (video prompt compilation). Use when the user has already generated storyboard images and character reference images and needs them converted into executable prompts for Seedance and other video platforms. Trigger words: Seedance 2.0 prompt, video generation prompt, storyboard to video, Seedance prompt, video generation prompt.
 ---
 
 # Seedance Video Prompt — L5 Video Generation Compiler
 
 ## Overview
 
-This is the final compiler of **L5 — VIDEO GENERATION LAYER** in the AI Film OS pipeline. It receives generated storyboard images, character reference images, product reference images, and background reference images, and compiles them into executable video generation prompts for Seedance 2.0 / Runway / Sora / Kling platforms.
+This is the final compiler of **L5 — VIDEO GENERATION LAYER** in the AI Film OS pipeline. It receives generated storyboard images, character reference images, product reference images, and background reference images, and compiles them into executable video generation prompts for Seedance 2.0 / Kling platforms.
 
 **Key Distinction:**
+
 - `director-prompt-packager` (STATE 4): Text-level compiler → produces a film-level short film prompt package (storyboard design + camera language + sound design + Seedance decomposition plan). **Not a video platform prompt.**
 - `seedance-video-prompt` (STATE 6): Image-reference-level compiler → produces Seedance 2.0 executable prompts for video platforms.
 
@@ -28,11 +29,11 @@ This skill includes bundled reference knowledge. Load when needed:
 
 ### Prompt Word Count Limits
 
-| Language | Limit | Rationale |
-|------|------|------|
-| **Chinese** | ≤ 500 characters | Excess characters scatter information; the model ignores details |
-| **English** | ≤ 1000 words | Same as above |
-| **Total characters** | ≤ 2000 characters | seedance-prompt platform budget |
+| Language             | Limit             | Rationale                                                        |
+| -------------------- | ----------------- | ---------------------------------------------------------------- |
+| **Chinese**          | ≤ 500 characters  | Excess characters scatter information; the model ignores details |
+| **English**          | ≤ 1000 words      | Same as above                                                    |
+| **Total characters** | ≤ 2000 characters | seedance-prompt platform budget                                  |
 
 **Violating this constraint will cause missing video elements, character drift, and incomplete motion.** After compilation, count and annotate the character/word count.
 
@@ -40,12 +41,12 @@ This skill includes bundled reference knowledge. Load when needed:
 
 All uploaded image/video/audio assets use the `@[description]` format:
 
-| Reference Example | Purpose |
-|---------|------|
+| Reference Example       | Purpose                                          |
+| ----------------------- | ------------------------------------------------ |
 | `@[storyboard image 1]` | Storyboard blueprint — motion planning reference |
-| `@[character image 1]` | Character identity lock — face, hair, body type |
-| `@[product image 1]` | Product lock — color, print, fit |
-| `@[background image 1]` | Environment lock — space, light, color tone |
+| `@[character image 1]`  | Character identity lock — face, hair, body type  |
+| `@[product image 1]`    | Product lock — color, print, fit                 |
+| `@[background image 1]` | Environment lock — space, light, color tone      |
 
 ## Compilation Principles
 
@@ -58,6 +59,7 @@ Subject + Action + Scene + Camera + Lighting/Style + Audio + Constraints
 ```
 
 The compiler translates three layers into a single Seedance 2.0 executable prompt:
+
 1. **Visual Lock Layer** (what to reference) → @[storyboard image] @[character image] @[product image] @[background image]
 2. **Motion Instruction Layer** (how it moves) → continuous camera movement + character action + environment dynamics
 3. **Constraint Rule Layer** (what must not appear) → negative constraints + continuity preservation
@@ -78,13 +80,14 @@ If any critical asset is missing, prompt the user to generate the corresponding 
 
 Before writing prompts, assign a **unique primary role** to each uploaded asset. Role mapping prevents accidental cross-contamination between identity, logo, scene ownership, and camera instructions.
 
-| Asset | Recommended Role | Avoid |
-|------|---------|------|
-| Image | identity, product, pose, costume, environment, first frame, last frame | Asking it to define unseen motion |
-| Video | motion, camera, pacing, blocking, timing, gesture rhythm | Copying protected identity, logo, or scenes |
-| Audio | rhythm, tempo, mood, ambience, delivery tone, music texture | Assuming voice/song/portrait rights are cleared |
+| Asset | Recommended Role                                                       | Avoid                                           |
+| ----- | ---------------------------------------------------------------------- | ----------------------------------------------- |
+| Image | identity, product, pose, costume, environment, first frame, last frame | Asking it to define unseen motion               |
+| Video | motion, camera, pacing, blocking, timing, gesture rhythm               | Copying protected identity, logo, or scenes     |
+| Audio | rhythm, tempo, mood, ambience, delivery tone, music texture            | Assuming voice/song/portrait rights are cleared |
 
 **Core Rules:**
+
 - Each referenced asset gets one primary role; do not layer additional style descriptions on top
 - Explicitly declare "what must be preserved" and "what must not transfer"
 - If authorization is unclear, only transfer generalized motion/rhythm/mood/production function, not protected identity
@@ -124,18 +127,19 @@ Music: [music style, BPM, mood]
 
 Every Seedance 2.0 prompt must begin with an image reference section:
 
-| Reference Type | Format | Role Declaration (must include) |
-|----------|------|---------|
-| Storyboard | `@[storyboard image 1]` | "Used as motion planning reference, do not render the storyboard itself. Ignore all borders, panel frames, text, labels, titles, color swatches, director bar graphics, and layout elements" |
-| Character | `@[character image 1]` | "As the authoritative character reference, strictly preserve the same model's core features, natural face" |
-| Product | `@[product image 1]` | "Strictly lock color, print pattern, print color, size, position, fit" |
-| Background | `@[background image 1]` | "Strictly preserve spatial structure, lighting, color tone, and background display stability" |
+| Reference Type | Format                  | Role Declaration (must include)                                                                                                                                                              |
+| -------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Storyboard     | `@[storyboard image 1]` | "Used as motion planning reference, do not render the storyboard itself. Ignore all borders, panel frames, text, labels, titles, color swatches, director bar graphics, and layout elements" |
+| Character      | `@[character image 1]`  | "As the authoritative character reference, strictly preserve the same model's core features, natural face"                                                                                   |
+| Product        | `@[product image 1]`    | "Strictly lock color, print pattern, print color, size, position, fit"                                                                                                                       |
+| Background     | `@[background image 1]` | "Strictly preserve spatial structure, lighting, color tone, and background display stability"                                                                                                |
 
 ### 2. Continuous Camera Movement Section
 
 **Core principle: The entire video plays as one continuously developing master shot with no visible cuts.**
 
 Each storyboard panel is a sampled stage of the same uninterrupted camera movement:
+
 - Use one virtual lens / same lens continuous camera movement
 - Scale changes come only from physical camera movement (push-in / pull-out / tracking)
 - No jump cuts between panels — motion transitions smoothly
@@ -158,6 +162,7 @@ Music: [style description], BPM [range], [additional notes such as no narration,
 ```
 
 Common music style references:
+
 - Fashion/Apparel: lo-fi hip-hop / chill trap / fashion beat, BPM 90-110
 - Drama/Film: cinematic ambient / orchestral swell, BPM 60-80
 - Action/Fast-paced: electronic / drum & bass, BPM 120-140
@@ -190,28 +195,29 @@ No unnatural motion, no CGI artifacts.
 **Only describe what the image cannot convey.** A static image already contains subject identity, product form, clothing, color palette, composition, background. Re-describing these static details typically causes drift. Only add to the image: motion, camera, time progression, lighting changes, sound, preservation constraints.
 
 **Minimal I2V Template:**
+
 ```
 @[image 1] as reference, strictly preserve [identity/product/scene]. Only [motion] changes. Camera: [one movement]. Light: [source or transition]. Sound: [cue]. Constraints: [what must not change].
 ```
 
 **Common I2V Failure Fixes:**
 
-| Failure | Fix |
-|------|------|
-| Identity drift | Reduce new visual descriptions, strengthen preservation constraints |
-| Camera jumps | Use one camera movement, note start and end frames |
-| Product deformation | Declare preserved, static identity, no shape change |
-| Static image | Add one physical action and one temporal cue |
-| Background change | Preserve environment layout, only animate lighting/weather/atmosphere |
-| Hand deformation | Simplify hand motion or exclude hands from the main action |
+| Failure             | Fix                                                                   |
+| ------------------- | --------------------------------------------------------------------- |
+| Identity drift      | Reduce new visual descriptions, strengthen preservation constraints   |
+| Camera jumps        | Use one camera movement, note start and end frames                    |
+| Product deformation | Declare preserved, static identity, no shape change                   |
+| Static image        | Add one physical action and one temporal cue                          |
+| Background change   | Preserve environment layout, only animate lighting/weather/atmosphere |
+| Hand deformation    | Simplify hand motion or exclude hands from the main action            |
 
 ## Mode Gates
 
-| Mode | Compilation Priority | Common Error | Fix |
-|------|---------|---------|------|
-| **T2V** | Build complete shot with compact layers | Too many events in one segment | Keep one visible beat + one end point |
-| **I2V** | Preserve visible identity; add motion | Re-describing image until product or face drifts | Write `strictly preserve @[image 1]`; only add dynamic changes |
-| **R2V** | Assign independent roles to each asset | One asset asked to simultaneously control identity, pose, scene, and style | Split roles or prioritize the most important role |
+| Mode    | Compilation Priority                    | Common Error                                                               | Fix                                                            |
+| ------- | --------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **T2V** | Build complete shot with compact layers | Too many events in one segment                                             | Keep one visible beat + one end point                          |
+| **I2V** | Preserve visible identity; add motion   | Re-describing image until product or face drifts                           | Write `strictly preserve @[image 1]`; only add dynamic changes |
+| **R2V** | Assign independent roles to each asset  | One asset asked to simultaneously control identity, pose, scene, and style | Split roles or prioritize the most important role              |
 
 ## Compression Rules
 
@@ -221,6 +227,7 @@ When prompts are too long, trim in this order:
 2. **Keep**: reference tags and their roles, subject/product identity, one action verb + visible endpoint, one camera movement, physical light source or atmosphere, sound cue, safety/IP/continuity constraints
 
 **Compressed Template (Chinese I2V):**
+
 ```
 @[image 1] as reference, strictly preserve [subject] unchanged; only add [action/light/camera]. Sound: [cue]. Constraints: [what must not change].
 ```
@@ -229,14 +236,14 @@ When prompts are too long, trim in this order:
 
 Replace hollow evaluation words with observable production language:
 
-| Hollow Word | Replace With |
-|------|-----|
-| cinematic | shot size + camera movement + lighting + color grading |
-| epic | physical scale + stakes + lens distance |
-| beautiful | color + texture + composition + material + light behavior |
-| stunning | visible contrast + reveal + motion + detail |
-| dynamic | specific motion + speed + endpoint |
-| dramatic | blocking + shadow + silence + camera pressure |
+| Hollow Word     | Replace With                                                                |
+| --------------- | --------------------------------------------------------------------------- |
+| cinematic       | shot size + camera movement + lighting + color grading                      |
+| epic            | physical scale + stakes + lens distance                                     |
+| beautiful       | color + texture + composition + material + light behavior                   |
+| stunning        | visible contrast + reveal + motion + detail                                 |
+| dynamic         | specific motion + speed + endpoint                                          |
+| dramatic        | blocking + shadow + silence + camera pressure                               |
 | ultra-realistic | material performance + skin texture + lens characteristics + natural motion |
 
 **Rule: If a camera, microphone, light meter, or stopwatch cannot detect it — rewrite.**
@@ -321,6 +328,7 @@ Before delivering the final Seedance 2.0 prompt, verify item by item:
 ## Common Scenario Adaptations
 
 ### Fashion / Apparel Videos
+
 - Must use role mapping declaration: `@[product image 1]` locks color/print/fit
 - Fabric dynamics (folds, sway) must be described
 - Back constraint (solid color, no print, no text)
@@ -328,18 +336,21 @@ Before delivering the final Seedance 2.0 prompt, verify item by item:
 - **Compactness: prioritize Chinese compression, within 500 characters**
 
 ### Product Showcase Videos
+
 - Product image reference locks appearance, background image reference locks environment
 - Camera movement prioritizes push-in / orbit / detail, **one primary movement**
 - No product appearance drift
 - **Key principle: let light/particles/camera move around the product, not deform the product itself**
 
 ### Narrative Short Films
+
 - Character image reference locks identity, storyboard image reference locks narrative pacing
 - Continuous camera movementthroughout the film
 - Emotion evolves, never resets
 - **One segment = one beat = one emotional turn**
 
 ### Multi-Character Scenes
+
 - Each character gets a separate `@[character image N]` reference + role mapping declaration
 - Declare that spatial relationships between characters remain unchanged
 - No character identity swapping or drift
@@ -347,6 +358,7 @@ Before delivering the final Seedance 2.0 prompt, verify item by item:
 ## Integration
 
 When called by `director-core`:
+
 - Confirm STATE 5 is complete (storyboard blueprint images have been generated)
 - Load all visual reference assets (storyboard images, character images, product images, background images)
 - Assign @[ref] role mapping for each asset

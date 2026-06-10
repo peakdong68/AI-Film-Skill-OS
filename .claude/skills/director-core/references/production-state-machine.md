@@ -25,7 +25,7 @@ STATE 8 → Export Ready       (Package deliverables)
 7. Prompt package unconfirmed → storyboard blueprint generation forbidden
 8. Storyboard blueprint unconfirmed → Seedance prompt creation forbidden
 9. Character unconfirmed → Seedance prompt creation forbidden
-10. STATE 4 output must never mention Seedance/Runway/Sora/Kling video platforms
+10. STATE 4 output must never mention Seedance /Kling video platforms
 
 ## Phase Lock Enforcement
 
@@ -55,7 +55,7 @@ Every production session output must include:
 - Compiles all STATE 1-3 design outputs into a film-level short film prompt package
 - Contains: structured storyboard design + camera language + sound design + Seedance decomposition plan
 - For user confirmation, serves as input foundation for STATE 5 storyboard blueprint generation
-- **Must never mention Seedance/Runway/Sora/Kling video platforms in output**
+- **Must never mention Seedance/Kling video platforms in output**
 
 **STATE 5 (storyboard-sketch/storyboard-prompt/storyboard-master/storyboard-ecommerce)**: Image-level generation
 - Uses the confirmed prompt package to generate storyboard blueprint images

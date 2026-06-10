@@ -14,6 +14,7 @@ This skill does not generate creative content itself. It routes tasks to the app
 ## Load Resources
 
 This skill ships with reference knowledge files. Load them when:
+
 - For detailed state flow rules and multi-Part structure specifications, read `references/production-state-machine.md`
 
 ## Production Pipeline
@@ -33,8 +34,9 @@ STATE 8 → Export Ready
 Each state produces validated deliverables before the next state is unlocked. Skipping states is strictly prohibited.
 
 **Key distinction between STATE 4 and STATE 6:**
+
 - STATE 4 (`director-prompt-packager`): Compiles a **text-level** film-level short film prompt package — integrating story, visual design, and character identity into structured storyboard design, camera language, sound design, and Seedance decomposition plan. The output is a complete director's vision document, which serves as the design foundation for STATE 5 storyboard blueprint generation after user confirmation. **Never outputs video platform prompts.**
-- STATE 6 (`seedance-video-prompt`): Compiles **image-reference-level** video prompts, for use with Seedance 2.0 / Runway / Sora / Kling. Input: generated storyboard blueprint images + character reference images. Output: platform-executable video generation prompts.
+- STATE 6 (`seedance-video-prompt`): Compiles **image-reference-level** video prompts, for use with Seedance 2.0 / Kling. Input: generated storyboard blueprint images + character reference images. Output: platform-executable video generation prompts.
 
 **The STATE 4 → STATE 6 separation of concerns is the foundation of pipeline design. Must never be crossed.**
 
@@ -42,15 +44,15 @@ Each state produces validated deliverables before the next state is unlocked. Sk
 
 These are hard constraints. Violating them leads to the most common AI video failures (character drift, visual inconsistency, narrative incoherence).
 
-| Lock | Rule |
-|------|------|
-| **Story Lock** | Story structure and emotional arc must be confirmed before visual design | 
-| **Visual Lock** | Camera language and lighting system must be defined before prompt packaging |
-| **Character Lock** | Character identity definitions must be confirmed before prompt packaging |
-| **Package Lock** | The film-level prompt package must be user-confirmed before entering storyboard blueprint generation |
-| **Storyboard Lock** | Storyboard blueprint images must be confirmed before Seedance prompts |
-| **Prompt Lock** | All pre-flight checks must pass before final export |
-| **Output Boundary Lock** | STATE 4 output must not mention Seedance/Runway/Sora/Kling video platforms |
+| Lock                     | Rule                                                                                                 |
+| ------------------------ | ---------------------------------------------------------------------------------------------------- |
+| **Story Lock**           | Story structure and emotional arc must be confirmed before visual design                             |
+| **Visual Lock**          | Camera language and lighting system must be defined before prompt packaging                          |
+| **Character Lock**       | Character identity definitions must be confirmed before prompt packaging                             |
+| **Package Lock**         | The film-level prompt package must be user-confirmed before entering storyboard blueprint generation |
+| **Storyboard Lock**      | Storyboard blueprint images must be confirmed before Seedance prompts                                |
+| **Prompt Lock**          | All pre-flight checks must pass before final export                                                  |
+| **Output Boundary Lock** | STATE 4 output must not mention Seedance/Kling video platforms                                       |
 
 If any lock is broken, stop immediately and return to the earliest incomplete state.
 
@@ -63,7 +65,7 @@ Collect the minimum viable brief needed to produce the film. Only ask what is ne
 - Project idea or script (at least one sentence)
 - Target duration (15s / 30s / 60s / custom)
 - Visual style (cinematic / commercial / documentary / anime / sci-fi, etc.)
-- Delivery platform (Seedance / Runway / Sora / Kling)
+- Delivery platform (Seedance / Kling)
 - Aspect ratio (16:9 / 9:16 / 1:1)
 - Any existing reference images or character descriptions
 
@@ -76,12 +78,14 @@ If the user provides fewer than 4 of these items, ask for the missing ones. If t
 Route to `director-story` and `director-emotion`.
 
 **Required deliverables:**
+
 - Narrative structure (three-act or five-act breakdown)
 - Scene list, each scene with narrative purpose
 - Emotional arc diagram (calm → tension → climax → resolution)
 - Emotional intensity timeline
 
 **Verification Gates:**
+
 - [ ] Every scene has a narrative purpose
 - [ ] Emotional arc covers full duration
 - [ ] Causal chain defined (A leads to B leads to C)
@@ -94,12 +98,14 @@ Route to `director-story` and `director-emotion`.
 Route to `director-camera` and `director-light`.
 
 **Required deliverables:**
+
 - Camera language blueprint (primary shot types, movement vocabulary, angle philosophy)
 - Lighting design system (key light strategy, color temperature arc, contrast rules)
 - Color script (dominant colors per act/scene, temperature curve)
 - Composition rules (primary and secondary framing approaches)
 
 **Verification Gates:**
+
 - [ ] Camera language matches emotional tone
 - [ ] Lighting evolves with narrative
 - [ ] Color script covers full duration
@@ -112,12 +118,14 @@ Route to `director-camera` and `director-light`.
 Route to `director-character`.
 
 **Required deliverables:**
+
 - Character identity definition for each character
 - Visual lock parameters (face, hair, body type, wardrobe, props)
 - Behavior system (action signature, eye direction, emotion→action mapping)
 - Multi-character relationship map (if applicable)
 
 **Verification Gates:**
+
 - [ ] All characters have identity locks
 - [ ] Visual parameters are specific enough to be reproducible
 - [ ] Behavior system covers emotional range
@@ -149,17 +157,19 @@ Route to `director-prompt-packager`.
 The output is **not** a Seedance video prompt — it is the design foundation for STATE 5 (storyboard blueprint generation) and STATE 6 (Seedance video prompts).
 
 **Output Boundary (hard constraint):**
-- STATE 4 output must **never** mention video platform names such as Seedance 2.0 / Runway / Sora / Kling
+
+- STATE 4 output must **never** mention video platform names such as Seedance 2.0 / Kling
 - Must not contain phrases like "generate in Seedance", "Seedance 2.0 prompt", "generate shot by shot in Seedance"
 - All generation instructions must point to image generators (Jimeng/MJ/Flux/Kling image mode)
 
 **Pre-flight Checklist (all must be YES):**
+
 - [ ] Story structure confirmed?
 - [ ] Emotional arc confirmed?
 - [ ] Visual language (camera + lighting) defined?
 - [ ] Character identity locked and confirmed?
 - [ ] Duration and aspect ratio locked?
-- [ ] **Output boundary compliant: no mention of Seedance / Runway / Sora / Kling?**
+- [ ] **Output boundary compliant: no mention of Seedance / Kling?**
 
 If any answer is NO, stop and return to the missing stage.
 
@@ -176,11 +186,13 @@ Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-pr
 **Core insight: In production, only storyboard blueprint boards (one or more overview boards) are needed — not per-frame standalone images.** Storyboard blueprints display the full shot sequence, rhythm structure, and visual language — serving as Seedance's narrative blueprint input, not per-shot render assets.
 
 **Required deliverables:**
+
 - Storyboard blueprint boards (1-N overview boards showing shot sequence + rhythm structure)
 - Per-shot visual descriptions (subject, composition, camera, lighting mood for each shot)
 - Cross-frame continuity anchors
 
 **Verification Gates:**
+
 - [ ] Storyboard blueprint boards cover all shots
 - [ ] Every frame has narrative purpose
 - [ ] Character identity consistent across all frames (referencing STATE 3 locks)
@@ -193,20 +205,23 @@ Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-pr
 
 Route to `seedance-video-prompt`.
 
-**This is the L5 video generation compiler.** It receives generated storyboard images, character reference images, and product/background references as `@[ref]` inputs, and compiles them into Seedance 2.0 / Runway / Sora / Kling platform-executable video prompts.
+**This is the L5 video generation compiler.** It receives generated storyboard images, character reference images, and product/background references as `@[ref]` inputs, and compiles them into Seedance 2.0 / Kling platform-executable video prompts.
 
 **Platform hard constraints:**
+
 - Chinese prompts ≤ 500 characters, English prompts ≤ 1000 words, total characters ≤ 2000
 - Each @[ref] must be assigned a unique primary role (identity / product / environment / action rhythm), using role mapping declaration format
 - Pass anti-slop check: no empty evaluative words (cinematic / epic / beautiful and other non-physically-referable terms)
 
 **Required inputs:**
+
 - Generated storyboard images (from AI image generators)
 - Character reference images (for identity locking)
 - Product reference images (optional, for product locking)
 - Background reference images (optional, for environment locking)
 
 **Pre-flight Checklist (all must be YES):**
+
 - [ ] Storyboard images generated?
 - [ ] Character reference images available? (or user explicitly chose to skip)
 - [ ] Product images locked (if applicable)?
@@ -235,6 +250,7 @@ Quality check on all deliverables:
 ### STATE 8 — Export Ready
 
 Package final deliverables:
+
 - Complete Seedance 2.0 prompts (in execution order)
 - Image reference character mapping (which @[ref] corresponds to which image)
 - Multi-Part generation context continuity notes
@@ -276,17 +292,17 @@ director-story ────→ director-emotion
 
 ## Routing Guide
 
-| User Intent | Load First |
-|---|---|
-| "I have a creative idea, help me make it into a film" | Stay in director-core, start from STATE 0 |
-| "I already have a script, need visual design" | Enter from STATE 2 |
-| "I have character identity definitions, need image generation prompts" | Route to `character-image-prompt` |
-| "I have story + visual + character design, need to compile a prompt package" | Enter from STATE 4 |
-| "I have a prompt package (text), need to generate storyboard blueprint images" | Enter from STATE 5 |
-| "I have storyboard blueprint images + character images, need Seedance 2.0 prompts" | Enter from STATE 6 |
-| "I only want character identity definitions" | Route directly to director-character |
-| "Fix my broken AI video, characters keep changing faces" | Enter from STATE 3 (re-lock characters), then STATE 6 |
-| "E-commerce livestream / product showcase / fashion video storyboard" | Enter from STATE 4 to compile prompt package, or STATE 5 to directly generate storyboard blueprint |
+| User Intent                                                                        | Load First                                                                                         |
+| ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| "I have a creative idea, help me make it into a film"                              | Stay in director-core, start from STATE 0                                                          |
+| "I already have a script, need visual design"                                      | Enter from STATE 2                                                                                 |
+| "I have character identity definitions, need image generation prompts"             | Route to `character-image-prompt`                                                                  |
+| "I have story + visual + character design, need to compile a prompt package"       | Enter from STATE 4                                                                                 |
+| "I have a prompt package (text), need to generate storyboard blueprint images"     | Enter from STATE 5                                                                                 |
+| "I have storyboard blueprint images + character images, need Seedance 2.0 prompts" | Enter from STATE 6                                                                                 |
+| "I only want character identity definitions"                                       | Route directly to director-character                                                               |
+| "Fix my broken AI video, characters keep changing faces"                           | Enter from STATE 3 (re-lock characters), then STATE 6                                              |
+| "E-commerce livestream / product showcase / fashion video storyboard"              | Enter from STATE 4 to compile prompt package, or STATE 5 to directly generate storyboard blueprint |
 
 ## Session Resume
 
@@ -333,23 +349,23 @@ Production state is persisted via a checkpoint file to ensure recoverability acr
 
 ### State Artifacts
 
-| State | Status | Summary | Key Output |
-|-------|--------|---------|------------|
-| STATE 0 | â | Input Collection | [Brief: project / duration / style / platform / aspect] |
-| STATE 1 | â | Story & Emotion | [Story structure + emotional arc summary] |
-| STATE 2 | â | Visual Design | [Camera language + lighting/color plan summary] |
-| STATE 3 | â | Character Lock | [Characters Ã N, visual lock params summary] |
-| STATE 4 | ð | Prompt Packaging | [Prompt pack file path or in-progress marker] |
-| STATE 5 | â³ | Storyboard Blueprint | â |
-| STATE 6 | â³ | Video Prompts | â |
-| STATE 7 | â³ | Final Verification | â |
-| STATE 8 | â³ | Export | â |
+| State   | Status | Summary              | Key Output                                              |
+| ------- | ------ | -------------------- | ------------------------------------------------------- |
+| STATE 0 | â      | Input Collection     | [Brief: project / duration / style / platform / aspect] |
+| STATE 1 | â      | Story & Emotion      | [Story structure + emotional arc summary]               |
+| STATE 2 | â      | Visual Design        | [Camera language + lighting/color plan summary]         |
+| STATE 3 | â      | Character Lock       | [Characters Ã N, visual lock params summary]            |
+| STATE 4 | ð      | Prompt Packaging     | [Prompt pack file path or in-progress marker]           |
+| STATE 5 | â³     | Storyboard Blueprint | â                                                       |
+| STATE 6 | â³     | Video Prompts        | â                                                       |
+| STATE 7 | â³     | Final Verification   | â                                                       |
+| STATE 8 | â³     | Export               | â                                                       |
 
 ### Production Brief
 
 - **Duration**: [15s / 30s / 60s / custom]
 - **Aspect ratio**: [16:9 / 9:16 / 1:1]
-- **Platform**: [Seedance / Runway / Sora / Kling]
+- **Platform**: [Seedance / Kling]
 - **Style**: [Cinematic / Commercial / Documentary / Anime / ...]
 - **Director mode**: [Observer / Emotional / Immersive / Epic / Commercial]
 ```
@@ -360,6 +376,7 @@ In addition to writing the checkpoint file, output a brief status summary in con
 
 ```markdown
 **Production Status**
+
 - Current state: [STATE N â Name]
 - Completed states: [list]
 - Pending states: [list]

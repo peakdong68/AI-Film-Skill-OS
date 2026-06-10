@@ -10,13 +10,14 @@ description: Compiles all pre-production assets (story structure, emotion bluepr
 This is the **text-level compiler** in the AI Film OS pipeline, positioned at STATE 4 (before storyboard image generation). It receives all design outputs from STATE 1-3 — narrative structure, emotion blueprint, camera language, lighting design, character identity locks — and compiles them into a complete **film-level short film prompt package**.
 
 This prompt package is the director's vision master document. Any director or producer reading it can fully understand the film's:
+
 - What happens in each shot (structured storyboard design)
 - How it is shot (camera language: shot size, movement, composition)
 - How light and color drive emotion
 - How sound shapes rhythm
 - How it is decomposed into Seedance-executable Parts (each Part ≤ 15s)
 
-**This skill produces text-level design documents — NOT Seedance 2.0 / Runway / Sora / Kling final executable video prompts.**
+**This skill produces text-level design documents — NOT Seedance 2.0 / Kling final executable video prompts.**
 
 After the prompt package is confirmed by the user, workflow proceeds to STATE 5 (storyboard blueprint image generation) and STATE 6 (Seedance video prompt compilation).
 
@@ -25,6 +26,7 @@ Can be used standalone for prompt package compilation, or called by `director-co
 ## Load Resources
 
 This skill includes bundled reference knowledge. Load when needed:
+
 - For prompt packaging templates and conversion formulas, read `references/seedance-templates.md`
 - For Seedance production pipeline workflows and continuity rules, read `references/pipeline-workflow.md`
 - For anti-slop lexicon replacement, read shared reference `../references/anti-slop-lexicon.md`
@@ -53,8 +55,6 @@ This hard constraint prevents the most common pipeline error — mistakenly feed
 **The following video platform names must NEVER appear in any STATE 4 output:**
 
 - Seedance 2.0
-- Runway
-- Sora
 - Kling (Kling video mode)
 
 **The following must absolutely NOT appear in STATE 4 output:**
@@ -79,6 +79,7 @@ Violating this boundary will cause users to mistakenly input text design documen
 The compiler translates STATE 1-3 design outputs into a self-contained director document — anyone can understand the full film plan without external context.
 
 Three compilation layers:
+
 1. **Creative Layer** (Story + Emotion) → scene purpose + narrative rhythm + emotion curve
 2. **Execution Layer** (Camera + Lighting + Character) → shot technical specifications + visual continuity
 3. **Delivery Layer** (Part decomposition + platform adaptation) → Seedance-executable decomposition plan
@@ -101,6 +102,7 @@ If any output is missing, halt and route back to the corresponding director skil
 # [Project Name] — Film-Level Short Film Prompt Package
 
 ## Project Metadata
+
 - Total Duration: [Ns]
 - Aspect Ratio: [16:9 / 9:16 / 1:1]
 - Visual Style: [style description]
@@ -111,12 +113,15 @@ If any output is missing, halt and route back to the corresponding director skil
 ## I. Narrative Overview
 
 ### Story Synopsis
+
 [One-paragraph summary of the full narrative]
 
 ### Narrative Structure
+
 [Three-act or five-act breakdown, each act with scene purposes]
 
 ### Emotion Arc
+
 [Emotion intensity timeline: calm → build → climax → resolution]
 [Emotion keywords and intensity markers for each scene]
 
@@ -125,6 +130,7 @@ If any output is missing, halt and route back to the corresponding director skil
 ## II. Storyboard Design Plan
 
 For each shot within each Part, describe:
+
 - Scene Purpose (why this shot exists)
 - Visual Content (what the audience sees)
 - Action Description (what the subject is doing)
@@ -135,6 +141,7 @@ For each shot within each Part, describe:
 ### Part 1: [Part Title] (0-Ns)
 
 #### SHOT 01: [Shot Title]
+
 - Duration: [N] seconds
 - Scene: [location + time + environmental context]
 - Purpose: [narrative purpose — establish/reveal/transition/intensify/resolve]
@@ -146,9 +153,11 @@ For each shot within each Part, describe:
 - Character Lock: [character identity lock reference]
 
 #### SHOT 02: ...
+
 ...
 
 ### Part 2: [Part Title] (Ns-Ns)
+
 ...
 
 ---
@@ -156,12 +165,15 @@ For each shot within each Part, describe:
 ## III. Camera Language Specification
 
 ### Camera Movement Vocabulary
+
 [Movement types used throughout the film and their narrative intent]
 
 ### Composition Philosophy
+
 [Primary and secondary framing approaches, when to use centered/rule of thirds/negative space, etc.]
 
 ### Shot Size Distribution
+
 [Film-wide shot size ratio: WS% / MS% / CU% and narrative justification]
 
 ---
@@ -169,11 +181,13 @@ For each shot within each Part, describe:
 ## IV. Lighting & Color Script
 
 ### Lighting System
+
 - Key light strategy: [key light strategy]
 - Color temperature arc: [color temperature progression curve]
 - Contrast rules: [contrast rules — when low-key / high-key]
 
 ### Color Script
+
 [Primary colors and visual temperature per act/scene]
 
 ---
@@ -181,9 +195,11 @@ For each shot within each Part, describe:
 ## V. Sound Design Direction
 
 ### Music Style
+
 [Style + BPM range]
 
 ### Sound Narrative
+
 - Ambience: [ambient sound strategy]
 - Emotional cues: [sound design for key emotional moments]
 - Silence usage: [when to use silence]
@@ -193,19 +209,22 @@ For each shot within each Part, describe:
 ## VI. Seedance Decomposition Plan
 
 ### Part Structure
+
 | Part | Time Range | Shot Count | Core Narrative | Continuity Requirements |
-|------|-----------|------------|---------------|------------------------|
-| 1    | 0-Ns      | N          | [content]     | Establish baseline     |
-| 2    | Ns-Ns     | N          | [content]     | Continue from Part 1   |
-| ...  | ...       | ...        | ...           | ...                    |
+| ---- | ---------- | ---------- | -------------- | ----------------------- |
+| 1    | 0-Ns       | N          | [content]      | Establish baseline      |
+| 2    | Ns-Ns      | N          | [content]      | Continue from Part 1    |
+| ...  | ...        | ...        | ...            | ...                     |
 
 ### Required Visual Asset Checklist
+
 - [ ] Storyboard blueprint images (1-N images, generated by STATE 5)
 - [ ] Character reference images: [Character Name 1], [Character Name 2], ...
 - [ ] Product reference images (optional): [Product Name]
 - [ ] Background reference images (optional): [Scene Name]
 
 ### Continuity Binding Strategy
+
 - Part 1: storyboard-driven
 - Part 2+: previous video continuity + current storyboard blueprint
 
@@ -215,30 +234,36 @@ For each shot within each Part, describe:
 ## Compilation Rules
 
 ### Rule 1: Action Must Be Precise
+
 - Each shot must describe one clear physical action, not an abstract emotional state.
 - ❌ "She is sad" → ✔ "Her shoulders drop, jaw lowers, eyes avert, breathing slows"
 - Use emotion→action mappings from `director-character`.
 
 ### Rule 2: Camera Must Be Explicit
+
 - Each shot must have shot size, angle, and movement from `director-camera`.
 - Camera decisions must trace back to emotional intent — no unmotivated camera behavior.
 
 ### Rule 3: Timing Must Be Executable
+
 - 1 shot = 1 action unit = 2-5 seconds
 - A single shot must not contain multiple temporally separated actions
 
 ### Rule 4: Characters Must Be Locked
+
 - Each shot must reference character identity locks from `director-character`
 - Explicitly state character name + appearance lock parameters
 - Do not regenerate or redescribe characters — reference the lock
 
 ### Rule 5: Parts Must Be Platform-Aware
+
 - Each Part ≤ 15 seconds (Seedance single-generation limit)
 - Part 1 establishes the world baseline
 - Part 2+ must declare continuity: continue from previous Part's endpoint
 - Emotion must evolve, not reset
 
 ### Rule 6: Output Platform Boundary
+
 - The prompt package is a text design document, not video platform commands
 - Never write "generate in Seedance" or include @[ref] syntax
 - @[ref] syntax belongs to STATE 6's domain
@@ -258,7 +283,7 @@ Before delivering the final prompt package, verify:
 - [ ] Sound design direction covers the entire film
 - [ ] Part decomposition plan: each segment ≤ 15s
 - [ ] Part 2+ has continuity declaration
-- [ ] **Output boundary compliant: no mention of Seedance / Runway / Sora / Kling video platforms**
+- [ ] **Output boundary compliant: no mention of Seedance / Kling video platforms**
 - [ ] **No @[ref] syntax included (belongs to STATE 6 domain)**
 - [ ] Required visual asset checklist is complete
 
@@ -277,6 +302,7 @@ After this skill produces the text-level prompt package, the workflow continues:
 ## Integration
 
 When called by `director-core`:
+
 - Load all STATE 1-3 upstream outputs (story, emotion, camera, lighting, character)
 - Verify upstream output completeness
 - Compile the complete film-level short film prompt package
