@@ -137,7 +137,7 @@ Route to `director-character`.
 
 > Character identity definitions are locked. Do you want to generate character reference images?
 
-- **Yes →** Route to `character-image-prompt` to compile definitions into platform-ready Character Sheet prompts (MJ/Flux/Jimeng/Kling). User then generates actual character reference images. These images serve as `@[character ref]` input for STATE 6, improving cross-shot identity consistency.
+- **Yes →** Route to `character-image-prompt` to compile definitions into platform-ready Character Sheet prompts (MJ/Flux/Jimeng/Kling). User then generates actual character reference images. These images serve as character reference input for STATE 6, improving cross-shot identity consistency.
 - **No / Not needed →** Skip character image generation. Character identity will be described textually in the prompt package. Note: this may reduce identity consistency in video output compared to using reference images.
 
 Character image generation (if chosen) and STATE 4 prompt package compilation can proceed in parallel.
@@ -193,7 +193,7 @@ After the prompt package is confirmed, determine the best path based on project 
 
 Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce` (for generating complete storyboard blueprint images).
 
-**This is the image generation phase after STATE 4 confirmation.** Compiles the confirmed prompt package's storyboard design into AI image generator-executable storyboard blueprint prompts, generating visual storyboard board images. These images serve as `@[storyboard ref]` inputs for STATE 6.
+**This is the image generation phase after STATE 4 confirmation.** Compiles the confirmed prompt package's storyboard design into AI image generator-executable storyboard blueprint prompts, generating visual storyboard board images. These images serve as storyboard reference inputs for STATE 6.
 
 **Core insight: In production, only storyboard blueprint boards (one or more overview boards) are needed — not per-frame standalone images.** Storyboard blueprints display the full shot sequence, rhythm structure, and visual language — serving as Seedance's narrative blueprint input, not per-shot render assets.
 
@@ -211,7 +211,7 @@ Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-pr
 - [ ] Visual language consistent with STATE 2 definitions
 - [ ] User confirmed storyboard blueprints
 
-**State 5 output**: Storyboard blueprint images (for Seedance `@[ref]` reference). Proceed to STATE 6.
+**State 5 output**: Storyboard blueprint images (for Seedance reference). Proceed to STATE 6.
 
 ### STATE 6 — Seedance Video Prompts (Image Reference Level)
 
@@ -224,7 +224,7 @@ Route to `seedance-video-prompt`.
 **Platform hard constraints:**
 
 - Chinese prompts ≤ 500 characters, English prompts ≤ 1000 words, total characters ≤ 2000
-- Each @[ref] must be assigned a unique primary role (identity / product / environment / action rhythm), using role mapping declaration format
+- Each reference asset must be assigned a unique primary role (identity / product / environment / action rhythm), using role mapping declaration format
 - Pass anti-slop check: no empty evaluative words (cinematic / epic / beautiful and other non-physically-referable terms)
 
 **Available inputs (mode-dependent):**

@@ -41,6 +41,6 @@ Part N: Reference Part N-1 video → narrative advance → resolution
 ## Deliverable Packaging Checklist
 
 - Complete Seedance 2.0 prompts (in execution order)
-- Image reference-to-role mapping (which @[ref] corresponds to which image)
+- Image reference-to-role mapping (which reference asset corresponds to which image)
 - Multi-Part generation context continuity notes
 - Delivery format notes (duration, aspect ratio, platform)

@@ -87,7 +87,7 @@ Ask the user what multimodal resources they have (character images, product imag
 - Only executed when routing decision selects Route A or C
 - Uses the confirmed prompt package to generate storyboard blueprint images
 - In production, only storyboard blueprint boards (overview images) are needed, not per-frame individual images
-- Blueprint images serve as @[ref] inputs for STATE 6 I2V storyboard mode
+- Blueprint images serve as reference inputs for STATE 6 I2V storyboard mode
 
 **STATE 6 (seedance-video-prompt)**: Video prompt compiler
 - Supports 7 modes, selected automatically based on available resources
@@ -100,7 +100,7 @@ Ask the user what multimodal resources they have (character images, product imag
 - Each Part gets its own prompt, independently subject to word count limits (Chinese ≤ 500 chars / English ≤ 1000 words)
 - Total duration = number of Parts × seconds per Part
 - Part 1: driven by the selected mode (storyboard / ref image / first-last frame / text-only)
-- Part 2+: must reference the previous Part's output video as a continuity baseline (`@[Video1] is previous Part output`)
+- Part 2+: must reference the previous Part's output video as a continuity baseline (`Video1 is previous Part output`)
 - Multi-Part projects compile prompts Part-by-Part in STATE 6, not all at once
 
 ## Pre-Flight Checklist (Before STATE 4 Prompt Package Compilation)

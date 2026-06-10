@@ -266,4 +266,4 @@ Invoked by `director-core` or independently after STATE 3:
 1. Load character profile from `director-character`
 2. Compile into [0]-[12] complete Character Sheet Profile + Image Prompt
 3. User confirms, then pastes [11] into their chosen AI image generator to generate Character Sheet image
-4. Generated Character Sheet serves as `@[character ref]` for STATE 6 `seedance-video-prompt`
+4. Generated Character Sheet serves as character reference for STATE 6 `seedance-video-prompt`

@@ -190,7 +190,7 @@ This skill produces a **character identity definition** (text-level design doc).
 
 1. Route to `character-image-prompt` → compiles identity into platform-ready image generation prompts
 2. User generates character reference images (MJ/Flux/Jimeng/Kling)
-3. Generated character images are used as `@[character ref]` in `seedance-video-prompt` (STATE 6)
+3. Generated character images are used as character reference in `seedance-video-prompt` (STATE 6)
 
 ## Integration
 

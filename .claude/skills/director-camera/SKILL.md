@@ -15,7 +15,7 @@ Works independently for camera design or is invoked by `director-core` at STATE 
 ## Load Resources
 
 This skill includes bundled reference knowledge files. Load when needed:
-- For complete shot type grammar, camera movement vocabulary, and emotion-to-camera mapping tables, read `references/camera-grammar.md`
+- For complete shot type grammar, camera movement vocabulary, and emotion-to-camera mapping tables, see the sections below for shot type grammar, camera movement vocabulary, and emotion-to-camera mapping
 - For the six shot semantics and visual priority decision logic, read `references/shot-semantics.md`
 - For Seedance-specific shot contracts, shot size usage guides, and camera movement grammar, read `references/seedance-shot-language.md`
 - For anti-slop lexicon replacement, read shared reference `../references/anti-slop-lexicon.md`
