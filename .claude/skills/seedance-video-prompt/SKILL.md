@@ -115,15 +115,7 @@ Edit and extend tasks **must NOT use the "reference" prefix**. Use `` `VideoN` `
 
 ## Platform Hard Constraints
 
-Each Seedance 2.0 prompt corresponds to one Part (≤ 15s), counted independently.
-
-| Language | Limit (per prompt) |
-|---|---|
-| **Chinese** | ≤ 500 characters |
-| **English** | ≤ 1000 words |
-| **Total characters** | ≤ 2000 characters |
-
-Multi-Part projects: write one prompt per Part. Part 2+ must reference the previous Part's output for continuity (`` Extend `Video1` backward, preserving... ``).
+See `../references/seedance-platform.md`. Key: ≤ 500 Chinese chars / ≤ 1000 English words per prompt (counted independently), each Part ≤ 15s, Part 2+ references previous Part's output for continuity.
 
 ## Core Templates
 
@@ -176,15 +168,9 @@ Audio-visual style, subject, and narrative remain consistent.
 
 ## Anti-Slop
 
-Replace hollow evaluation words with capturable production language.
+Replace hollow evaluation words with capturable production language. Core: cinematic → shot size+camera+lighting; epic → physical scale+lens distance; beautiful → color+texture+light behavior.
 
-| Hollow Word | Replace With |
-|---|---|
-| cinematic | shot size + camera movement + lighting + color grading |
-| epic | physical scale + lens distance |
-| beautiful | color + texture + composition + light behavior |
-| dynamic | specific motion + speed + endpoint |
-| dramatic | blocking + shadow + silence + camera pressure |
+> Full lexicon (13 hollow words → production language) in `../references/anti-slop-lexicon.md`
 
 **Rule: If a camera, microphone, light meter, or stopwatch cannot detect it — rewrite.**
 
