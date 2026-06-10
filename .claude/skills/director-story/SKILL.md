@@ -33,7 +33,19 @@ If the user provides story material lacking clear subject, action, or scene (onl
 2. **Genre and tone**: "How sci-fi? Hard sci-fi / soft sci-fi / cyberpunk? Is the romance the main plot or a subplot?"
 3. **Character and change**: "Who is the protagonist? What irreversible change happens to them by the end?"
 
-Build an initial narrative premise from the answers, then proceed to formal analysis. If the user insists "just analyze it", expand from available material and annotate assumptions.
+Build an initial narrative premise from the answers, then proceed to formal analysis.
+
+**Creative expansion mode (activates when descriptive but no plot):**
+
+If the user provides brand tone, scene, and style direction but lacks specific narrative action and shot rhythm (e.g., ecommerce/commercial/product brief), do NOT output script structure directly. First offer 2-3 creative options:
+
+
+
+Options should cover different styles (pure showcase / micro-drama / lifestyle MV, etc.). After user confirms direction, proceed to formal structure analysis.
+
+If the user insists "just analyze it", expand from available material and annotate assumptions.
+
+
 
 
 
