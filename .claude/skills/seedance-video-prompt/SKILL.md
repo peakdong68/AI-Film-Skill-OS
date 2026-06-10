@@ -74,8 +74,9 @@ Explicitly define subjects in reference assets with 2-3 clear, stable static fea
 **Short binding:** `` `Subject1`@`Image1` `` / `` John@Image1 ``
 **Multi-asset same subject:** `` Define [...] in `Image1` and [...] in `Image2` as `SubjectN` ``
 **Face close-up separation:** `` `Subject1`'s facial features reference `Image1` (headshot), styling references `Image2` (full-body) ``
+(Optional — recommended when high identity consistency is required; helps Seedance extract facial features with higher weight)
 
-> ⚠️ **Multi-view/three-view character sheets are FORBIDDEN** — the model may recognize the same character from different angles as multiple distinct subjects, worsening ID drift and twin issues. Use **separate face close-up (headshot) + full-body reference**. Place face reference as early as possible for higher weight.
+> **Recommendation**: For best identity consistency, use separate face close-up (headshot) + full-body reference images. Place face reference earliest in the prompt for higher weight.
 
 ### Edit/Extend: No "Reference" Prefix
 
@@ -189,7 +190,6 @@ Replace hollow evaluation words with capturable production language.
 - [ ] References use `` `ImageN` `` / `` `VideoN` `` / `` `AudioN` `` format
 - [ ] Subjects explicitly defined (`` Define [features] in `ImageN` as `SubjectN` ``)
 - [ ] Edit/extend mode: no "reference" prefix, uses `` `VideoN` `` directly
-- [ ] Characters use separate face close-up + full-body, no multi-view sheets
 - [ ] Actions include body-part detail + degree quantification, prefer low-slow-continuous
 - [ ] Emotions expressed through physical details, no abstract emotion words
 - [ ] SFX/dialogue/music use correct special characters (`()<>{}`)
