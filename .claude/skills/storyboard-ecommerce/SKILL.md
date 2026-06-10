@@ -11,10 +11,9 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 
 此技能用于商业/直播/社交购物类分镜。普通电影/动画分镜提示词请用 `storyboard-prompt`。非电商总览图请用 `storyboard-master`。Seedance I2V 规划请用 `storyboard-sketch`。
 
-
 ## 加载资源
 
-需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
+- 需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
 - 获取双语电影摄影速查表（景别、运动、角度、构图、灯光、叙事目的），阅读 `../references/cinematography-quick-reference.md`
 - 获取产品与商业类型配方模式，阅读 `../references/seedance-genre-recipes.md`
 
@@ -22,10 +21,10 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 
 此技能支持两种商业特定格式。自动选择：
 
-| 用户说... | 输出格式 |
-|---|---|
-| "带货视频故事板", "TK storyboard", "TikTok shop video", "短视频带货"，带主播/创作者的产品演示 | **Social Commerce Board 社交商业板**（产品参考 + 创作者参考 + 6 镜头拆解） |
-| "服装分镜", "fashion storyboard", "电商直播分镜", "导演版分镜图"，模特展示服装，无口播主播 | **Fashion Director Board 服装导演板**（镜头网格 + 节奏 + 摄影机 + 灯光模块） |
+| 用户说...                                                                                     | 输出格式                                                                     |
+| --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| "带货视频故事板", "TK storyboard", "TikTok shop video", "短视频带货"，带主播/创作者的产品演示 | **Social Commerce Board 社交商业板**（产品参考 + 创作者参考 + 6 镜头拆解）   |
+| "服装分镜", "fashion storyboard", "电商直播分镜", "导演版分镜图"，模特展示服装，无口播主播    | **Fashion Director Board 服装导演板**（镜头网格 + 节奏 + 摄影机 + 灯光模块） |
 
 ---
 
@@ -55,14 +54,14 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 
 一行包含 6 个信息单元格的横向表格:
 
-| 单元格 | 内容 |
-|------|---------|
-| **Product** | 来自用户输入的产品名称 |
-| **Audience** | 目标受众（如动漫粉丝、桌搭爱好者、收藏控） |
-| **Core Selling Point** | 一句话价值主张 |
-| **Hook** | 开场钩子文案 |
-| **Video Goal** | 结构流程（如 Hook → Problem → Reveal → Detail → Display → CTA） |
-| **Format** | 平台 / 画幅比例 / 时长 / 语言 |
+| 单元格                 | 内容                                                            |
+| ---------------------- | --------------------------------------------------------------- |
+| **Product**            | 来自用户输入的产品名称                                          |
+| **Audience**           | 目标受众（如动漫粉丝、桌搭爱好者、收藏控）                      |
+| **Core Selling Point** | 一句话价值主张                                                  |
+| **Hook**               | 开场钩子文案                                                    |
+| **Video Goal**         | 结构流程（如 Hook → Problem → Reveal → Detail → Display → CTA） |
+| **Format**             | 平台 / 画幅比例 / 时长 / 语言                                   |
 
 ### Creator Reference Area 创作者参考区（左侧）
 
@@ -70,13 +69,14 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 
 三张同一创作者的小参考图，展示视觉一致性:
 
-| # | Image | Label |
-|---|-------|-------|
-| 1 | 正面半身照 | Front half-body |
-| 2 | 表情特写 | Expression close-up |
-| 3 | 侧面半身照 | Side half-body |
+| #   | Image      | Label               |
+| --- | ---------- | ------------------- |
+| 1   | 正面半身照 | Front half-body     |
+| 2   | 表情特写   | Expression close-up |
+| 3   | 侧面半身照 | Side half-body      |
 
 要求:
+
 - 三张图中必须是同一人——脸型、发型、服装、肤色和气质必须一致。
 - 看起来像真实的 TikTok/短视频创作者。
 - 背景可暗示居家桌面布置、直播间或产品使用环境。
@@ -88,13 +88,14 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 
 三张同一产品的小参考图:
 
-| # | Image | Label |
-|---|-------|-------|
-| 1 | 包装盒 | Packaging box |
-| 2 | 正面视图 | Front view |
-| 3 | 侧面/细节视图 | Side/detail view |
+| #   | Image         | Label            |
+| --- | ------------- | ---------------- |
+| 1   | 包装盒        | Packaging box    |
+| 2   | 正面视图      | Front view       |
+| 3   | 侧面/细节视图 | Side/detail view |
 
 要求:
+
 - 三张图中产品必须严格一致——颜色、形状、材质、包装、Logo、底座、关键细节。
 - 若用户产品没有包装盒，生成一个与产品风格匹配的包装盒——但不得改变产品本体。
 - 干净、居中、电商风格产品摄影。
@@ -125,6 +126,7 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 若用户未提供自定义镜头列表，使用此经过验证的商业结构:
 
 **Shot 01: Hook 钩子**
+
 - 画面: 创作者展示包装或产品亮相，面对镜头，做出吸引注意的表情或动作。
 - Time: 0–2s
 - Shot type: Medium close-up
@@ -133,6 +135,7 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 - Subtitle: 能钩住观众的有趣一句话
 
 **Shot 02: Problem 问题**
+
 - 画面: 展示使用场景中的问题或缺口——空桌面、缺乏氛围、常见痛点。
 - Time: 2–4s
 - Shot type: Medium
@@ -141,6 +144,7 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 - Subtitle: 能引起受众痛点共鸣的提问
 
 **Shot 03: Reveal 揭示**
+
 - 画面: 创作者将产品放入场景，成为视觉中心。
 - Time: 4–6s
 - Shot type: Product medium close-up
@@ -149,6 +153,7 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 - Subtitle: 宣告产品作为解决方案
 
 **Shot 04: Detail 细节**
+
 - 画面: 产品细节特写——材质、质感、涂装、关键特征。手部可辅助但不得遮挡。
 - Time: 6–8s
 - Shot type: Close-up
@@ -157,6 +162,7 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 - Subtitle: 关于品质或工艺的陈述
 
 **Shot 05: Display 展示**
+
 - 画面: 产品在真实使用环境中——桌面、柜架或实际场景中。创作者欣赏或互动。
 - Time: 8–10s
 - Shot type: Medium
@@ -165,6 +171,7 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 - Subtitle: 生活方式利益陈述
 
 **Shot 06: CTA 行动号召**
+
 - 画面: 创作者与产品同框。创作者自然推荐。产品清晰露出。
 - Time: 10–12s
 - Shot type: Medium close-up
@@ -228,6 +235,7 @@ clean commercial storyboard, professional production board, TikTok AI video plan
 标题格式: `编号 | 景别缩写 | 时间码`
 
 导演备注规则:
+
 - 中文 ≤15 字
 - 读起来像导演现场边际笔记
 - 描述核心视觉时刻，而非抽象概念
@@ -253,6 +261,7 @@ clean commercial storyboard, professional production board, TikTok AI video plan
 标题: **镜头运动路径图（参考）**
 
 俯视空间平面图，包含:
+
 - 编号摄影机位置（①→③→④→⑥→⑧→⑩→⑫）
 - 虚线轨迹箭头
 - 运动类型标注: 缓推 / 侧移 / 半环绕 / 定镜 / 推近 / 回拉
@@ -262,6 +271,7 @@ clean commercial storyboard, professional production board, TikTok AI video plan
 标题: **光影与氛围（与原图一致）**
 
 清单格式:
+
 ```
 ✓ 左前方暖色主光
 ✓ 辅助柔光

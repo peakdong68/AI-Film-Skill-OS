@@ -11,20 +11,19 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 
 此技能用于多镜头总览图。单帧分镜提示词请用 `storyboard-prompt`。含产品/创作者参考区的电商/直播分镜请用 `storyboard-ecommerce`。Seedance I2V 规划请用 `storyboard-sketch`。
 
-
 ## 加载资源
 
-需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
+- 需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
 - 获取双语电影摄影速查表（景别、运动、角度、构图、灯光、叙事目的），阅读 `../references/cinematography-quick-reference.md`
 
 ## 模式门
 
 总览图有两种输出密度。根据用户意图选择：
 
-| 用户说... | 输出 |
-|---|---|
-| "分镜总览图", "Master Sheet", "Director Treatment Board", "导演提案板", "完整规划", "pre-production blueprint" | **完整总览图**（4 区，6-24 镜头） |
-| "简版分镜图", "分镜图板", "quick board", "简洁版" | **简洁导演板**（仅镜头网格 + 底部 3 模块） |
+| 用户说...                                                                                                      | 输出                                       |
+| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| "分镜总览图", "Master Sheet", "Director Treatment Board", "导演提案板", "完整规划", "pre-production blueprint" | **完整总览图**（4 区，6-24 镜头）          |
+| "简版分镜图", "分镜图板", "quick board", "简洁版"                                                              | **简洁导演板**（仅镜头网格 + 底部 3 模块） |
 
 当用户指定镜头数量时，使用它。否则简洁模式默认 6 镜头，完整模式默认 12 镜头。
 
@@ -66,6 +65,7 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 镜头卡片信息格式: `编号 | 景别 | 时间码`
 
 布局规则:
+
 - 按阅读顺序排列镜头（左→右，上→下）
 - 卡片之间使用细灰边框
 - 网格中保持统一卡片尺寸
@@ -82,13 +82,13 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 
 节奏阶段应遵循叙事弧线。根据内容类型使用以下模板之一：
 
-| 内容类型 | 弧线模式 |
-|---|---|
-| Film / Drama 电影/剧情 | 建立 → 发展 → 冲突 → 高潮 → 收束 |
-| Advertising 广告 | Hook → 展示 → 强化 → 峰值 → 品牌收尾 |
-| E-commerce 电商 | 氛围 → 展示 → 细节 → 场景 → CTA |
-| Documentary 纪录片 | 背景 → 展开 → 分析 → 强化 → 总结 |
-| Short Video / Social 短视频/社交 | Hook → 问题 → 方案 → 效果 → CTA |
+| 内容类型                         | 弧线模式                             |
+| -------------------------------- | ------------------------------------ |
+| Film / Drama 电影/剧情           | 建立 → 发展 → 冲突 → 高潮 → 收束     |
+| Advertising 广告                 | Hook → 展示 → 强化 → 峰值 → 品牌收尾 |
+| E-commerce 电商                  | 氛围 → 展示 → 细节 → 场景 → CTA      |
+| Documentary 纪录片               | 背景 → 展开 → 分析 → 强化 → 总结     |
+| Short Video / Social 短视频/社交 | Hook → 问题 → 方案 → 效果 → CTA      |
 
 阶段标注格式: `Phase 1: [名称] (Shots XX-XX) — [发生什么]`
 
@@ -116,6 +116,7 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 - **美术指导备注**: 关键视觉参考、质感、制作设计意图
 
 格式为清晰的规格块:
+
 ```
 LIGHTING: [主光方向+质感] / [辅光] / [色温]
 COLOR: [调色板描述] / [对比度级别]
@@ -141,6 +142,7 @@ ART DIRECTION: [1-2 行设计指导]
 简洁模式镜头卡片: `#01 | LS 全景 | 0:00-0:02` 作为标题、预览图像和一行导演风格描述（中文 ≤15 字）。
 
 底部模块简化但仍必须包含:
+
 - 节奏结构: 含节拍点的时间分段
 - 摄影机运动: 含镜头编号的轨迹箭头
 - 灯光与氛围: 主光源 + 情绪关键词
@@ -153,6 +155,7 @@ ART DIRECTION: [1-2 行设计指导]
 ## Master Sheet Plan
 
 ### Project Info
+
 - Project: [名称/主题]
 - Style: [director treatment board / clean infographic / production document]
 - Aspect ratio: [推荐 16:9]
@@ -160,10 +163,11 @@ ART DIRECTION: [1-2 行设计指导]
 
 ### Section 1: Shot Grid
 
-| # | Size | Timecode | Preview | Action | Camera | Purpose |
-|---|------|----------|---------|--------|--------|---------|
-| 01 | ... | ... | ... | ... | ... | ... |
-| 02 | ... | ... | ... | ... | ... | ... |
+| #   | Size | Timecode | Preview | Action | Camera | Purpose |
+| --- | ---- | -------- | ------- | ------ | ------ | ------- |
+| 01  | ...  | ...      | ...     | ...    | ...    | ...     |
+| 02  | ...  | ...      | ...     | ...    | ...    | ...     |
+
 ...
 
 ### Section 2: Rhythm & Structure
@@ -200,6 +204,7 @@ Storyboard master sheet, director treatment board, creative production blueprint
 ```
 
 简洁板简化为:
+
 ```
 Director storyboard sheet, shot list board, camera movement diagram, rhythm structure, professional production board, clean infographic layout, white background, thin grid borders, ultra detailed
 ```
