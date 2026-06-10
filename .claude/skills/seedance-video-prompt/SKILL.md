@@ -3,109 +3,109 @@ name: seedance-video-prompt
 description: 将图像、视频、音频等多模态参考编译为 Seedance 2.0 / Runway / Sora / Kling 视频平台可执行的视频生成提示词。支持七种生成模式（T2V / I2V minimal / I2V storyboard / R2V / FLF2V / V2V Edit / V2V Extend），按可用参考资源自动选择。分镜图像不是必须的——仅在 storyboard 驱动模式下需要。这是 AI Film OS 管线中 L5 视频生成层的最终编译器。用于生成 Seedance 2.0 提示词、视频生成提示词，或 director-core 路由到 STATE 6 时。触发词：Seedance 2.0 提示、视频生成提示词、Seedance prompt、video generation prompt、I2V、首帧尾帧、FLF2V。
 ---
 
-# Seedance Video Prompt — L5 Video Generation Compiler
+# Seedance Video Prompt — L5 视频生成编译器
 
-## Overview
+## 概览
 
-This is the final compiler of **L5 — VIDEO GENERATION LAYER** in the AI Film OS pipeline. It receives visual references (storyboard images, character images, product images, background images, first/last frame images, video clips, audio clips) and compiles them into executable video generation prompts for Seedance 2.0 / Runway / Sora / Kling platforms.
+AI Film OS 管线中 **L5 — 视频生成层** 的最终编译器。接收视觉参考（分镜图、角色图、产品图、背景图、首帧/尾帧图、视频片段、音频片段），编译为 Seedance 2.0 / Runway / Sora / Kling 平台可执行的视频提示词。
 
-**Key Distinction:**
-- `director-prompt-packager` (STATE 4): Text-level compiler → produces a film-level short film prompt package. **Not a video platform prompt.**
-- `seedance-video-prompt` (STATE 6): Image-reference-level compiler → produces platform-executable video prompts.
+**关键区分：**
+- `director-prompt-packager`（STATE 4）：文本级编译器 → 产出电影级短片提示包。**不是视频平台提示词。**
+- `seedance-video-prompt`（STATE 6）：图像引用级编译器 → 产出平台可执行的视频提示词。
 
-**Critical: Storyboard frame images are NOT mandatory.** They are one mode (storyboard-driven I2V). The compiler supports seven modes, each with different input requirements.
+**关键认知：分镜帧图像不是必须的。** 它只是 storyboard 驱动 I2V 模式的一种输入。编译器共支持七种模式，每种模式有不同的输入要求。
 
-## Mode Gate
+## 模式门控
 
-Choose the mode BEFORE drafting. Each mode has different input requirements. **Storyboard images are only required for storyboard-driven I2V mode.**
+**撰写前先选定模式。** 每种模式有不同的输入要求。**分镜图像仅在 storyboard 驱动 I2V 模式下需要。**
 
-| Mode | Required Inputs | Optional Inputs | What the prompt does |
+| 模式 | 必需输入 | 可选输入 | 提示词做什么 |
 |---|---|---|---|
-| **T2V** | Text description (subject, action, scene, camera, light, style) | None | Build the whole shot from text only |
-| **I2V (minimal)** | `@[Image1]` — product/character/scene reference | Background ref, audio ref | Preserve visible identity; add only motion, camera, light changes, sound |
-| **I2V (storyboard)** | `@[Storyboard]` — storyboard blueprint images | Character ref, product ref, background ref, audio ref | Drive continuous camera movement through storyboard panels |
-| **R2V** | Multiple refs: image(s) + optional video/audio | — | Assign independent roles to each asset; declare what must NOT transfer |
-| **FLF2V** | `@[Image1]` first frame + `@[Image2]` last frame | Audio ref | Generate continuous transition from first frame to last frame target |
-| **V2V Edit** | `@[Video1]` source clip | — | Preserve source clip; change only one layer (lighting, background, VFX) |
-| **V2V Extend** | `@[Video1]` previous clip | — | Continue from the existing final state; change one variable |
+| **T2V** | 文字描述（主体、动作、场景、镜头、光影、风格） | 无 | 纯文本构建完整镜头 |
+| **I2V (minimal)** | `@[图1]`——产品/角色/场景参考 | 背景参考、音频参考 | 保持可见身份；仅添加运动、镜头、光影变化、声音 |
+| **I2V (storyboard)** | `@[分镜图]`——分镜蓝图图像 | 角色参考、产品参考、背景参考、音频参考 | 通过分镜面板驱动连续镜头运动 |
+| **R2V** | 多参考：图像 + 可选视频/音频 | — | 为每个资源分配独立角色；声明哪些不得传递 |
+| **FLF2V** | `@[图1]` 首帧 + `@[图2]` 尾帧 | 音频参考 | 从首帧到目标尾帧生成连续过渡 |
+| **V2V Edit** | `@[视频1]` 源片段 | — | 保留源片段；仅修改一个图层（光影/背景/VFX） |
+| **V2V Extend** | `@[视频1]` 前一片段 | — | 从当前最终状态延续；修改一个变量 |
 
-### Mode Decision Tree
-
-```
-User has storyboard images? → I2V (storyboard)
-User has single reference image only? → I2V (minimal)
-User has first + last frame images? → FLF2V
-User has multiple different ref types? → R2V
-User has video source to modify? → V2V Edit
-User has video to continue? → V2V Extend
-User has text description only? → T2V
-```
-
-## Director Formula
+### 模式判定树
 
 ```
-Subject + Action + Scene + Camera + Lighting/Style + Audio + Constraints
+用户有分镜图？ → I2V (storyboard)
+用户仅有单张参考图？ → I2V (minimal)
+用户有首帧 + 尾帧图？ → FLF2V
+用户有多种不同类型参考？ → R2V
+用户有视频源需修改？ → V2V Edit
+用户有视频需延续？ → V2V Extend
+用户仅有文字描述？ → T2V
 ```
 
-Put the subject and primary action first — early clauses set the shot hierarchy. Do not force every slot if a reference asset already shows the information. For all I2V/FLF2V modes: describe only the motion, camera, timing, transformation, audio, and preservation constraints that the still image cannot show.
+## 导演公式
 
-| Slot | Use for | Prompt-ready pattern |
+```
+主体 + 动作 + 场景 + 镜头 + 光影/风格 + 音频 + 约束
+```
+
+主体和主要动作放在最前面——前置分句设定镜头层级。如果参考资源已经展示了某类信息，不要强行填满每个槽位。对于所有 I2V/FLF2V 模式：只描述静态图像无法传达的运动、镜头、时间、光影变化、音频和保留约束。
+
+| 槽位 | 用途 | 提示词就绪范例 |
 |---|---|---|
-| Subject | The anchor the model must track. | `Original ceramic perfume bottle on black acrylic, label preserved exactly` |
-| Action | The visible change. | `condensation beads form and slide down the glass over five seconds` |
-| Scene | Only what is not already in references. | `quiet rain-lit kitchen counter, shallow depth of field` |
-| Camera | One primary move with endpoint. | `slow dolly-in from medium product shot to macro label detail` |
-| Light/Style | Physical light plus safe visual language. | `warm practical key from frame left, cool blue rim, clean commercial realism` |
-| Audio | Ambient bed, SFX, dialogue, or silence. | `Sound: low room tone, soft glass chime on final frame` |
-| Constraints | Preservation and exclusions. | `do not alter logo, shape, label, or cap geometry` |
+| 主体 | 模型必须跟踪的锚点。 | `黑色亚克力底座上的原版陶瓷香水瓶，标签精准保留` |
+| 动作 | 可见的变化。 | `水珠在五秒内凝结并沿玻璃滑落` |
+| 场景 | 仅写参考中未显示的内容。 | `安静的雨光洒落的厨房台面，浅景深` |
+| 镜头 | 一个主要运镜及终点。 | `从中景产品镜头缓慢推近至标签微距特写` |
+| 光影/风格 | 物理光源 + 安全的视觉语言。 | `画面左侧暖色主光，冷蓝轮廓光，干净的商业写实感` |
+| 音频 | 环境底噪、音效、对白或静音。 | `声音：低环境音 + 结尾一声清脆玻璃音` |
+| 约束 | 保留项和排除项。 | `不得修改 Logo、形状、标签或瓶盖几何形态` |
 
-## Platform Hard Constraints
+## 平台硬约束
 
-### Prompt Word Count Limits
+### 提示词字数限制
 
-| Language | Limit | Rationale |
+| 语言 | 限制 | 原因 |
 |---|---|---|
-| **Chinese** | ≤ 500 characters | Excess characters scatter information; the model ignores details |
-| **English** | ≤ 1000 words | Same as above |
-| **Total characters** | ≤ 2000 characters | Platform budget |
+| **中文** | ≤ 500 字 | 超出字符会分散信息，模型忽略细节 |
+| **英文** | ≤ 1000 词 | 同上 |
+| **总字符数** | ≤ 2000 字符 | 平台预算 |
 
-**Violating this constraint will cause missing video elements, character drift, and incomplete motion.** After compilation, count and annotate the character/word count.
+**违反此约束会导致视频元素缺失、角色漂移、动作不完整。** 编译后标注并计数。
 
-### @[ref] Reference Format
+### @[ref] 参考格式
 
-All uploaded image/video/audio assets use the `@[description]` format:
+所有上传的图像/视频/音频资源使用 `@[描述]` 格式：
 
-| Reference Example | Purpose |
+| 参考示例 | 用途 |
 |---|---|
-| `@[storyboard image 1]` | Storyboard blueprint — motion planning reference |
-| `@[character image 1]` | Character identity lock — face, hair, body type |
-| `@[product image 1]` | Product lock — color, print, fit |
-| `@[background image 1]` | Environment lock — space, light, color tone |
-| `@[Image1]` / `@[图1]` | Generic image reference (I2V minimal mode) |
-| `@[Video1]` | Motion/camera/pacing reference (V2V / R2V) |
-| `@[Audio1]` | Rhythm/tempo/mood reference |
+| `@[分镜图1]` | 分镜蓝图——运动规划参考 |
+| `@[角色图1]` | 角色身份锁定——面部、发型、体型 |
+| `@[产品图1]` | 产品锁定——颜色、印花、版型 |
+| `@[背景图1]` | 环境锁定——空间、光线、色调 |
+| `@[图1]` / `@[Image1]` | 通用图像参考（I2V minimal 模式） |
+| `@[视频1]` | 运镜/节奏参考（V2V / R2V） |
+| `@[音频1]` | 节奏/速度/氛围参考 |
 
-## Per-Mode Templates
+## 分模式模板
 
-### Mode 1: I2V Minimal Preservation
+### 模式 1：I2V 精确保留
 
-For single reference images — product shots, character portraits, scene stills. **Only describe what the image cannot convey.**
+适用于单张参考图——产品照、角色肖像、场景静帧。**只描述图像无法传达的内容。**
 
-**Template (Chinese):**
+**中文模板：**
 ```
 @[图1] 为参考；精确保留 [身份/产品/场景]。仅 [运动] 发生变化。
 镜头：[单一运镜]。光影：[光源或过渡]。音效：[提示音]。
 约束：[禁止变更的内容]。
 ```
 
-**Template (English):**
+**英文模板：**
 ```
 [Image1] as reference, strictly preserve [identity/product/scene].
 Only [motion] changes. Camera: [one movement]. Light: [source or transition].
 Sound: [cue]. Constraints: [what must not change].
 ```
 
-**Example — Product:**
+**示例——产品：**
 ```
 @[图1] 为产品参考；精确保留瓶身标签、Logo、瓶型、颜色不变。
 仅水珠凝结并沿玻璃滑落。镜头：锁定中景产品镜头，缓慢推近。
@@ -113,66 +113,66 @@ Sound: [cue]. Constraints: [what must not change].
 字数：96 字 ✅
 ```
 
-**Example — Character:**
+**示例——角色：**
 ```
 @[图1] 为角色参考；精确保留面部结构、发型、外套不变。
 仅眼睛缓慢眨一次，视线微微下移。镜头：锁定中近景，无重新取景。
 光影：柔和的窗户自然光。音效：安静的房间底噪。
 ```
 
-### Mode 2: I2V Storyboard-Driven
+### 模式 2：I2V 分镜驱动
 
-For storyboard blueprint images. The storyboard drives continuous camera movement through panels.
+适用于分镜蓝图图像。分镜面板驱动连续镜头运动。
 
 ```
-Seedance 2.0 Prompt:
+Seedance 2.0 提示词：
 
-Use @[storyboard image 1] as the authoritative shot blueprint. Do not render the storyboard itself. Ignore all borders, panel frames, text, labels, titles, color swatches, director bar graphics, and layout elements. Treat each panel as a continuous cinematic beat.
-The entire video must play as one continuously developing master shot with no visible cuts; each panel is a sampled stage of the same uninterrupted camera movement, not a separate shot.
-Use one virtual lens / same lens continuous camera movement; scale changes come only from physical camera movement.
-Use @[character image 1] as the authoritative character reference.
+使用 @[分镜图1] 作为权威镜头蓝图。不渲染分镜表本身。忽略所有边框、面板框线、文字、标签、标题、色板、导演栏图形和布局元素。将每格面板视为连续的影视节拍。
+整段视频必须以一个连续发展的主镜头播放，无可见剪辑；每个面板是同一不间断镜头运动的一个采样阶段，非独立镜头。
+使用单一虚拟镜头/同一镜头连续运镜；尺度变化仅来自物理镜头运动。
+使用 @[角色图1] 作为权威角色参考。
 
-[If multi-character or product references exist, add role mapping declarations here]
+[如有多角色或产品参考，在此添加角色映射声明]
 
-Music: [music style, BPM, mood]
+音乐：[音乐风格、BPM、氛围]
 
-1. [Opening shot corresponding to panel 1 — establish space and initial state]
-2. [Motion stage corresponding to panel 2 — character action or environment change]
-3. [Motion stage corresponding to panel 3 — continuing progression]
+1. [面板 1 对应的开场镜头——建立空间和初始状态]
+2. [面板 2 对应的运动阶段——角色动作或环境变化]
+3. [面板 3 对应的运动阶段——持续推进]
 ...
-N. [Closing shot corresponding to panel N — emotional landing point]
+N. [面板 N 对应的收尾镜头——情绪落点]
 
-No subtitles, no watermarks, no brand logos.
-No facial distortion, no identity drift, no character face swaps.
-No scene drift, no spatial reset, no environment jumps.
-No new characters appearing, no extra figures.
-[Scene-specific constraints]
+无字幕、无水印、无品牌 Logo。
+无面部变形、无身份漂移、无角色换脸。
+无场景漂移、无空间重置、无环境跳变。
+无新增角色出现、无多余人物。
+[场景专属约束]
 ```
 
-**Role mapping declarations (include when applicable):**
+**角色映射声明（适用时添加）：**
 ```
-@[character image 1] controls character identity — strictly preserve the same character's core features, natural face.
-@[product image 1] controls product identity — strictly lock color, print pattern, print color, size, position, fit.
-@[background image 1] controls environment — strictly preserve spatial structure, lighting, color tone, and display stability.
+@[角色图1] 控制角色身份——严格保持同一角色主体特征，面部自然。
+@[产品图1] 控制产品身份——严格锁定颜色、印花图案、印花颜色、大小、位置、版型。
+@[背景图1] 控制环境——严格保持空间结构、光线、色调和陈列稳定。
 ```
 
-### Mode 3: R2V Multi-Reference
+### 模式 3：R2V 多参考角色映射
 
-Assign independent roles to each asset. Explicitly declare what transfers and what must not.
+为每个资源分配独立角色。明确声明哪些传递、哪些不得传递。
 
-**Template (Chinese):**
+**中文模板：**
 ```
 @[图1] 控制产品身份。[视频1] 仅控制运镜速度。[音频1] 仅控制节奏。
 保留来自 @[图1] 的主体；请勿从 @[视频1]/@[音频1] 复制角色、Logo、音乐、人声或环境。
 ```
 
-**Template (English):**
+**英文模板：**
 ```
 [Image1] controls product identity. [Video1] controls camera pace only. [Audio1] controls tempo only.
 Preserve the subject from [Image1]; do not copy characters, logos, music, voice, or environment from [Video1]/[Audio1].
 ```
 
-**Example — Multimodal Reference:**
+**示例——多模态参考：**
 ```
 @[产品图1] 控制产品身份——严格锁定瓶身标签、Logo、形状、颜色、瓶盖几何形态。
 @[视频1] 仅控制侧向平移的摄影机节奏；不复制表演者、房间、品牌或服装。
@@ -183,11 +183,11 @@ Preserve the subject from [Image1]; do not copy characters, logos, music, voice,
 音效：雨声 + 脚步声，无音乐。
 ```
 
-### Mode 4: FLF2V First/Last Frame
+### 模式 4：FLF2V 首帧/尾帧
 
-Generate continuous transition from first frame to last frame target.
+从首帧到目标尾帧生成连续过渡。
 
-**Template:**
+**模板：**
 ```
 [Image1] is the first frame. [Image2] is the last frame.
 Preserve the same [subject/character/product], [outfit/logo/shape], and scene layout.
@@ -199,7 +199,7 @@ Sound: [ambience/dialogue/SFX/music/silence].
 Constraints: no new text, no watermark, no identity change, no object redesign.
 ```
 
-**Example — Character:**
+**示例——角色：**
 ```
 [Image1] 为首帧。[Image2] 为尾帧。
 保持同一角色面部结构、发型、外套和房间布局不变。
@@ -208,170 +208,170 @@ Constraints: no new text, no watermark, no identity change, no object redesign.
 音效：安静房间底噪 + 轻柔地板吱嘎声。
 ```
 
-**Common FLF2V Failures:**
-| Failure | Repair |
+**常见 FLF2V 失败修复：**
+| 失败现象 | 修复方法 |
 |---|---|
-| Subject morphs | Lock only the identity anchors that matter; remove extra style changes |
-| Product/logo redraws | Use locked camera and say only light/weather moves |
-| Jump cut | Add "continuous transition" and one physical action path |
-| Camera chaos | Replace multiple moves with locked frame or one slow push-in |
-| Ending misses target | State that `[Image2]` is the final visual target, not just mood reference |
+| 主体变形 | 只锁定关键身份锚点；去除多余风格变化 |
+| 产品/Logo 重绘 | 使用锁定镜头，只让光线/天气运动 |
+| 跳切 | 添加"连续过渡"和一个物理动作路径 |
+| 镜头混乱 | 用锁定画面或一次缓慢推近替换多次运镜 |
+| 终点未命中目标 | 明确声明 `[Image2]` 是最终视觉目标，非仅氛围参考 |
 
-### Mode 5: T2V Text-to-Video
+### 模式 5：T2V 文生视频
 
-Build complete shot from text only — no reference images.
+纯文本构建完整镜头——无参考图像。
 
-**Template:**
+**模板：**
 ```
-[Subject] + [Action] + [Scene]. Camera: [one primary move]. Lighting: [source and quality].
-Sound: [ambience/SFX]. Constraints: [exclusions].
+[主体] + [动作] + [场景]。镜头：[一个主要运镜]。光影：[光源与质感]。
+声音：[环境音/音效]。约束：[排除项]。
 ```
 
-### Mode 6: V2V Edit
+### 模式 6：V2V 编辑
 
-Preserve the source clip while changing one layer.
+保留源片段，仅修改一个图层。
 
-**Template:**
+**模板：**
 ```
 [Video1] is the source clip; preserve composition and timing, change only [lighting/background/VFX].
 Do not change subject identity, clothing, background layout, or motion rhythm.
 ```
 
-### Mode 7: V2V Extend
+### 模式 7：V2V 延续
 
-Continue from the existing final state.
+从当前最终状态继续。
 
-**Template:**
+**模板：**
 ```
 [Video1] is the previous clip; continue the same shot for [duration] and preserve last-frame continuity.
 The [subject] completes [one continuing action]. Camera remains [locked/same move].
 Lighting and layout stay continuous.
 ```
 
-## @[ref] Role Mapping
+## @[ref] 角色映射
 
-Before writing prompts, assign a **unique primary role** to each uploaded asset. Role mapping prevents accidental cross-contamination between identity, logo, scene ownership, and camera instructions.
+编写提示词前，为每个上传资源分配一个**唯一主角色**。角色映射可防止身份、Logo、场景所有权和镜头指令之间的意外交叉污染。
 
-| Asset | Recommended Role | Avoid |
+| 资源类型 | 推荐角色 | 避免 |
 |---|---|---|
-| Image | identity, product, pose, costume, environment, first frame, last frame | Asking it to define unseen motion |
-| Video | motion, camera, pacing, blocking, timing, gesture rhythm | Copying protected identity, logo, or scenes |
-| Audio | rhythm, tempo, mood, ambience, delivery tone, music texture | Assuming voice/song/portrait rights are cleared |
+| 图像 | 身份、产品、姿态、服装、环境、首帧、尾帧 | 让它定义不可见的运动 |
+| 视频 | 运动、镜头、节奏、调度、时机、手势韵律 | 复制受保护的身份、Logo 或场景 |
+| 音频 | 节奏、速度、氛围、环境感、语调、音乐质感 | 假设人声/歌曲/肖像已获授权 |
 
-**Core Rules:**
-- Each referenced asset gets one primary role; do not layer additional style descriptions on top
-- Explicitly declare "what must be preserved" and "what must not transfer"
-- If authorization is unclear, only transfer generalized motion/rhythm/mood/production function, not protected identity
-- When audio and video references compete: make video silent when audio timing must dominate, or state that video controls camera/motion only and `[Audio1]` controls tempo
+**核心规则：**
+- 每个参考资源分配一个主角色；不在其上叠加额外风格描述
+- 明确声明"哪些必须保留"和"哪些不得传递"
+- 如授权不明确，只传递广义的运动/节奏/氛围/制作功能，不传递受保护的身份
+- 当音频和视频参考冲突时：若音频节奏必须主导则让视频静音，或声明视频仅控制镜头/运动、`[音频1]` 控制节奏
 
-## I2V Core Principles
+## I2V 核心原则
 
-**Only describe what the image cannot convey.** A static image already contains subject identity, product form, clothing, color palette, composition, background. Re-describing these static details typically causes drift. Only add to the image: motion, camera, time progression, lighting changes, sound, preservation constraints.
+**只描述图像无法传达的内容。** 静态图像已包含主体身份、产品形态、服装、调色板、构图、背景。重新描述这些静态细节通常会导致漂移。仅向图像添加：运动、镜头、时间推进、光影变化、声音、保留约束。
 
-| Good I2V Addition | Example |
+| 正确的 I2V 添加项 | 示例 |
 |---|---|
-| Micro-expression | `subject blinks once and lowers their eyes` |
-| Product light sweep | `thin highlight travels across the label` |
-| Weather | `rain streaks behind the subject; droplets bead on the surface` |
-| Camera | `slow dolly-in from current composition to tighter detail` |
-| Atmosphere | `dust catches the doorway beam and settles` |
-| Audio | `soft room tone, one key click at the endpoint` |
+| 微表情 | `主体眨一次眼，视线微微下移` |
+| 产品扫光 | `一条细高光扫过标签表面` |
+| 天气 | `雨丝在主体身后划过；水珠在表面凝结` |
+| 镜头运动 | `从当前构图缓慢推近至更紧凑的细节` |
+| 氛围 | `灰尘在门口光束中扬起并沉降` |
+| 音频 | `轻柔房间底噪 + 结尾一声按键音` |
 
-**Common I2V Failure Fixes:**
-| Failure | Fix |
+**常见 I2V 失败修复：**
+| 失败现象 | 修复方法 |
 |---|---|
-| Identity drift | Reduce new visual descriptions, strengthen preservation constraints |
-| Camera jumps | Use one camera movement, note start and end frames |
-| Product deformation | Declare preserved, static identity, no shape change |
-| Static image | Add one physical action and one temporal cue |
-| Background change | Preserve environment layout, only animate lighting/weather/atmosphere |
-| Hand deformation | Simplify hand motion or exclude hands from the main action |
+| 身份漂移 | 减少新的视觉描述，加强保留约束 |
+| 镜头跳变 | 使用一次运镜，注记起止帧 |
+| 产品变形 | 声明为保留的静态身份，无形态变化 |
+| 画面静止 | 添加一个物理动作和一个时间线索 |
+| 背景变化 | 保留环境布局，仅动画化光影/天气/氛围 |
+| 手部变形 | 简化手部动作或将手排除在主动作之外 |
 
-## Compression Rules
+## 压缩规则
 
-When prompts are too long, trim in this order:
+提示词过长时，按此顺序裁剪：
 
-1. **Delete**: repeated style adjectives, generic quality words, background details already visible in references, secondary camera movements, secondary actions, speculative emotion labels
-2. **Keep**: reference tags and their roles, subject/product identity, one action verb + visible endpoint, one camera movement, physical light source or atmosphere, sound cue, safety/IP/continuity constraints
+1. **删除**：重复的风格形容词、泛泛的质量词、参考中已可见的背景细节、次要运镜、次要动作、推测性情绪标签
+2. **保留**：参考标签及其角色、主体/产品身份、一个动作动词 + 可见终点、一次运镜、物理光源或氛围、声音线索、安全/IP/连续性约束
 
-**Compressed Chinese I2V Template:**
+**中文 I2V 压缩模板：**
 ```
 @[图1]为参考，严格保持[主体]不变；仅加入[动作/光线/镜头]。声音：[提示]。约束：[不变项]。
 ```
 
-## Anti-Slop Lexicon
+## Anti-Slop 词库
 
-Replace hollow evaluation words with observable production language:
+用可被拍摄/录制的制作语言替换空洞评价词：
 
-| Hollow Word | Replace With |
+| 空洞词 | 替换为 |
 |---|---|
-| cinematic | shot size + camera movement + lighting + color grading |
-| epic | physical scale + stakes + lens distance |
-| beautiful | color + texture + composition + material + light behavior |
-| stunning | visible contrast + reveal + motion + detail |
-| dynamic | specific motion + speed + endpoint |
-| dramatic | blocking + shadow + silence + camera pressure |
-| ultra-realistic | material performance + skin texture + lens characteristics + natural motion |
+| cinematic / 电影感 | 景别 + 运镜 + 布光 + 调色 |
+| epic / 史诗感 | 物理尺度 + 利害关系 + 镜头距离 |
+| beautiful / 唯美 | 颜色 + 质感 + 构图 + 材质 + 光线行为 |
+| stunning / 惊艳 | 可见对比 + 揭示 + 运动 + 细节 |
+| dynamic / 动感 | 具体运动 + 速度 + 终点 |
+| dramatic / 戏剧化 | 站位调度 + 阴影 + 静默 + 镜头压力 |
+| ultra-realistic / 超写实 | 材质表现 + 皮肤纹理 + 镜头特性 + 自然运动 |
 
-**Rule: If a camera, microphone, light meter, or stopwatch cannot detect it — rewrite.**
+**规则：如果摄影机、麦克风、测光表或秒表无法检测到它——重写。**
 
-## Common Scenario Adaptations
+## 常见场景适配
 
-### Fashion / Apparel Videos
-- Role mapping is mandatory: `@[product image 1]` locks color/print/fit
-- Fabric dynamics (folds, sway) must be described
-- Back constraint: solid color, no print, no text
-- Music: lo-fi hip-hop / chill trap, BPM 90-110
-- **Compactness: prioritize Chinese compression, within 500 characters**
+### 时尚/服装视频
+- 角色映射为必须：`@[产品图1]` 锁定颜色/印花/版型
+- 必须描述面料动态（褶皱、摆动）
+- 背面约束：纯色、无印花、无文字
+- 音乐：lo-fi hip-hop / chill trap，BPM 90-110
+- **紧凑优先：优先中文压缩，控制在 500 字以内**
 
-### Product Showcase Videos
-- Product image locks appearance, background image locks environment
-- Camera: push-in / orbit / detail, **one primary movement**
-- **Key principle: let light/particles/camera move around the product, not deform the product itself**
+### 产品展示视频
+- 产品图锁定外观，背景图锁定环境
+- 镜头：推近 / 环绕 / 细节，**一次主要运镜**
+- **核心原则：让光线/粒子/镜头围绕产品运动，而非让产品本身变形**
 
-### Narrative Short Films
-- Character image locks identity, storyboard image (if used) locks narrative pacing
-- Continuous camera movement throughout the film
-- Emotion evolves, never resets
-- **One segment = one beat = one emotional turn**
+### 叙事短片
+- 角色图锁定身份，分镜图（如使用）锁定叙事节奏
+- 全片连续镜头运动
+- 情绪演进，永不重置
+- **一个段落 = 一个节拍 = 一次情绪转折**
 
-### Multi-Character Scenes
-- Each character gets a separate `@[character image N]` reference + role mapping
-- Declare spatial relationships between characters remain unchanged
-- No character identity swapping or drift
+### 多角色场景
+- 每个角色分配独立 `@[角色图N]` 参考 + 角色映射
+- 声明角色之间空间关系保持不变
+- 无角色身份互换或漂移
 
-## Validation Checklist
+## 验证清单
 
-Before delivering the final prompt, verify item by item:
+交付最终提示词前逐项检查：
 
-- [ ] Mode is explicitly declared and correct for the available inputs
-- [ ] **I2V modes**: storyboard image declaration is correct ONLY if storyboard-driven mode
-- [ ] **I2V minimal / FLF2V**: "only describe what the image cannot show" is followed
-- [ ] Role mapping is declared for ALL reference assets
-- [ ] Each @[ref] has one primary role, no layered style descriptions
-- [ ] "What must preserve" and "what must not transfer" are both declared (R2V mode)
-- [ ] For storyboard-driven I2V: "do not render the storyboard itself" is declared
-- [ ] One primary camera movement is used, not stacked multiples
-- [ ] Music style and BPM are specified (or silence is declared)
-- [ ] Fabric/hair dynamics described (if applicable)
-- [ ] Back constraint declared (if applicable)
-- [ ] Negative constraint list is complete
-- [ ] **Word count compliant: Chinese ≤ 500 characters / English ≤ 1000 words (count annotated)**
-- [ ] **Anti-slop check: no hollow evaluation words with no physical referent**
-- [ ] Prompt can be directly pasted into the target platform for use
+- [ ] 模式已明确声明且与可用输入匹配
+- [ ] **I2V 模式**：分镜图声明仅 storyboard 驱动模式下才出现
+- [ ] **I2V minimal / FLF2V**：遵循"只描述图像无法显示的内容"
+- [ ] 所有参考资源的角色映射已声明
+- [ ] 每个 @[ref] 只有一个主角色，无叠加风格描述
+- [ ] "保留项"和"不得传递项"均已声明（R2V 模式）
+- [ ] storyboard 驱动 I2V：已声明"不渲染分镜表本身"
+- [ ] 使用一次主要运镜，非多次堆叠
+- [ ] 音乐风格和 BPM 已指定（或已声明静音）
+- [ ] 面料/头发动态已描述（如适用）
+- [ ] 背面约束已声明（如适用）
+- [ ] 负面约束列表完整
+- [ ] **字数合规：中文 ≤ 500 字 / 英文 ≤ 1000 词（已标注计数）**
+- [ ] **Anti-slop 检查：无空洞评价词（无物理指涉）**
+- [ ] 提示词可直接粘贴至目标平台使用
 
-## Integration with director-core
+## 与 director-core 的集成
 
-When called by `director-core` at STATE 6:
+当 `director-core` 在 STATE 6 调用时：
 
-1. **Check what inputs are available** — DO NOT assume storyboard images exist
-2. Determine the appropriate mode based on available inputs (see Mode Decision Tree)
-3. If in storyboard-driven mode: confirm storyboard images are available
-4. If in other modes: accept whatever references the user provides
-5. Load all visual reference assets
-6. Assign @[ref] role mapping for each asset
-7. Compile executable prompts per the selected mode template
-8. Count and annotate character/word count (Chinese ≤ 500 characters)
-9. Execute validation checklist
-10. Present for final user review
-11. Upon confirmation, mark STATE 6 complete
+1. **检查可用输入**——不要假设分镜图存在
+2. 根据可用输入确定合适模式（参见模式判定树）
+3. storyboard 驱动模式：确认分镜图可用
+4. 其他模式：接受用户提供的任何参考
+5. 加载所有视觉参考资源
+6. 为每个资源分配 @[ref] 角色映射
+7. 按所选模式模板编译可执行提示词
+8. 标注字数计数（中文 ≤ 500 字）
+9. 执行验证清单
+10. 提交用户最终审核
+11. 确认后标记 STATE 6 完成
