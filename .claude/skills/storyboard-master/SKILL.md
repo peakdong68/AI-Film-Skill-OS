@@ -25,7 +25,10 @@ description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Imag
 | "分镜总览图", "Master Sheet", "Director Treatment Board", "导演提案板", "完整规划", "pre-production blueprint" | **完整总览图**（4 区，6-24 镜头）          |
 | "简版分镜图", "分镜图板", "quick board", "简洁版"                                                              | **简洁导演板**（仅镜头网格 + 底部 3 模块） |
 
-当用户指定镜头数量时，使用它。否则简洁模式默认 6 镜头，完整模式默认 12 镜头。
+镜头数量按以下优先级确定：
+1. **用户显式指定** → 直接使用
+2. **存在上游管线产物**（如 `director-story` 的场景拆解、`director-prompt-packager` 的分镜方案、`director-core` 已执行的 STATE 产出）→ 从已有镜头/场景拆解中推导
+3. **无任何上下文时的兜底** → 简洁模式默认 6 镜头，完整模式默认 12 镜头
 
 ## 完整总览图结构
 
