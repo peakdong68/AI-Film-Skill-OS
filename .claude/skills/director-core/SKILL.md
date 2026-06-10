@@ -64,35 +64,38 @@ Collect the minimum viable brief needed to produce the film.
 
 **Step 1: Assess creative maturity**
 
-Based on **creative clarity** (not character count), choose one of two paths:
+Based on **creative clarity**, choose one of three paths:
 
 | Input quality | Criteria | Path |
 |---|---|---|
-| Clear creative | Contains **subject + action + scene** (at least 2 of 3), with clear emotional direction | **Fast track**: collect params directly |
-| Vague creative | Only keywords / broad concepts / no specific scene or action | **Creative interview**: develop idea first |
+| Creative complete | Has subject + action + scene + emotional direction, ready to proceed | **Fast track**: collect params directly |
+| Descriptive but no plot | Has brand/product/scene/style description, but lacks narrative action and shot rhythm | **Creative expansion**: offer 2-3 options |
+| Vague creative | Only keywords / broad concepts / no specific scene or action | **Creative interview**: ask clarifying questions |
 
-**Creative interview (for vague input):**
+**Creative expansion (descriptive but no plot):**
 
-Adapted from  patterns. Ask at most 3 high-impact questions. Only ask what is missing:
+When the user provides brand tone, scene, and style direction but lacks specific narrative action (e.g., a fashion brand brief with warm dressing room scenes but no storyline), do NOT output structure directly. Instead, offer 2-3 creative options:
 
-1. **Subject + change**: "Who is the main subject in this video? What are they doing? What changes by the end?" (ask when subject is missing)
-2. **Feeling + genre**: "What should it feel like? Product showcase, dramatic tension, comedy, realism, animation, or atmosphere?" (ask when emotional direction is missing)
-3. **Reference materials**: "Do you have any reference images/videos/audio? Or a film style in mind?" (ask when visual anchor is missing)
 
-Build a concise creative brief from the answers (concept summary, genre path, core scene, emotional direction), then collect production params below.
+
+Options should cover different styles (pure showcase / micro-drama / lifestyle MV, etc.), letting the user choose rather than answering open-ended questions. After user confirms direction, collect params.
+
+**Creative interview (vague input):**
+
+Ask at most 3 high-impact questions. Only ask what is missing. Build a creative brief from answers, then collect params.
 
 **Step 2: Collect production params**
 
-- Project idea or script (refined through interview if applicable)
+- Project idea or script (refined through interview/option selection)
 - Target duration (15s / 30s / 60s / custom)
 - Visual style (cinematic / commercial / documentary / anime / sci-fi / etc.)
 - Delivery platform (Seedance / Kling)
 - Aspect ratio (16:9 / 9:16 / 1:1)
 - Any existing reference images or character descriptions
 
-If the user already provided sufficient info (≥ 4 items with clear creative intent), confirm and proceed to STATE 1. If they say "just do it", fill in reasonable defaults with annotations.
+If the user already provided sufficient info (>= 4 items with clear creative intent), confirm and proceed to STATE 1. If they say "just do it", fill in reasonable defaults with annotations.
 
-**State 0 output**: Confirmed production brief. Proceed to STATE 1.
+**State 0 output**: Confirmed production brief (including creative direction selection result). Proceed to STATE 1.**State 0 output**: Confirmed production brief. Proceed to STATE 1.
 
 ### STATE 1 — Story & Emotion Design
 
