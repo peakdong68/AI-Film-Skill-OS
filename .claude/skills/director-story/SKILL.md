@@ -25,29 +25,15 @@ Accept any of the following as starting material:
 - A scene list
 - A thematic concept with character descriptions
 
-**Creative interview mode (auto-activates on vague input):**
+**For vague or descriptive-but-no-plot inputs, route to  for creative intake.** The skill auto-selects the best path:
 
-If the user provides story material lacking clear subject, action, or scene (only broad concepts or keywords, e.g., "I want to make a sci-fi love story"), conduct a quick creative interview before analysis. Ask at most 3 questions that materially affect story structure:
+| Input quality | Path |
+|---|---|
+| Creative complete | Fast track, analyze directly |
+| Descriptive but no plot | 2-3 options, then analyze |
+| Vague creative | Clarifying interview, then analyze |
 
-1. **Core conflict**: "What is the conflict in this story? Who is fighting against what?"
-2. **Genre and tone**: "How sci-fi? Hard sci-fi / soft sci-fi / cyberpunk? Is the romance the main plot or a subplot?"
-3. **Character and change**: "Who is the protagonist? What irreversible change happens to them by the end?"
-
-Build an initial narrative premise from the answers, then proceed to formal analysis.
-
-**Creative expansion mode (activates when descriptive but no plot):**
-
-If the user provides descriptive detail (scene, style, tone, etc.) but lacks specific narrative action and shot rhythm (not limited to ecommerce/commercial — also includes theme/atmosphere pieces, nature/landscape, abstract concepts, etc.), do NOT output script structure directly. First offer 2-3 creative options:
-
-
-
-Options should cover different styles (pure showcase / micro-drama / lifestyle MV / documentary / abstract performance, etc.). After user confirms direction, proceed to formal structure analysis.
-
-If the user insists "just analyze it", expand from available material and annotate assumptions.
-
-
-
-
+If the user explicitly requests "just analyze it" and refuses interview, expand from available material and annotate assumptions.
 
 ## Output Structure
 
