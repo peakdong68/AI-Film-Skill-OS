@@ -1,6 +1,6 @@
 ---
 name: seedance-video-prompt
-description: 将图像、视频、音频等多模态参考编译为 Seedance 2.0 / Kling 视频平台可执行的视频生成提示词。按可用资源自动选择生成模式（多模态参考 / 编辑视频 / 延长视频三大类，共 7 种子模式）。分镜图像不是必须的。这是 AI Film OS 管线中 L5 视频生成层的最终编译器。用于生成 Seedance 2.0 提示词、视频生成提示词，或 director-core 路由到 STATE 6 时。触发词：Seedance 2.0 提示、视频生成提示词、Seedance prompt、video generation prompt、I2V、首帧尾帧。
+description: "将图像、视频、音频等多模态参考编译为 Seedance 2.0 / Kling 视频平台可执行的视频生成提示词。按可用资源自动选择生成模式（多模态参考 / 编辑视频 / 延长视频三大类，共 7 种子模式）。分镜图像不是必须的。这是 AI Film OS 管线中 L5 视频生成层的最终编译器。用于生成 Seedance 2.0 提示词、视频生成提示词，或 director-core 路由到 STATE 6 时。触发词：Seedance 2.0 提示、视频生成提示词、Seedance prompt、video generation prompt、I2V、首帧尾帧。"
 ---
 
 # Seedance Video Prompt — L5 视频生成编译器
