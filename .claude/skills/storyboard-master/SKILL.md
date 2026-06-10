@@ -1,136 +1,136 @@
 ---
 name: storyboard-master
-description: 为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Image）生成专业的分镜总览图/导演提案板提示词。用于分镜总览图、导演提案板、导演分镜板、镜头列表板、完整视觉规划板、前期制作蓝图、分镜规划图、分镜概览，或需要将镜头网格+节奏时间轴+摄影机运动图+视觉语言设计融合为一张图的综合多镜头规划板。当用户希望将完整的视频/电影项目方案呈现为单一视觉文档时也适用。Use when the user asks for a storyboard master sheet, director treatment board, shot list board, full visual planning board, pre-production blueprint, or a comprehensive multi-shot planning sheet that combines shot grid + rhythm timeline + camera movement diagram + visual language design into one image.
+description: Generate professional Storyboard Master Sheet / Director Treatment Board prompts for AI image generators (Midjourney, Flux, 即梦, 可灵, GPT Image). Use when the user asks for a storyboard master sheet, director treatment board, 分镜总览图, 导演分镜板, shot list board, full visual planning board, pre-production blueprint, 分镜规划图, storyboard overview, or a comprehensive multi-shot planning sheet that combines shot grid + rhythm timeline + camera movement diagram + visual language design into one image. Also use when the user wants to present a complete video/ film project plan as a single visual document.
 ---
 
-# Storyboard Master Sheet 分镜总览图
+# Storyboard Master Sheet
 
-## 概览
+## Overview
 
-生成一份综合的分镜总览图提示词——一份将镜头网格、节奏时间轴、摄影机运动图和视觉语言设计融合为一张专业规划板的单一视觉文档。这是导演、代理商和制作团队用于提案、项目阐述和前期制作蓝图的格式。
+Generate a comprehensive Storyboard Master Sheet prompt — a single visual document that combines shot grid, rhythm timeline, camera movement diagram, and visual language design into one professional planning board. This is the format directors, agencies, and production teams use for pitches, treatments, and pre-production blueprints.
 
-此技能用于多镜头总览图。单帧分镜提示词请用 `storyboard-prompt`。含产品/创作者参考区的电商/直播分镜请用 `storyboard-ecommerce`。Seedance I2V 规划请用 `storyboard-sketch`。
+Use this skill for multi-shot master sheets. For single-frame storyboard prompts, use `storyboard-prompt`. For e-commerce/livestream storyboards with product/creator reference areas, use `storyboard-ecommerce`. For Seedance I2V planning, use `storyboard-sketch`.
 
-## 加载资源
+## Load Resources
 
-- 需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
-- 获取双语电影摄影速查表（景别、运动、角度、构图、灯光、叙事目的），阅读 `../references/cinematography-quick-reference.md`
+- For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
+- For bilingual cinematography quick reference tables, read `../references/cinematography-quick-reference.md`.
 
-## 模式门
+## Mode Gate
 
-总览图有两种输出密度。根据用户意图选择：
+The master sheet has two output densities. Choose based on user intent:
 
-| 用户说...                                                                                                      | 输出                                       |
-| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
-| "分镜总览图", "Master Sheet", "Director Treatment Board", "导演提案板", "完整规划", "pre-production blueprint" | **完整总览图**（4 区，6-24 镜头）          |
-| "简版分镜图", "分镜图板", "quick board", "简洁版"                                                              | **简洁导演板**（仅镜头网格 + 底部 3 模块） |
+| If the user says...                                                                                                                        | Output                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| "storyboard master sheet", "Master Sheet", "Director Treatment Board", "director treatment board", "full plan", "pre-production blueprint" | **Full Master Sheet** (4 sections, 6-24 shots)                 |
+| "concise storyboard board", "storyboard panel board", "quick board", "concise version"                                                     | **Concise Director Board** (shot grid only + bottom 3 modules) |
 
-镜头数量按以下优先级确定：
-1. **用户显式指定** → 直接使用
-2. **存在上游管线产物**（如 `director-story` 的场景拆解、`director-prompt-packager` 的分镜方案、`director-core` 已执行的 STATE 产出）→ 从已有镜头/场景拆解中推导
-3. **无任何上下文时的兜底** → 简洁模式默认 6 镜头，完整模式默认 12 镜头
+Shot count is determined by the following priority:
+1. **User explicitly specifies** → use directly
+2. **Upstream pipeline artifacts exist** (e.g., scene breakdown from `director-story`, shot plan from `director-prompt-packager`, outputs from `director-core` states) → derive from existing shot/scene breakdowns
+3. **No context available (fallback)** → default to 6 shots for concise, 12 shots for full
 
-## 完整总览图结构
+## Full Master Sheet Structure
 
-完整总览图有四个必选区。撰写提示词时应使图像生成器在单一协调布局中生成全部四个区。
+The full master sheet has four mandatory sections. Write the prompt so the image generator produces all four in a single coherent layout.
 
-### 4 区布局
+### 4-Section Layout
 
 ```
 ┌─────────────────────────────────────────┐
 │          Section 1: Shot Grid           │
-│   (上部约 60% 的区域)                     │
-│   带编号的镜头卡片网格                     │
+│   (upper ~60% of the board)             │
+│   Grid of numbered shot cards           │
 ├──────────────┬──────────────┬───────────┤
 │ Section 2:   │ Section 3:   │Section 4: │
 │ Rhythm       │ Camera       │ Visual    │
 │ Timeline     │ Movement     │ Language  │
-│ (左下)        │ (中下)        │ (右下)     │
+│ (lower left) │ (lower mid)  │ (lower rt)│
 └──────────────┴──────────────┴───────────┘
 ```
 
-### Section 1: Shot Grid 分镜展示区
+### Section 1: Shot Grid (Shot Grid)
 
-主要区域。网格中的每个镜头卡片必须包含：
+The primary section. Each shot card in the grid must contain:
 
 ```
 ┌──────────────────────────┐
-│ #01 | WS | 00:00-00:02  │  ← 灰色标题栏
+│ #01 | WS | 00:00-00:02  │  ← gray header bar
 │                          │
-│    [Frame Preview]       │  ← 镜头可视化预览
+│    [Frame Preview]       │  ← visual preview of the shot
 │                          │
-│ Action: [一行]           │  ← 镜头中主体动作
-│ Camera: [景别+运动]       │  ← 摄影机设置
-│ Purpose: [故事原因]       │  ← 为什么这个镜头存在
+│ Action: [one line]       │  ← subject action in the shot
+│ Camera: [shot + move]    │  ← camera setup
+│ Purpose: [story reason]  │  ← why this shot exists
 └──────────────────────────┘
 ```
 
-镜头卡片信息格式: `编号 | 景别 | 时间码`
+Shot card information format: `Shot # | Shot Size | Timecode`
 
-布局规则:
+Layout rules:
 
-- 按阅读顺序排列镜头（左→右，上→下）
-- 卡片之间使用细灰边框
-- 网格中保持统一卡片尺寸
-- 板面为白色或浅灰背景
+- Arrange shots in reading order (left→right, top→bottom)
+- Use thin gray borders between cards
+- Maintain equal card sizes across the grid
+- White or light gray background for the board
 
-### Section 2: Rhythm & Structure 节奏设计区
+### Section 2: Rhythm & Structure (Rhythm & Structure)
 
-展示叙事节奏和剪辑结构:
+Display the narrative rhythm and editing structure:
 
-- **时间轴**: 全视频时长，标有镜头标记（①②③...）
-- **节奏曲线**: 显示强度变化的波形（平静 → 推进 → 峰值 → 释放）
-- **阶段标注**: 命名每个叙事阶段及所属镜头
-- **音乐/节拍对齐**: 关键节拍点及对应镜头
+- **Timeline bar**: Full video duration with shot markers (①②③...)
+- **Rhythm curve**: Waveform showing intensity changes (calm → build → peak → release)
+- **Phase labeling**: Name each narrative phase and which shots belong to it
+- **Music/beat alignment**: Key beat points and corresponding shots
 
-节奏阶段应遵循叙事弧线。根据内容类型使用以下模板之一：
+Rhythm phases should follow the narrative arc. Use one of these templates based on content type:
 
-| 内容类型                         | 弧线模式                             |
-| -------------------------------- | ------------------------------------ |
-| Film / Drama 电影/剧情           | 建立 → 发展 → 冲突 → 高潮 → 收束     |
-| Advertising 广告                 | Hook → 展示 → 强化 → 峰值 → 品牌收尾 |
-| E-commerce 电商                  | 氛围 → 展示 → 细节 → 场景 → CTA      |
-| Documentary 纪录片               | 背景 → 展开 → 分析 → 强化 → 总结     |
-| Short Video / Social 短视频/社交 | Hook → 问题 → 方案 → 效果 → CTA      |
+| Content Type         | Arc Pattern                                          |
+| -------------------- | ---------------------------------------------------- |
+| Film / Drama         | Establish → Develop → Conflict → Climax → Resolution |
+| Advertising          | Hook → Showcase → Emphasize → Peak → Brand Close     |
+| E-commerce           | Atmosphere → Display → Detail → Scene → CTA          |
+| Documentary          | Background → Expand → Analyze → Reinforce → Conclude |
+| Short Video / Social | Hook → Problem → Solution → Effect → CTA             |
 
-阶段标注格式: `Phase 1: [名称] (Shots XX-XX) — [发生什么]`
+Phase labeling format: `Phase 1: [name] (Shots XX-XX) — [what happens]`
 
-添加节奏密度线: `[平静] →→ [推进] →→→ [峰值] →→ [减速]`
+Add a rhythm density line: `[calm] →→ [building] →→→ [peak] →→ [decelerating]`
 
-### Section 3: Camera Movement Diagram 运镜设计区
+### Section 3: Camera Movement Diagram (Camera Movement Diagram)
 
-显示摄影机位置和运动的俯视空间图:
+A top-down spatial diagram showing camera positions and movements:
 
-- **摄影机位置**: 在空间位置上的编号圆圈（①②③...）
-- **运动轨迹**: 连接位置的虚线箭头，显示路径
-- **运动类型标注**: Static / Push-in / Pull-out / Pan / Tilt / Dolly / Crane / Orbit / Handheld / Steadicam / Tracking
-- **主体位置**: 简单标记显示主体相对于摄影机的位置
+- **Camera positions**: Numbered circles (①②③...) at their spatial locations
+- **Movement trajectories**: Dashed arrows connecting positions, showing path
+- **Movement type labels**: Static / Push-in / Pull-out / Pan / Tilt / Dolly / Crane / Orbit / Handheld / Steadicam / Tracking
+- **Subject position**: A simple marker showing where the subject is relative to cameras
 
-将此呈现为图像生成器可渲染的描述: "Top-down floor plan with numbered camera positions connected by dashed trajectory arrows..."
+Present this as a description the image generator can render: "Top-down floor plan with numbered camera positions connected by dashed trajectory arrows..."
 
-### Section 4: Visual Language 视觉设计区
+### Section 4: Visual Language (Visual Language)
 
-适用于所有镜头的设计规格:
+Design specifications that apply across all shots:
 
-- **灯光设计**: 主光、辅光、轮廓光、色温、氛围
-- **色彩方案**: 主色、对比度级别、饱和度
-- **构图规则**: 主要和辅助构图技法
-- **情绪关键词**: 5-8 个情绪/氛围描述词
-- **美术指导备注**: 关键视觉参考、质感、制作设计意图
+- **Lighting Design**: Key light, fill light, rim light, color temperature, atmosphere
+- **Color Palette**: Dominant colors, contrast level, saturation
+- **Composition Rules**: Primary and secondary composition techniques
+- **Mood Keywords**: 5-8 emotional/atmospheric descriptors
+- **Art Direction Notes**: Key visual references, texture, production design intent
 
-格式为清晰的规格块:
+Format as a clean specification block:
 
 ```
-LIGHTING: [主光方向+质感] / [辅光] / [色温]
-COLOR: [调色板描述] / [对比度级别]
-COMPOSITION: [技法 1] + [技法 2]
-MOOD: [关键词 1] · [关键词 2] · [关键词 3] · [关键词 4] · [关键词 5]
-ART DIRECTION: [1-2 行设计指导]
+LIGHTING: [key direction + quality] / [fill] / [color temp]
+COLOR: [palette description] / [contrast level]
+COMPOSITION: [technique 1] + [technique 2]
+MOOD: [keyword 1] · [keyword 2] · [keyword 3] · [keyword 4] · [keyword 5]
+ART DIRECTION: [1-2 lines of design guidance]
 ```
 
-## Concise Director Board 简洁导演板
+## Concise Director Board (Concise Version)
 
-当用户需要更短的格式时，简化为:
+When the user wants the shorter format, reduce to:
 
 ```
 ┌─────────────────────────────────┐
@@ -142,26 +142,26 @@ ART DIRECTION: [1-2 行设计指导]
 └─────────────────────────────────┘
 ```
 
-简洁模式镜头卡片: `#01 | LS 全景 | 0:00-0:02` 作为标题、预览图像和一行导演风格描述（中文 ≤15 字）。
+Shot cards in concise mode: `#01 | LS Wide Shot | 0:00-0:02` as header, preview image, and one line of director-style description (≤15 characters in Chinese).
 
-底部模块简化但仍必须包含:
+Bottom modules are simplified but must still include:
 
-- 节奏结构: 含节拍点的时间分段
-- 摄影机运动: 含镜头编号的轨迹箭头
-- 灯光与氛围: 主光源 + 情绪关键词
+- Rhythm structure: time segments with beat points
+- Camera movement: trajectory arrows with shot numbers
+- Lighting & atmosphere: key light sources + mood keywords
 
-## 输出格式
+## Output Format
 
-两种模式下，均先呈现结构化计划供用户审核，再呈现图像生成器的压缩提示词。
+For both modes, present the structured plan first for user review, then the compressed prompt for the image generator.
 
 ```markdown
 ## Master Sheet Plan
 
 ### Project Info
 
-- Project: [名称/主题]
+- Project: [name/theme]
 - Style: [director treatment board / clean infographic / production document]
-- Aspect ratio: [推荐 16:9]
+- Aspect ratio: [16:9 recommended]
 - Total shots: [N]
 
 ### Section 1: Shot Grid
@@ -175,15 +175,15 @@ ART DIRECTION: [1-2 行设计指导]
 
 ### Section 2: Rhythm & Structure
 
-弧线: [阶段 1 → 阶段 2 → 阶段 3 → 阶段 4 → 阶段 5]
-[含镜头分配的阶段拆解]
-节奏密度: [曲线描述]
-音乐节拍: [关键点]
+Arc: [phase 1 → phase 2 → phase 3 → phase 4 → phase 5]
+[Phase breakdown with shot allocations]
+Rhythm density: [curve description]
+Music beats: [key points]
 
 ### Section 3: Camera Movement
 
-俯视图: [镜头编号及位置]
-轨迹: [每过渡段落的运动类型]
+Top-down: [shot numbers and positions]
+Trajectories: [movement types per transition]
 
 ### Section 4: Visual Language
 
@@ -195,28 +195,28 @@ ART DIRECTION: [...]
 
 ## Compressed Master Sheet Prompt
 
-[一条覆盖全部 4 区的完整图像生成器提示词。80-200 词。包含规划板级风格关键词。]
+[One complete prompt for the image generator covering all 4 sections. 80-200 words. Include board-level style keywords.]
 ```
 
-## 总览图风格关键词
+## Style Keywords for Master Sheet
 
-始终将此关键词块附加到总览图提示词（选择适当子集）:
+Always append this keyword block to Master Sheet prompts (selecting the appropriate subset):
 
 ```
 Storyboard master sheet, director treatment board, creative production blueprint, shot list layout, camera movement diagram, editing rhythm timeline, visual language board, film production planning document, professional storyboard presentation, information-rich infographic, cinematographic production guide, high-end editorial layout, clean grid system, architectural information graphics, ultra detailed, production ready
 ```
 
-简洁板简化为:
+For concise boards, reduce to:
 
 ```
 Director storyboard sheet, shot list board, camera movement diagram, rhythm structure, professional production board, clean infographic layout, white background, thin grid borders, ultra detailed
 ```
 
-## Quality Bar 质量门槛
+## Quality Bar
 
-- 计划和提示词中都必须包含四个区（或简洁模式的三个区）。
-- 叙事弧线必须匹配内容类型——不得为电商视频使用电影弧线。
-- 镜头卡片必须包含: 编号、景别、时间码、预览描述、动作、摄影机和目的。
-- 摄影机运动图必须包含编号位置和轨迹箭头。
-- 风格关键词必须强调"board"和"sheet"概念——这可以防止图像生成器生成完整的电影画面而非规划文档。
-- 若用户指定中文输出，计划中所有描述性文字保持中文；风格关键词保持英文以获得更好的图像生成器表现。
+- All four sections (or three for concise mode) must be present in both the plan and the prompt.
+- The narrative arc must match the content type — don't use a film arc for an e-commerce video.
+- Shot cards must include: number, shot size, timecode, preview description, action, camera, and purpose.
+- Camera movement diagram must include numbered positions and trajectory arrows.
+- Style keywords must emphasize "board" and "sheet" concepts — this prevents the image generator from producing a finished film frame instead of a planning document.
+- If the user specifies Chinese output, all descriptive text in the plan stays in Chinese; keep style keywords in English for better image generator performance.

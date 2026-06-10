@@ -14,7 +14,7 @@ seedance_prompt_engine
 
 ## description
 
-将分镜结构（Storyboard）与角色一致性系统（Character Consistency）融合，生成可直接用于AI视频生成工具（Seedance 2.0  / Kling）的高质量视频Prompt系统。该技能负责把“镜头”转化为“可执行动态影像指令”。
+将分镜结构（Storyboard）与角色一致性系统（Character Consistency）融合，生成可直接用于AI视频生成工具（Seedance 2.0 / Runway / Sora / Kling / Pika）的高质量视频Prompt系统。该技能负责把“镜头”转化为“可执行动态影像指令”。
 
 ---
 
@@ -218,7 +218,10 @@ seedance_prompt_engine
 优化输出适配：
 
 * Seedance 2.0 (primary)
+* Runway Gen-3
+* Sora
 * Kling AI
+* Pika Labs
 
 ---
 

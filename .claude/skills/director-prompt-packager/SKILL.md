@@ -1,311 +1,311 @@
 ---
 name: director-prompt-packager
-description: 将所有前期制作产物（故事结构、情绪蓝图、摄影机语言、灯光设计、角色身份锁定）编译为完整的电影级短片提示包。这是 AI Film OS 管线中的文本级编译器——产出的是供用户确认的导演愿景总文档（含结构化分镜设计、镜头语言、声音设计和 Seedance 分解方案），而非视频生成平台的最终提示词。用于短片提示包编译、导演愿景文档生成、分镜设计方案编译，或 director-core 路由到 STATE 4（提示词封装）时。当用户需要将故事创意转化为可执行的分镜设计方案时使用。注意：输出是文本级设计文档，供 STATE 5 分镜蓝图生成和 STATE 6 Seedance 视频提示词编译使用。
+description: Compiles all pre-production assets (story structure, emotion blueprint, camera language, lighting design, character identity locks) into a complete film-level short film prompt package. This is the text-level compiler in the AI Film OS pipeline — it produces a director's vision master document (containing structured storyboard design, camera language, sound design, and Seedance decomposition plan) for user confirmation, NOT final video platform prompts. Use for short film prompt package compilation, director vision document generation, storyboard design compilation, or when director-core routes to STATE 4 (Prompt Packaging). When the user needs to convert a story idea into an executable storyboard design plan. Note: output is a text-level design document for STATE 5 storyboard blueprint generation and STATE 6 Seedance video prompt compilation.
 ---
 
-# Director Prompt Packager — 电影级短片提示包编译器
+# Director Prompt Packager — Film-Level Short Film Prompt Package Compiler
 
-## 概览
+## Overview
 
-这是 AI Film OS 管线中的**文本级编译器**，位于 STATE 4（在分镜图像生成之前）。它接收 STATE 1-3 的全部设计产物——叙事结构、情绪蓝图、摄影机语言、灯光设计、角色身份锁定——并将它们编译为一份完整的**电影级短片提示包**。
+This is the **text-level compiler** in the AI Film OS pipeline, positioned at STATE 4 (before storyboard image generation). It receives all design outputs from STATE 1-3 — narrative structure, emotion blueprint, camera language, lighting design, character identity locks — and compiles them into a complete **film-level short film prompt package**.
 
-这份提示包是导演愿景的总文档，任何导演或制作人阅读后都能完整理解影片的：
+This prompt package is the director's vision master document. Any director or producer reading it can fully understand the film's:
 
-- 每个镜头发生什么（结构化分镜设计）
-- 如何拍摄（镜头语言：景别、运动、构图）
-- 光影与色彩如何推进情绪
-- 声音如何塑造节奏
-- 如何拆分为 Seedance 可执行的 Part（每 Part ≤ 15s）
+- What happens in each shot (structured storyboard design)
+- How it is shot (camera language: shot size, movement, composition)
+- How light and color drive emotion
+- How sound shapes rhythm
+- How it is decomposed into Seedance-executable Parts (each Part ≤ 15s)
 
-**此技能产出的是文本级设计文档——不是 Seedance 2.0 / Kling 视频平台的最终可执行提示词。**
+**This skill produces text-level design documents — NOT Seedance 2.0 / Kling final executable video prompts.**
 
-提示包经用户确认后，才进入 STATE 5（分镜蓝图生成）和 STATE 6（Seedance 视频提示词编译）。
+After the prompt package is confirmed by the user, workflow proceeds to STATE 5 (storyboard blueprint image generation) and STATE 6 (Seedance video prompt compilation).
 
-可独立用于提示包编译，也可被 `director-core` 在 STATE 4 调用。
+Can be used standalone for prompt package compilation, or called by `director-core` at STATE 4.
 
-## 加载资源
+## Load Resources
 
-此技能包含内置参考知识。需要时加载：
+This skill includes bundled reference knowledge. Load when needed:
 
-- 获取提示包编译模板和转换公式，阅读 `references/seedance-templates.md`
-- 获取 Seedance 制作管线工作流和连续性规则，阅读 `references/pipeline-workflow.md`
-- 需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
-- 获取 Seedance 平台约束（字数限制、@[ref] 格式），阅读 `../references/seedance-platform.md`
-- 获取类型配方和提示词骨架（产品、生活方式、剧情等），阅读 `../references/seedance-genre-recipes.md`
+- For prompt packaging templates and conversion formulas, read `references/seedance-templates.md`
+- For Seedance production pipeline workflows and continuity rules, read `references/pipeline-workflow.md`
+- For anti-slop lexicon replacement, read shared reference `../references/anti-slop-lexicon.md`
+- For Seedance platform constraints (word limits, @[ref] format), read `../references/seedance-platform.md`
+- For genre recipe families and prompt skeletons (product, lifestyle, drama, etc.), read `../references/seedance-genre-recipes.md`
 
-## 管线位置
+## Pipeline Position
 
 ```
-STATE 1 → 故事与情绪
-STATE 2 → 视觉设计（摄影机 + 灯光）
-STATE 3 → 角色锁定
-STATE 4 → 【本技能】电影级短片提示包编译 ← 用户确认
-STATE 5 → 分镜蓝图图像生成
-STATE 6 → Seedance 视频提示词
+STATE 1 → Story & Emotion
+STATE 2 → Visual Design (Camera + Lighting)
+STATE 3 → Character Locking
+STATE 4 → [This Skill] Film-Level Prompt Package Compilation ← User Confirmation
+STATE 5 → Storyboard Blueprint Image Generation
+STATE 6 → Seedance Video Prompts
 ```
 
-**关键原则：提示包先于图像。** 先让用户在文本层面确认完整的导演方案，再投入资源生成视觉蓝图。避免方向错误后的返工。
+**Key principle: Prompt package before images.** Let the user confirm the complete director's plan at the text level first, then invest resources in generating visual blueprints. This prevents rework caused by directional errors.
 
-## 输出边界（硬约束）
+## Output Boundary (Hard Constraint)
 
-> **STATE 4 只产出文本级导演愿景文档。绝不产出视频平台提示词。**
+> **STATE 4 produces only text-level director vision documents. Never video platform prompts.**
 
-此硬约束防止最常见的管线错误——将文本设计文档误输入 Seedance 2.0 视频平台。
+This hard constraint prevents the most common pipeline error — mistakenly feeding text design documents into Seedance 2.0 video platform.
 
-**严禁在 STATE 4 的任何输出中提及以下视频平台名称：**
+**The following video platform names must NEVER appear in any STATE 4 output:**
 
 - Seedance 2.0
-- Kling（可灵视频模式）
+- Kling (Kling video mode)
 
-**STATE 4 产出物中绝对不得出现：**
+**The following must absolutely NOT appear in STATE 4 output:**
 
-- "在 Seedance 2.0 中逐镜生成视频"
-- "直接用于 Seedance 生成"
-- "Seedance 2.0 提示词"
-- "按 Shot 顺序在 Seedance 中生成"
-- 任何暗示此提示词可在视频平台直接使用的表述
+- "Generate videos shot-by-shot in Seedance 2.0"
+- "Directly use for Seedance generation"
+- "Seedance 2.0 prompt"
+- "Generate in Seedance in shot order"
+- Any phrasing suggesting this output can be used directly on video platforms
 
-**正确的下游表述：**
+**Correct downstream phrasing:**
 
-- "确认此提示包后，进入 STATE 5 生成分镜蓝图图像"
-- "分镜蓝图图像将作为 STATE 6 的 @[ref] 输入"
+- "After confirming this prompt package, proceed to STATE 5 to generate storyboard blueprint images"
+- "Storyboard blueprint images will serve as @[ref] inputs for STATE 6"
 
-违反此边界将导致用户将文本设计文档误输入视频平台，造成生成失败或产出异常。
+Violating this boundary will cause users to mistakenly input text design documents into video platforms, resulting in generation failures or anomalous output.
 
-## 编译原则
+## Compilation Principles
 
-> 提示包不是文字游戏。它是可执行的设计指令。
+> A prompt package is not wordplay. It is executable design instruction.
 
-编译器将 STATE 1-3 的设计产物翻译为一份自包含的导演文档，任何人不依赖外部上下文都能理解全片方案。
+The compiler translates STATE 1-3 design outputs into a self-contained director document — anyone can understand the full film plan without external context.
 
-三个编译层级：
+Three compilation layers:
 
-1. **创意层**（故事 + 情绪）→ 场景目的 + 叙事节奏 + 情绪曲线
-2. **执行层**（摄影机 + 灯光 + 角色）→ 镜头的技术规格 + 视觉连续性
-3. **交付层**（Part 分解 + 平台适配）→ Seedance 可执行的分解方案
+1. **Creative Layer** (Story + Emotion) → scene purpose + narrative rhythm + emotion curve
+2. **Execution Layer** (Camera + Lighting + Character) → shot technical specifications + visual continuity
+3. **Delivery Layer** (Part decomposition + platform adaptation) → Seedance-executable decomposition plan
 
-## 输入要求
+## Input Requirements
 
-编译前，验证所有上游产物是否就绪：
+Before compilation, verify all upstream outputs are ready:
 
-- [ ] 叙事结构 + 情绪弧线（来自 STATE 1 — director-story + director-emotion）
-- [ ] 摄影机语言蓝图（来自 STATE 2 — director-camera）
-- [ ] 灯光设计系统 + 色彩脚本（来自 STATE 2 — director-light）
-- [ ] 角色身份锁定（来自 STATE 3 — director-character）
-- [ ] 项目元数据：总时长、画幅比例、目标平台
+- [ ] Narrative structure + emotion arc (from STATE 1 — director-story + director-emotion)
+- [ ] Camera language blueprint (from STATE 2 — director-camera)
+- [ ] Lighting design system + color script (from STATE 2 — director-light)
+- [ ] Character identity locks (from STATE 3 — director-character)
+- [ ] Project metadata: total duration, aspect ratio, target platform
 
-如有任何产物缺失，停止并路由回相应的 director 技能。绝不从残缺输入编译。
+If any output is missing, halt and route back to the corresponding director skill. Never compile from incomplete inputs.
 
-## 输出结构：电影级短片提示包
+## Output Structure: Film-Level Short Film Prompt Package
 
 ```markdown
-# [项目名称] — 电影级短片提示包
+# [Project Name] — Film-Level Short Film Prompt Package
 
-## 项目元数据
+## Project Metadata
 
-- 总时长: [Ns]
-- 画幅比例: [16:9 / 9:16 / 1:1]
-- 视觉风格: [风格描述]
-- 目标平台: [图像生成 → Seedance 2.0]
-
----
-
-## 一、叙事总览
-
-### 故事梗概
-
-[一段话概括全片叙事]
-
-### 叙事结构
-
-[三幕或五幕拆解，每幕附场景目的]
-
-### 情绪弧线
-
-[情绪强度时间线：平静 → 推进 → 高潮 → 解决]
-[每个场景的情绪关键词和强度标记]
+- Total Duration: [Ns]
+- Aspect Ratio: [16:9 / 9:16 / 1:1]
+- Visual Style: [style description]
+- Target Platform: [Image Generation → Seedance 2.0]
 
 ---
 
-## 二、分镜设计方案
+## I. Narrative Overview
 
-针对每个 Part 内的每个镜头，描述：
+### Story Synopsis
 
-- 场景目的（这个镜头为什么存在）
-- 视觉内容（观众看到什么）
-- 动作描述（主体在做什么）
-- 摄影机部署（景别 + 角度 + 运动）
-- 灯光方向（主光 + 辅光 + 色温）
-- 情绪推进（从状态 A → 向状态 B）
+[One-paragraph summary of the full narrative]
 
-### Part 1: [Part 标题]（0-Ns）
+### Narrative Structure
 
-#### SHOT 01: [镜头标题]
+[Three-act or five-act breakdown, each act with scene purposes]
 
-- Duration: [N] 秒
-- Scene: [地点 + 时间 + 环境上下文]
-- Purpose: [叙事目的——建立/揭示/过渡/强化/收束]
-- Visual: [画面描述——主体、构图、背景]
-- Action: [主体物理动作，具体可观察]
-- Camera: [景别] [角度] [运动] [镜头行为]
-- Lighting: [主光方向/色温] + [辅光] + [轮廓光] + [氛围]
-- Emotion: [当前情绪状态 → 推进方向]
-- Character Lock: [角色身份锁定引用]
+### Emotion Arc
+
+[Emotion intensity timeline: calm → build → climax → resolution]
+[Emotion keywords and intensity markers for each scene]
+
+---
+
+## II. Storyboard Design Plan
+
+For each shot within each Part, describe:
+
+- Scene Purpose (why this shot exists)
+- Visual Content (what the audience sees)
+- Action Description (what the subject is doing)
+- Camera Deployment (shot size + angle + movement)
+- Lighting Direction (key + fill + color temperature)
+- Emotion Progression (from state A → toward state B)
+
+### Part 1: [Part Title] (0-Ns)
+
+#### SHOT 01: [Shot Title]
+
+- Duration: [N] seconds
+- Scene: [location + time + environmental context]
+- Purpose: [narrative purpose — establish/reveal/transition/intensify/resolve]
+- Visual: [visual description — subject, composition, background]
+- Action: [subject physical action, concrete and observable]
+- Camera: [shot size] [angle] [movement] [lens behavior]
+- Lighting: [key light direction/color temp] + [fill] + [rim] + [atmosphere]
+- Emotion: [current emotional state → progression direction]
+- Character Lock: [character identity lock reference]
 
 #### SHOT 02: ...
 
 ...
 
-### Part 2: [Part 标题]（Ns-Ns）
+### Part 2: [Part Title] (Ns-Ns)
 
 ...
 
 ---
 
-## 三、镜头语言规范
+## III. Camera Language Specification
 
-### 摄影机运动词汇
+### Camera Movement Vocabulary
 
-[全片使用的运动类型及其叙事意图]
+[Movement types used throughout the film and their narrative intent]
 
-### 构图哲学
+### Composition Philosophy
 
-[主要和辅助取景方式，何时使用居中/三分法/负空间等]
+[Primary and secondary framing approaches, when to use centered/rule of thirds/negative space, etc.]
 
-### 景别分布
+### Shot Size Distribution
 
-[全片景别比例：WS% / MS% / CU% 及其叙事理由]
-
----
-
-## 四、光影与色彩脚本
-
-### 灯光系统
-
-- Key light strategy: [主光策略]
-- Color temperature arc: [色温演进曲线]
-- Contrast rules: [反差规则——何时低调/高调]
-
-### 色彩脚本
-
-[每幕/场景的主色和视觉温度]
+[Film-wide shot size ratio: WS% / MS% / CU% and narrative justification]
 
 ---
 
-## 五、声音设计方向
+## IV. Lighting & Color Script
 
-### 音乐风格
+### Lighting System
 
-[风格 + BPM 范围]
+- Key light strategy: [key light strategy]
+- Color temperature arc: [color temperature progression curve]
+- Contrast rules: [contrast rules — when low-key / high-key]
 
-### 声音叙事
+### Color Script
 
-- Ambience: [环境音策略]
-- Emotional cues: [关键情绪点的声音设计]
-- Silence usage: [静默的使用时机]
-
----
-
-## 六、Seedance 分解方案
-
-### Part 结构
-
-| Part | 时间范围 | 镜头数 | 核心叙事 | 连续性要求     |
-| ---- | -------- | ------ | -------- | -------------- |
-| 1    | 0-Ns     | N      | [内容]   | 建立基线       |
-| 2    | Ns-Ns    | N      | [内容]   | 从 Part 1 延续 |
-| ...  | ...      | ...    | ...      | ...            |
-
-### 所需视觉资产清单
-
-- [ ] 分镜蓝图图像（1-N 张，由 STATE 5 生成）
-- [ ] 角色参考图：[角色名1], [角色名2], ...
-- [ ] 产品参考图（可选）：[产品名]
-- [ ] 背景参考图（可选）：[场景名]
-
-### 连续性绑定策略
-
-- Part 1: storyboard-driven（分镜蓝图驱动）
-- Part 2+: previous video continuity + current storyboard（前段视频 + 当前分镜蓝图）
+[Primary colors and visual temperature per act/scene]
 
 ---
 
-## 编译规则
+## V. Sound Design Direction
 
-### 规则 1：动作精确
+### Music Style
 
-- 每个镜头描述一个清晰的物理动作，而非抽象情绪状态。
-- ❌ "她很悲伤" → ✔ "她的肩膀下沉，下颌放低，眼神回避，呼吸变慢"
-- 使用 `director-character` 中的情绪→动作映射。
+[Style + BPM range]
 
-### 规则 2：摄影机必须明确
+### Sound Narrative
 
-- 每个镜头必须有来自 `director-camera` 的景别、角度和运动。
-- 摄影机决策必须追溯到情绪意图——不得有无动机的摄影机行为。
-
-### 规则 3：时间必须可执行
-
-- 1 个镜头 = 1 个动作单元 = 2-5 秒
-- 单镜头不得包含多个时间分离的动作
-
-### 规则 4：角色必须锁定
-
-- 每个镜头必须引用 `director-character` 中的角色身份锁定
-- 显式声明角色名 + 外观锁定参数
-- 不得重新生成或重新描述角色——引用锁定
-
-### 规则 5：Part 必须适配平台
-
-- 每个 Part ≤ 15 秒（Seedance 单次生成上限）
-- Part 1 建立世界基线
-- Part 2+ 必须声明连续性：从上一 Part 的终点继续
-- 情绪必须演进而非重置
-
-### 规则 6：输出平台边界
-
-- 提示包是文本设计文档，不是视频平台命令
-- 绝不可写成"在 Seedance 中生成"或包含 @[ref] 语法
-- @[ref] 语法属于 STATE 6 的范畴
+- Ambience: [ambient sound strategy]
+- Emotional cues: [sound design for key emotional moments]
+- Silence usage: [when to use silence]
 
 ---
 
-## 验证清单
+## VI. Seedance Decomposition Plan
 
-交付最终提示包前，验证：
+### Part Structure
 
-- [ ] 叙事结构完整，因果链清晰
-- [ ] 每个镜头有明确的叙事目的
-- [ ] 每个镜头有具体的物理动作
-- [ ] 每个镜头有摄影机行为定义（景别 + 角度 + 运动）
-- [ ] 灯光方向一致，随叙事演进
-- [ ] 角色身份在每个镜头中锁定
-- [ ] 声音设计方向覆盖全片
-- [ ] Part 分解方案每段 ≤ 15s
-- [ ] Part 2+ 有连续性声明
-- [ ] **输出边界合规：未提及 Seedance / Kling 等视频平台**
-- [ ] **未包含 @[ref] 语法（属于 STATE 6 范畴）**
-- [ ] 所需视觉资产清单完整
+| Part | Time Range | Shot Count | Core Narrative | Continuity Requirements |
+| ---- | ---------- | ---------- | -------------- | ----------------------- |
+| 1    | 0-Ns       | N          | [content]      | Establish baseline      |
+| 2    | Ns-Ns      | N          | [content]      | Continue from Part 1    |
+| ...  | ...        | ...        | ...            | ...                     |
 
----
+### Required Visual Asset Checklist
 
-## 下游衔接
+- [ ] Storyboard blueprint images (1-N images, generated by STATE 5)
+- [ ] Character reference images: [Character Name 1], [Character Name 2], ...
+- [ ] Product reference images (optional): [Product Name]
+- [ ] Background reference images (optional): [Scene Name]
 
-此技能产出文本级提示包后，工作流继续：
+### Continuity Binding Strategy
 
-1. **用户确认提示包** → 所有分镜设计、镜头语言、声音方向确认无误
-2. **STATE 5** → 使用 `storyboard-sketch` / `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce` 生成分镜蓝图图像
-3. **STATE 6** → 使用 `seedance-video-prompt`，将分镜蓝图图像 + 角色参考图编译为 Seedance 2.0 可执行视频提示词
+- Part 1: storyboard-driven
+- Part 2+: previous video continuity + current storyboard blueprint
 
 ---
-
-## 集成
-
-被 `director-core` 调用时：
-
-- 加载 STATE 1-3 所有上游产物（故事、情绪、摄影机、灯光、角色）
-- 验证上游产物完整性
-- 编译完整电影级短片提示包
-- 执行验证清单（包含输出边界检查）
-- 呈现供最终用户审核
-- 确认后，标记 STATE 4 完成，解锁 STATE 5
 ```
+
+## Compilation Rules
+
+### Rule 1: Action Must Be Precise
+
+- Each shot must describe one clear physical action, not an abstract emotional state.
+- ❌ "She is sad" → ✔ "Her shoulders drop, jaw lowers, eyes avert, breathing slows"
+- Use emotion→action mappings from `director-character`.
+
+### Rule 2: Camera Must Be Explicit
+
+- Each shot must have shot size, angle, and movement from `director-camera`.
+- Camera decisions must trace back to emotional intent — no unmotivated camera behavior.
+
+### Rule 3: Timing Must Be Executable
+
+- 1 shot = 1 action unit = 2-5 seconds
+- A single shot must not contain multiple temporally separated actions
+
+### Rule 4: Characters Must Be Locked
+
+- Each shot must reference character identity locks from `director-character`
+- Explicitly state character name + appearance lock parameters
+- Do not regenerate or redescribe characters — reference the lock
+
+### Rule 5: Parts Must Be Platform-Aware
+
+- Each Part ≤ 15 seconds (Seedance single-generation limit)
+- Part 1 establishes the world baseline
+- Part 2+ must declare continuity: continue from previous Part's endpoint
+- Emotion must evolve, not reset
+
+### Rule 6: Output Platform Boundary
+
+- The prompt package is a text design document, not video platform commands
+- Never write "generate in Seedance" or include @[ref] syntax
+- @[ref] syntax belongs to STATE 6's domain
+
+---
+
+## Verification Checklist
+
+Before delivering the final prompt package, verify:
+
+- [ ] Narrative structure is complete with a clear causal chain
+- [ ] Each shot has a clear narrative purpose
+- [ ] Each shot has a concrete physical action
+- [ ] Each shot has camera behavior defined (shot size + angle + movement)
+- [ ] Lighting direction is consistent and evolves with the narrative
+- [ ] Character identity is locked in every shot
+- [ ] Sound design direction covers the entire film
+- [ ] Part decomposition plan: each segment ≤ 15s
+- [ ] Part 2+ has continuity declaration
+- [ ] **Output boundary compliant: no mention of Seedance / Kling video platforms**
+- [ ] **No @[ref] syntax included (belongs to STATE 6 domain)**
+- [ ] Required visual asset checklist is complete
+
+---
+
+## Downstream Integration
+
+After this skill produces the text-level prompt package, the workflow continues:
+
+1. **User confirms prompt package** → all storyboard design, camera language, and sound direction confirmed
+2. **STATE 5** → use `storyboard-sketch` / `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce` to generate storyboard blueprint images
+3. **STATE 6** → use `seedance-video-prompt` to compile storyboard blueprint images + character references into Seedance 2.0 executable video prompts
+
+---
+
+## Integration
+
+When called by `director-core`:
+
+- Load all STATE 1-3 upstream outputs (story, emotion, camera, lighting, character)
+- Verify upstream output completeness
+- Compile the complete film-level short film prompt package
+- Execute the verification checklist (including output boundary check)
+- Present for final user review
+- Upon confirmation, mark STATE 4 complete, unlock STATE 5
