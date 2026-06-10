@@ -314,7 +314,7 @@ Hook抓眼球 → 问题呈现 → 解决方案 → 效果展示 → CTA引导
 - 获取 Seedance I2V 工作流、操作模式和运动备注规范，阅读 `references/seedance-i2v-workflow.md`
 - 需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
 - 获取双语景别、摄影机运动、角度、构图、灯光和叙事目的速查表，阅读 `../references/cinematography-quick-reference.md`
-- 获取 Seedance 平台约束（字数限制、@[ref] 格式），阅读共享参考 `../references/seedance-platform.md`
+- 获取 Seedance 平台约束（字数限制、`` `图片N` `` / `` `视频N` `` 参考格式），阅读共享参考 `../references/seedance-platform.md`
 
 ---
 

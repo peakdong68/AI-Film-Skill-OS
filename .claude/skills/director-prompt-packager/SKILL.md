@@ -30,7 +30,7 @@ description: Compiles all pre-production assets (story structure, emotion bluepr
 - 获取提示包模板和转换公式，阅读 `references/seedance-templates.md`
 - 获取 Seedance 制作管线工作流和连续性规则，阅读 `references/pipeline-workflow.md`
 - 获取去水词替换，阅读共享参考 `../references/anti-slop-lexicon.md`
-- 获取 Seedance 平台约束（字数限制、@[ref] 格式），阅读 `../references/seedance-platform.md`
+- 获取 Seedance 平台约束（字数限制、`` `图片N` `` / `` `视频N` `` 参考格式），阅读 `../references/seedance-platform.md`
 - 获取类型配方族和提示词骨架（产品、生活、剧情等），阅读 `../references/seedance-genre-recipes.md`
 
 ## 管线位置
@@ -68,7 +68,7 @@ STATE 6 → Seedance 视频提示词
 **正确的下游措辞：**
 
 - "确认本提示包后，进入 STATE 5 生成分镜蓝图图像"
-- "分镜蓝图图像将作为 STATE 6 的 @[ref] 输入"
+- "分镜蓝图图像将作为 STATE 6 的参考输入"
 
 违反此边界将导致用户将文本设计文档误输入视频平台，造成生成失败或异常输出。
 
@@ -266,7 +266,7 @@ STATE 6 → Seedance 视频提示词
 
 - 提示包是文本设计文档，不是视频平台指令
 - 绝不写"在 Seedance 中生成"或包含 @[ref] 语法
-- @[ref] 语法属于 STATE 6 的领域
+- `` `图片N` `` / `` `视频N` `` 语法属于 STATE 6 的领域
 
 ---
 
@@ -284,7 +284,7 @@ STATE 6 → Seedance 视频提示词
 - [ ] Part 分解方案：每段 ≤ 15s
 - [ ] Part 2+ 有连续性声明
 - [ ] **输出边界合规：未提及 Seedance / Kling 视频平台**
-- [ ] **未包含 @[ref] 语法（属于 STATE 6 领域）**
+- [ ] **未包含 `` `图片N` `` / `` `视频N` `` 语法（属于 STATE 6 领域）**
 - [ ] 所需视觉资源清单完整
 
 ---

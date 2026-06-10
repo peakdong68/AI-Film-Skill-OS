@@ -266,4 +266,6 @@ Character Sheet 提示词是平台无关的。按目标平台调整：
 1. 从 `director-character` 加载角色档案
 2. 编译为 [0]-[12] 完整 Character Sheet Profile + Image Prompt
 3. 用户确认后，将 [11] 粘贴到选择的 AI 生图平台生成 Character Sheet 图像
-4. 生成的 Character Sheet 作为 `@[character ref]` 用于 STATE 6 `seedance-video-prompt`
+4. 生成的 Character Sheet 作为 `` `图片N` `` 用于 STATE 6 `seedance-video-prompt`
+
+> ⚠️ 注意：生成的 Character Sheet（多视图角色设定板）适合作为 AI 图像生成器的角色设计参考，但不可直接作为 Seedance 视频生成的角色参考图。Seedance 视频生成建议使用独立的角色面部特写（大头照）和全身照。
