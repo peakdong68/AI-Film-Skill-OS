@@ -1,6 +1,6 @@
 ---
 name: seedance-video-prompt
-description: Compiles image, video, and audio multimodal references into executable video generation prompts for Seedance 2.0 / Kling platforms. Selects generation mode automatically based on available resources (3 task categories: multimodal reference, video edit, video extend; 7 sub-modes). Storyboard images are optional. This is the final L5 video generation layer compiler in the AI Film OS pipeline. Use for Seedance 2.0 prompts, video generation prompts, or when director-core routes to STATE 6. Trigger words: Seedance 2.0 prompt, video generation prompt, Seedance prompt, video generation prompt, I2V, first-last frame.
+description: "Compiles image, video, and audio multimodal references into executable video generation prompts for Seedance 2.0 / Kling platforms. Selects generation mode automatically based on available resources (3 task categories: multimodal reference, video edit, video extend; 7 sub-modes). Storyboard images are optional. This is the final L5 video generation layer compiler in the AI Film OS pipeline. Use for Seedance 2.0 prompts, video generation prompts, or when director-core routes to STATE 6. Trigger words: Seedance 2.0 prompt, video generation prompt, Seedance prompt, video generation prompt, I2V, first-last frame."
 ---
 
 # Seedance Video Prompt — L5 Video Generation Compiler

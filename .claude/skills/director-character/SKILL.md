@@ -1,6 +1,6 @@
 ---
 name: director-character
-description: Design and lock character identity for AI film production — character sheets, visual identity parameters, behavior systems, emotion-to-motion mapping, and multi-character relationship management. Use when the user needs character design, character design, character consistency, character consistency, character sheet creation, or when director-core routes to STATE 3 (Character Lock). Also use when AI-generated characters keep changing faces or outfits across shots — this skill builds the identity lock that prevents character drift. Note: this skill produces character identity DEFINITIONS (text-level design docs). For compiling these into executable image generation prompts, use the character-image-prompt skill.
+description: "Design and lock character identity for AI film production — character sheets, visual identity parameters, behavior systems, emotion-to-motion mapping, and multi-character relationship management. Use when the user needs character design, character design, character consistency, character consistency, character sheet creation, or when director-core routes to STATE 3 (Character Lock). Also use when AI-generated characters keep changing faces or outfits across shots — this skill builds the identity lock that prevents character drift. Note: this skill produces character identity DEFINITIONS (text-level design docs). For compiling these into executable image generation prompts, use the character-image-prompt skill."
 ---
 
 # Director Character — Character Consistency Engine

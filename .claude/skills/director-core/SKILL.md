@@ -1,6 +1,6 @@
 ---
 name: director-core
-description: Master controller for the AI film production pipeline — manages the production state machine, enforces phase locks, maintains checkpoints, and routes tasks to director sub-skills in the correct order. Use this skill when users want to produce a complete AI film/video from a creative idea or script. Trigger scenarios: making an AI film, generating a video from a creative idea, directing a Seedance project, AI filmmaking, AI video production, AI director workflow, film production pipeline, or any multi-stage video creation request. Also triggers on any video/film production request, including e-commerce livestreams, product showcase videos, fashion videos, brand videos, product videos, fashion films, and commercial videos.
+description: "Master controller for the AI film production pipeline — manages the production state machine, enforces phase locks, maintains checkpoints, and routes tasks to director sub-skills in the correct order. Use this skill when users want to produce a complete AI film/video from a creative idea or script. Trigger scenarios: making an AI film, generating a video from a creative idea, directing a Seedance project, AI filmmaking, AI video production, AI director workflow, film production pipeline, or any multi-stage video creation request. Also triggers on any video/film production request, including e-commerce livestreams, product showcase videos, fashion videos, brand videos, product videos, fashion films, and commercial videos."
 ---
 
 # Director Core — Production State Machine
