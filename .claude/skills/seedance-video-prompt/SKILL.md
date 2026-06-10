@@ -159,6 +159,10 @@ Audio-visual style, subject, and narrative remain consistent.
 
 > Complete templates and scene adaptations: see `references/seedance-methodology.md`
 
+## Visible Beat Principle
+
+**Put only one visible beat per clip.** Beat types: reveal, arrival, decision, transformation, contact, pursuit, disappearance. One beat = one action verb + visible endpoint. Do not pack multiple event turns into one segment.
+
 ## I2V Core Principles
 
 **Only describe what the image cannot convey.** A static image already contains subject identity, product form, composition. Re-describing static details causes drift. Add only: motion, camera, lighting changes, sound, preservation constraints.

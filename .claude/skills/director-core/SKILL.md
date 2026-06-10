@@ -266,25 +266,39 @@ If any required input is missing, prompt the user for the corresponding referenc
 
 ### STATE 7 — Final Validation
 
-Quality check on all deliverables:
+Quality check on all deliverables following a professional review loop:
 
+**Per-Part generation review:**
+- [ ] Identity check: character/product appearance matches reference images?
+- [ ] Action check: motion continuous, no jumps, no deformation?
+- [ ] Camera check: movement matches specification, no accidental jump cuts?
+- [ ] Continuity check: spatial geography, lighting, time flow consistent across Parts?
+- [ ] Audio check: lip-sync aligned, SFX in sync, no end-clip noise?
+
+**Global checks:**
 - **Narrative check**: Does the complete sequence tell a coherent story?
 - **Visual check**: Is the visual language consistent across all shots?
-- **Character check**: Is character identity preserved in every prompt?
-- **Continuity check**: Does spatial geography, lighting, and time flow feel continuous?
-- **Execution check**: Can the Seedance prompts be used directly on the target platform?
-- **Word count check**: Are Chinese prompts ≤ 500 characters?
+- **Word count check**: Each prompt Chinese ≤ 500 characters?
+- **Anti-slop check**: No hollow evaluation words?
 
 **State 7 output**: Validated video prompts. Proceed to STATE 8.
 
 ### STATE 8 — Export Ready
 
-Package final deliverables:
+Package final deliverables to professional delivery standards:
 
-- Complete Seedance 2.0 prompts (in execution order)
-- Image reference character mapping (which @[ref] corresponds to which image)
-- Multi-Part generation context continuity notes
-- Delivery format notes (duration, aspect ratio, platform)
+**Generation package:**
+- Complete Seedance 2.0 prompts (in Part execution order, with per-prompt reference image mapping)
+- Image reference character mapping (which `` `ImageN` `` corresponds to which asset, character tag mapping table)
+- Multi-Part continuity notes (previous video reference instructions for Part 2+)
+- Delivery format notes (duration, aspect ratio, target platform)
+
+**Post-production delivery notes (if applicable):**
+- Frame rate, resolution, color pipeline (HDR/SDR) recommendations
+- Subtitle/localization plan (subtitle safe area, textless version export)
+- End-clip audio fade-out reminder
+- Multi-Part splice point frame alignment guide (trim 6 frames from previous clip end + 1 frame from next clip start)
+- Asset rights status notes (character reference images, audio clip authorization/source)
 
 ## Dependency Graph
 
