@@ -292,7 +292,7 @@ director-story ────→ director-emotion
 
 **On every director-core load, first check if a checkpoint file exists.**
 
-1. Read `.claude/production-checkpoint.md`
+1. Read `STATE.md`
 2. **File not found** → Start from STATE 0, begin input collection
 3. **File found** → Parse current state, inform user of progress and ask:
 
@@ -314,7 +314,7 @@ Production state is persisted via a checkpoint file to ensure recoverability acr
 
 ### Checkpoint File
 
-- **Path**: `.claude/production-checkpoint.md`
+- **Path**: `STATE.md`
 - **Write triggers**: Immediately after each STATE completion; after each user confirmation of deliverables; at session end
 - **Read trigger**: Every `director-core` load (see "Session Resume" above)
 
@@ -365,5 +365,5 @@ In addition to writing the checkpoint file, output a brief status summary in con
 - Pending states: [list]
 - Active locks: [which locks are in effect]
 - Next action: [what the user needs to do or confirm]
-- ð Progress saved to `.claude/production-checkpoint.md`
+- ð Progress saved to `STATE.md`
 ```
