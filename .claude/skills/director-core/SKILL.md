@@ -64,20 +64,20 @@ Collect the minimum viable brief needed to produce the film.
 
 **Step 1: Assess creative maturity**
 
-Based on the quality of user input, choose one of two paths:
+Based on **creative clarity** (not character count), choose one of two paths:
 
-| Input quality | Path | Description |
+| Input quality | Criteria | Path |
 |---|---|---|
-| Detailed script / complete scene description provided | **Fast track**: collect params directly | Skip interview |
-| One-liner / vague concept / keywords only (< 20 words of substance) | **Creative interview**: develop idea first | Max 3 questions |
+| Clear creative | Contains **subject + action + scene** (at least 2 of 3), with clear emotional direction | **Fast track**: collect params directly |
+| Vague creative | Only keywords / broad concepts / no specific scene or action | **Creative interview**: develop idea first |
 
 **Creative interview (for vague input):**
 
-Adapted from `seedance-interview` patterns. Ask at most 3 high-impact questions:
+Adapted from  patterns. Ask at most 3 high-impact questions. Only ask what is missing:
 
-1. **Subject + change**: "Who is the main subject in this video? What are they doing? What changes by the end?"
-2. **Feeling + genre**: "What should it feel like? Product showcase, dramatic tension, comedy, realism, animation, or atmosphere?"
-3. **Reference materials**: "Do you have any reference images/videos/audio? Or a film style in mind?"
+1. **Subject + change**: "Who is the main subject in this video? What are they doing? What changes by the end?" (ask when subject is missing)
+2. **Feeling + genre**: "What should it feel like? Product showcase, dramatic tension, comedy, realism, animation, or atmosphere?" (ask when emotional direction is missing)
+3. **Reference materials**: "Do you have any reference images/videos/audio? Or a film style in mind?" (ask when visual anchor is missing)
 
 Build a concise creative brief from the answers (concept summary, genre path, core scene, emotional direction), then collect production params below.
 
