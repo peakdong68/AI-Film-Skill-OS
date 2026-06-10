@@ -288,9 +288,75 @@ director-story ────→ director-emotion
 | "修复我出问题的 AI 视频，角色一直变脸" | 从 STATE 3 进入（重新锁定角色），然后 STATE 6 |
 | "电商直播/带货/服装视频分镜" | 从 STATE 4 进入编译提示包，或从 STATE 5 进入直接生成分镜蓝图 |
 
-## 状态追踪器
+## 会话恢复
 
-在每个制作会话结束时，输出：
+**每次加载 director-core 时，必须首先检查进度文件是否存在。**
+
+1. 读取 `.claude/production-checkpoint.md`
+2. **文件不存在** → 从 STATE 0 开始，进入输入采集
+3. **文件存在** → 解析当前状态，告知用户进度并询问：
+
+```
+📋 发现制作检查点：
+- 项目：[项目名]
+- 当前进度：STATE N — [名称]
+- 已完成：STATE 0 → STATE N-1
+- 下一步：[操作描述]
+
+是否继续？（回复"继续"从上次断点推进，或"重新开始"清除进度）
+```
+
+若用户选择"重新开始"，删除或归档旧的检查点文件，从 STATE 0 开始。
+
+## 制作进度持久化
+
+制作状态通过检查点文件持久化，确保会话中断后可恢复。
+
+### 检查点文件
+
+- **路径**：`.claude/production-checkpoint.md`
+- **写入时机**：每个 STATE 完成后立即写入；用户每次确认产出物后更新；会话结束时写入
+- **何时读回**：`director-core` 每次加载时（见上方"会话恢复"）
+
+### 检查点文件格式
+
+```markdown
+## Production Checkpoint
+
+- **Project**: [项目名]
+- **Last updated**: [ISO 时间戳，如 2026-06-10T14:30:00+08:00]
+- **Current state**: STATE N — [名称]
+- **Completed states**: STATE 0, STATE 1, ..., STATE N-1
+- **Pending states**: STATE N+1, STATE N+2, ..., STATE 8
+- **Active locks**: [已生效的锁列表]
+- **Next action**: [用户下一步操作或待确认项]
+
+### State Artifacts
+
+| State | Status | Summary | Key Output |
+|-------|--------|---------|------------|
+| STATE 0 | ✅ | 输入采集 | [Brief: 项目名 / 时长 / 风格 / 平台 / 画幅] |
+| STATE 1 | ✅ | 故事与情绪 | [故事结构 + 情绪弧线摘要] |
+| STATE 2 | ✅ | 视觉设计 | [摄影机语言 + 灯光/色彩方案摘要] |
+| STATE 3 | ✅ | 角色锁定 | [角色名 × N，视觉锁定参数摘要] |
+| STATE 4 | 🔄 | 提示词封装 | [提示包文件路径或进行中标识] |
+| STATE 5 | ⏳ | 分镜蓝图 | — |
+| STATE 6 | ⏳ | 视频提示词 | — |
+| STATE 7 | ⏳ | 最终验证 | — |
+| STATE 8 | ⏳ | 导出 | — |
+
+### Production Brief
+
+- **Duration**: [15s / 30s / 60s / 自定义]
+- **Aspect ratio**: [16:9 / 9:16 / 1:1]
+- **Platform**: [Seedance / Runway / Sora / Kling]
+- **Style**: [电影级 / 商业 / 纪录片 / 动漫 / ...]
+- **Director mode**: [Observer / Emotional / Immersive / Epic / Commercial]
+```
+
+### 会话结束时输出
+
+除写入检查点文件外，每次会话结束前在对话中输出简版状态摘要：
 
 ```markdown
 **制作状态**
@@ -299,4 +365,5 @@ director-story ────→ director-emotion
 - 待处理状态：[列表]
 - 活跃锁：[哪些锁已生效]
 - 下一步操作：[用户需要做什么或确认什么]
+- 📁 进度已保存至 `.claude/production-checkpoint.md`
 ```
