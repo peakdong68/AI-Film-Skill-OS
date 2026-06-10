@@ -61,15 +61,19 @@ Put the subject and primary action first — early clauses set the shot hierarch
 
 ## Platform Hard Constraints
 
-### Prompt Word Count Limits
+### Prompt Word Count Limits (per Seedance 2.0 prompt / per Part)
 
-| Language | Limit | Rationale |
+Seedance 2.0 generates one Part (≤ 15s) per call. Each prompt is counted independently.
+
+| Language | Limit (per prompt) | Rationale |
 |---|---|---|
 | **Chinese** | ≤ 500 characters | Excess characters scatter information; the model ignores details |
 | **English** | ≤ 1000 words | Same as above |
 | **Total characters** | ≤ 2000 characters | Platform budget |
 
-**Violating this constraint will cause missing video elements, character drift, and incomplete motion.** After compilation, count and annotate the character/word count.
+**Violating this constraint will cause missing video elements, character drift, and incomplete motion.** After compilation, count and annotate the character/word count for each prompt.
+
+**Multi-Part projects:** Write one prompt per Part. Each Part counts independently. Part 2+ must reference the previous Part's output video as continuity ().
 
 ### @[ref] Reference Format
 
