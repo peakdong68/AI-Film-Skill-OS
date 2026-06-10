@@ -60,16 +60,37 @@ If any lock is broken, stop immediately and return to the earliest incomplete st
 
 ### STATE 0 — Input Collection
 
-Collect the minimum viable brief needed to produce the film. Only ask what is needed to begin:
+Collect the minimum viable brief needed to produce the film.
 
-- Project idea or script (at least one sentence)
+**Step 1: Assess creative maturity**
+
+Based on the quality of user input, choose one of two paths:
+
+| Input quality | Path | Description |
+|---|---|---|
+| Detailed script / complete scene description provided | **Fast track**: collect params directly | Skip interview |
+| One-liner / vague concept / keywords only (< 20 words of substance) | **Creative interview**: develop idea first | Max 3 questions |
+
+**Creative interview (for vague input):**
+
+Adapted from `seedance-interview` patterns. Ask at most 3 high-impact questions:
+
+1. **Subject + change**: "Who is the main subject in this video? What are they doing? What changes by the end?"
+2. **Feeling + genre**: "What should it feel like? Product showcase, dramatic tension, comedy, realism, animation, or atmosphere?"
+3. **Reference materials**: "Do you have any reference images/videos/audio? Or a film style in mind?"
+
+Build a concise creative brief from the answers (concept summary, genre path, core scene, emotional direction), then collect production params below.
+
+**Step 2: Collect production params**
+
+- Project idea or script (refined through interview if applicable)
 - Target duration (15s / 30s / 60s / custom)
-- Visual style (cinematic / commercial / documentary / anime / sci-fi, etc.)
+- Visual style (cinematic / commercial / documentary / anime / sci-fi / etc.)
 - Delivery platform (Seedance / Kling)
 - Aspect ratio (16:9 / 9:16 / 1:1)
 - Any existing reference images or character descriptions
 
-If the user provides fewer than 4 of these items, ask for the missing ones. If they say "just generate" or "just do it", fill with reasonable defaults and annotate.
+If the user already provided sufficient info (≥ 4 items with clear creative intent), confirm and proceed to STATE 1. If they say "just do it", fill in reasonable defaults with annotations.
 
 **State 0 output**: Confirmed production brief. Proceed to STATE 1.
 

@@ -18,14 +18,22 @@ This skill ships with reference knowledge files. Load them when:
 - For the scene purpose taxonomy and complete narrative structure templates, read `references/script-breakdown.md`
 ## Input Gate
 
-Accept any of these as starting material:
+Accept any of the following as starting material:
 - A story concept (one sentence to one paragraph)
 - A script or script excerpt
-- A beat outline or treatment
+- A beat outline or director's treatment
 - A scene list
-- A thematic concept with character description
+- A thematic concept with character descriptions
 
-If the user provides fewer than 20 words of story material, ask for more detail before proceeding. If they say "just generate", expand from the available material and mark assumptions.
+**Creative interview mode (auto-activates on vague input):**
+
+If the user provides less than 20 words of substantive story material (e.g., "I want to make a sci-fi love story"), conduct a quick creative interview before analysis. Ask at most 3 questions that materially affect story structure:
+
+1. **Core conflict**: "What is the conflict in this story? Who is fighting against what?"
+2. **Genre and tone**: "How sci-fi? Hard sci-fi / soft sci-fi / cyberpunk? Is the romance the main plot or a subplot?"
+3. **Character and change**: "Who is the protagonist? What irreversible change happens to them by the end?"
+
+Build an initial narrative premise from the answers, then proceed to formal analysis. If the user insists "just analyze it", expand from available material and annotate assumptions.
 
 ## Output Structure
 
