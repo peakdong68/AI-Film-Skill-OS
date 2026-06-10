@@ -1,36 +1,48 @@
-# Seedance 2.0 Platform Constraints — Shared Reference Knowledge
+# Seedance 2.0 Platform Constraints — Shared Reference
 
 ## Prompt Word Count Limits
 
-| Language | Limit | Rationale |
+Each Seedance 2.0 prompt corresponds to one Part (≤ 15s), counted independently.
+
+| Language | Limit (per prompt) | Rationale |
 |------|------|------|
-| **Chinese** | ≤ 500 characters | Excessive word count scatters information; model ignores details |
+| **Chinese** | ≤ 500 characters | Excess characters scatter info; model ignores details |
 | **English** | ≤ 1000 words | Same as above |
-| **Total characters** | ≤ 2000 characters | seedance-prompt platform budget |
+| **Total characters** | ≤ 2000 characters | Platform budget |
 
-**Violating this constraint causes missing elements, character drift, and incomplete motion.** Always count and annotate word count after compilation.
+Multi-Part projects: one prompt per Part, each counted independently.
 
-## @[ref] Reference Format
+## Reference Format
 
-All uploaded image/video/audio assets use the `@[description]` format:
+Seedance 2.0 uses `` `ImageN` `` / `` `VideoN` `` / `` `AudioN` `` format to reference uploaded assets. Upload assets in order, reference by sequence number.
 
 | Reference Example | Purpose |
 |---------|------|
-| `@[storyboard image 1]` | Storyboard blueprint — motion planning reference |
-| `@[character image 1]` | Character identity lock — face, hairstyle, body type |
-| `@[product image 1]` | Product lock — color, print pattern, silhouette |
-| `@[background image 1]` | Environment lock — spatial structure, light, color tone |
-| `@[audio 1]` | Rhythm and energy — do not copy protected sounds/songs |
+| `` `Image1` `` `` `Image2` `` | Character anchoring, scene setting, product locking, first/last frame |
+| `` `Video1` `` | Camera reference, motion reference, VFX reference, edit/extend source |
+| `` `Audio1` `` | Rhythm/atmosphere, voice tone reference |
 
-## Stability Constraints
+**Edit/Extend tasks:** Use `` `VideoN` `` directly. NEVER add "reference" prefix, which causes task misclassification.
 
-- Different Seedance 2.0 surfaces may have different capabilities; do not assume uniformity.
-- Do not assume API access, pricing, model IDs, region restrictions, upload limits, duration, or likeness authorization from memory.
+## Subject Definition
+
+Explicitly define subjects in reference assets using 2-3 clear, stable features for unique identification.
+
+- Basic: `` Define [features] in `Image1` as `Subject1` ``
+- Shorthand: `` `Subject1`@`Image1` ``
+- Face close-up separation (recommended): `` `Subject1`'s facial features reference `Image1` (headshot), styling references `Image2` (full-body) ``
+
+## Stable Constraints
+
+- Seedance 2.0 surface behavior varies; do not assume uniformity.
+- Do not assume API access, pricing, model IDs, region limits, upload quotas, duration, or likeness authorization from memory.
 - Do not infer permission from unauthorized uploaded images/voice/video.
-- Do not provide instructions for protected characters, celebrities, brand logos, song reproductions, exact scene replicas, or voice imitation.
-- Each Part ≤ 15 seconds (Seedance single-generation maximum).
-- Part 2+ must use the previous video output as a continuity anchor.
+- Do not provide instructions for protected characters, celebrities, brand logos, song reproductions, exact scene copies, or voice imitation.
+- Each Part ≤ 15 seconds (Seedance single-generation limit).
+- Part 2+ must use the previous Part's output video as a continuity anchor.
+- Recommended asset configuration: 4-5 assets total (1-2 character images + 1 scene image + 1 camera video + 1 audio clip). Avoid maxing out the asset limit.
+- Multi-Part splice point guidance: trim 6 frames from previous clip end + 1 frame from next clip start to reduce jump cuts.
 
 ## Surface-Specific Constraints
 
-When users mention specific platforms (Jimeng, Kling, Volcengine Ark, Runway, etc.), annotate the response with platform name and date. Label community/unofficial tools explicitly.
+When users mention specific platforms (Jimeng, Kling, Volcengine Ark, Runway, etc.), label responses with platform name and date. Community/unofficial tools must be clearly marked.
