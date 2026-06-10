@@ -292,7 +292,7 @@ director-story ────→ director-emotion
 
 **每次加载 director-core 时，必须首先检查进度文件是否存在。**
 
-1. 读取 `.claude/production-checkpoint.md`
+1. 读取 `STATE.md`
 2. **文件不存在** → 从 STATE 0 开始，进入输入采集
 3. **文件存在** → 解析当前状态，告知用户进度并询问：
 
@@ -314,7 +314,7 @@ director-story ────→ director-emotion
 
 ### 检查点文件
 
-- **路径**：`.claude/production-checkpoint.md`
+- **路径**：`STATE.md`
 - **写入时机**：每个 STATE 完成后立即写入；用户每次确认产出物后更新；会话结束时写入
 - **何时读回**：`director-core` 每次加载时（见上方"会话恢复"）
 
@@ -365,5 +365,5 @@ director-story ────→ director-emotion
 - 待处理状态：[列表]
 - 活跃锁：[哪些锁已生效]
 - 下一步操作：[用户需要做什么或确认什么]
-- 📁 进度已保存至 `.claude/production-checkpoint.md`
+- 📁 进度已保存至 `STATE.md`
 ```
