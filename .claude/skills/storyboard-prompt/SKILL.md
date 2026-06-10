@@ -11,10 +11,9 @@ Turn a scene idea, subject, or action into a professionally structured prompt th
 
 Use this skill for single-frame storyboard prompts. For multi-shot master sheets, use `storyboard-master`. For e-commerce/livestream storyboards, use `storyboard-ecommerce`. For Seedance I2V planning prompts, use `storyboard-sketch`.
 
-
 ## Load Resources
 
-For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
+- For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
 - For bilingual cinematography quick reference tables, read `../references/cinematography-quick-reference.md`.
 
 ## Input Gate
@@ -30,6 +29,7 @@ If insufficient, infer from context then confirm:
 
 ```markdown
 Let me first confirm the direction for this storyboard shot:
+
 - Scene/Theme: [inferred]
 - Subject/Character: [inferred]
 - Action: [inferred]
@@ -45,16 +45,16 @@ If the user says "just generate", proceed with assumptions and mark them.
 
 Every storyboard prompt must address these eight dimensions. The model cannot invent missing critical information — if the user hasn't provided it, make a justified assumption and note it.
 
-| # | Element | Chinese | What it answers |
-|---|---------|------|-----------------|
-| 1 | Scene | Scene | Where and when does this take place? |
-| 2 | Subject | Subject | Who or what is the focus? Appearance? Wardrobe? |
-| 3 | Action | Action | What is the subject doing? State, direction? |
-| 4 | Camera | Camera | Shot size, angle, movement? |
-| 5 | Composition | Composition | How is the frame arranged? Subject position? |
-| 6 | Lighting | Lighting | Key light, fill, color temp, quality? |
-| 7 | Mood | Mood | What emotional atmosphere? |
-| 8 | Story Purpose | Story Purpose | Why does this shot exist? What does it communicate? |
+| #   | Element       | Chinese       | What it answers                                     |
+| --- | ------------- | ------------- | --------------------------------------------------- |
+| 1   | Scene         | Scene         | Where and when does this take place?                |
+| 2   | Subject       | Subject       | Who or what is the focus? Appearance? Wardrobe?     |
+| 3   | Action        | Action        | What is the subject doing? State, direction?        |
+| 4   | Camera        | Camera        | Shot size, angle, movement?                         |
+| 5   | Composition   | Composition   | How is the frame arranged? Subject position?        |
+| 6   | Lighting      | Lighting      | Key light, fill, color temp, quality?               |
+| 7   | Mood          | Mood          | What emotional atmosphere?                          |
+| 8   | Story Purpose | Story Purpose | Why does this shot exist? What does it communicate? |
 
 This framework applies whether the user needs a film noir detective scene, an animation fantasy shot, or a luxury product commercial. The elements stay the same; only the values change.
 
@@ -88,21 +88,25 @@ The compressed prompt should flow naturally as one paragraph. Order elements by 
 Always append these to the compressed prompt. Choose the set that matches the user's intent:
 
 **Film storyboard:**
+
 ```
 professional storyboard panel, film storyboard frame, director treatment, cinematic composition, pre-production visualization, black and white storyboard sketch, clean pencil drawing, highly detailed, production-ready storyboard
 ```
 
 **Animation storyboard:**
+
 ```
 animation storyboard, pre-production planning board, clean pencil sketch, animation keyframe planning, animatic reference frame, production storyboard panel
 ```
 
 **Commercial storyboard:**
+
 ```
 commercial storyboard, advertising shot planning, director treatment frame, high-end product storyboard, professional production board, clean composition, white background
 ```
 
 **Color/finished style (when user explicitly wants color):**
+
 ```
 professional storyboard panel, cinematic composition, color storyboard, production design, film pre-visualization, highly detailed
 ```
