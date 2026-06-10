@@ -1,6 +1,6 @@
 ---
 name: director-core
-description: "Master controller for the AI film production pipeline — manages the production state machine, enforces phase locks, maintains checkpoints, and routes tasks to director sub-skills in the correct order. Use this skill when users want to produce a complete AI film/video from a creative idea or script. Trigger scenarios: making an AI film, generating a video from a creative idea, directing a Seedance project, AI filmmaking, AI video production, AI director workflow, film production pipeline, or any multi-stage video creation request. Also triggers on any video/film production request, including e-commerce livestreams, product showcase videos, fashion videos, brand videos, product videos, fashion films, and commercial videos."
+description: "AI 电影制作管线的总控制器——管理制作状态机、强制执行阶段锁定、维护检查点，并按正确顺序调度所有导演子技能。当用户想从创意或剧本制作完整的 AI 电影/视频时使用此技能。触发场景：制作 AI 电影、从创意生成视频、导演 Seedance 项目、拍AI电影、制作AI视频、AI导演流程、film production pipeline，或任何多阶段视频创作需求。也触发于任何视频/电影制作请求，包括电商直播、带货视频、服装视频、品牌视频、product video、fashion film、commercial video。"
 ---
 
 # Director Core — Production State Machine
@@ -9,7 +9,7 @@ description: "Master controller for the AI film production pipeline — manages 
 
 The master controller for the AI Film OS pipeline. Ensures every AI film/video project flows through a proven, phase-gated production sequence — from initial creative idea to final Seedance-ready video prompts. The state machine prevents the most common failure mode in AI video production: jumping to prompt generation before the story, visual language, and character identity are locked in.
 
-This skill does not generate creative content itself. It routes tasks to the appropriate sub-skill at each stage and validates outputs before advancing.
+This skill does not generate creative content itself. It routes tasks to sub-skills at each stage and validates outputs before advancing.
 
 ## Load Resources
 
@@ -25,17 +25,25 @@ STATE 1 → Story & Emotion Design
 STATE 2 → Visual Design (Camera + Lighting)
 STATE 3 → Character Lock
 STATE 4 → Prompt Packaging (Film-Level Short Film Prompt Package)
-STATE 5 → Storyboard Blueprint Generation (Image Level)
+    ↓
+[Routing Decision: inventory resources → match mode → select route]
+    ↓                        ↓
+STATE 5 (conditional)    Direct to STATE 6
+Storyboard Blueprint     (skip STATE 5)
+    ↓                        ↓
+    └────────┬───────────────┘
+             ↓
 STATE 6 → Seedance Video Prompts (multi-mode, image reference level)
 STATE 7 → Final Validation
 STATE 8 → Export Ready
 ```
 
-Each state produces validated deliverables before the next state is unlocked. Skipping states is strictly prohibited.
+STATE 0-4 are mandatory, must not be skipped. STATE 5 is conditional — only executed when routing decision selects the storyboard blueprint route. STATE 6-8 are mandatory.
 
 **Key distinction between STATE 4 and STATE 5/6:**
 
-- STATE 4 (`director-prompt-packager`): Compiles a **text-level** film-level short film prompt package — integrating story, visual design, and character identity into structured storyboard design, camera language, sound design, and Seedance decomposition plan. The output is a complete director's vision document, which serves as the design foundation for STATE 5 storyboard blueprint generation after user confirmation. **Never outputs video platform prompts.**
+- STATE 4 (`director-prompt-packager`): Compiles a **text-level** film-level short film prompt package — integrating story, visual design, and character identity into structured storyboard design, camera language, sound design, and Seedance decomposition plan. The output is a complete director's vision document, which serves as the design foundation for subsequent stages after user confirmation. **Never outputs video platform prompts.**
+- STATE 5 (conditional): Only executed when storyboard blueprint boards are needed for I2V storyboard mode. Compiles the prompt package into AI image generator-executable storyboard blueprint prompts.
 - STATE 6 (`seedance-video-prompt`): Compiles **image-reference-level** video prompts for Seedance 2.0 / Kling. Supports 7 modes (T2V / I2V / R2V / FLF2V / V2V / ...). **Storyboard images optional** — only required for I2V storyboard mode. Output: platform-executable video generation prompts.
 
 **The STATE 4 → STATE 6 separation of concerns is the foundation of pipeline design. Must never be crossed.**
@@ -49,10 +57,10 @@ These are hard constraints. Violating them leads to the most common AI video fai
 | **Story Lock**           | Story structure and emotional arc must be confirmed before visual design                             |
 | **Visual Lock**          | Camera language and lighting system must be defined before prompt packaging                          |
 | **Character Lock**       | Character identity definitions must be confirmed before prompt packaging                             |
-| **Package Lock**         | The film-level prompt package must be user-confirmed before entering storyboard blueprint generation |
-| **Storyboard Lock**      | Storyboard blueprint images must be confirmed before Seedance prompts                                |
+| **Package Lock**         | The film-level prompt package must be user-confirmed before entering subsequent stages               |
+| **Storyboard Lock**      | If going through STATE 5, storyboard images must be confirmed before Seedance prompts                |
 | **Prompt Lock**          | All pre-flight checks must pass before final export                                                  |
-| **Output Boundary Lock** | STATE 4 output must not mention Seedance/Kling video platforms                                       |
+| **Output Boundary Lock** | STATE 4 output must not mention Seedance/Kling video platform names                                  |
 
 If any lock is broken, stop immediately and return to the earliest incomplete state.
 
@@ -60,42 +68,19 @@ If any lock is broken, stop immediately and return to the earliest incomplete st
 
 ### STATE 0 — Input Collection
 
-Collect the minimum viable brief needed to produce the film.
+Route to `director-interview`.
 
-**Step 1: Assess creative maturity**
+Collect the minimum viable brief needed to produce the film. `director-interview` auto-selects the best path based on creative clarity:
 
-Based on **creative clarity**, choose one of three paths:
+| Input quality | Path |
+|---|---|
+| Creative complete (subject + action + scene + emotion) | Fast track → confirm directly |
+| Descriptive but no plot (has scene/style/tone, lacks narrative action) | Creative expansion → 2-3 options |
+| Vague creative (only keywords / broad concepts) | Creative interview → ask clarifying questions |
 
-| Input quality | Criteria | Path |
-|---|---|---|
-| Creative complete | Has subject + action + scene + emotional direction, ready to proceed | **Fast track**: collect params directly |
-| Descriptive but no plot | Has brand/product/scene/style description, but lacks narrative action and shot rhythm | **Creative expansion**: offer 2-3 options |
-| Vague creative | Only keywords / broad concepts / no specific scene or action | **Creative interview**: ask clarifying questions |
+Collect production params (duration, style, platform, aspect ratio, reference materials). If user says "just do it", fill reasonable defaults with annotations.
 
-**Creative expansion (descriptive but no plot):**
-
-When the user provides brand tone, scene, and style direction but lacks specific narrative action (e.g., a fashion brand brief with warm dressing room scenes but no storyline), do NOT output structure directly. Instead, offer 2-3 creative options:
-
-
-
-Options should cover different styles (pure showcase / micro-drama / lifestyle MV, etc.), letting the user choose rather than answering open-ended questions. After user confirms direction, collect params.
-
-**Creative interview (vague input):**
-
-Ask at most 3 high-impact questions. Only ask what is missing. Build a creative brief from answers, then collect params.
-
-**Step 2: Collect production params**
-
-- Project idea or script (refined through interview/option selection)
-- Target duration (15s / 30s / 60s / custom)
-- Visual style (cinematic / commercial / documentary / anime / sci-fi / etc.)
-- Delivery platform (Seedance / Kling)
-- Aspect ratio (16:9 / 9:16 / 1:1)
-- Any existing reference images or character descriptions
-
-If the user already provided sufficient info (>= 4 items with clear creative intent), confirm and proceed to STATE 1. If they say "just do it", fill in reasonable defaults with annotations.
-
-**State 0 output**: Confirmed production brief (including creative direction selection result). Proceed to STATE 1.**State 0 output**: Confirmed production brief. Proceed to STATE 1.
+**State 0 output**: Confirmed production brief (with creative direction). Proceed to STATE 1.
 
 ### STATE 1 — Story & Emotion Design
 
@@ -112,14 +97,14 @@ Route to `director-story` and `director-emotion`.
 
 - [ ] Every scene has a narrative purpose
 - [ ] Emotional arc covers full duration
-- [ ] Causal chain defined (A leads to B leads to C)
+- [ ] Causal chain defined (A causes B causes C)
 - [ ] User confirmed structure
 
-**State 1 output**: Script blueprint + emotional timeline. Proceed to STATE 2.
+**State 1 output**: Script blueprint + Emotional timeline. Proceed to STATE 2.
 
 ### STATE 2 — Visual Design
 
-Route to `director-camera` and `director-light`.
+Route to `director-style` (director style), `director-camera` (camera system), and `director-light` (lighting system).
 
 **Required deliverables:**
 
@@ -131,7 +116,7 @@ Route to `director-camera` and `director-light`.
 **Verification Gates:**
 
 - [ ] Camera language matches emotional tone
-- [ ] Lighting evolves with narrative
+- [ ] Lighting evolves with the narrative
 - [ ] Color script covers full duration
 - [ ] User confirmed visual language
 
@@ -144,8 +129,8 @@ Route to `director-character`.
 **Required deliverables:**
 
 - Character identity definition for each character
-- Visual lock parameters (face, hair, body type, wardrobe, props)
-- Behavior system (action signature, eye direction, emotion→action mapping)
+- Visual lock parameters (face, hairstyle, body type, wardrobe, props)
+- Behavior system (movement signature, eyeline direction, emotion→action mapping)
 - Multi-character relationship map (if applicable)
 
 **Verification Gates:**
@@ -157,14 +142,14 @@ Route to `director-character`.
 
 **State 3 output**: Character identity definitions (text-level design document).
 
-**STATE 3 confirmed — ask the user:**
+**After STATE 3 confirmation — ask the user:**
 
-> Character identity definitions are locked. Do you want to generate character reference images?
+> Character identity definitions are locked. Do you need to generate character reference images?
 
-- **Yes →** Route to `character-image-prompt` to compile definitions into platform-ready Character Sheet prompts (MJ/Flux/Jimeng/Kling). User then generates actual character reference images. These images serve as character reference input for STATE 6, improving cross-shot identity consistency.
-- **No / Not needed →** Skip character image generation. Character identity will be described textually in the prompt package. Note: this may reduce identity consistency in video output compared to using reference images.
+- **Yes →** Route to `character-image-prompt` to compile definitions into platform-ready Character Sheet image generation prompts (MJ/Flux/Jimeng/Kling). User then generates actual character reference images. These images serve as character reference input for STATE 6, improving cross-shot identity consistency.
+- **No / Skip →** Skip character image generation. Character identity will be presented as text descriptions in the prompt package. Note: this may reduce identity consistency in video output compared to using reference images.
 
-Character image generation (if chosen) and STATE 4 prompt package compilation can proceed in parallel.
+Character image generation (if selected) and STATE 4 prompt package compilation can run in parallel.
 
 ### STATE 4 — Prompt Packaging (Film-Level Short Film Prompt Package)
 
@@ -199,21 +184,55 @@ If any answer is NO, stop and return to the missing stage.
 
 **State 4 output**: Film-level short film prompt package (text-level director's vision document). Proceed to routing decision.
 
-**User next step**: Confirm the prompt package content. After confirmation, do NOT proceed directly to STATE 5. First execute the routing decision to determine the best path forward (see STATE 6 mode selection table for available modes based on resources).
+**User next step**: Confirm the prompt package content. After confirmation, do NOT proceed directly to STATE 5 — first execute the routing decision to determine the best path forward.
 
 ### After STATE 4: Routing Decision
 
-After the prompt package is confirmed, determine the best path based on project needs and available resources. Refer to STATE 6 mode selection for which inputs are required per mode. Present 2-3 route options:
+After the prompt package is confirmed, **do NOT proceed directly to STATE 5.** First determine the best path based on project needs, available resources, and the target STATE 6 mode.
 
-| Route | Path | Best for |
-|---|---|---|
-| **A: Storyboard** | STATE 4 → STATE 5 → STATE 6 (I2V storyboard) | Narrative films, complex multi-shot with storyboard-controlled camera |
-| **B: Direct** | STATE 4 → STATE 6 (I2V minimal / FLF2V / T2V / R2V) | Existing ref images, product demos, simple actions, text-only |
-| **C: Hybrid** | STATE 4 → STATE 5 (key shots) + STATE 6 (non-key) | Mix of storyboard-needed and direct-reference shots |
+**Step 1: Inventory available resources**
+
+Ask the user what multimodal resources they currently have (multi-select):
+
+```
+Which visual/multimodal resources do you currently have?
+- [ ] Character reference images (from STATE 3 character generation or user-provided)
+- [ ] Product reference images
+- [ ] Background/environment reference images
+- [ ] First/last frame images
+- [ ] Video reference clips
+- [ ] Audio reference clips
+- [ ] None of the above — start from text only
+```
+
+**Step 2: Match STATE 6 modes**
+
+Based on available resources, match against the STATE 6 mode selection table:
+
+| Available resources | Eligible modes |
+|---|---|
+| None of the above | T2V |
+| Single reference image (product/character/scene) | I2V (minimal) |
+| First + last frame images | FLF2V |
+| Multiple different ref types (product+video+audio etc.) | R2V |
+| Video source clip | V2V Edit / V2V Extend |
+| Need storyboard boards for multi-shot continuous camera | I2V (storyboard) → requires STATE 5 first |
+
+**Step 3: Present 2-3 route options**
+
+Recommend the most suitable route based on project characteristics, with alternatives:
+
+| Route | Path | Best for | User needs to provide |
+|---|---|---|---|
+| **A: Storyboard Blueprint** | STATE 4 → STATE 5 → STATE 6 (I2V storyboard) | Narrative short films, complex multi-shot sequences, precise storyboard-controlled camera movement | Nothing extra (STATE 5 generates storyboard images) |
+| **B: Direct to Video** | STATE 4 → STATE 6 (I2V minimal / FLF2V / T2V / R2V) | Existing reference images, product showcases, simple actions, first/last frame transitions, text-only generation | Single/multiple reference images / first-last frames / video-audio clips |
+| **C: Hybrid** | STATE 4 → STATE 5 (key shots) + STATE 6 (non-key shots in parallel) | Some shots need storyboard control, others can use direct references | Reference images for non-key shots |
+
+After user selects a route, proceed accordingly. Route A enters STATE 5; Route B skips STATE 5 directly to STATE 6; Route C partially executes STATE 5 as needed.
 
 ### STATE 5 — Storyboard Blueprint Generation (Image Level, Conditional)
 
-**This stage is only executed when Route A or C is selected.** If Route B (direct to video) is chosen, skip STATE 5.
+**This stage is only executed when Route A or C is selected in the routing decision.** If the user selects Route B (direct to video), skip STATE 5 and proceed directly to STATE 6.
 
 Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce` (for generating complete storyboard blueprint images).
 
@@ -287,7 +306,6 @@ If any required input is missing, prompt the user for the corresponding referenc
 
 **State 6 output**: Seedance 2.0 video prompts (platform-executable). Proceed to STATE 7.
 
-
 ### STATE 7 — Final Validation
 
 Quality check on all deliverables following a professional review loop:
@@ -348,10 +366,18 @@ director-story ────→ director-emotion
                 │
                 ↓ (User confirms package)
                 │
-         storyboard-sketch / storyboard-prompt / storyboard-master / storyboard-ecommerce
-         [STATE 5: Generate storyboard blueprint images]
-                │
-                ↓
+         [Routing Decision: inventory resources → match mode → select route]
+                │                    │
+        Route A: Storyboard    Route B: Direct to Video
+                │                    │
+         storyboard-sketch /         │
+         storyboard-prompt /         │
+         storyboard-master /         │
+         storyboard-ecommerce        │
+         [STATE 5: Conditional]      │
+                │                    │
+                └────────┬───────────┘
+                         ↓
          seedance-video-prompt [STATE 6: Image-ref video prompts → Seedance 2.0]
                 │
                 ↓
@@ -361,14 +387,16 @@ director-story ────→ director-emotion
 ## Routing Guide
 
 | User Intent                                                                        | Load First                                                                                         |
-| ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| ------------------------------------------------------- | ------------------------------------------------------------ |
 | "I have a creative idea, help me make it into a film"                              | Stay in director-core, start from STATE 0                                                          |
 | "I already have a script, need visual design"                                      | Enter from STATE 2                                                                                 |
 | "I have character identity definitions, need image generation prompts"             | Route to `character-image-prompt`                                                                  |
 | "I have story + visual + character design, need to compile a prompt package"       | Enter from STATE 4                                                                                 |
 | "I have a prompt package (text), need to generate storyboard blueprint images"     | Enter from STATE 5                                                                                 |
+| "I have a prompt package + ref images, need video directly (no storyboard needed)" | Enter from STATE 4 routing → Route B → skip to STATE 6                                             |
 | "I have storyboard blueprint images + character images, need Seedance 2.0 prompts" | Enter from STATE 6                                                                                 |
-| "I only want character identity definitions"                                       | Route directly to director-character                                                               |
+| "I have single ref image / first-last frames, need to generate video"              | Enter from STATE 4 routing → Route B → STATE 6 (I2V minimal / FLF2V)                              |
+| "I just want character identity definitions"                                       | Route directly to `director-character`                                                             |
 | "Fix my broken AI video, characters keep changing faces"                           | Enter from STATE 3 (re-lock characters), then STATE 6                                              |
 | "E-commerce livestream / product showcase / fashion video storyboard"              | Enter from STATE 4 to compile prompt package, or STATE 5 to directly generate storyboard blueprint |
 
@@ -381,10 +409,10 @@ director-story ────→ director-emotion
 3. **File found** → Parse current state, inform user of progress and ask:
 
 ```
-ð Production checkpoint found:
+📋 Production checkpoint found:
 - Project: [project name]
-- Current progress: STATE N â [name]
-- Completed: STATE 0 â STATE N-1
+- Current progress: STATE N — [name]
+- Completed: STATE 0 → STATE N-1
 - Next step: [action description]
 
 Continue? (reply "continue" to resume from checkpoint, or "restart" to clear progress)
@@ -409,7 +437,7 @@ Production state is persisted via a checkpoint file to ensure recoverability acr
 
 - **Project**: [project name]
 - **Last updated**: [ISO timestamp, e.g. 2026-06-10T14:30:00+08:00]
-- **Current state**: STATE N â [name]
+- **Current state**: STATE N — [name]
 - **Completed states**: STATE 0, STATE 1, ..., STATE N-1
 - **Pending states**: STATE N+1, STATE N+2, ..., STATE 8
 - **Active locks**: [list of locks in effect]
@@ -417,17 +445,17 @@ Production state is persisted via a checkpoint file to ensure recoverability acr
 
 ### State Artifacts
 
-| State   | Status | Summary              | Key Output                                              |
-| ------- | ------ | -------------------- | ------------------------------------------------------- |
-| STATE 0 | â      | Input Collection     | [Brief: project / duration / style / platform / aspect] |
-| STATE 1 | â      | Story & Emotion      | [Story structure + emotional arc summary]               |
-| STATE 2 | â      | Visual Design        | [Camera language + lighting/color plan summary]         |
-| STATE 3 | â      | Character Lock       | [Characters Ã N, visual lock params summary]            |
-| STATE 4 | ð      | Prompt Packaging     | [Prompt pack file path or in-progress marker]           |
-| STATE 5 | â³     | Storyboard Blueprint | â                                                       |
-| STATE 6 | â³     | Video Prompts        | â                                                       |
-| STATE 7 | â³     | Final Verification   | â                                                       |
-| STATE 8 | â³     | Export               | â                                                       |
+| State   | Status | Summary    | Key Output                                  |
+| ------- | ------ | ---------- | ------------------------------------------- |
+| STATE 0 | ✅     | Input Collection   | [Brief: project / duration / style / platform / aspect] |
+| STATE 1 | ✅     | Story & Emotion    | [Story structure + emotional arc summary]              |
+| STATE 2 | ✅     | Visual Design      | [Camera language + lighting/color plan summary]        |
+| STATE 3 | ✅     | Character Lock     | [Characters × N, visual lock params summary]           |
+| STATE 4 | 🔄     | Prompt Packaging   | [Prompt pack file path or in-progress marker]          |
+| STATE 5 | ⏳     | Storyboard         | —                                                      |
+| STATE 6 | ⏳     | Video Prompts      | —                                                      |
+| STATE 7 | ⏳     | Final Verification | —                                                      |
+| STATE 8 | ⏳     | Export             | —                                                      |
 
 ### Production Brief
 
@@ -445,10 +473,10 @@ In addition to writing the checkpoint file, output a brief status summary in con
 ```markdown
 **Production Status**
 
-- Current state: [STATE N â Name]
+- Current state: [STATE N — Name]
 - Completed states: [list]
 - Pending states: [list]
 - Active locks: [which locks are in effect]
 - Next action: [what the user needs to do or confirm]
-- ð Progress saved to `STATE.md`
+- 📁 Progress saved to `STATE.md`
 ```
