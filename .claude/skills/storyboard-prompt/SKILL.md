@@ -192,10 +192,11 @@ Continuity: 相同红色夹克，相同包裹大小和朝向。
 
 ## 保存输出
 
-交付最终输出后，提示用户保存：
+After delivering the final output, prompt the user to save with a dated, topic-specific filename:
 
 ```
-保存到 outputs/storyboard-prompt-storyboard-shot.md？
+Save to outputs/YYYY-MM-DD-[topic]-storyboard-shot.md?
+Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
 ```
 
-用户确认后，将输出写入指定路径。
+If the user confirms, write the output to the specified path.

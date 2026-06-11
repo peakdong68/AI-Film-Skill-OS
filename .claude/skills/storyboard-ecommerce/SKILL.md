@@ -77,10 +77,11 @@ TikTok 风格带货，创作者/主播出镜。双层参考区（创作者 + 产
 
 ## 保存输出
 
-交付最终输出后，提示用户保存：
+After delivering the final output, prompt the user to save with a dated, topic-specific filename:
 
 ```
-保存到 outputs/storyboard-ecommerce-ecommerce-board.md？
+Save to outputs/YYYY-MM-DD-[topic]-ecommerce-board.md?
+Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
 ```
 
-用户确认后，将输出写入指定路径。
+If the user confirms, write the output to the specified path.

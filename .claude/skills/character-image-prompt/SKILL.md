@@ -272,10 +272,11 @@ Character Sheet 提示词是平台无关的。按目标平台调整：
 
 ## 保存输出
 
-交付最终输出后，提示用户保存：
+After delivering the final output, prompt the user to save with a dated, topic-specific filename:
 
 ```
-保存到 outputs/character-image-prompt-character-sheet-prompt.md？
+Save to outputs/YYYY-MM-DD-[topic]-character-sheet.md?
+Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
 ```
 
-用户确认后，将输出写入指定路径。
+If the user confirms, write the output to the specified path.

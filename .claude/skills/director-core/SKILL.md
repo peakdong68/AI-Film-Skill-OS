@@ -489,14 +489,3 @@ director-story ────→ director-emotion
 - 下一步操作：[用户需要做什么或确认什么]
 - 📁 进度已保存至 `STATE.md`
 ```
-
-
-## 保存输出
-
-交付最终输出后，提示用户保存：
-
-```
-保存到 outputs/director-core-production-brief.md？
-```
-
-用户确认后，将输出写入指定路径。
