@@ -145,8 +145,6 @@ Route to `director-character`.
 
 **State 3 output**: Character identity definitions (text-level design document).
 
-> Save to `outputs/YYYY-MM-DD-[topic]-State-3-characters.md`
-
 **After STATE 3 confirmation — ask the user:**
 
 > Character identity definitions are locked. Do you need to generate character reference images?
@@ -187,11 +185,7 @@ The output is **not** a Seedance video prompt — it is the design foundation fo
 
 If any answer is NO, stop and return to the missing stage.
 
-**State 4 output**: Film-level short film prompt package (text-level director's vision document).
-
-> Save to `outputs/YYYY-MM-DD-[topic]-State-4-prompt-package.md`
-
-Proceed to routing decision.
+**State 4 output**: Film-level short film prompt package (text-level director's vision document). Proceed to routing decision.
 
 **User next step**: Confirm the prompt package content. After confirmation, do NOT proceed directly to STATE 5 — first execute the routing decision to determine the best path forward.
 
@@ -332,11 +326,7 @@ Quality check on all deliverables following a professional review loop:
 - **Word count check**: Each prompt Chinese ≤ 500 characters?
 - **Anti-slop check**: No hollow evaluation words?
 
-**State 7 output**: Validated video prompts.
-
-> Save to `outputs/YYYY-MM-DD-[topic]-State-7-validation.md`
-
-Proceed to STATE 8.
+**State 7 output**: Validated video prompts. Proceed to STATE 8.
 
 ### STATE 8 — Export Ready
 
