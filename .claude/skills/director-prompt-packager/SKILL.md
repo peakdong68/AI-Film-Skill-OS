@@ -319,6 +319,8 @@ STATE 5（条件性）         直通 STATE 6
 
 交付最终输出后，提示用户保存：
 
-
+```
+保存到 outputs/director-prompt-packager-prompt-package.md？
+```
 
 用户确认后，将输出写入指定路径。

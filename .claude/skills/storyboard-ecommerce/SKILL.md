@@ -79,6 +79,8 @@ TikTok 风格带货，创作者/主播出镜。双层参考区（创作者 + 产
 
 交付最终输出后，提示用户保存：
 
-
+```
+保存到 outputs/storyboard-ecommerce-ecommerce-board.md？
+```
 
 用户确认后，将输出写入指定路径。

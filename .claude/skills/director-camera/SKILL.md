@@ -159,6 +159,8 @@ Emotional intent: [为什么在此时刻选择这个摄影机设置]
 
 交付最终输出后，提示用户保存：
 
-
+```
+保存到 outputs/director-camera-cinematography-blueprint.md？
+```
 
 用户确认后，将输出写入指定路径。

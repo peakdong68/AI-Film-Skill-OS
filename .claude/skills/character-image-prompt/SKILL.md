@@ -274,6 +274,8 @@ Character Sheet 提示词是平台无关的。按目标平台调整：
 
 交付最终输出后，提示用户保存：
 
-
+```
+保存到 outputs/character-image-prompt-character-sheet-prompt.md？
+```
 
 用户确认后，将输出写入指定路径。

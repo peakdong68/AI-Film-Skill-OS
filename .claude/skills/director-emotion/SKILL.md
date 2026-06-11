@@ -132,6 +132,8 @@ description: 为 AI 电影设计情绪架构——情绪曲线、叙事节奏、
 
 交付最终输出后，提示用户保存：
 
-
+```
+保存到 outputs/director-emotion-emotional-blueprint.md？
+```
 
 用户确认后，将输出写入指定路径。

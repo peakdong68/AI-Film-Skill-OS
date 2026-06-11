@@ -225,6 +225,8 @@ Director storyboard sheet, shot list board, camera movement diagram, rhythm stru
 
 交付最终输出后，提示用户保存：
 
-
+```
+保存到 outputs/storyboard-master-storyboard-master.md？
+```
 
 用户确认后，将输出写入指定路径。

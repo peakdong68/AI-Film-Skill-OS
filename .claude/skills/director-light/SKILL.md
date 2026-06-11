@@ -188,6 +188,8 @@ description: 为 AI 电影制作设计色彩脚本和灯光系统——情绪到
 
 交付最终输出后，提示用户保存：
 
-
+```
+保存到 outputs/director-light-color-lighting-blueprint.md？
+```
 
 用户确认后，将输出写入指定路径。

@@ -75,6 +75,8 @@ description: "创意入站访谈——将模糊创意或描述充分但缺剧情
 
 交付最终输出后，提示用户保存：
 
-
+```
+保存到 outputs/director-interview-production-brief.md？
+```
 
 用户确认后，将输出写入指定路径。

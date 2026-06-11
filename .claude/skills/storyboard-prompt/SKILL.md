@@ -194,6 +194,8 @@ Continuity: 相同红色夹克，相同包裹大小和朝向。
 
 交付最终输出后，提示用户保存：
 
-
+```
+保存到 outputs/storyboard-prompt-storyboard-shot.md？
+```
 
 用户确认后，将输出写入指定路径。
