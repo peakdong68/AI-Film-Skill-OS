@@ -387,13 +387,15 @@ director-story ────→ director-emotion
 | "I already have a script, need visual design"                                      | Enter from STATE 2                                                                                 |
 | "I have character identity definitions, need image generation prompts"             | Route to `character-image-prompt`                                                                  |
 | "I have story + visual + character design, need to compile a prompt package"       | Enter from STATE 4                                                                                 |
-| "I have a prompt package (text), need to generate storyboard blueprint images"     | Enter from STATE 5                                                                                 |
+| "I have a prompt package (text), need to generate storyboard blueprint images"     | Enter from STATE 5 (default `storyboard-master`)                                                   |
+| "Write a single shot frame / how to shoot this scene"                              | Route to `storyboard-prompt`                                                                       |
+| "Plan Seedance I2V storyboard frames / per-frame motion"                           | Route to `storyboard-sketch`                                                                       |
+| "E-commerce livestream / product showcase / fashion video storyboard"              | Route to `storyboard-ecommerce`                                                                    |
 | "I have a prompt package + ref images, need video directly (no storyboard needed)" | Enter from STATE 4 routing → Route B → skip to STATE 6                                             |
 | "I have storyboard blueprint images + character images, need Seedance 2.0 prompts" | Enter from STATE 6                                                                                 |
 | "I have single ref image / first-last frames, need to generate video"              | Enter from STATE 4 routing → Route B → STATE 6 (I2V minimal / FLF2V)                              |
 | "I just want character identity definitions"                                       | Route directly to `director-character`                                                             |
 | "Fix my broken AI video, characters keep changing faces"                           | Enter from STATE 3 (re-lock characters), then STATE 6                                              |
-| "E-commerce livestream / product showcase / fashion video storyboard"              | Enter from STATE 4 to compile prompt package, or STATE 5 to directly generate storyboard blueprint |
 
 ## Session Resume
 
