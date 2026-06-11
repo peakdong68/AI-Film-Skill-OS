@@ -334,6 +334,9 @@ Quality check on all deliverables following a professional review loop:
 
 Package final deliverables to professional delivery standards:
 
+> Save to `outputs/YYYY-MM-DD-[topic]-State-8-export.md`
+
+
 **Generation package:**
 - Complete Seedance 2.0 prompts (in Part execution order, with per-prompt reference image mapping)
 - Image reference character mapping (which `` `ImageN` `` corresponds to which asset, character tag mapping table)
