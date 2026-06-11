@@ -205,6 +205,8 @@ When invoked by `director-core`:
 
 After delivering the final output, prompt the user to save:
 
-outputs/director-character-character-identity.mdoutputs/director-character-character-identity-example.md
+```
+Save to outputs/director-character-character-identity.md?
+```
 
 If the user confirms, write the output to the specified path.

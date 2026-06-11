@@ -483,6 +483,8 @@ In addition to writing the checkpoint file, output a brief status summary in con
 
 After delivering the final output, prompt the user to save:
 
-outputs/director-core-production-brief.mdoutputs/director-core-production-brief-example.md
+```
+Save to outputs/director-core-production-brief.md?
+```
 
 If the user confirms, write the output to the specified path.

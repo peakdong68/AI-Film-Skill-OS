@@ -194,6 +194,8 @@ This skill includes bundled reference knowledge. Load when needed:
 
 After delivering the final output, prompt the user to save:
 
-outputs/storyboard-sketch-i2v-frames.mdoutputs/storyboard-sketch-i2v-frames-example.md
+```
+Save to outputs/storyboard-sketch-i2v-frames.md?
+```
 
 If the user confirms, write the output to the specified path.

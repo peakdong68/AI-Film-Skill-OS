@@ -273,6 +273,8 @@ Invoked by `director-core` or independently after STATE 3:
 
 After delivering the final output, prompt the user to save:
 
-outputs/character-image-prompt-character-sheet-prompt.mdoutputs/character-image-prompt-character-sheet-prompt-example.md
+```
+Save to outputs/character-image-prompt-character-sheet-prompt.md?
+```
 
 If the user confirms, write the output to the specified path.

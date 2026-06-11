@@ -226,6 +226,8 @@ Director storyboard sheet, shot list board, camera movement diagram, rhythm stru
 
 After delivering the final output, prompt the user to save:
 
-outputs/storyboard-master-storyboard-master.mdoutputs/storyboard-master-storyboard-master-example.md
+```
+Save to outputs/storyboard-master-storyboard-master.md?
+```
 
 If the user confirms, write the output to the specified path.

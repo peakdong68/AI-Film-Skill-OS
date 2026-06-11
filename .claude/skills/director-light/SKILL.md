@@ -173,6 +173,8 @@ When invoked by `director-core`:
 
 After delivering the final output, prompt the user to save:
 
-outputs/director-light-color-lighting-blueprint.mdoutputs/director-light-color-lighting-blueprint-example.md
+```
+Save to outputs/director-light-color-lighting-blueprint.md?
+```
 
 If the user confirms, write the output to the specified path.

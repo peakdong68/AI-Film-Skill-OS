@@ -149,6 +149,8 @@ When invoked by `director-core` at STATE 1:
 
 After delivering the final output, prompt the user to save:
 
-outputs/director-story-script-blueprint.mdoutputs/director-story-script-blueprint-example.md
+```
+Save to outputs/director-story-script-blueprint.md?
+```
 
 If the user confirms, write the output to the specified path.

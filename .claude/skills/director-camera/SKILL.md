@@ -145,6 +145,8 @@ When invoked by `director-core`:
 
 After delivering the final output, prompt the user to save:
 
-outputs/director-camera-cinematography-blueprint.mdoutputs/director-camera-cinematography-blueprint-example.md
+```
+Save to outputs/director-camera-cinematography-blueprint.md?
+```
 
 If the user confirms, write the output to the specified path.

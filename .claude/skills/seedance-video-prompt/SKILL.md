@@ -204,6 +204,8 @@ When called at STATE 6:
 
 After delivering the final output, prompt the user to save:
 
-outputs/seedance-video-prompt-seedance-prompt.mdoutputs/seedance-video-prompt-seedance-prompt-example.md
+```
+Save to outputs/seedance-video-prompt-seedance-prompt.md?
+```
 
 If the user confirms, write the output to the specified path.

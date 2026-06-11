@@ -194,6 +194,8 @@ This skill includes bundled reference knowledge. Load when needed:
 
 After delivering the final output, prompt the user to save:
 
-outputs/storyboard-prompt-storyboard-shot.mdoutputs/storyboard-prompt-storyboard-shot-example.md
+```
+Save to outputs/storyboard-prompt-storyboard-shot.md?
+```
 
 If the user confirms, write the output to the specified path.

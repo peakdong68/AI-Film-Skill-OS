@@ -132,6 +132,8 @@ When invoked by `director-core`:
 
 After delivering the final output, prompt the user to save:
 
-outputs/director-emotion-emotional-blueprint.mdoutputs/director-emotion-emotional-blueprint-example.md
+```
+Save to outputs/director-emotion-emotional-blueprint.md?
+```
 
 If the user confirms, write the output to the specified path.

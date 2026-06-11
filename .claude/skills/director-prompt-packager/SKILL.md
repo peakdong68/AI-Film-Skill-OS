@@ -315,6 +315,8 @@ When called by `director-core`:
 
 After delivering the final output, prompt the user to save:
 
-outputs/director-prompt-packager-prompt-package.mdoutputs/director-prompt-packager-prompt-package-example.md
+```
+Save to outputs/director-prompt-packager-prompt-package.md?
+```
 
 If the user confirms, write the output to the specified path.

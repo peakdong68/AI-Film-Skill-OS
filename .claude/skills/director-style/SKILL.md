@@ -214,6 +214,8 @@ When invoked by `director-core`:
 
 After delivering the final output, prompt the user to save:
 
-outputs/director-style-director-style-profile.mdoutputs/director-style-director-style-profile-example.md
+```
+Save to outputs/director-style-director-style-profile.md?
+```
 
 If the user confirms, write the output to the specified path.

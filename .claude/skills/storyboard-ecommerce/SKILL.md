@@ -79,6 +79,8 @@ Present structured plan first, then compressed image generator prompt:
 
 After delivering the final output, prompt the user to save:
 
-outputs/storyboard-ecommerce-ecommerce-board.mdoutputs/storyboard-ecommerce-ecommerce-board-example.md
+```
+Save to outputs/storyboard-ecommerce-ecommerce-board.md?
+```
 
 If the user confirms, write the output to the specified path.
