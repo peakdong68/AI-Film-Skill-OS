@@ -188,3 +188,11 @@ This skill includes bundled reference knowledge. Load when needed:
 - The planning board should be usable before writing final Seedance prompts.
 - If user requests Chinese output, write all prompts in concise Chinese with the same structure.
 - For Master Sheet mode, the four zones (Shot Grid, Rhythm, Camera, Visual Language) should form a coherent planning document, not just a shot list.
+
+## Save Output
+
+After delivering the final output, prompt the user to save with a dated, topic-specific filename:
+
+
+
+If the user confirms, write the output to the specified path.
