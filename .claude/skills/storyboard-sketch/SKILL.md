@@ -1,6 +1,6 @@
 ---
 name: storyboard-sketch
-description: Create concise, clean rough-sketch storyboard prompts from scene ideas, scripts, beats, or visual concepts for Seedance image-to-video workflows. Use when the user asks for a storyboard, preview board, animatic planning, animation shot plan, keyframe board, rough visual frames, first-frame prompts, shot-by-shot sketch prompts, or a quick board to guide Seedance I2V generation. Also use when the user asks for a storyboard master sheet, shot list board, director treatment board, 分镜总览图, 导演分镜板, 故事板规划, or a full visual planning board for film/TV/ad/animation pre-production.
+description: Generate text-level per-frame I2V storyboard sketch descriptions for Seedance — no images, only motion/camera/lighting/sound text per frame. Use for I2V frame planning, per-frame motion descriptions, animatic sketches, or script-to-frame-sequence breakdown. 中文触发: I2V分镜/逐帧动作描述/animatic 草图/首帧提示词. Note: for multi-shot image boards use `storyboard-master`; for single-frame image prompts use `storyboard-prompt`; for commerce boards use `storyboard-ecommerce`.
 ---
 
 # Seedance Storyboard Sketch

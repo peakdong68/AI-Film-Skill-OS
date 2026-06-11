@@ -1,6 +1,6 @@
 ---
 name: storyboard-prompt
-description: Generate professional storyboard frame prompts for AI image generators (Midjourney, Flux, Jimeng, Kling, GPT Image, Runway, Veo). Use when the user asks for storyboard prompts, shot planning prompts, 分镜提示词, storyboard frame generation, film pre-visualization prompts, animation storyboard, commercial storyboard, single-frame storyboard, or needs to write structured prompts that produce cinema-grade storyboard panel images. Also use when the user gives a vague scene idea and wants it turned into a professional storyboard shot description.
+description: Generate single-frame storyboard image prompts for AI image generators (Midjourney, Flux, Jimeng, Kling, GPT Image, Runway, Veo) — one prompt per shot. 中文触发: 单帧分镜/镜头构图/电影预可视化/动画关键帧/这个镜头怎么拍. Note: multi-shot overview → `storyboard-master`; commerce → `storyboard-ecommerce`; I2V text → `storyboard-sketch`. Use for single-frame prompts — one prompt per shot.
 ---
 
 # Storyboard Prompt
