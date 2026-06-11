@@ -77,11 +77,11 @@ TikTok 风格带货，创作者/主播出镜。双层参考区（创作者 + 产
 
 ## 保存输出
 
-After delivering the final output, prompt the user to save with a dated, topic-specific filename:
+交付最终输出后，提示用户以带日期和主题的文件名保存：
 
 ```
-Save to outputs/YYYY-MM-DD-[topic]-ecommerce-board.md?
-Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
+保存到 outputs/YYYY-MM-DD-[主题]-ecommerce-board.md？
+示例：outputs/2026-06-10-赛博朋克短片-seedance-prompt.md
 ```
 
-If the user confirms, write the output to the specified path.
+用户确认后，将输出写入指定路径。
