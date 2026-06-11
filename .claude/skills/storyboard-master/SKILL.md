@@ -1,6 +1,6 @@
 ---
 name: storyboard-master
-description: Generate professional Storyboard Master Sheet / Director Treatment Board prompts for AI image generators (Midjourney, Flux, 即梦, 可灵, GPT Image). Use when the user asks for a storyboard master sheet, director treatment board, 分镜总览图, 导演分镜板, shot list board, full visual planning board, pre-production blueprint, 分镜规划图, storyboard overview, or a comprehensive multi-shot planning sheet that combines shot grid + rhythm timeline + camera movement diagram + visual language design into one image. Also use when the user wants to present a complete video/ film project plan as a single visual document.
+description: "Generate multi-shot storyboard master sheet / director treatment board prompts for AI image generators (Midjourney, Flux, Jimeng, Kling, GPT Image) — one planning board containing all shots. Use for storyboard master sheets, director treatment boards, full visual planning boards, pre-production blueprints, or combining shot grid + rhythm + camera + visual language into one board. Triggers: storyboard overview, 分镜总览图, 导演提案板, shot list board. Note: single-frame shots → `storyboard-prompt`; commerce boards → `storyboard-ecommerce`; I2V text planning → `storyboard-sketch`."
 ---
 
 # Storyboard Master Sheet
