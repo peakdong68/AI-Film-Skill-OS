@@ -192,10 +192,11 @@ This skill includes bundled reference knowledge. Load when needed:
 
 ## Save Output
 
-After delivering the final output, prompt the user to save:
+After delivering the final output, prompt the user to save with a dated, topic-specific filename:
 
 ```
-Save to outputs/storyboard-prompt-storyboard-shot.md?
+Save to outputs/YYYY-MM-DD-[topic]-storyboard-shot.md?
+Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
 ```
 
 If the user confirms, write the output to the specified path.

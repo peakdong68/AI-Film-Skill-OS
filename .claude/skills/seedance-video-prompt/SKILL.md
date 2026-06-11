@@ -202,10 +202,11 @@ When called at STATE 6:
 
 ## Save Output
 
-After delivering the final output, prompt the user to save:
+After delivering the final output, prompt the user to save with a dated, topic-specific filename:
 
 ```
-Save to outputs/seedance-video-prompt-seedance-prompt.md?
+Save to outputs/YYYY-MM-DD-[topic]-seedance-prompt.md?
+Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
 ```
 
 If the user confirms, write the output to the specified path.

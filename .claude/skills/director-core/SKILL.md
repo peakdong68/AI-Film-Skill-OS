@@ -477,14 +477,3 @@ In addition to writing the checkpoint file, output a brief status summary in con
 - Next action: [what the user needs to do or confirm]
 - 📁 Progress saved to `STATE.md`
 ```
-
-
-## Save Output
-
-After delivering the final output, prompt the user to save:
-
-```
-Save to outputs/director-core-production-brief.md?
-```
-
-If the user confirms, write the output to the specified path.
