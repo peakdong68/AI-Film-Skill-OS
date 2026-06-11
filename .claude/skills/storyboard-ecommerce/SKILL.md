@@ -1,6 +1,6 @@
 ---
 name: storyboard-ecommerce
-description: "Generate professional e-commerce/livestream/social commerce storyboard prompts for AI image generators (Midjourney, Flux, Jimeng, Kling, GPT Image). Three commerce formats (Social Commerce Board / Fashion Director Board / Product Showcase Board) auto-selected by scenario. Use for e-commerce storyboards, product showcase videos, TikTok shopping video storyboards, livestream shot plans, product display boards, fashion lookbook storyboards, or any commerce-oriented video planning board that needs product reference areas and subtitle-safe shot breakdowns. Also triggers on: 电商分镜, 带货视频故事板, 直播分镜, 产品展示板, 服装分镜."
+description: "Generate e-commerce/livestream/shopping storyboard prompts for AI image generators (Midjourney, Flux, Jimeng, Kling, GPT Image) — 3 formats (Social Commerce / Fashion Director / Product Showcase) auto-selected with product reference areas, creator reference areas, and subtitle-safe framing. Triggers: shopping video, 带货视频, 电商分镜, TikTok shop, 直播分镜, product showcase, 服装分镜. Note: non-commerce → `storyboard-master` or `storyboard-prompt`."
 ---
 
 # Storyboard E-Commerce
