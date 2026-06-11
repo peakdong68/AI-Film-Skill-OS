@@ -268,3 +268,12 @@ Character Sheet 提示词是平台无关的。按目标平台调整：
 4. 生成的 Character Sheet 作为 `` `图片N` `` 用于 STATE 6 `seedance-video-prompt`
 
 > ⚠️ 注意：生成的 Character Sheet（多视图角色设定板）适合作为 AI 图像生成器的角色设计参考，但不可直接作为 Seedance 视频生成的角色参考图。Seedance 视频生成建议使用独立的角色面部特写（大头照）和全身照。
+
+
+## 保存输出
+
+交付最终输出后，提示用户保存：
+
+
+
+用户确认后，将输出写入指定路径。
