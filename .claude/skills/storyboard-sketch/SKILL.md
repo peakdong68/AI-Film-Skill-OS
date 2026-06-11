@@ -196,3 +196,8 @@ After delivering the final output, prompt the user to save with a dated, topic-s
 
 
 If the user confirms, write the output to the specified path.
+
+```
+Save to outputs/YYYY-MM-DD-[topic]-i2v-frames.md?
+Example: outputs/2026-06-10-cyberpunk-short-i2v-frames.md
+```
