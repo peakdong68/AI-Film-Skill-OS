@@ -1,6 +1,6 @@
 ---
 name: storyboard-master
-description: "为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Image）生成专业的分镜总览图/导演提案板提示词。用于分镜总览图、导演提案板、导演分镜板、镜头列表板、完整视觉规划板、前期制作蓝图、分镜规划图、分镜概览，或需要将镜头网格+节奏时间轴+摄影机运动图+视觉语言设计融合为一张图的综合多镜头规划板。当用户希望将完整的视频/电影项目方案呈现为单一视觉文档时也适用。Use when the user asks for a storyboard master sheet, director treatment board, shot list board, full visual planning board, pre-production blueprint, or a comprehensive multi-shot planning sheet."
+description: "为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Image）生成多镜头分镜总览图/导演提案板提示词——产出为一张含全部镜头的规划板。用于分镜总览图、导演提案板、完整视觉规划板、前期制作蓝图、分镜规划图，或需要将镜头网格+节奏时间轴+摄影机运动图+视觉设计融合为一张综合多镜头规划板时。注意：单帧镜头画面请用 `storyboard-prompt`；电商带货板请用 `storyboard-ecommerce`；I2V 文本规划请用 `storyboard-sketch`。Use for multi-shot master sheets, director treatment boards, full visual planning boards — one image containing all shots."
 ---
 
 # Storyboard Master Sheet 分镜总览图

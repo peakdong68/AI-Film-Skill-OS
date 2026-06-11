@@ -1,6 +1,6 @@
 ---
 name: storyboard-prompt
-description: 为 AI 图像生成器（Midjourney, Flux, Jimeng, Kling, GPT Image, Runway, Veo）生成专业分镜帧提示词。用于分镜提示词、镜头规划提示词、分镜提示词生成、电影预可视化提示词、动画分镜、商业广告分镜、单帧分镜，或需要撰写能产出电影级分镜面板图像的结构化提示词时。当用户给出模糊的场景创意并希望将其转化为专业分镜镜头描述时也适用。
+description: 为 AI 图像生成器（Midjourney, Flux, Jimeng, Kling, GPT Image, Runway, Veo）生成单帧分镜画面提示词——每次调用产出一个镜头的图像提示词。用于单帧分镜、镜头构图设计、电影预可视化、动画关键帧、商业广告镜头，或需要将模糊场景创意转化为具体镜头描述时。注意：多镜头总览图请用 `storyboard-master`；电商带货板请用 `storyboard-ecommerce`；I2V 文本规划请用 `storyboard-sketch`。Use for single-frame storyboard prompts, shot composition, film pre-visualization — one prompt per shot.
 ---
 
 # Storyboard Prompt

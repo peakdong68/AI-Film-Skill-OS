@@ -1,6 +1,6 @@
 ---
 name: storyboard-ecommerce
-description: "为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Image）生成专业的电商带货/直播/社交电商分镜提示词。三种商业格式（社交商业板/服装导演板/产品展示板），按场景自动选择。用于电商分镜、带货视频故事板、TikTok 购物视频分镜、直播镜头规划、产品展示板、产品展示分镜、时尚穿搭分镜、服装分镜，或任何需要产品参考区、创作者参考区和字幕安全区镜头拆解的商业导向视频规划板。Use when the user asks for an e-commerce storyboard, 带货视频故事板, 电商分镜, TikTok shopping video storyboard, livestream shot plan, 直播分镜, product showcase board, fashion lookbook storyboard, or any commerce-oriented video planning board."
+description: "为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Image）生成电商/直播/带货分镜提示词——三种商业格式（社交商业板/服装导演板/产品展示板）按场景自动选择，含产品参考区、创作者参考区和字幕安全区。用于带货视频故事板、TK购物分镜、直播镜头规划、产品展示板、时尚穿搭分镜、服装分镜。注意：非商业分镜请用 `storyboard-master` 或 `storyboard-prompt`。Use for e-commerce/livestream/shopping storyboards with product reference areas."
 ---
 
 # Storyboard E-Commerce 电商分镜
