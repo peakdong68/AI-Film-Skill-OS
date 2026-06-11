@@ -95,7 +95,11 @@ Route to `director-story` and `director-emotion`.
 - [ ] Causal chain defined (A causes B causes C)
 - [ ] User confirmed structure
 
-**State 1 output**: Script blueprint + Emotional timeline. Proceed to STATE 2.
+**State 1 output**: Script blueprint + Emotional timeline.
+
+> Save to `outputs/YYYY-MM-DD-[topic]-State-1-story-emotion.md`
+
+Proceed to STATE 2.
 
 ### STATE 2 — Visual Design
 
@@ -115,7 +119,11 @@ Route to `director-style` (director style), `director-camera` (camera system), a
 - [ ] Color script covers full duration
 - [ ] User confirmed visual language
 
-**State 2 output**: Visual language blueprint. Proceed to STATE 3.
+**State 2 output**: Visual language blueprint.
+
+> Save to `outputs/YYYY-MM-DD-[topic]-State-2-visual.md`
+
+Proceed to STATE 3.
 
 ### STATE 3 — Character Lock
 
@@ -136,6 +144,8 @@ Route to `director-character`.
 - [ ] User confirmed all character identity definitions
 
 **State 3 output**: Character identity definitions (text-level design document).
+
+> Save to `outputs/YYYY-MM-DD-[topic]-State-3-characters.md`
 
 **After STATE 3 confirmation — ask the user:**
 
@@ -177,7 +187,11 @@ The output is **not** a Seedance video prompt — it is the design foundation fo
 
 If any answer is NO, stop and return to the missing stage.
 
-**State 4 output**: Film-level short film prompt package (text-level director's vision document). Proceed to routing decision.
+**State 4 output**: Film-level short film prompt package (text-level director's vision document).
+
+> Save to `outputs/YYYY-MM-DD-[topic]-State-4-prompt-package.md`
+
+Proceed to routing decision.
 
 **User next step**: Confirm the prompt package content. After confirmation, do NOT proceed directly to STATE 5 — first execute the routing decision to determine the best path forward.
 
@@ -318,7 +332,11 @@ Quality check on all deliverables following a professional review loop:
 - **Word count check**: Each prompt Chinese ≤ 500 characters?
 - **Anti-slop check**: No hollow evaluation words?
 
-**State 7 output**: Validated video prompts. Proceed to STATE 8.
+**State 7 output**: Validated video prompts.
+
+> Save to `outputs/YYYY-MM-DD-[topic]-State-7-validation.md`
+
+Proceed to STATE 8.
 
 ### STATE 8 — Export Ready
 
