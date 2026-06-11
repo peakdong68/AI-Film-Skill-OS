@@ -145,6 +145,8 @@ Route to `director-character`.
 
 **State 3 output**: Character identity definitions (text-level design document).
 
+> Save to `outputs/YYYY-MM-DD-[topic]-State-3-characters.md`
+
 **After STATE 3 confirmation — ask the user:**
 
 > Character identity definitions are locked. Do you need to generate character reference images?
