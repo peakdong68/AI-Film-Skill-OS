@@ -69,21 +69,15 @@ If any lock is broken, stop immediately and return to the earliest incomplete st
 
 ### STATE 0 — Input Collection
 
-Route to `director-interview`.
+First assess input quality, then decide whether to call :
 
-Collect the minimum viable brief needed to produce the film. `director-interview` auto-selects the best path based on creative clarity:
+| Input quality | Criteria | Action |
+|---|---|---|
+| Creative complete | Has subject + action + scene + emotional direction | **Skip interview**, collect params directly |
+| Descriptive but no plot | Has scene/style/tone, lacks narrative action | Call  → Creative expansion |
+| Vague creative | Only keywords / broad concepts | Call  → Creative interview |
 
-| Input quality | Path |
-|---|---|
-| Creative complete (subject + action + scene + emotion) | Fast track → confirm directly |
-| Descriptive but no plot (has scene/style/tone, lacks narrative action) | Creative expansion → 2-3 options |
-| Vague creative (only keywords / broad concepts) | Creative interview → ask clarifying questions |
-
-Collect production params (duration, style, platform, aspect ratio, reference materials). If user says "just do it", fill reasonable defaults with annotations.
-
-**State 0 output**: Confirmed production brief (with creative direction). Proceed to STATE 1.
-
-### STATE 1 — Story & Emotion Design
+Collect production params (duration, style, platform, aspect ratio, reference materials). If user says "just do it", fill reasonable defaults with annotations.### STATE 1 — Story & Emotion Design
 
 Route to `director-story` and `director-emotion`.
 
