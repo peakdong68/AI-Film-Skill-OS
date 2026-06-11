@@ -1,6 +1,7 @@
 ---
 name: director-core
-description: "AI 电影制作管线的总控制器——管理制作状态机、强制执行阶段锁定、维护检查点，并按正确顺序调度所有导演子技能。当用户想从创意或剧本制作完整的 AI 电影/视频时使用此技能。触发场景：制作 AI 电影、从创意生成视频、导演 Seedance 项目、拍AI电影、制作AI视频、AI导演流程、film production pipeline，或任何多阶段视频创作需求。也触发于任何视频/电影制作请求，包括电商直播、带货视频、服装视频、品牌视频、product video、fashion film、commercial video。"
+description: "Master controller for the AI film production pipeline — manages the production state machine, enforces phase locks, maintains checkpoints, and routes tasks to director sub-skills in the correct order. Use when users want to produce a complete AI film/video from a creative idea or script. Trigger scenarios: making an AI film, generating video from creative ideas, directing a Seedance project, AI filmmaking, AI video production, AI director workflow, film production pipeline, or any multi-stage video creation request. Also triggers on any video/film production request, including e-commerce livestreams, product showcase videos, fashion videos, brand videos, product videos, fashion films, and commercial videos.
+  中文触发: 制作 AI 电影、从创意生成视频、导演 Seedance 项目、拍AI电影、制作AI视频、AI导演流程、film production pipeline、电商直播、带货视频、服装视频、品牌视频、product video、fashion film、commercial video."
 ---
 
 # Director Core — Production State Machine
