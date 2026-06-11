@@ -1,6 +1,6 @@
 ---
 name: storyboard-sketch
-description: 为 Seedance I2V 工作流生成文本级逐帧分镜草图描述——不生图，仅产出每帧的运动/镜头/光影/音效文字说明。用于 I2V 分镜规划、逐帧动作描述、animatic 草图、Seedance 首帧提示词，或需要将剧本拆解为连续帧序列指导 I2V 生成时。注意：如需多镜头总览图（生图），请用 `storyboard-master`；如需单帧生图提示词，请用 `storyboard-prompt`；如需电商板，请用 `storyboard-ecommerce`。Use for Seedance I2V frame planning, per-frame motion/text descriptions, animatic sketches. NOT for multi-shot overview boards or single-frame image prompts.
+description: "为 Seedance I2V 工作流生成文本级逐帧分镜草图描述——不生图，仅产出每帧的运动/镜头/光影/音效文字说明。用于 I2V 分镜规划、逐帧动作描述、animatic 草图、Seedance 首帧提示词，或需要将剧本拆解为连续帧序列指导 I2V 生成时。注意：如需多镜头总览图（生图），请用 `storyboard-master`；如需单帧生图提示词，请用 `storyboard-prompt`；如需电商板，请用 `storyboard-ecommerce`。Use for Seedance I2V frame planning, per-frame motion/text descriptions, animatic sketches. NOT for multi-shot overview boards or single-frame image prompts."
 ---
 
 # Seedance 分镜草图
