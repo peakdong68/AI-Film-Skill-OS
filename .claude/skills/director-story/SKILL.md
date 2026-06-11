@@ -143,3 +143,12 @@ When invoked by `director-core` at STATE 1:
 - Present for user confirmation
 - Upon confirmation, signal STATE 1 complete
 - The blueprint feeds into `director-emotion` for the emotional timeline
+
+
+## Save Output
+
+After delivering the final output, prompt the user to save:
+
+outputs/director-story-script-blueprint.mdoutputs/director-story-script-blueprint-example.md
+
+If the user confirms, write the output to the specified path.

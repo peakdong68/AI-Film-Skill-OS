@@ -69,3 +69,12 @@ Regardless of path, output a unified production brief:
 - Don't ask for information already provided
 - Don't output structure — this phase produces a brief, not a script or storyboard
 - When user says "just do it" — fill reasonable defaults with annotations
+
+
+## Save Output
+
+After delivering the final output, prompt the user to save:
+
+outputs/director-interview-production-brief.mdoutputs/director-interview-production-brief-example.md
+
+If the user confirms, write the output to the specified path.

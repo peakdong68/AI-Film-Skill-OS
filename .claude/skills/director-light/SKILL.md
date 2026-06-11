@@ -167,3 +167,12 @@ When invoked by `director-core`:
 - Load emotional blueprint from `director-emotion` for the Emotion-to-Color Mapping
 - Align with `director-camera` for consistent visual language
 - The Scene Palette System feeds directly into storyboard and prompt compilation
+
+
+## Save Output
+
+After delivering the final output, prompt the user to save:
+
+outputs/director-light-color-lighting-blueprint.mdoutputs/director-light-color-lighting-blueprint-example.md
+
+If the user confirms, write the output to the specified path.

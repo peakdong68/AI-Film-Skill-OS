@@ -126,3 +126,12 @@ When invoked by `director-core`:
 - Produce the full Emotional Blueprint 
 - Present for user confirmation
 - Feed the emotion-to-visual mapping into STATE 2 (Visual Design)
+
+
+## Save Output
+
+After delivering the final output, prompt the user to save:
+
+outputs/director-emotion-emotional-blueprint.mdoutputs/director-emotion-emotional-blueprint-example.md
+
+If the user confirms, write the output to the specified path.

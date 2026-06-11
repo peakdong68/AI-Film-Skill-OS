@@ -309,3 +309,12 @@ When called by `director-core`:
 - Execute the verification checklist (including output boundary check)
 - Present for final user review
 - Upon confirmation, mark STATE 4 complete, enter routing decision
+
+
+## Save Output
+
+After delivering the final output, prompt the user to save:
+
+outputs/director-prompt-packager-prompt-package.mdoutputs/director-prompt-packager-prompt-package-example.md
+
+If the user confirms, write the output to the specified path.

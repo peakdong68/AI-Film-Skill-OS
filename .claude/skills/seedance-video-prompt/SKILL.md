@@ -198,3 +198,12 @@ When called at STATE 6:
 4. Compile executable prompts per selected mode
 5. Count words, run validation checklist
 6. Present for user review; mark STATE 6 complete upon confirmation
+
+
+## Save Output
+
+After delivering the final output, prompt the user to save:
+
+outputs/seedance-video-prompt-seedance-prompt.mdoutputs/seedance-video-prompt-seedance-prompt-example.md
+
+If the user confirms, write the output to the specified path.

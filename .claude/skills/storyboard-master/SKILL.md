@@ -220,3 +220,12 @@ Director storyboard sheet, shot list board, camera movement diagram, rhythm stru
 - Camera movement diagram must include numbered positions and trajectory arrows.
 - Style keywords must emphasize "board" and "sheet" concepts — this prevents the image generator from producing a finished film frame instead of a planning document.
 - If the user specifies Chinese output, all descriptive text in the plan stays in Chinese; keep style keywords in English for better image generator performance.
+
+
+## Save Output
+
+After delivering the final output, prompt the user to save:
+
+outputs/storyboard-master-storyboard-master.mdoutputs/storyboard-master-storyboard-master-example.md
+
+If the user confirms, write the output to the specified path.

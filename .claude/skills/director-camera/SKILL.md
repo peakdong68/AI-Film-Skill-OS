@@ -139,3 +139,12 @@ When invoked by `director-core`:
 - Produce the Cinematography Blueprint
 - Feed into `director-light` for lighting alignment
 - The Camera Prompt Template feeds directly into storyboard and prompt systems
+
+
+## Save Output
+
+After delivering the final output, prompt the user to save:
+
+outputs/director-camera-cinematography-blueprint.mdoutputs/director-camera-cinematography-blueprint-example.md
+
+If the user confirms, write the output to the specified path.

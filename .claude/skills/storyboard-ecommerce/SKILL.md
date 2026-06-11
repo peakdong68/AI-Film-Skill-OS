@@ -73,3 +73,12 @@ Present structured plan first, then compressed image generator prompt:
 - Format A: Subtitle-safe framing (bottom 20% reserved per frame) + creator continuity
 - Format B: Rhythm module must map time segments to shot numbers and music beats
 - Format C: No people on screen — if hands appear, maintain consistent skin tone/gesture style
+
+
+## Save Output
+
+After delivering the final output, prompt the user to save:
+
+outputs/storyboard-ecommerce-ecommerce-board.mdoutputs/storyboard-ecommerce-ecommerce-board-example.md
+
+If the user confirms, write the output to the specified path.

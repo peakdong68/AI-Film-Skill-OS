@@ -267,3 +267,12 @@ Invoked by `director-core` or independently after STATE 3:
 2. Compile into [0]-[12] complete Character Sheet Profile + Image Prompt
 3. User confirms, then pastes [11] into their chosen AI image generator to generate Character Sheet image
 4. Generated Character Sheet serves as character reference for STATE 6 `seedance-video-prompt`
+
+
+## Save Output
+
+After delivering the final output, prompt the user to save:
+
+outputs/character-image-prompt-character-sheet-prompt.mdoutputs/character-image-prompt-character-sheet-prompt-example.md
+
+If the user confirms, write the output to the specified path.

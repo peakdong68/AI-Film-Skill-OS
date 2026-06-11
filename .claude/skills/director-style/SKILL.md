@@ -208,3 +208,12 @@ When invoked by `director-core`:
 - Selected after STATE 1 (story + emotion confirmed)
 - Output feeds into STATE 2 — `director-camera` and `director-light` use the profile to guide their decisions
 - The profile is referenced (not repeated) in all downstream skills
+
+
+## Save Output
+
+After delivering the final output, prompt the user to save:
+
+outputs/director-style-director-style-profile.mdoutputs/director-style-director-style-profile-example.md
+
+If the user confirms, write the output to the specified path.

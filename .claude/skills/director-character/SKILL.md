@@ -199,3 +199,12 @@ When invoked by `director-core`:
 - After STATE 3 completion, route to `character-image-prompt` to compile into image generation prompts
 - The Continuity Lock System's Hard Locks must be embedded in every Seedance prompt via `seedance-video-prompt`
 - Character identity definition must be confirmed by the user before proceeding to image prompt generation
+
+
+## Save Output
+
+After delivering the final output, prompt the user to save:
+
+outputs/director-character-character-identity.mdoutputs/director-character-character-identity-example.md
+
+If the user confirms, write the output to the specified path.
