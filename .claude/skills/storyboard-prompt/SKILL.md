@@ -1,211 +1,190 @@
 ---
-name: storyboard-prompt
-description: Generate single-frame storyboard image prompts for AI image generators (Midjourney, Flux, Jimeng, Kling, GPT Image, Runway, Veo) — one prompt per shot. 中文触发: 单帧分镜/镜头构图/电影预可视化/动画关键帧/这个镜头怎么拍. Note: multi-shot overview → `storyboard-master`; commerce → `storyboard-ecommerce`; I2V text → `storyboard-sketch`. Use for single-frame prompts — one prompt per shot.
+name: storyboard-sketch
+description: "Generate text-level per-frame I2V storyboard sketch descriptions for Seedance — no images, only motion/camera/lighting/sound text per frame. Use for I2V frame planning, per-frame motion descriptions, animatic sketches, or script-to-frame-sequence breakdown. Triggers: I2V storyboard, per-frame motion, animatic sketch, first-frame prompt. Note: for multi-shot image boards use `storyboard-master`; for single-frame image prompts use `storyboard-prompt`; for commerce boards use `storyboard-ecommerce`."
 ---
 
-# Storyboard Prompt
+# Seedance Storyboard Sketch
 
 ## Overview
 
-Turn a scene idea, subject, or action into a professionally structured prompt that AI image generators can convert into cinema-grade storyboard frame images. This skill enforces an 8-element shot description framework derived from film industry pre-production standards, ensuring every prompt produces a readable, technically accurate storyboard panel regardless of the image generator used.
+Turn a scene idea, script, or concept into a storyboard plan for Seedance image-to-video. This skill supports two output modes, selected automatically by the Mode Gate below:
 
-Use this skill for single-frame storyboard prompts. For multi-shot master sheets, use `storyboard-master`. For e-commerce/livestream storyboards, use `storyboard-ecommerce`. For Seedance I2V planning prompts, use `storyboard-sketch`.
+- **Compact Frame Prompts** (default): 3-8 concise rough-sketch frame prompts optimized for Seedance I2V seed images.
+- **Storyboard Master Sheet** (on request): For 4-section overview boards (Shot Grid + Rhythm + Camera + Visual Language), use `storyboard-master` skill.
 
-## Load Resources
+Favor clarity, continuity, and sketchability over polished cinematic prose in both modes.
 
-- For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
-- For bilingual cinematography quick reference tables, read `../references/cinematography-quick-reference.md`.
+## Mode Selection Gate
+
+Before generating output, decide which mode to use:
+
+| If the user says... | Use this mode |
+|---|---|
+| "storyboard sketch", "keyframe prompts", "rough frame prompts", "I2V storyboard", "shot-by-shot prompts", "quick preview board", "rough visual frames", or any Seedance-focused prompt request | **Compact Frame Prompts** |
+| "storyboard master sheet", "Master Sheet", "director storyboard board", "shot list board", "director treatment board", "storyboard planning board", "complete storyboard plan", or explicitly asks for a full visual planning layout | **Storyboard Master Sheet** |
+
+When the user provides a multi-panel board image: identify whether it's ≤4 panels (treat as Compact Frame Prompts) or ≥5 panels (treat as source for Master Sheet structure).
+
+When uncertain, default to Compact Frame Prompts but mention the Master Sheet option briefly.
+
+---
+
+# Mode A: Compact Frame Prompts
+
+## Workflow
+
+1. Run the Input Gate before writing any frame prompts.
+2. Identify the scene goal, characters, location, emotional beat, references, target mode, aspect ratio, and intended output length.
+3. Convert the idea or script into a compact storyboard plan: 3-8 frames unless the user specifies a count.
+4. For each frame, define one readable visual moment including: subject, action, composition, camera angle, lighting mood, story purpose, and continuity notes.
+5. Write each frame as a rough sketch prompt, not a final video prompt.
+6. Add a short Seedance I2V note for how the frame should animate into the next moment.
+
+Ask one concise question only when missing information would materially change the board, such as the target aspect ratio, number of frames, or whether the board should be realistic, anime, ad-like, or cinematic.
 
 ## Input Gate
 
-Before generating a prompt, check that the user has provided enough material to fill the 8-element framework. Treat the input as sufficient when it includes at least:
+Before generating storyboard sketch prompts, decide whether the user has already provided enough scene material to convert into a compact storyboard plan.
 
-- A scene idea, subject, or theme.
-- A desired visual style or use context (film/ad/animation/CG).
+Treat the input as sufficient when it includes at least:
 
-If sufficient, proceed and fill gaps with reasonable defaults, marked clearly.
+- A core scene idea, script, beat list, or image/video reference.
+- A subject or character.
+- A situation, location, or action.
+- A desired use, such as Seedance I2V, preview board, animatic, or shot planning.
 
-If insufficient, infer from context then confirm:
+If sufficient, proceed directly and state any light assumptions inside "Storyboard Setup".
+
+If insufficient, infer a draft brief from available context before asking the user. Use conversation context, provided files, project names, existing prompt text, uploaded images, or nearby project materials when available. Then ask the user to confirm or correct the brief before generating frame prompts.
+
+Use this confirmation format:
 
 ```markdown
-Let me first confirm the direction for this storyboard shot:
+Let me first confirm the storyboard basics:
+- Core scene: [inferred or missing]
+- Subject/Character: [inferred or missing]
+- Location/Situation: [inferred or missing]
+- Output target: Seedance image-to-video storyboard sketch
+- Suggested specs: [aspect ratio, frame count, style]
 
-- Scene/Theme: [inferred]
-- Subject/Character: [inferred]
-- Action: [inferred]
-- Target style: Cinematic storyboard / B&W line art / Animation previs / Ad pitch
-- Target tool: Midjourney / Flux / Jimeng / Kling / GPT Image
-
-Does this look right? Adjust one line and I will generate the prompt.
+Can you confirm this direction? Or adjust one line and I will generate the storyboard sketch prompts.
 ```
 
-If the user says "just generate", proceed with assumptions and mark them.
-
-## The 8-Element Framework
-
-Every storyboard prompt must address these eight dimensions. The model cannot invent missing critical information — if the user hasn't provided it, make a justified assumption and note it.
-
-| #   | Element       | Chinese       | What it answers                                     |
-| --- | ------------- | ------------- | --------------------------------------------------- |
-| 1   | Scene         | Scene         | Where and when does this take place?                |
-| 2   | Subject       | Subject       | Who or what is the focus? Appearance? Wardrobe?     |
-| 3   | Action        | Action        | What is the subject doing? State, direction?        |
-| 4   | Camera        | Camera        | Shot size, angle, movement?                         |
-| 5   | Composition   | Composition   | How is the frame arranged? Subject position?        |
-| 6   | Lighting      | Lighting      | Key light, fill, color temp, quality?               |
-| 7   | Mood          | Mood          | What emotional atmosphere?                          |
-| 8   | Story Purpose | Story Purpose | Why does this shot exist? What does it communicate? |
-
-This framework applies whether the user needs a film noir detective scene, an animation fantasy shot, or a luxury product commercial. The elements stay the same; only the values change.
+If the request is urgent or the user explicitly says proceed directly without confirmation, proceed with reasonable assumptions and mark them clearly.
 
 ## Output Format
 
-Write the prompt in two layers. First, show the structured breakdown so the user can verify every element. Then, provide the compressed prompt ready for pasting into an image generator.
+Use this structure by default:
 
 ```markdown
-## Shot Breakdown
+**Storyboard Setup**
+- Aspect ratio:
+- Visual style:
+- Scene context: [one-line scene description — time, location, environment]
+- Continuity anchors: [character wardrobe, key props, geography, screen direction]
 
-**Scene:** [time · location · environment details]
-**Subject:** [character/object · appearance · wardrobe · state]
-**Action:** [what the subject is doing · movement direction · state]
-**Camera:** [shot size] · [angle] · [movement]
-**Composition:** [framing approach · subject position · depth layers]
-**Lighting:** [key light direction/quality] · [fill] · [color temp] · [atmosphere]
-**Mood:** [2-3 emotional keywords]
-**Story Purpose:** [narrative function — establish/reveal/emphasize/transition]
+**Frame 1 - [short beat name]**
+Sketch prompt: [one clean prompt for a rough storyboard image]
+Scene: [time · location · environment context for this beat]
+Composition: [shot size, camera angle, framing]
+Lighting & Mood: [key light, atmosphere]
+I2V motion note: [one sentence describing the motion into or within this beat]
+Story purpose: [what this shot communicates — reveal, tension, transition, establish, etc.]
+Continuity: [what must remain consistent]
 
-## Prompt
-
-[Compressed prompt in 40-100 words, English or Chinese depending on user preference. End with style keywords.]
+**Frame 2 - [short beat name]**
+...
 ```
 
-### Prompt Compression Rules
+Repeat the frame block for each shot. End with a compact "Board Notes" section only when useful.
 
-The compressed prompt should flow naturally as one paragraph. Order elements by visual priority: Scene → Subject → Action → Camera → Composition → Lighting → Mood, then append style keywords. Do not use bullet points or labels in the compressed prompt — it must read as a single descriptive passage that image generators parse well.
+### Field Guide
 
-### Style Keywords
+- **Sketch prompt**: The primary image-generation prompt. 25-60 words. Include subject, action, camera, composition, lighting cues, and rough-board style keywords. This is what gets fed to an image generator to produce the storyboard panel.
+- **Scene**: Time, location, and environment context specific to this beat. Keeps the sketch prompt from needing to re-explain the setting.
+- **Composition**: Shot size (see Quick Reference), camera angle, framing approach. Use plain terms like "wide shot", "over-shoulder", "low angle", "centered", "rule of thirds".
+- **Lighting & Mood**: Key light direction and quality, color temperature, atmosphere. E.g. "warm rim light from window, soft fill, tense atmosphere".
+- **I2V motion note**: How the Seedance image-to-video should animate this frame. Camera movement + subject movement + transition logic. One sentence.
+- **Story purpose**: What narrative function this shot serves — e.g. "establish spatial environment", "reveal character emotional shift", "emphasize product texture", "build suspense for the next shot". This is the single most important addition from professional storyboard practice: every shot must have a clear narrative reason to exist.
+- **Continuity**: What must remain identical to other frames — character identity, wardrobe, props, lighting direction, screen geography.
 
-Always append these to the compressed prompt. Choose the set that matches the user's intent:
+## Prompt Style
 
-**Film storyboard:**
+- Keep sketch prompts short: usually 25-60 words per frame.
+- Use simple physical language: "wide shot", "over-shoulder", "low angle", "profile", "center frame", "foreground silhouette".
+- Specify rough-board aesthetics: pencil sketch, grayscale marker, loose storyboard lines, clean thumbnail composition, no finished rendering.
+- Include only the objects and expressions needed to understand the beat.
+- Preserve character identity, wardrobe, props, geography, and screen direction across frames.
+- Prefer visible action over abstract mood words.
+- Use plain composition cues instead of bloated cinematic adjectives.
 
-```
-professional storyboard panel, film storyboard frame, director treatment, cinematic composition, pre-production visualization, black and white storyboard sketch, clean pencil drawing, highly detailed, production-ready storyboard
-```
+## Seedance Workflow Alignment
 
-**Animation storyboard:**
+Follow the Seedance operating pattern without becoming a full production prompt skill:
 
-```
-animation storyboard, pre-production planning board, clean pencil sketch, animation keyframe planning, animatic reference frame, production storyboard panel
-```
+- Intake first: clarify goal, duration, aspect ratio, references, deliverable, and safety/IP risks when relevant.
+- Mode gate: assume this skill serves I2V planning unless the user says T2V, V2V, R2V, edit, or extend.
+- Reference map: if assets exist, assign each one a role such as identity, first frame, environment, motion, camera, timing, or style. State what should not transfer.
+- Long-form logic: for videos over 15 seconds, produce a storyboard plan and note that final Seedance generation should be split into shots or segments.
+- Storyboard-board input: if the user provides a multi-panel board, first identify whether it is ≤4 panels for one timestamped Seedance prompt or ≥5 panels for separate per-shot prompts plus editing rhythm.
+- Quality pass: check every frame has one visible beat, one primary camera setup, continuity anchors, and an I2V motion note.
 
-**Commercial storyboard:**
+## Seedance I2V Notes
 
-```
-commercial storyboard, advertising shot planning, director treatment frame, high-end product storyboard, professional production board, clean composition, white background
-```
+For each frame, include a motion note that helps a still storyboard become a Seedance image-to-video seed:
 
-**Color/finished style (when user explicitly wants color):**
+- Camera movement: static hold, slow push-in, lateral track, gentle tilt, handheld drift.
+- Subject movement: turn, step, reach, glance, pause, reveal, react.
+- Transition logic: match action, eye-line match, push through foreground, cut on gesture.
+- Avoid asking one frame to contain multiple time-separated actions.
 
-```
-professional storyboard panel, cinematic composition, color storyboard, production design, film pre-visualization, highly detailed
-```
+## Example — Compact Frame Prompts
 
-## Domain Templates
-
-### Film / Drama Template
-
-Use when the user describes a narrative scene with characters, tension, or emotional arc.
-
-```
-Scene: [time of day] · [location] · [weather/atmosphere]
-Subject: [character name/type] · [age] · [appearance] · [wardrobe]
-Action: [physical action with direction and state]
-Camera: [shot size from WS to ECU] · [angle low/high/eye] · [static/push/track]
-Composition: [rule of thirds / centered / leading lines] · [foreground/midground/background layers]
-Lighting: [key source] · [quality soft/hard] · [color temp warm/cool] · [special: rim/volumetric/practical]
-Mood: [2-3 words: tense/suspenseful/melancholic/hopeful/epic]
-Story Purpose: [establish location / introduce character / build tension / reveal clue / transition]
-```
-
-### Animation Template
-
-Use when the user describes animated or fantasy content.
-
-```
-Scene: [fantasy/real-world location] · [time/magical atmosphere]
-Subject: [character type] · [age] · [design features] · [costume]
-Action: [dynamic or emotional action with flow direction]
-Camera: [shot size] · [three-quarter view / profile / bird's eye] · [dynamic movement]
-Composition: [rule of thirds / dynamic perspective] · [depth layers]
-Lighting: [soft/diffuse magical light] · [warm/cool/fantasy glow] · [atmosphere]
-Mood: [wonder / adventure / fantasy / dreamlike / epic]
-Story Purpose: [introduce world / show character emotion / reveal destination / emphasize scale]
-```
-
-### Advertising / Product Template
-
-Use for product commercials, luxury goods, brand films.
-
-```
-Scene: [clean studio / lifestyle environment / abstract backdrop]
-Subject: [product name/type] · [key visual features] · [material/texture]
-Action: [slow reveal / rotation / interaction with light or environment]
-Camera: [CU / ECU for product detail] · [eye level / top-down] · [slow push-in / orbit / static]
-Composition: [centered / negative space] · [product as hero, minimal distraction]
-Lighting: [rim light for edge definition] · [soft fill] · [dramatic / elegant / high key]
-Mood: [luxury / elegant / premium / minimal / aspirational]
-Story Purpose: [hero product / emphasize craftsmanship / lifestyle association / brand closer]
-```
-
-### Universal Template (when domain is unclear)
-
-The most general template — use when the user's domain doesn't fit the above, or as default.
-
-```
-Scene: [time · location · environment]
-
-Subject: [character / object · appearance · state]
-
-Action: [what is happening · movement direction]
-
-Camera: [shot size · angle · movement]
-
-Composition: [framing · subject placement · depth]
-
-Lighting: [key · fill · color temp · special qualities]
-
-Mood: [emotional keywords]
-
-Story Purpose: [why this shot matters]
-
-Style: [professional storyboard panel, cinematic composition, clean pencil sketch, highly detailed, production-ready storyboard]
-```
-
-## Scene Generator
-
-When the user provides only a theme (e.g., "futuristic cyberpunk city" or "detective in heavy rain") without complete scene details, first generate a scene breakdown, then build the prompt from it.
-
-Template:
+User idea: "A courier discovers the package is ticking in a rainy alley."
 
 ```markdown
-Based on the theme "[user's theme]", let me first develop a scene plan:
+**Storyboard Setup**
+- Aspect ratio: 16:9
+- Visual style: rough grayscale storyboard sketch, clean readable thumbnails
+- Scene context: Midnight, narrow back alley, heavy rain, wet brick walls
+- Continuity anchors: red courier jacket, wet alley bricks, small black package
 
-**Scene Description:** [2-3 sentences establishing time, place, atmosphere]
-**Subject Description:** [1-2 sentences on the main subject]
-**Action Description:** [1 sentence on the key action]
-**Camera Suggestion:** [shot size + angle]
-**Lighting Suggestion:** [key light + atmosphere]
-**Mood Suggestion:** [2-3 mood words]
-**Storyboard Focus:** [what this shot should emphasize]
+**Frame 1 - Alley Arrival**
+Sketch prompt: Wide shot, rainy narrow alley at night, courier in a red jacket enters from screen left holding a small black package, wet brick walls, simple pencil lines, clear silhouette.
+Scene: Midnight · narrow alley · rain on brick
+Composition: Wide shot, eye level, leading lines from alley walls
+Lighting & Mood: Street lamp top light, blue ambient, tense
+I2V motion note: Slow lateral track follows the courier walking deeper into the alley.
+Story purpose: Establish spatial environment and character entrance state
+Continuity: Courier keeps the package in the right hand.
 
-Once you confirm this direction, I will generate the full prompt.
+**Frame 2 - The Sound**
+Sketch prompt: Medium close shot, courier stops under a dim wall lamp and tilts the package toward one ear, rain streaks behind, anxious face, loose storyboard shading.
+Scene: Same alley · under wall lamp
+Composition: Medium close-up, eye level, centered on face and package
+Lighting & Mood: Overhead lamp as key, rain reflections on face, suspenseful
+I2V motion note: Static hold with a small head turn as the courier hears the ticking.
+Story purpose: Reveal crisis signal, establish suspense turning point
+Continuity: Same red jacket, same package size and orientation.
 ```
+
+---
+## Load Resources
+
+This skill includes bundled reference knowledge. Load when needed:
+
+- For Seedance I2V workflow, operating modes, and motion note specifications, read `references/seedance-i2v-workflow.md`
+- For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`
+- For bilingual shot size, camera movement, angle, composition, lighting, and narrative purpose quick reference tables, read `../references/cinematography-quick-reference.md`
+- For Seedance platform constraints (word limits, @[ref] format), read shared reference `../references/seedance-platform.md`
+
+---
 
 ## Quality Bar
 
-- Every prompt must address all 8 elements. If the user hasn't provided one, make a note of the assumption.
-- The compressed prompt should be usable as-is in any major image generator without modification.
-- Style keywords must not include unsafe studio/franchise/celebrity names — use descriptive equivalents.
-- If the user asks for Chinese output, write the breakdown in Chinese but keep style keywords in English (they perform better in image generators).
-- A reader unfamiliar with the project should understand the full scene from just the compressed prompt.
+- The reader should understand the entire scene by scanning frame titles and sketch prompts.
+- Every prompt should be drawable as a single storyboard panel.
+- Every frame must have a clear story purpose — answering "why does this shot exist."
+- The planning board should be usable before writing final Seedance prompts.
+- If user requests Chinese output, write all prompts in concise Chinese with the same structure.
+- For Master Sheet mode, the four zones (Shot Grid, Rhythm, Camera, Visual Language) should form a coherent planning document, not just a shot list.
