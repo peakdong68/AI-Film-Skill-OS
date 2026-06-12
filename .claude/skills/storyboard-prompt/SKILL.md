@@ -1,6 +1,6 @@
 ---
 name: storyboard-sketch
-description: 'Generate text-level per-frame I2V storyboard sketch descriptions for Seedance — no images, only motion/camera/lighting/sound text per frame. Use for I2V frame planning, per-frame motion descriptions, animatic sketches, or script-to-frame-sequence breakdown. Triggers: I2V storyboard, per-frame motion, animatic sketch, first-frame prompt. Note: for multi-shot image boards use `storyboard-master`; for single-frame image prompts use `storyboard-prompt`; for commerce boards use `storyboard-ecommerce`.'
+description: 'Generate text-level per-frame I2V storyboard sketch descriptions for Seedance , only motion/camera/lighting/sound text per frame. Use for I2V frame planning, per-frame motion descriptions, animatic sketches, or script-to-frame-sequence breakdown. Triggers: I2V storyboard, per-frame motion, animatic sketch, first-frame prompt. Note: for multi-shot image boards use `storyboard-master`; for single-frame image prompts use `storyboard-prompt`; for commerce boards use `storyboard-ecommerce`.'
 ---
 
 # Seedance Storyboard Sketch
