@@ -91,7 +91,7 @@ Before compilation, verify all upstream outputs are ready:
 - [ ] Narrative structure + emotion arc (from STATE 1 — director-story + director-emotion)
 - [ ] Camera language blueprint (from STATE 2 — director-camera)
 - [ ] Lighting design system + color script (from STATE 2 — director-light)
-- [ ] Character identity locks (from STATE 3 — director-character)
+- [ ] Character identity locks (from STATE 3 — user reference images or director-character text definitions)
 - [ ] Project metadata: total duration, aspect ratio, target platform
 
 If any output is missing, halt and route back to the corresponding director skill. Never compile from incomplete inputs.

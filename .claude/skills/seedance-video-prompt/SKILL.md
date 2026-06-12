@@ -185,15 +185,24 @@ Seedance 2.0 uses `@[ImageN]` / `@[VideoN]` / `@[AudioN]` format for uploaded as
 
 ### Subject Definition Rules
 
-Explicitly define subjects in reference assets with 2-3 clear, stable static features (clothing, hairstyle, appearance category) for unique identifiability.
+Explicitly define subjects in reference assets for unique identifiability.
 
-**Basic definition:** `` Define [feature1], [feature2] in @[Image1] as `Subject1` ``
-**Short binding:** `` `Subject1`@[Image1] `` / `John@Image1`
-**Multi-asset same subject:** `` Define [...] in @[Image1] and [...] in @[Image2] as `SubjectN` ``
-**Face close-up separation:** `` `Subject1`'s facial features reference @[Image1] (headshot), styling references @[Image2] (full-body) ``
-(Optional — recommended when high identity consistency is required; helps Seedance extract facial features with higher weight)
+**Core principle: the reference image itself IS the identity definition — do not enumerate static appearance details already contained in the reference image.** Reiterating facial structure, hairstyle, body type, etc. that are already locked in the image causes the model to reinterpret rather than directly reference the image. Subject definitions need only 1-2 distinctive appearance identifiers; the rest is carried by the reference image.
 
-> **Recommendation**: For best identity consistency, use separate face close-up (headshot) + full-body reference images. Place face reference earliest in the prompt for higher weight.
+**When reference images exist (I2V / R2V / FLF2V):**
+
+| Scenario | Format | Example |
+|----------|--------|---------|
+| **Basic definition** | `` Define [1-2 distinctive identifiers] in @[Image1] as `Subject1` `` | `` Define the male model in @[Image1] as `Model` `` |
+| **Short binding** | `` `Subject1`@[Image1] `` | `` `Model`@[Image1] `` |
+| **Multi-asset same subject** | `` Define [identifier] in @[Image1] and [identifier] in @[Image2] as `SubjectN` `` | `` Define the character's face in @[Image1] and outfit in @[Image2] as `Protagonist` `` |
+| **Face close-up separation** | `` `Subject1`'s face references @[Image1], outfit references @[Image2] `` | Separate headshot + full-body references for enhanced facial extraction weight |
+
+**When no reference images exist (T2V):** detailed subject appearance description is required in the prompt (face + hairstyle + body type + wardrobe).
+
+**Anti-patterns (forbidden when reference images exist):**
+- ❌ `` Define the Asian male model with angular face structure, Korean-style slightly wavy short dark hair, lean athletic build, white printed crew neck t-shirt in @[Image1] as `Model` `` — over-describes details already locked in the reference image
+- ✅ `` Define the male model in @[Image1] as `Model` `` — identity binding only, no re-description
 
 ### Edit/Extend: No "Reference" Prefix
 

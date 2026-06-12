@@ -136,6 +136,29 @@ Proceed to STATE 3.
 
 ### STATE 3 — Character Lock
 
+**Input Gate (check first, then route):**
+
+After STATE 2 is confirmed, first check whether the user already provided character/product/prop reference images in the STATE 0 brief:
+
+| User has...                              | Action                                                       |
+| ---------------------------------------- | ------------------------------------------------------------ |
+| Character reference image (`@[char ref]`)  | **Skip `director-character`**. The character's visual identity is already locked by the reference image — no text-level character definition needed. Register the reference image directly to material slots with status ✅ Ready |
+| Product/prop reference image (`@[product ref]`) | Same — register directly to material slots with status ✅ Ready |
+| Some have images, some don't            | Skip `director-character` for those with images → register directly; route those without images to `director-character` for text-level identity definition |
+| No reference images at all              | Route to `director-character` for text-level character identity definition |
+
+> **Core principle: the reference image itself IS the identity lock.** When the user provides character/product reference images, the visual identity is already anchored by the image — there is no need to textually enumerate face/hairstyle/body type/wardrobe. `director-character` is only called when **no reference images exist**, to build character identity definitions from scratch.
+
+---
+
+**Path A: User already has reference images (skip `director-character`)**
+
+1. Register user's character/product/prop reference images directly to material slots, status ✅
+2. Output a concise identity summary (1-2 most distinctive identifiers visible from the reference image), save to `State-3-characters.md`
+3. Proceed to the "Character image generation question" below
+
+**Path B: User has no reference images (route to `director-character`)**
+
 Route to `director-character`.
 
 **Required deliverables:**
@@ -155,22 +178,34 @@ Route to `director-character`.
 - [ ] User confirmed all character identity definitions
 - [ ] **File saved to `outputs/`?**
 
-**After STATE 3 confirmation — ask the user:**
+---
 
-> Character identity definitions are locked. Do you need to generate character reference images?
+**After character identity is locked — ask the user (executed for both Path A and B):**
 
-- **Yes →** Route to `character-image-prompt` to compile definitions into platform-ready Character Sheet image generation prompts (MJ/Flux/Jimeng/Kling). User then generates actual character reference images. These images serve as character reference input for STATE 6, improving cross-shot identity consistency.
-- **No / Skip →** Skip character image generation. Character identity will be presented as text descriptions in the prompt package. Note: this may reduce identity consistency in video output compared to using reference images.
+> Character identity is locked. Do you need to generate Character Sheet image prompts based on the current identity definition?
+
+- **Yes →** Route to `character-image-prompt` to compile the identity definition (Path A uses reference images, Path B uses `director-character` text definitions) into platform-ready Character Sheet image generation prompts (MJ/Flux/Jimeng/Kling). The user can then generate actual Character Sheet images. Generated Character Sheets serve as `@[imageN]` reference input for STATE 6, improving cross-shot identity consistency.
+- **No / Skip →** Skip character image generation. Under Path A, reference images already exist and identity is locked; under Path B, character identity will be presented as text descriptions in the prompt package. Note: text descriptions may reduce identity consistency in video output compared to using reference images.
 
 Character image generation (if selected) and STATE 4 prompt package compilation can run in parallel.
+
+Note: Under Path A, `character-image-prompt` input is the user's reference images (Mode A: has reference image), not text descriptions.
 
 ### Material Slot Registry
 
 After STATE 3 character lock + character image prompts are produced, immediately define global material slots. All downstream STATEs MUST reference this table.
 
-**Write timing:** After STATE 3 completes, before STATE 4 begins (when character image prompts have been produced).
+**Write timing:** After STATE 3 completes, before STATE 4 begins.
 
-**Example:**
+**Path A (user already has reference images) slot example:**
+
+| Slot        | Content                   | Source          | Status    |
+| ----------- | ------------------------- | --------------- | --------- |
+| `@[image1]` | [Character A] Reference   | User-provided   | ✅ Ready  |
+| `@[image2]` | [Product] Reference       | User-provided   | ✅ Ready  |
+| `@[image3]` | Storyboard Master Sheet   | State-5-storyboard.md | ⏳ Pending |
+
+**Path B (no reference images) slot example:**
 
 | Slot        | Content                       | Source                | Status                     |
 | ----------- | ----------------------------- | --------------------- | -------------------------- |
@@ -185,6 +220,7 @@ After STATE 3 character lock + character image prompts are produced, immediately
 - STATE 6 video prompts must use `@[imageN]` for subject definitions and reference storyboard blueprints
 - STATE 8 export package must include a complete slot→material mapping table
 - If materials have not yet been generated (user hasn't uploaded), use `@[imageN]` placeholder with note "effective after uploading corresponding material"
+- **When reference images exist, slot registration is immediate. No need for the user to re-upload.**
 
 **Write to checkpoint file:** After slot definition is complete, update `STATE.md`, appending a `Material Slots` block after `Production Brief`.
 
