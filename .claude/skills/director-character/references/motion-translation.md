@@ -1,4 +1,4 @@
-# Motion Translation — 微动作单元库
+# Motion Translation — Micro-Motion Unit Library
 
 ## 核心原则
 
