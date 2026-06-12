@@ -82,6 +82,11 @@ Collect production params (duration, style, platform, aspect ratio, reference ma
 
 **After output:** save to `outputs/YYYY-MM-DD-[topic]-State-0-brief.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-0-brief.md`".
 
+**Verification Gates:**
+- [ ] **File saved to `outputs/`?**
+
+Proceed to STATE 1.
+
 ### STATE 1 — Story & Emotion Design
 
 Route to `director-story` and `director-emotion`.
@@ -93,16 +98,15 @@ Route to `director-story` and `director-emotion`.
 - Emotional arc diagram (calm → tension → climax → resolution)
 - Emotional intensity timeline
 
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-1-story-emotion.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-1-story-emotion.md`".
+
 **Verification Gates:**
 
 - [ ] Every scene has a narrative purpose
 - [ ] Emotional arc covers full duration
 - [ ] Causal chain defined (A causes B causes C)
 - [ ] User confirmed structure
-
-**State 1 output**: Script blueprint + Emotional timeline.
-
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-1-story-emotion.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-1-story-emotion.md`".
+- [ ] **File saved to `outputs/`?**
 
 Proceed to STATE 2.
 
@@ -117,16 +121,15 @@ Route to `director-style` (director style), `director-camera` (camera system), a
 - Color script (dominant colors per act/scene, temperature curve)
 - Composition rules (primary and secondary framing approaches)
 
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-2-visual.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-2-visual.md`".
+
 **Verification Gates:**
 
 - [ ] Camera language matches emotional tone
 - [ ] Lighting evolves with the narrative
 - [ ] Color script covers full duration
 - [ ] User confirmed visual language
-
-**State 2 output**: Visual language blueprint.
-
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-2-visual.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-2-visual.md`".
+- [ ] **File saved to `outputs/`?**
 
 Proceed to STATE 3.
 
@@ -141,16 +144,15 @@ Route to `director-character`.
 - Behavior system (movement signature, eyeline direction, emotion→action mapping)
 - Multi-character relationship map (if applicable)
 
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-3-characters.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-3-characters.md`".
+
 **Verification Gates:**
 
 - [ ] All characters have identity locks
 - [ ] Visual parameters are specific enough to be reproducible
 - [ ] Behavior system covers emotional range
 - [ ] User confirmed all character identity definitions
-
-**State 3 output**: Character identity definitions (text-level design document).
-
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-3-characters.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-3-characters.md`".
+- [ ] **File saved to `outputs/`?**
 
 **After STATE 3 confirmation — ask the user:**
 
@@ -205,6 +207,8 @@ The output is **not** a Seedance video prompt — it is the design foundation fo
 - Must not contain phrases like "generate in Seedance", "Seedance 2.0 prompt", "generate shot by shot in Seedance"
 - The prompt package is a platform-agnostic director-level design document — not bound to any specific image or video generation tool
 
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-4-prompt-package.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-4-prompt-package.md`".
+
 **Pre-flight Checklist (all must be YES):**
 
 - [ ] Story structure confirmed?
@@ -213,12 +217,9 @@ The output is **not** a Seedance video prompt — it is the design foundation fo
 - [ ] Character identity locked and confirmed?
 - [ ] Duration and aspect ratio locked?
 - [ ] **Output boundary compliant: no mention of Seedance / Kling?**
+- [ ] **File saved to `outputs/`?**
 
 If any answer is NO, stop and return to the missing stage.
-
-**State 4 output**: Film-level short film prompt package (text-level director's vision document).
-
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-4-prompt-package.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-4-prompt-package.md`".
 
 Proceed to routing decision.
 
@@ -306,6 +307,8 @@ Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-pr
 - Per-shot visual descriptions (subject, composition, camera, lighting mood for each shot)
 - Cross-frame continuity anchors
 
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-5-storyboard.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-5-storyboard.md`".
+
 **Verification Gates:**
 
 - [ ] Storyboard blueprint boards cover all shots
@@ -313,10 +316,7 @@ Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-pr
 - [ ] Character identity consistent across all frames (referencing STATE 3 locks)
 - [ ] Visual language consistent with STATE 2 definitions
 - [ ] User confirmed storyboard blueprints
-
-**State 5 output**: Storyboard blueprint images (for Seedance reference).
-
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-5-storyboard.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-5-storyboard.md`".
+- [ ] **File saved to `outputs/`?**
 
 Proceed to STATE 6.
 
@@ -353,6 +353,8 @@ Route to `seedance-video-prompt`.
 
 > **For I2V scenarios, I2V (storyboard) is the primary recommendation.** It provides the best multi-shot control through storyboard blueprint images (generated in STATE 5). I2V (minimal) is a simpler fallback for single-reference-image cases. Always inform the user of both options and the tradeoffs.
 
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-6-video-prompts.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-6-video-prompts.md`".
+
 **Pre-flight Checklist (mode-aware):**
 
 - [ ] Required inputs for selected mode ready?
@@ -362,10 +364,11 @@ Route to `seedance-video-prompt`.
 - [ ] Music style and BPM determined?
 - [ ] **Prompt word count compliant (Chinese ≤ 500 chars)?**
 - [ ] **Anti-slop check passed?**
+- [ ] **File saved to `outputs/`?**
 
 If any required input is missing, prompt the user for the corresponding reference.
 
-**State 6 output**: Seedance 2.0 video prompts (platform-executable). Proceed to STATE 7.
+Proceed to STATE 7.
 
 ### STATE 7 — Final Validation
 
@@ -386,7 +389,12 @@ Quality check on all deliverables following a professional review loop:
 - **Word count check**: Each prompt Chinese ≤ 500 characters?
 - **Anti-slop check**: No hollow evaluation words?
 
-**State 7 output**: Validated video prompts. Proceed to STATE 8.
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-7-verification.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-7-verification.md`".
+
+**Verification Gates:**
+- [ ] **File saved to `outputs/`?**
+
+Proceed to STATE 8.
 
 ### STATE 8 — Export Ready
 
@@ -411,7 +419,20 @@ Package final deliverables to professional delivery standards:
 - Multi-Part splice point frame alignment guide (trim 6 frames from previous clip end + 1 frame from next clip start)
 - Asset rights status notes (character reference images, audio clip authorization/source)
 
-**After output:** Save the complete export package to `outputs/YYYY-MM-DD-[topic]-State-8-export.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-8-export.md`". Pipeline complete.
+**After output:** Save the complete export package to `outputs/YYYY-MM-DD-[topic]-State-8-export.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-8-export.md`".
+
+**Verification Gates:**
+- [ ] **File saved to `outputs/`?**
+
+Pipeline complete.
+
+**Archive Checkpoint:**
+
+1. Archive `STATE.md` to `outputs/YYYY-MM-DD-[topic]-STATE.md`
+2. Clear root `STATE.md` (write `## Production Checkpoint
+
+No active project`)
+3. Notify user: "✅ Project archived. STATE.md archived to outputs/ directory. Ready for new project."
 
 ## Dependency Graph
 
@@ -483,7 +504,8 @@ director-story ────→ director-emotion
 
 1. Read `STATE.md`
 2. **File not found** → Start from STATE 0, begin input collection
-3. **File found** → Parse current state, inform user of progress and ask:
+3. **File exists with "No active project"** → Start from STATE 0 (previous project archived). Can prompt user to check `outputs/` directory for history projects
+4. **File exists with active project** → Parse current state, inform user of progress and ask:
 
 ```
 📋 Production checkpoint found:
