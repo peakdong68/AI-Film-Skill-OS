@@ -91,6 +91,7 @@ Present structured plan first, then compressed image generator prompt:
 - Visual style keywords must clearly describe board format — not video content
 - Compressed prompt must include anti-pattern checklist to prevent AI image generator drift to poster/concept art style
 - If user provides product/creator reference images, preserve their visual identity exactly
+- **When reference images exist, do not enumerate subject appearance details (face, hairstyle, body type, wardrobe) in the Replaceable Zone or Compressed Prompt.** The reference image already locks visual identity — only slot references + 1-2 identifiers are needed. Re-enumerating details already in the image causes the generation model to reinterpret rather than directly reference.
 - Reference materials use `@[imageN]` format
 
 **Format-specific rules:**

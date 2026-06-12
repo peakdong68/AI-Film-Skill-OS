@@ -177,123 +177,34 @@ clean commercial storyboard, professional production board, TikTok AI video plan
 
 关键词: 潮流 / 街头 / 高级感 / 松弛 / 质感
 
-### Replaceable Zone 主体替换区域
+### Replaceable Zone
 
-每个项目唯一需要自定义的区域:
+The only area that needs customization per project. Choose the matching mode based on whether the user has provided reference images.
 
-```
-【场景】[地点描述、灯光环境、场景细节]
-【模特】[单一模特: 性别、年龄范围、发型、配饰、服装风格、表情]
-【产品】[服装: 颜色、水洗效果、版型、印花图案、领口、袖口、衣长、下摆、面料质感、比例]
-【镜头动作】[关键动作列表: 自然走入 / 整理衣摆 / 拉袖口 / 45°侧身 / 正面站姿 / 微低头]
-```
-
-### 视觉风格关键词
+**Mode 1: No reference images (detailed subject appearance description required)**
 
 ```
-导演分镜提案板, 商业广告导演分镜板, 电商服装广告Storyboard, 专业镜头语言, 信息层级清晰, 排版整洁, 高级感强, 真实摄影感, 白底或浅灰底
+[Scene] [Location description, lighting environment, scene details]
+[Model] [Single model: gender, age range, hairstyle, accessories, clothing style, expression]
+[Product] [Garment: color, wash effect, fit, print pattern, collar, cuff, length, hem, fabric texture, proportions]
+[Shot Action] [Key action list: walk in naturally / adjust hem / pull cuff / 45° side profile / front pose / slight head tilt]
 ```
 
-不要生成: 插画风格、海报风格、漫画风格、UI 界面风格。必须看起来像真实的导演分镜提案板。
+**Mode 2: Reference images exist (do not enumerate appearance already locked in reference images)**
 
----
-
-## Format C: Product Showcase Board 产品展示板（通用）
-
-用于纯产品展示——无主播/创作者/模特出镜，适用于 3C 数码、家电、家居、食品、美妆等非服装品类。产品自行在场景中展示，镜头围绕产品运动。
-
-### 布局结构
+When the user has provided model/product reference images registered in material slots, the Replaceable Zone only needs slot references — do not enumerate appearance details:
 
 ```
-┌──────────────────────────────────────────────┐
-│              Top Info Bar                     │
-│  Product | Category | Key Feature | Format   │
-├──────────────────┬───────────────────────────┤
-│ Product Ref (L)  │  Scene Ref (R)            │
-│ 3 ref images     │  3 ref images             │
-├──────────────────┴───────────────────────────┤
-│        6-Shot Product Storyboard             │
-│  Shot 01 │ Shot 02 │ Shot 03 │ ... │ Shot 06│
-│  [card]  │ [card]  │ [card]  │     │ [card]  │
-└──────────────────────────────────────────────┘
+[Scene] [Location description, lighting environment]
+[Model] See @[model ref] — [1-2 most distinctive identifiers], keep face, body type, hairstyle from reference unchanged
+[Product] See @[product ref] — [category + 1 key feature], keep fit, fabric, print from reference unchanged
+[Shot Action] [Key action list]
 ```
 
-画幅比例: 16:9。白色或浅灰背景，黑色细边框，干净电商产品摄影风格。无创作者区——产品为绝对视觉中心。
+> **Core principle: the reference image already locks visual identity — do not enumerate model facial structure, hairstyle, body type, or wardrobe details in the Replaceable Zone or Compressed Prompt, nor product fit, fabric, or collar details. This information is carried by the reference image; re-enumeration causes the image generation model to reinterpret rather than directly reference.**
 
-### Top Info Bar 顶部信息栏
+**Compressed Prompt rules:**
+- With reference images: shot preview descriptions use `` See @[model ref] `` format, only describing newly added motion and lighting
+- Without reference images: include subject appearance description in shot previews
 
-| 单元格 | 内容 |
-|---|---|
-| **Product** | 产品名称 |
-| **Category** | 品类（3C/家电/家居/食品/美妆/...） |
-| **Key Feature** | 一句话核心卖点 |
-| **Format** | 平台 / 画幅比例 / 时长 |
 
-### Product Reference Area 产品参考区（左侧）
-
-标题: **Product Reference**。三张同一产品的不同角度:
-
-| # | Image | Label |
-|---|---|---|
-| 1 | 正面主视图 | Front hero view |
-| 2 | 45°侧视图 | 3/4 angle view |
-| 3 | 细节特写 | Detail close-up |
-
-要求: 产品严格一致——颜色、形状、材质、Logo、关键细节。干净、居中、电商风格产品摄影。每张图下方英文标签。
-
-### Scene Reference Area 场景参考区（右侧）
-
-标题: **Scene Reference**。三张使用场景/氛围参考图:
-
-| # | Image | Label |
-|---|---|---|
-| 1 | 主场景 | Main scene |
-| 2 | 光影参考 | Lighting ref |
-| 3 | 氛围/风格 | Mood/style ref |
-
-要求: 三张图保持统一灯光方向和色调。展示产品预期使用环境，非产品本身。每张图下方英文标签。
-
-### 6 镜头卡片格式
-
-```
-┌─────────────────────────────┐
-│     Shot 01: Showcase       │
-│                             │
-│   [Keyframe Preview]        │
-│                             │
-│ Time: 0–2s                  │
-│ Shot type: [景别]           │
-│ Action: [一行]              │
-│ Camera: [一行]              │
-└─────────────────────────────┘
-```
-
-无字幕行——纯产品展示，字幕由后期叠加。
-
-### 默认 6 镜头结构
-
-| 镜头 | 名称 | 时间 | 景别 | 画面 | 运镜 |
-|---|---|---|---|---|---|
-| 01 | Showcase 亮相 | 0–2s | Medium product | 产品在场景中的初始亮相，建立空间和产品位置 | Slow push-in |
-| 02 | Detail 细节 | 2–4s | Close-up / Macro | 材质、纹理、工艺细节特写 | Locked / slow dolly |
-| 03 | Feature 功能 | 4–6s | Medium close-up | 展示核心功能或使用方式（开合/旋转/交互） | Gentle orbit |
-| 04 | Use 使用场景 | 6–8s | Medium | 产品在真实使用环境中——手部入镜自然操作（若适用） | Lateral track |
-| 05 | Atmosphere 氛围 | 8–10s | Wide / Medium | 产品完整呈现于场景中，灯光烘托氛围 | Slow crane up or pull-back |
-| 06 | Packshot 定妆 | 10–12s | Product hero | 产品正面主视觉，干净背景，Logo 清晰 | Locked / subtle push-in |
-
-### 连续性要求
-
-- [ ] 所有镜头中同一产品——颜色、形状、材质、Logo 不变
-- [ ] 所有镜头中同一灯光方向——光源位置、色温、强度一致
-- [ ] 场景色调跨镜头统一——背景色/材质/道具不跳变
-- [ ] 动作推进清晰——不是重复摆拍
-- [ ] 无创作者/模特——若手部入镜，保持同一肤色/手势风格
-- [ ] 产品比例在所有镜头中一致——无扭曲或缩放异常
-
-### 视觉风格关键词
-
-```
-clean product photography storyboard, commercial product showcase board, e-commerce product planning sheet, white background, black thin borders, neat grid layout, professional product lighting, centered composition, high detail product texture, studio photography style
-```
-
-不要生成: 海报风格、电影概念图、花哨PPT、赛博朋克、过度广告图、混乱电商拼图、不可读小字、乱码文字、人物/模特/创作者、产品外观不一致、手部变形。

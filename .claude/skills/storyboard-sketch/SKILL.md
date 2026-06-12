@@ -208,12 +208,13 @@ This skill includes bundled reference knowledge. Load when needed:
 
 ## Quality Bar
 
-- The reader should understand the entire scene by scanning frame titles and sketch prompts.
-- Every prompt should be drawable as a single storyboard panel.
-- Every frame must have a clear story purpose — answering "why does this shot exist."
-- The planning board should be usable before writing final Seedance prompts.
-- If user requests Chinese output, write all prompts in concise Chinese with the same structure.
-- For Master Sheet mode, the four zones (Shot Grid, Rhythm, Camera, Visual Language) should form a coherent planning document, not just a shot list.
+- A reader should understand the entire scene by scanning frame titles and sketch prompts.
+- Each prompt should be drawable as a storyboard panel.
+- Each frame must have a clear story purpose — answer "why does this shot exist?"
+- The board should be usable before final Seedance prompt writing.
+- If the user requests Chinese output, write all prompts in concise Chinese with the same structure.
+- For Master Sheet mode, the four zones (shot grid, rhythm, camera, visual language) should form a coherent planning document, not just a shot listing.
+- **When reference images exist, do not enumerate subject appearance details (face, hairstyle, body type, wardrobe) in Sketch prompt or Continuity anchors.** When upstream Material Slot Registry has registered `@[imageN]` character slots, use `@[imageN]` references for subject identity in Sketch prompts, and write "`Subject1` @[image1] identity remains consistent" in Continuity anchors — do not re-describe visual parameters already locked in the reference image.
 
 ## Save Output
 
