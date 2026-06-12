@@ -221,8 +221,8 @@ Continuity: 相同红色夹克，相同包裹大小和朝向。
 交付最终输出后，提示用户以带日期和主题的文件名保存：
 
 ```
-保存到 outputs/YYYY-MM-DD-[主题]/i2v-frames.md？
-示例：outputs/2026-06-10-赛博朋克短片/i2v-frames.md
+保存到 outputs/F-[N]-[topic]-i2v-frames.md？
+示例：outputs/2026-06-10-赛博朋克短片-i2v-frames.md
 ```
 
 用户确认后，将输出写入指定路径。

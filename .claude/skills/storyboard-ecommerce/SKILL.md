@@ -104,8 +104,8 @@ TikTok 风格带货，创作者/主播出镜。双层参考区（创作者 + 产
 交付最终输出后，提示用户以带日期和主题的文件名保存：
 
 ```
-保存到 outputs/YYYY-MM-DD-[主题]/ecommerce-board.md？
-示例：outputs/2026-06-10-赛博朋克短片/seedance-prompt.md
+保存到 outputs/F-[N]-[topic]-ecommerce-board.md？
+示例：outputs/F-1-赛博朋克短片-seedance-prompt.md
 ```
 
 用户确认后，将输出写入指定路径。
