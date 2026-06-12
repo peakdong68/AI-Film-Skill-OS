@@ -40,7 +40,7 @@ STATE 7 → Final Validation
 STATE 8 → Export Ready
 ```
 
-STATE 0-4 are mandatory, must not be skipped. STATE 5 is conditional — only executed when routing decision selects the storyboard blueprint route. STATE 6-8 are mandatory.
+STATE 0-4 are mandatory, must not be skipped. STATE 5 is conditional — only executed when user explicitly requests storyboard-driven generation. STATE 6-8 are mandatory.
 
 **Key distinction between STATE 4 and STATE 5/6:**
 
@@ -194,51 +194,37 @@ If any answer is NO, stop and return to the missing stage.
 
 ### After STATE 4: Routing Decision
 
-After the prompt package is confirmed, **do NOT proceed directly to STATE 5.** First determine the best path based on project needs, available resources, and the target STATE 6 mode.
+After prompt package confirmation, present a simple routing choice to the user. Do NOT proceed directly to STATE 5 or STATE 6.
 
-**Step 1: Inventory available resources**
-
-Ask the user what multimodal resources they currently have (multi-select):
+**Ask the user what resources they have:**
 
 ```
-Which visual/multimodal resources do you currently have?
-- [ ] Character reference images (from STATE 3 character generation or user-provided)
+Which resources do you currently have?
+- [ ] Character reference images
 - [ ] Product reference images
 - [ ] Background/environment reference images
 - [ ] First/last frame images
 - [ ] Video reference clips
 - [ ] Audio reference clips
-- [ ] None of the above — start from text only
+- [ ] None — text only
 ```
 
-**Step 2: Match STATE 6 modes**
+**Determine mode and present the choice:**
 
-Based on available resources, match against the STATE 6 mode selection table:
+| User has... | Mode | Path |
+|---|---|---|
+| Nothing | T2V | STATE 4 → STATE 6 |
+| Any reference(s) | I2V (minimal) or R2V | STATE 4 → STATE 6 |
+| First + last frame | FLF2V | STATE 4 → STATE 6 |
+| Video source | V2V Edit / V2V Extend | STATE 4 → STATE 6 |
 
-| Available resources                                     | Eligible modes                            |
-| ------------------------------------------------------- | ----------------------------------------- |
-| None of the above                                       | T2V                                       |
-| Single reference image (product/character/scene)        | I2V (minimal)                             |
-| First + last frame images                               | FLF2V                                     |
-| Multiple different ref types (product+video+audio etc.) | R2V                                       |
-| Video source clip                                       | V2V Edit / V2V Extend                     |
-| Need storyboard boards for multi-shot continuous camera | I2V (storyboard) → requires STATE 5 first |
+> Based on your resources, the recommended mode is **[mode]**. Direct to STATE 6. Proceed?
 
-**Step 3: Present 2-3 route options**
+**I2V (storyboard) mode is NOT offered by default.** It is only used when the user explicitly requests storyboard-driven generation for multi-shot continuous camera control. If the user asks for it, route through STATE 5 first: STATE 4 → STATE 5 → STATE 6 (I2V storyboard).
 
-Recommend the most suitable route based on project characteristics, with alternatives:
+### STATE 5 — Storyboard Blueprint Generation (Image Level, Conditional — On-Demand Only)
 
-| Route                       | Path                                                                | Best for                                                                                                         | User needs to provide                                                    |
-| --------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| **A: Storyboard Blueprint** | STATE 4 → STATE 5 → STATE 6 (I2V storyboard)                        | Narrative short films, complex multi-shot sequences, precise storyboard-controlled camera movement               | Nothing extra (STATE 5 generates storyboard images)                      |
-| **B: Direct to Video**      | STATE 4 → STATE 6 (I2V minimal / FLF2V / T2V / R2V)                 | Existing reference images, product showcases, simple actions, first/last frame transitions, text-only generation | Single/multiple reference images / first-last frames / video-audio clips |
-| **C: Hybrid**               | STATE 4 → STATE 5 (key shots) + STATE 6 (non-key shots in parallel) | Some shots need storyboard control, others can use direct references                                             | Reference images for non-key shots                                       |
-
-After user selects a route, proceed accordingly. Route A enters STATE 5; Route B skips STATE 5 directly to STATE 6; Route C partially executes STATE 5 as needed.
-
-### STATE 5 — Storyboard Blueprint Generation (Image Level, Conditional)
-
-**This stage is only executed when Route A or C is selected in the routing decision.** If the user selects Route B (direct to video), skip STATE 5 and proceed directly to STATE 6.
+**This stage is only executed when the user explicitly requests storyboard-driven generation.** It is NOT part of the default routing flow. Most productions skip STATE 5 and go directly to STATE 6.
 
 Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce` (for generating complete storyboard blueprint images).
 
@@ -290,13 +276,14 @@ Route to `seedance-video-prompt`.
 
 | User has...                                           | Select mode      |
 | ----------------------------------------------------- | ---------------- |
-| Storyboard blueprint images                           | I2V (storyboard) |
 | Single reference image only (product/character/scene) | I2V (minimal)    |
 | First + last frame images                             | FLF2V            |
 | Multiple different ref types                          | R2V              |
 | Video source to modify                                | V2V Edit         |
 | Video to continue                                     | V2V Extend       |
 | Text description only                                 | T2V              |
+
+> **I2V (storyboard) mode is NOT in the default table.** It is only used when the user explicitly requests storyboard-driven generation. In that case, STATE 5 must be executed first to generate storyboard blueprint images.
 
 **Pre-flight Checklist (mode-aware):**
 
@@ -378,15 +365,19 @@ director-story ────→ director-emotion
                 │
                 ↓ (User confirms package)
                 │
-         [Routing Decision: inventory resources → match mode → select route]
+         [Routing Decision: check resources → determine mode]
                 │                    │
-        Route A: Storyboard    Route B: Direct to Video
+        Storyboard needed      Direct to STATE 6
+        (user explicitly        (default path)
+         requests it)            │
                 │                    │
          storyboard-sketch /         │
          storyboard-prompt /         │
          storyboard-master /         │
          storyboard-ecommerce        │
-         [STATE 5: Conditional]      │
+         [STATE 5: On-Demand]        │
+                │                    │
+                └────────┬───────────┘
                 │                    │
                 └────────┬───────────┘
                          ↓
@@ -408,9 +399,9 @@ director-story ────→ director-emotion
 | "Write a single shot frame / how to shoot this scene"                              | Route to `storyboard-prompt`                                         |
 | "Plan Seedance I2V storyboard frames / per-frame motion"                           | Route to `storyboard-sketch`                                         |
 | "E-commerce livestream / product showcase / fashion video storyboard"              | Route to `storyboard-ecommerce`                                      |
-| "I have a prompt package + ref images, need video directly (no storyboard needed)" | Enter from STATE 4 routing → Route B → skip to STATE 6               |
-| "I have storyboard blueprint images + character images, need Seedance 2.0 prompts" | Enter from STATE 6                                                   |
-| "I have single ref image / first-last frames, need to generate video"              | Enter from STATE 4 routing → Route B → STATE 6 (I2V minimal / FLF2V) |
+| "I have a prompt package + ref images, need video directly (no storyboard needed)" | Enter from STATE 4 routing → skip to STATE 6                                  |
+| "I have storyboard blueprint images + character images, need Seedance 2.0 prompts" | Enter from STATE 6                                                              |
+| "I have single ref image / first-last frames, need to generate video"              | Enter from STATE 4 routing → STATE 6 (I2V minimal / FLF2V)                     |
 | "I just want character identity definitions"                                       | Route directly to `director-character`                               |
 | "Fix my broken AI video, characters keep changing faces"                           | Enter from STATE 3 (re-lock characters), then STATE 6                |
 

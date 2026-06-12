@@ -31,12 +31,13 @@ Seedance 2.0 defines **three core task types**. Each covers sub-modes selected b
 ```
 Video source to modify? → Video Edit (use @[Video1] directly, no "reference" prefix)
 Video to continue? → Video Extend (use @[Video1] directly, no "reference" prefix)
-Storyboard images? → I2V storyboard
 First + last frame? → FLF2V
 Multiple different ref types? → R2V
 Single reference image? → I2V minimal
 Text description only? → T2V
 ```
+
+> **I2V (storyboard) mode is NOT in the default decision tree.** It is only used when the user explicitly requests storyboard-driven generation for multi-shot continuous camera control. Do NOT offer it as a default option.
 
 > Detailed templates and examples: see `references/seedance-methodology.md`
 
@@ -59,7 +60,7 @@ Precise Subject + Action Detail + Scene Environment + Lighting/Color + Camera Mo
 
 ## Reference Format
 
-Seedance 2.0 uses `` `ImageN` `` / `` `VideoN` `` / `` `AudioN` `` format for uploaded assets. Upload in order, reference by sequence number.
+Seedance 2.0 uses `@[ImageN]` / `@[VideoN]` / `@[AudioN]` format for uploaded assets. Upload in order, reference by sequence number.
 
 | Asset Type | Format                  | Purpose                                                               |
 | ---------- | ----------------------- | --------------------------------------------------------------------- |
@@ -81,7 +82,7 @@ Explicitly define subjects in reference assets with 2-3 clear, stable static fea
 
 ### Edit/Extend: No "Reference" Prefix
 
-Edit and extend tasks **must NOT use the "reference" prefix**. Use `` `VideoN` `` directly to avoid misclassification as a reference task.
+Edit and extend tasks **must NOT use the "reference" prefix**. Use `@[Video1]` directly to avoid misclassification as a reference task.
 
 - ✅ `Edit @[Video1], change [original feature] to [new feature]`
 - ✅ `Extend @[Video1] forward, generating...`
