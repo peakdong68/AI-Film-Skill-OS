@@ -7,7 +7,7 @@ description: 'Generate text-level per-frame I2V storyboard sketch descriptions f
 
 ## Overview
 
-Turn a scene idea, script, or concept into a storyboard plan for Seedance image-to-video. This skill supports two output modes, selected automatically by the Mode Gate below:
+Turn a scene idea, script, or concept into a storyboard plan for Seedance image-to-video. This skill supports two output modes, selected by the Mode Gate below (not auto-triggered):
 
 - **Compact Frame Prompts** (default): 3-8 concise rough-sketch frame prompts optimized for Seedance I2V seed images.
 - **Storyboard Master Sheet** (on request): For 4-section overview boards (Shot Grid + Rhythm + Camera + Visual Language), use `storyboard-master` skill.
@@ -16,14 +16,14 @@ Favor clarity, continuity, and sketchability over polished cinematic prose in bo
 
 ## Mode Selection Gate
 
+> **This skill is NOT auto-selected.** Only execute when explicitly routed by `director-core` STATE 5 or when the user explicitly requests `storyboard-sketch`. Do not trigger this skill in any default flow.
+
 Before generating output, decide which mode to use:
 
-| If the user says...                                                                                                                                                                                                                  | Use this mode               |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------- |
-| "storyboard sketch", "keyframe prompts", "rough frame prompts", "I2V storyboard", "shot-by-shot prompts", "quick preview board", "rough visual frames", or any Seedance-focused prompt request                                       | **Compact Frame Prompts**   |
-| "storyboard master sheet", "Master Sheet", "director storyboard board", "shot list board", "director treatment board", "storyboard planning board", "complete storyboard plan", or explicitly asks for a full visual planning layout | **Storyboard Master Sheet** |
-
-When the user provides a multi-panel board image: identify whether it's ≤4 panels (treat as Compact Frame Prompts) or ≥5 panels (treat as source for Master Sheet structure).
+| If the user says... | Use this mode |
+|---|---|
+| "storyboard sketch", "keyframe prompts", "I2V frame planning", "per-frame motion", "animatic sketch" | **Compact Frame Prompts** |
+| "storyboard master sheet", "Master Sheet", "director storyboard board", or explicitly asks for a full visual planning layout | Route to `storyboard-master` |
 
 When uncertain, default to Compact Frame Prompts but mention the Master Sheet option briefly.
 
