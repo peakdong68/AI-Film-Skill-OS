@@ -1,230 +1,156 @@
 ---
-name: storyboard-sketch
-description: '为 Seedance I2V 工作流生成文本级逐帧分镜草图描述，仅产出每帧的运动/镜头/光影/音效文字说明。用于 I2V 分镜规划、逐帧动作描述、animatic 草图、Seedance 首帧提示词，或需要将剧本拆解为连续帧序列指导 I2V 生成时。注意：如需多镜头总览图，请用 `storyboard-master`；如需单帧生图提示词，请用 `storyboard-prompt`；如需电商板，请用 `storyboard-ecommerce`。Use for Seedance I2V frame planning, per-frame motion/text descriptions, animatic sketches. NOT for multi-shot overview boards or single-frame image prompts.'
+name: storyboard-prompt
+description: '为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Image）生成单帧分镜画面提示词——8要素框架（Scene/Subject/Action/Camera/Composition/Lighting/Mood/Story Purpose）。用于单帧构图设计、关键画面创意、镜头氛围探索、单帧分镜验证，或需要将叙事节拍转化为可执行的生图提示词时。注意：多镜头总览图请用 `storyboard-master`；电商带货板请用 `storyboard-ecommerce`；I2V 逐帧规划请用 `storyboard-sketch`。Use for single-frame storyboard prompts, keyframe visualization, shot composition design.'
 ---
 
-# Seedance 分镜草图
+# Storyboard Prompt 单帧分镜提示词
 
 ## 概览
 
-将场景创意、剧本或概念转化为 Seedance 图像生成视频的分镜计划。此技能支持两种输出模式，由下方的模式门判断选择（不自动触发）：
+将单个叙事节拍转化为一条可粘贴到 AI 图像生成器（MJ/Flux/即梦/可灵/GPT Image）的分镜画面提示词。与总览图不同，此技能聚焦于**一帧一个画面**——每个镜头独立成图，用于验证构图、光影和情绪方向，或在进入视频生成前逐帧确认视觉语言。
 
-- **Compact Frame Prompts 紧凑帧提示词**（默认）: 3-8 个简洁的粗糙草图帧提示词，针对 Seedance I2V 种子图像优化。
-- **Storyboard Master Sheet 分镜总览图**（按需）: 包含镜头网格、节奏时间轴、摄影机运动图和视觉语言设计的完整视觉规划板——适用于导演提案、品牌比稿或前期制作蓝图。
-
-两种模式下均优先追求清晰性、连续性和草图可绘制性，而非华丽的电影化文笔。
-
-## 上下文探测（独立使用时必须执行）
-
-加载后探测可用上下文，补充输入门的信息收集：
-
-**1. 检查管线状态：** 读取 `STATE.md`，若存在则从 `Material Slots` 获取角色素材槽位。
-
-**2. 扫描项目文件：** 探测 `outputs/` 目录：
-
-| 如发现...                   | 则...                                          |
-| --------------------------- | ---------------------------------------------- |
-| `character-sheets.md`       | 提取角色名和设定图来源，映射为 `@[图片N]` 槽位 |
-| `State-4-prompt-package.md` | 提取分镜方案作为帧设计参考                     |
-| `State-3-characters.md`     | 提取角色锁定参数确保连续性                     |
-| `State-2-visual.md`         | 提取灯光色彩方向                               |
-| `State-1-story-emotion.md`  | 提取情绪弧线指导帧节奏                         |
-
-**3. 自动补全槽位：** 若探测到角色设定图文件，在输出的 `Continuity anchors` 和 `Continuity` 字段中引用 `@[图片N]`。
-
-**4. 无上下文时：** 按现有输入门逻辑处理，仅依赖用户直接输入。
-
----
-
-## 模式选择门
-
-> **此技能不自动选择。** 仅当被 `director-core` STATE 5 明确路由、或用户明确请求时才执行。不要在任何默认流程中自动触发。
-
-生成输出前，决定使用哪种模式：
-
-| 用户说...                                                                | 使用此模式                      |
-| ------------------------------------------------------------------------ | ------------------------------- |
-| "分镜草图", "keyframe prompts", "I2V frame planning", "逐帧动作描述"     | **Compact Frame Prompts**       |
-| "分镜总览图", "Master Sheet", "导演分镜板"，或明确要求完整的视觉规划布局 | 路由到 `storyboard-master` 技能 |
-
-当用户提供多面板板图时：识别是 ≤4 面板（按紧凑帧处理）还是 ≥5 面板（作为总览图结构的数据源）。
-
-不确定时，默认使用紧凑帧提示词但简要提及总览图选项。
-
----
-
-# Mode A: Compact Frame Prompts 紧凑帧提示词
-
-## 工作流
-
-1. 在写入任何帧提示词之前，先运行输入门。
-2. 识别场景目标、角色、地点、情绪节拍、参考素材、目标模式、画幅比例和预期输出时长。
-3. 将创意或剧本转化为紧凑的分镜计划：3-8 帧，除非用户指定数量。
-4. 为每帧定义一个可读的视觉时刻，包括：主体、动作、构图、摄影机角度、灯光情绪、故事目的和连续性备注。
-5. 将每帧写为粗糙草图提示词，而非最终视频提示词。
-6. 添加一段简短的 Seedance I2V 备注，说明该帧应如何动画过渡到下一个时刻。
-
-仅在缺失信息会实质性改变规划板时才问一个简洁的问题，如目标画幅比例、帧数，或规划板应为写实、动画、广告风格还是电影风格。
-
-## 输入门
-
-生成分镜草图提示词前，判断用户是否已提供足够的场景素材来转化为紧凑的分镜计划。
-
-满足以下条件时视为输入充足：
-
-- 一个核心场景创意、剧本、节拍列表或图像/视频参考。
-- 一个主体或角色。
-- 一种情境、地点或动作。
-- 一个期望用途，如 Seedance I2V、预览板、animatic 或镜头规划。
-
-若充足，直接进行并在"Storyboard Setup"中说明任何轻量假设。
-
-若不充足，从可用上下文中推断草稿简报后再询问用户。使用对话上下文、已提供的文件、项目名称、已有提示词文本、上传的图像或附近的项目素材。然后请用户确认或修正简报后再生成帧提示词。
-
-使用此确认格式：
-
-```markdown
-我先确认一下分镜基础：
-
-- 场景核心：[推断的或缺失的]
-- 主体/角色：[推断的或缺失的]
-- 地点/情境：[推断的或缺失的]
-- 输出目标：Seedance image-to-video storyboard sketch
-- 建议规格：[画幅比例, 帧数, 风格]
-
-确认这些方向吗？也可以直接改一句，我再生成分镜草图提示词。
-```
-
-若请求紧急或用户明确说"直接生成"，以合理假设进行并清晰标注。
-
-## 输出格式
-
-默认使用此结构：
-
-```markdown
-**Storyboard Setup**
-
-- Aspect ratio:
-- Visual style:
-- Scene context: [一行场景描述——时间、地点、环境]
-- Continuity anchors: [角色服装、关键道具、空间地理、屏幕方向]
-
-**Frame 1 - [简短节拍名称]**
-Sketch prompt: [一个干净的粗糙分镜图像提示词]
-Scene: [此节拍的时间 · 地点 · 环境上下文]
-Composition: [景别、摄影机角度、构图]
-Lighting & Mood: [主光、氛围]
-I2V motion note: [一句描述进入此节拍或在节拍内的运动]
-Story purpose: [此镜头传达什么——揭示、张力、过渡、建立等]
-Continuity: [哪些必须保持一致]
-
-**Frame 2 - [简短节拍名称]**
-...
-```
-
-为每个镜头重复帧块。仅在有用时才以紧凑的"Board Notes"部分收尾。
-
-### Field Guide 字段指南
-
-- **Sketch prompt**: 主要的图像生成提示词。25-60 词。包含主体（有参考图时使用 `@[图片N]` 引用，不逐项复述外貌）、动作、摄影机、构图、灯光提示和粗糙板风格关键词。这是喂给图像生成器以生成分镜面板的内容。
-- **Scene**: 此节拍特定的时间、地点和环境上下文。使草图提示词无需重新解释设定。
-- **Composition**: 景别（见速查表）、摄影机角度、构图方式。使用平实术语如"wide shot"、"over-shoulder"、"low angle"、"centered"、"rule of thirds"。
-- **Lighting & Mood**: 主光方向和质感、色温、氛围。例如"warm rim light from window, soft fill, tense atmosphere"。
-- **I2V motion note**: Seedance 图像生成视频应如何为此帧动画化。摄影机运动 + 主体运动 + 过渡逻辑。一句话。
-- **Story purpose**: 此镜头服务的叙事功能——如"建立场景空间感"、"揭示角色情绪转折"、"强调产品质感"、"为下一镜头制造悬念"。这是专业分镜实践中最重要的补充：每个镜头必须有清晰的叙事存在理由。
-- **Continuity**: 哪些必须与其他帧保持一致——角色身份（有参考图时引用 `@[图片N]` 槽位，不逐项复述外貌）、服装、道具、灯光方向、屏幕空间地理。
-
-## 提示词风格
-
-- 保持草图提示词简短：通常每帧 25-60 词。
-- 使用简单的物理语言："wide shot"、"over-shoulder"、"low angle"、"profile"、"center frame"、"foreground silhouette"。
-- 指定粗糙板美学：pencil sketch, grayscale marker, loose storyboard lines, clean thumbnail composition, no finished rendering。
-- 仅包含理解该节拍所需的对象和表情。
-- 保持角色身份、服装、道具、空间地理和屏幕方向在帧间一致。
-- 优先使用可见动作而非抽象的情绪词。
-- 使用朴实的构图提示而非浮夸的电影形容词。
-
-## Seedance 工作流对齐
-
-遵循 Seedance 操作模式，但不成为完整的产品提示词技能：
-
-- 先摄取: 厘清目标、时长、画幅比例、参考素材、交付物和安全/IP 风险（在相关时）。
-- 模式门: 假定此技能服务于 I2V 规划，除非用户说 T2V、V2V、R2V、edit 或 extend。
-- 参考素材映射: 若有素材存在，为每个素材分配一个角色，如身份、首帧、环境、运动、摄影机、时间或风格。说明哪些不应传递。
-- 长视频逻辑: 超过 15 秒的视频，生成分镜计划并注明最终 Seedance 生成应拆分为镜头或段落。
-- 分镜板输入: 若用户提供多面板板图，首先识别是 ≤4 面板用于一条带时间戳的 Seedance 提示词，还是 ≥5 面板用于每条独立镜头提示词加剪辑节奏。
-- 质量通行: 检查每帧有一个可见节拍、一个主摄影机设置、连续性锚点和一条 I2V 运动备注。
-
-## Seedance I2V 备注
-
-为每帧包含一条运动备注，帮助静态分镜成为 Seedance 图像生成视频的种子：
-
-- 摄影机运动: static hold, slow push-in, lateral track, gentle tilt, handheld drift。
-- 主体运动: turn, step, reach, glance, pause, reveal, react。
-- 过渡逻辑: match action, eye-line match, push through foreground, cut on gesture。
-- 避免要求一帧包含多个时间分离的动作。
-
-## 示例——紧凑帧提示词
-
-用户创意: "一个快递员在雨巷中发现包裹在滴答作响。"
-
-```markdown
-**Storyboard Setup**
-
-- Aspect ratio: 16:9
-- Visual style: rough grayscale storyboard sketch, clean readable thumbnails
-- Scene context: 午夜，狭窄后巷，大雨，湿砖墙
-- Continuity anchors: 红色快递员夹克、湿巷砖、黑色小包裹
-
-**Frame 1 - 进入巷子**
-Sketch prompt: Wide shot, rainy narrow alley at night, courier in a red jacket enters from screen left holding a small black package, wet brick walls, simple pencil lines, clear silhouette.
-Scene: 午夜 · 窄巷 · 雨打砖墙
-Composition: Wide shot, eye level, leading lines from alley walls
-Lighting & Mood: 路灯顶光，蓝色环境光，紧张
-I2V motion note: Slow lateral track follows the courier walking deeper into the alley.
-Story purpose: 建立场景空间和角色进入状态
-Continuity: 快递员右手持包裹。
-
-**Frame 2 - 听到声音**
-Sketch prompt: Medium close shot, courier stops under a dim wall lamp and tilts the package toward one ear, rain streaks behind, anxious face, loose storyboard shading.
-Scene: 同一巷子 · 壁灯下
-Composition: Medium close-up, eye level, centered on face and package
-Lighting & Mood: 头顶灯作为主光，面部雨水反光，悬疑
-I2V motion note: Static hold with a small head turn as the courier hears the ticking.
-Story purpose: 揭示危机信号，建立悬疑转折
-Continuity: 相同红色夹克，相同包裹大小和朝向。
-```
-
----
+此技能用于单帧分镜画面。多镜头总览图请用 `storyboard-master`。含产品/创作者参考区的电商分镜请用 `storyboard-ecommerce`。Seedance I2V 文本规划请用 `storyboard-sketch`。
 
 ## 加载资源
 
-此技能包含内置参考知识。需要时加载：
-
-- 获取 Seedance I2V 工作流、操作模式和运动备注规范，阅读 `../references/seedance-i2v-workflow.md`
+- 获取双语电影摄影速查表（景别、运动、角度、构图、灯光），阅读 `../references/cinematography-quick-reference.md`
 - 需要去水词替换时，阅读共享参考 `../references/anti-slop-lexicon.md`
-- 获取双语景别、摄影机运动、角度、构图、灯光和叙事目的速查表，阅读 `../references/cinematography-quick-reference.md`
-- 获取 Seedance 平台约束（字数限制、`@[图片N]` / `@[视频N]` 参考格式），阅读共享参考 `../references/seedance-platform.md`
+
+## 上下文探测（独立使用时必须执行）
+
+加载后探测可用上下文，确定素材来源：
+
+**1. 检查管线状态：** 读取 `STATE.md`，若存在则从 `Material Slots` 区块获取角色素材槽位映射。
+
+**2. 扫描项目文件：** 探测以下文件是否存在：
+
+| 如发现...                           | 则...                                                  |
+| ----------------------------------- | ------------------------------------------------------ |
+| `outputs/character-sheets.md`       | 提取角色名和设定图来源，映射为 `@[图片N]` 槽位         |
+| `outputs/State-4-prompt-package.md` | 提取当前镜头的景别、动作、摄影机、灯光方案             |
+| `outputs/State-3-characters.md`     | 提取角色锁定参数（面部、体型、服装）                   |
+| `outputs/State-2-visual.md`         | 提取灯光和色彩方案                                     |
+| `outputs/State-1-story-emotion.md`  | 提取当前场景的情绪值                                   |
+
+**3. 自动补全槽位：** 若探测到角色设定图或 Material Slot Registry，自动建立角色锚点映射并在提示词中引用 `@[图片N]`。
+
+**4. 无上下文时：** 完全依赖用户直接描述，按 8 要素框架组织。
 
 ---
 
+## 模式门
+
+> **此技能不自动选择。** 仅当被 `director-core` STATE 5 明确路由、或用户明确请求单帧分镜提示词时才执行。
+
+| 用户说...                                                           | 操作                                          |
+| ------------------------------------------------------------------- | --------------------------------------------- |
+| "这个镜头怎么拍"、"写一个分镜画面"、"单帧构图"、"这个场景怎么画"   | 使用 8 要素框架输出单帧提示词                 |
+| "做分镜总览图"、"完整规划板"、"多镜头网格"                          | 路由到 `storyboard-master`                    |
+| "电商带货分镜"、"服装导演板"                                        | 路由到 `storyboard-ecommerce`                 |
+| "I2V 逐帧规划"、"分镜草图"                                          | 路由到 `storyboard-sketch`                    |
+
+---
+
+## 8 要素框架
+
+每个单帧分镜提示词必须覆盖以下 8 个要素。这是从叙事节拍到可执行生图提示词的完整映射：
+
+| # | 要素 | 英文 | 说明 |
+|---|------|------|------|
+| 1 | **场景** | Scene | 时间、地点、环境上下文——观众看到的空间 |
+| 2 | **主体** | Subject | 画面中的核心对象——角色、产品、或关键元素。有参考图时用 `@[图片N]` 引用，不逐项复述外貌 |
+| 3 | **动作** | Action | 主体在做什么——具体、可观察的物理动作，非抽象情绪 |
+| 4 | **摄影机** | Camera | 景别 + 角度 + 运动——一个主要运镜方式 |
+| 5 | **构图** | Composition | 取景规则——三分法/居中/负空间/框中框 |
+| 6 | **灯光** | Lighting | 主光方向+质感 + 辅光 + 色温 + 氛围 |
+| 7 | **情绪** | Mood | 画面传达的视觉情绪——用可拍摄的光影/色彩表达 |
+| 8 | **叙事目的** | Story Purpose | 这个镜头为什么存在——建立/揭示/推进/升级/对比/收束 |
+
+## 输出格式
+
+先呈现结构化分析，再呈现压缩的生图提示词：
+
+```markdown
+## Frame: [镜头编号] — [节拍名称]
+
+### 8 要素分析
+
+| 要素 | 内容 |
+|------|------|
+| Scene | [时间 · 地点 · 环境] |
+| Subject | [主体描述。有参考图时：引用 @[图片N]，不逐项复述外貌] |
+| Action | [具体可观察的物理动作] |
+| Camera | [景别] + [角度] + [运动] |
+| Composition | [取景方式] |
+| Lighting | [主光 + 辅光 + 色温 + 氛围] |
+| Mood | [视觉情绪关键词] |
+| Story Purpose | [叙事功能] |
+
+### Compressed Prompt
+
+[一条完整的图像生成器提示词。包含场景、主体、动作、构图、灯光和风格关键词。可直接粘贴到 MJ/Flux/即梦/可灵。]
+```
+
+## Compressed Prompt 编写规则
+
+- **主体引用优先**：当上游已定义素材槽位时，使用 `@[图片N]` 引用主体身份，不逐项复述面部、发型、体型。参考图已锁定视觉身份。
+- **动作具体化**：不使用抽象情绪词（"他很悲伤"→"他低头，肩膀微垂，目光移向地面"）
+- **摄影机明确**：每条提示词包含一个主要景别和一个运动方式
+- **灯光可执行**：描述物理光源 + 方向 + 质感，不使用空洞形容词
+- **风格关键词统一**：结尾添加画质和风格关键词（如"电影级写实、高细节、50mm镜头感"）
+
+### 示例
+
+用户需求："男孩在雨巷中发现计时包裹"的第一个镜头。
+
+```markdown
+## Frame: 01 — 进入巷子
+
+### 8 要素分析
+
+| 要素 | 内容 |
+|------|------|
+| Scene | 午夜 · 狭窄后巷 · 大雨 |
+| Subject | 快递员，红色夹克，手持黑色小包裹。有 @[图片1] 时引用角色槽位 |
+| Action | 从画面左侧走入巷子，右手持包裹，步伐谨慎 |
+| Camera | 全景 + 平视 + 侧向跟移 |
+| Composition | 巷墙引导线构图，主体偏左三分线 |
+| Lighting | 路灯顶光为主光，蓝色环境光辅光，高反差，冷调 |
+| Mood | 紧张 · 潮湿 · 孤立 |
+| Story Purpose | 建立场景空间与角色进入状态 |
+
+### Compressed Prompt
+
+```
+午夜大雨中的狭窄砖墙后巷，穿红色快递夹克的男性从画面左侧走入，右手持黑色小包裹，步伐谨慎。路灯顶光从上方打下硬光，蓝色冷调环境光弥漫巷中。湿砖墙反射微光，地面水洼倒映人影。全景，平视角，侧向跟移。引导线构图，主体偏左三分线。高反差，电影级写实，50mm镜头感，高细节纹理。
+```
+```
+
 ## Quality Bar 质量门槛
 
-- 读者应能通过浏览帧标题和草图提示词理解整个场景。
-- 每条提示词应可作为一张分镜面板绘制。
-- 每帧必须有清晰的故事目的——回答"这个镜头为什么存在"。
-- 规划板应在最终 Seedance 提示词写作之前就具备可用性。
-- 若用户要求中文输出，以简洁中文按相同结构书写全部提示词。
-- 对于总览图模式，四个区（分镜网格、节奏、摄影机、视觉语言）应构成一份连贯的规划文档，而非仅仅是镜头罗列。
-- **有参考图时，禁止在 Sketch prompt 和 Continuity anchors 中逐项复述主体外貌（面部、发型、体型、服装细节）。** 当上游 Material Slot Registry 已注册 `@[图片N]` 角色槽位时，Sketch prompt 中使用 `@[图片N]` 引用主体身份，Continuity anchors 中写 "`主体1` @[图片1] 身份保持一致"，不重新描述已在参考图中锁定的视觉参数。
+- 8 要素必须完整覆盖——缺一不可。
+- Compressed Prompt 必须自包含——可直接粘贴到图像生成器，无需额外上下文。
+- 情绪用光影/色彩/构图表达，不使用抽象形容词。
+- 摄影机决策必须有叙事理由——"这个景别/角度/运动为什么在这个时刻"。
+- **有参考图时，禁止在 Subject 要素和 Compressed Prompt 中逐项复述主体外貌（面部、发型、体型、服装细节）。** 当上游 Material Slot Registry 已注册 `@[图片N]` 角色槽位时，使用 `@[图片N]` 引用主体身份，不重新描述已在参考图中锁定的视觉参数。
+- Compressed Prompt 末尾必须包含负面约束关键词（如"无水印、无Logo、无文字"）。
 
 ## 保存输出
 
 交付最终输出后，提示用户以带日期和主题的文件名保存：
 
 ```
-保存到 outputs/YYYY-MM-DD-[主题]/storyboard-shot.md？
-示例：outputs/2026-06-10-赛博朋克短片/seedance-prompt.md
+保存到 outputs/YYYY-MM-DD-[主题]/frame-prompts.md？
+示例：outputs/2026-06-10-赛博朋克短片/frame-prompts.md
 ```
 
 用户确认后，将输出写入指定路径。
+
+## 与管线集成
+
+被 `director-core` STATE 5 调用时：
+
+1. 从 Material Slot Registry 获取角色/产品槽位映射
+2. 从 `State-4-prompt-package.md` 提取当前镜头的分镜设计方案
+3. 按 8 要素框架编译单帧提示词
+4. 提交用户确认后，输出可粘贴到图像生成器的 Compressed Prompt
