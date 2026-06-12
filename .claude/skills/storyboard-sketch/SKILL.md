@@ -1,6 +1,6 @@
 ---
 name: storyboard-sketch
-description: "Generate text-level per-frame I2V storyboard sketch descriptions for Seedance — no images, only motion/camera/lighting/sound text per frame. Use for I2V frame planning, per-frame motion descriptions, animatic sketches, or script-to-frame-sequence breakdown. Triggers: I2V storyboard, per-frame motion, animatic sketch, first-frame prompt. Note: for multi-shot image boards use `storyboard-master`; for single-frame image prompts use `storyboard-prompt`; for commerce boards use `storyboard-ecommerce`."
+description: 'Generate text-level per-frame I2V storyboard sketch descriptions for Seedance — no images, only motion/camera/lighting/sound text per frame. Use for I2V frame planning, per-frame motion descriptions, animatic sketches, or script-to-frame-sequence breakdown. Triggers: I2V storyboard, per-frame motion, animatic sketch, first-frame prompt. Note: for multi-shot image boards use `storyboard-master`; for single-frame image prompts use `storyboard-prompt`; for commerce boards use `storyboard-ecommerce`.'
 ---
 
 # Seedance Storyboard Sketch
@@ -18,9 +18,9 @@ Favor clarity, continuity, and sketchability over polished cinematic prose in bo
 
 Before generating output, decide which mode to use:
 
-| If the user says... | Use this mode |
-|---|---|
-| "storyboard sketch", "keyframe prompts", "rough frame prompts", "I2V storyboard", "shot-by-shot prompts", "quick preview board", "rough visual frames", or any Seedance-focused prompt request | **Compact Frame Prompts** |
+| If the user says...                                                                                                                                                                                                                  | Use this mode               |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------- |
+| "storyboard sketch", "keyframe prompts", "rough frame prompts", "I2V storyboard", "shot-by-shot prompts", "quick preview board", "rough visual frames", or any Seedance-focused prompt request                                       | **Compact Frame Prompts**   |
 | "storyboard master sheet", "Master Sheet", "director storyboard board", "shot list board", "director treatment board", "storyboard planning board", "complete storyboard plan", or explicitly asks for a full visual planning layout | **Storyboard Master Sheet** |
 
 When the user provides a multi-panel board image: identify whether it's ≤4 panels (treat as Compact Frame Prompts) or ≥5 panels (treat as source for Master Sheet structure).
@@ -61,6 +61,7 @@ Use this confirmation format:
 
 ```markdown
 Let me first confirm the storyboard basics:
+
 - Core scene: [inferred or missing]
 - Subject/Character: [inferred or missing]
 - Location/Situation: [inferred or missing]
@@ -78,6 +79,7 @@ Use this structure by default:
 
 ```markdown
 **Storyboard Setup**
+
 - Aspect ratio:
 - Visual style:
 - Scene context: [one-line scene description — time, location, environment]
@@ -144,6 +146,7 @@ User idea: "A courier discovers the package is ticking in a rainy alley."
 
 ```markdown
 **Storyboard Setup**
+
 - Aspect ratio: 16:9
 - Visual style: rough grayscale storyboard sketch, clean readable thumbnails
 - Scene context: Midnight, narrow back alley, heavy rain, wet brick walls
@@ -169,11 +172,12 @@ Continuity: Same red jacket, same package size and orientation.
 ```
 
 ---
+
 ## Load Resources
 
 This skill includes bundled reference knowledge. Load when needed:
 
-- For Seedance I2V workflow, operating modes, and motion note specifications, read `references/seedance-i2v-workflow.md`
+- For Seedance I2V workflow, operating modes, and motion note specifications, read `../references/seedance-i2v-workflow.md`
 - For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`
 - For bilingual shot size, camera movement, angle, composition, lighting, and narrative purpose quick reference tables, read `../references/cinematography-quick-reference.md`
 - For Seedance platform constraints (word limits, @[ref] format), read shared reference `../references/seedance-platform.md`
@@ -192,8 +196,6 @@ This skill includes bundled reference knowledge. Load when needed:
 ## Save Output
 
 After delivering the final output, prompt the user to save with a dated, topic-specific filename:
-
-
 
 If the user confirms, write the output to the specified path.
 
