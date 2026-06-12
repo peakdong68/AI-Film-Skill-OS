@@ -309,3 +309,9 @@ When called by `director-core`:
 - Execute the verification checklist (including output boundary check)
 - Present for final user review
 - Upon confirmation, mark STATE 4 complete, enter routing decision
+
+**When run standalone (not via director-core):**
+
+- After user confirms the prompt package, save to `outputs/YYYY-MM-DD-[topic]-State-4-prompt-package.md`
+- Notify the user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-4-prompt-package.md`"
+- Prompt the user for next steps (routing to STATE 5/6 or manual use)

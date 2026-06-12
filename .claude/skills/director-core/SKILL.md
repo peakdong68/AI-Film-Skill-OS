@@ -78,7 +78,11 @@ First assess input quality, then decide whether to call :
 | Descriptive but no plot | Has scene/style/tone, lacks narrative action       | Call → Creative expansion                   |
 | Vague creative          | Only keywords / broad concepts                     | Call → Creative interview                   |
 
-Collect production params (duration, style, platform, aspect ratio, reference materials). If user says "just do it", fill reasonable defaults with annotations.### STATE 1 — Story & Emotion Design
+Collect production params (duration, style, platform, aspect ratio, reference materials). If user says "just do it", fill reasonable defaults with annotations.
+
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-0-brief.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-0-brief.md`".
+
+### STATE 1 — Story & Emotion Design
 
 Route to `director-story` and `director-emotion`.
 
@@ -98,7 +102,7 @@ Route to `director-story` and `director-emotion`.
 
 **State 1 output**: Script blueprint + Emotional timeline.
 
-> Save to `outputs/YYYY-MM-DD-[topic]-State-1-story-emotion.md`
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-1-story-emotion.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-1-story-emotion.md`".
 
 Proceed to STATE 2.
 
@@ -122,7 +126,7 @@ Route to `director-style` (director style), `director-camera` (camera system), a
 
 **State 2 output**: Visual language blueprint.
 
-> Save to `outputs/YYYY-MM-DD-[topic]-State-2-visual.md`
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-2-visual.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-2-visual.md`".
 
 Proceed to STATE 3.
 
@@ -146,7 +150,7 @@ Route to `director-character`.
 
 **State 3 output**: Character identity definitions (text-level design document).
 
-> Save to `outputs/YYYY-MM-DD-[topic]-State-3-characters.md`
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-3-characters.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-3-characters.md`".
 
 **After STATE 3 confirmation — ask the user:**
 
@@ -188,7 +192,11 @@ The output is **not** a Seedance video prompt — it is the design foundation fo
 
 If any answer is NO, stop and return to the missing stage.
 
-**State 4 output**: Film-level short film prompt package (text-level director's vision document). Proceed to routing decision.
+**State 4 output**: Film-level short film prompt package (text-level director's vision document).
+
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-4-prompt-package.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-4-prompt-package.md`".
+
+Proceed to routing decision.
 
 **User next step**: Confirm the prompt package content. After confirmation, do NOT proceed directly to STATE 5 — first execute the routing decision to determine the best path forward.
 
@@ -248,7 +256,11 @@ Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-pr
 - [ ] Visual language consistent with STATE 2 definitions
 - [ ] User confirmed storyboard blueprints
 
-**State 5 output**: Storyboard blueprint images (for Seedance reference). Proceed to STATE 6.
+**State 5 output**: Storyboard blueprint images (for Seedance reference).
+
+**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-5-storyboard.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-5-storyboard.md`".
+
+Proceed to STATE 6.
 
 ### STATE 6 — Seedance Video Prompts (Image Reference Level)
 
