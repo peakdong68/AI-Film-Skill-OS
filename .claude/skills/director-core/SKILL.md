@@ -236,7 +236,9 @@ Which resources do you currently have?
 
 **This stage is the recommended path for all I2V productions.** It generates storyboard blueprint images that enable precise multi-shot camera control in STATE 6. It is skipped only when the user chooses I2V (minimal) for single-image generation, or for non-I2V modes (T2V/R2V/FLF2V/V2V).
 
-Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce` (for generating complete storyboard blueprint images).
+Route to `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce` (for generating complete storyboard blueprint images).
+
+> **`storyboard-sketch` is NOT auto-selected.** Only route to `storyboard-sketch` when the user explicitly requests "Plan Seedance I2V storyboard frames / per-frame motion" (text-level descriptions, no image gen). Do not recommend it in any default flow.
 
 **This is the image generation phase after STATE 4 confirmation.** Compiles the confirmed prompt package's storyboard design into AI image generator-executable storyboard blueprint prompts, generating visual storyboard board images. These images serve as storyboard reference inputs for STATE 6.
 
@@ -381,7 +383,6 @@ director-story ────→ director-emotion
         (primary I2V path,     I2V (minimal)
          via STATE 5)           (skip STATE 5)
                 │                    │
-         storyboard-sketch /         │
          storyboard-prompt /         │
          storyboard-master /         │
          storyboard-ecommerce        │
