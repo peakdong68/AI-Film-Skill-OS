@@ -18,6 +18,8 @@ Use this skill for multi-shot master sheets. For single-frame storyboard prompts
 
 ## Mode Gate
 
+> **This skill is NOT auto-selected.** Only execute when explicitly routed by `director-core` STATE 5 or the user explicitly requests this skill. Do not trigger in any default flow.
+
 The master sheet has two output densities. Choose based on user intent:
 
 | If the user says...                                                                                                                        | Output                                                         |

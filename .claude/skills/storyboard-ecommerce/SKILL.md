@@ -20,7 +20,9 @@ Generate professional e-commerce and social commerce storyboard prompts for AI i
 
 ## Sub-Mode Gate
 
-Three commerce formats, auto-selected by scenario:
+> **This skill is NOT auto-selected.** Only execute when explicitly routed by `director-core` STATE 5 or the user explicitly requests e-commerce storyboard. Do not trigger in any default flow.
+
+Three commerce formats, selected by scenario:
 
 | User scenario | Format | Characteristics |
 |---|---|---|
