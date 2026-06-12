@@ -40,7 +40,7 @@ STATE 7 → Final Validation
 STATE 8 → Export Ready
 ```
 
-STATE 0-4 are mandatory, must not be skipped. STATE 5 is conditional — only executed when user explicitly requests storyboard-driven generation. STATE 6-8 are mandatory.
+STATE 0-4 are mandatory, must not be skipped. STATE 5 is conditional — executed for I2V (storyboard) mode (the primary I2V recommendation); skipped for I2V (minimal) and non-I2V modes. STATE 6-8 are mandatory.
 
 **Key distinction between STATE 4 and STATE 5/6:**
 
@@ -214,17 +214,19 @@ Which resources do you currently have?
 | User has... | Mode | Path |
 |---|---|---|
 | Nothing | T2V | STATE 4 → STATE 6 |
-| Any reference(s) | I2V (minimal) or R2V | STATE 4 → STATE 6 |
+| Storyboard images ready | I2V (storyboard) | STATE 4 → STATE 6 |
+| Reference images (character/product/scene) | I2V (storyboard) — recommended; or I2V (minimal) | STATE 4 → STATE 5 → STATE 6 (storyboard) / STATE 4 → STATE 6 (minimal) |
+| Single reference image only | I2V (minimal) | STATE 4 → STATE 6 |
 | First + last frame | FLF2V | STATE 4 → STATE 6 |
 | Video source | V2V Edit / V2V Extend | STATE 4 → STATE 6 |
 
-> Based on your resources, the recommended mode is **[mode]**. Direct to STATE 6. Proceed?
-
-**I2V (storyboard) mode is NOT offered by default.** It is only used when the user explicitly requests storyboard-driven generation for multi-shot continuous camera control. If the user asks for it, route through STATE 5 first: STATE 4 → STATE 5 → STATE 6 (I2V storyboard).
+> **For I2V, I2V (storyboard) is the primary recommendation.** It generates storyboard blueprint images first (STATE 5) for precise multi-shot control. I2V (minimal) is the simpler single-image option.
+>
+> Your resources: **[summary]**. Recommended: **I2V (storyboard)** — we'll generate storyboard images in STATE 5, then compile video prompts in STATE 6. Alternative: skip storyboard and use I2V (minimal) directly. Which do you prefer?
 
 ### STATE 5 — Storyboard Blueprint Generation (Image Level, Conditional — On-Demand Only)
 
-**This stage is only executed when the user explicitly requests storyboard-driven generation.** It is NOT part of the default routing flow. Most productions skip STATE 5 and go directly to STATE 6.
+**This stage is the recommended path for all I2V productions.** It generates storyboard blueprint images that enable precise multi-shot camera control in STATE 6. It is skipped only when the user chooses I2V (minimal) for single-image generation, or for non-I2V modes (T2V/R2V/FLF2V/V2V).
 
 Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-prompt` / `storyboard-master` / `storyboard-ecommerce` (for generating complete storyboard blueprint images).
 
@@ -274,16 +276,18 @@ Route to `seedance-video-prompt`.
 
 **Mode selection (based on available inputs):**
 
-| User has...                                           | Select mode      |
-| ----------------------------------------------------- | ---------------- |
-| Single reference image only (product/character/scene) | I2V (minimal)    |
-| First + last frame images                             | FLF2V            |
-| Multiple different ref types                          | R2V              |
-| Video source to modify                                | V2V Edit         |
-| Video to continue                                     | V2V Extend       |
-| Text description only                                 | T2V              |
+| User has...                                           | Select mode        | Notes |
+| ----------------------------------------------------- | ------------------ | ----- |
+| Storyboard blueprint images                           | I2V (storyboard)   | Full multi-shot control via storyboard boards |
+| Character/product/environment reference images        | I2V (storyboard)   | Primary I2V recommendation; requires storyboard images from STATE 5 |
+| Single reference image only (product/character/scene) | I2V (minimal)      | Simple single-image → video generation; no storyboard needed |
+| First + last frame images                             | FLF2V              | |
+| Multiple different ref types (product+video+audio)    | R2V                | |
+| Video source to modify                                | V2V Edit           | |
+| Video to continue                                     | V2V Extend         | |
+| Text description only                                 | T2V                | |
 
-> **I2V (storyboard) mode is NOT in the default table.** It is only used when the user explicitly requests storyboard-driven generation. In that case, STATE 5 must be executed first to generate storyboard blueprint images.
+> **For I2V scenarios, I2V (storyboard) is the primary recommendation.** It provides the best multi-shot control through storyboard blueprint images (generated in STATE 5). I2V (minimal) is a simpler fallback for single-reference-image cases. Always inform the user of both options and the tradeoffs.
 
 **Pre-flight Checklist (mode-aware):**
 
@@ -367,9 +371,9 @@ director-story ────→ director-emotion
                 │
          [Routing Decision: check resources → determine mode]
                 │                    │
-        Storyboard needed      Direct to STATE 6
-        (user explicitly        (default path)
-         requests it)            │
+        I2V (storyboard)       Non-I2V or
+        (primary I2V path,     I2V (minimal)
+         via STATE 5)           (skip STATE 5)
                 │                    │
          storyboard-sketch /         │
          storyboard-prompt /         │

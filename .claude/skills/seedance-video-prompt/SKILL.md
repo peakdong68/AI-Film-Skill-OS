@@ -31,13 +31,14 @@ Seedance 2.0 defines **three core task types**. Each covers sub-modes selected b
 ```
 Video source to modify? → Video Edit (use @[Video1] directly, no "reference" prefix)
 Video to continue? → Video Extend (use @[Video1] directly, no "reference" prefix)
+Reference images available? → I2V (storyboard) — primary recommendation
+Single reference image only? → I2V (minimal) — simpler fallback
 First + last frame? → FLF2V
 Multiple different ref types? → R2V
-Single reference image? → I2V minimal
 Text description only? → T2V
 ```
 
-> **I2V (storyboard) mode is NOT in the default decision tree.** It is only used when the user explicitly requests storyboard-driven generation for multi-shot continuous camera control. Do NOT offer it as a default option.
+> **For I2V, I2V (storyboard) is the primary recommendation.** It provides the best multi-shot control through storyboard blueprint images. I2V (minimal) is available as a simpler option for single-reference-image use cases. Always present both options to the user with their tradeoffs.
 
 > Detailed templates and examples: see `references/seedance-methodology.md`
 
