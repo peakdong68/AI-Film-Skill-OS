@@ -94,7 +94,7 @@ STATE 5（条件性）         直通 STATE 6
 - [ ] 叙事结构 + 情绪弧线（来自 STATE 1 — director-story + director-emotion）
 - [ ] 摄影机语言蓝图（来自 STATE 2 — director-camera）
 - [ ] 灯光设计系统 + 色彩脚本（来自 STATE 2 — director-light）
-- [ ] 角色身份锁定（来自 STATE 3 — director-character）
+- [ ] 角色身份锁定（来自 STATE 3 — 用户参考图或 director-character 文本定义）
 - [ ] 项目元数据：总时长、画幅比例、目标平台
 
 如有任何产出缺失，停止并路由回对应的导演技能。绝不从不完整的输入编译。
