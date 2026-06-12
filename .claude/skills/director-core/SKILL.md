@@ -134,22 +134,23 @@ Proceed to STATE 3.
 
 After STATE 2 is confirmed, follow this three-step process:
 
-**Step 1: Inventory existing materials**
+**Step 1: Inventory existing materials (check Material Slot Registry first)**
 
-Check all materials the user has provided in the current session (including `@[image]` `@[video]` references in messages and files mentioned in conversation history):
+Check the **Material Slots** block in STATE.md first. This table is initialized at STATE 0 when the user confirms they have reference images:
 
 | Source | How to check |
 |--------|-------------|
-| Reference markers in user messages | Search for `@[imageN]` `@[videoN]` `@[audioN]` tokens |
+| **STATE.md Material Slots** | **Priority check** — contains all registered `@[imageN]` slots and their status |
+| Reference markers in user messages | Search for `@[imageN]` `@[videoN]` `@[audioN]` tokens (supplement) |
 | File paths uploaded or referenced | Check for associated file references |
 | Materials mentioned in earlier dialogue | Review if user previously said "I have an image", "reference photo", etc. |
 
 **Step 2: Ask if nothing found**
 
-If the inventory turns up no reference materials, **actively ask the user** rather than assuming "none" and defaulting to Path B:
+If after checking the Material Slot Registry there are **truly no registered slots**, **actively ask the user** rather than assuming "none" and defaulting to Path B:
 
-> I notice you haven't provided any reference images for characters/scenes/products yet. Do you have any on hand?
-> - **Yes, I have images** → Please share them and I'll register them directly to material slots
+> I notice the Material Slot Registry has no reference image records for characters/scenes/products yet. Do you have any on hand?
+> - **Yes, I have images** → Just tell me what they are and I'll register them directly to material slots (registration takes effect immediately — no upload needed)
 > - **No, I don't** → I'll build text-level character identity definitions from scratch
 
 **Step 3: Route based on confirmed result**
@@ -167,7 +168,7 @@ If the inventory turns up no reference materials, **actively ask the user** rath
 
 **Path A: User already has reference images (skip `director-character`)**
 
-1. Register user's character/product/prop reference images directly to material slots, status ✅
+1. **Check Material Slot Registry**: STATE 0 should have already registered the reference image slots (e.g. `@[image1]`, `@[image2]`). If not registered, register immediately with status ✅. **Never ask the user to re-upload/provide the images again.**
 2. Output a concise identity summary (1-2 most distinctive identifiers visible from the reference image), save to `State-3-characters.md`
 3. Proceed to the "Character image generation question" below
 
@@ -207,9 +208,19 @@ Note: Under Path A, `character-image-prompt` input is the user's reference image
 
 ### Material Slot Registry
 
-After STATE 3 character lock + character image prompts are produced, immediately define global material slots. All downstream STATEs MUST reference this table.
+Material slot definitions span the pipeline, not a single stage:
 
-**Write timing:** After STATE 3 completes, before STATE 4 begins.
+| Timing | Action |
+|--------|--------|
+| **STATE 0** | When user confirms they have reference images, **register immediately**, mark `✅ Ready` |
+| **STATE 3** | After character lock, **append** new slots (e.g. Character Sheet prompt output, character identity definition files) |
+| **STATE 5** | After storyboard blueprint output, **append** storyboard image slots |
+
+All downstream STATEs MUST reference this table.
+
+**Core principle:** User says yes = slot ready. Registration takes effect immediately — no re-upload proof required.
+
+**Key change:** Don't wait for STATE 3 — initialize slots immediately at STATE 0 when reference materials are confirmed. STATE 3 only appends newly created content.
 
 **Path A (user already has reference images) slot example:**
 

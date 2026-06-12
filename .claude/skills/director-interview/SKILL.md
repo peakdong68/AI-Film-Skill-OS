@@ -22,7 +22,18 @@ Unified intake interview logic. Based on the creative clarity of user input, sel
 User has provided subject + action + scene + emotional direction. Confirm key params and output the brief:
 
 - **Duration, aspect ratio, style, platform** — confirm each one
-- **Reference materials** — actively ask: "Do you have any reference images (characters, scenes, products), video clips, or audio you can provide?" This is mandatory regardless of how complete the input is. Record in the brief's `Available references` field for later stages.
+- **Reference materials** — actively ask: "Do you have any reference images (characters, scenes, products), video clips, or audio you can provide?" This is mandatory regardless of how complete the input is.
+
+  **Response handling rules:**
+  | User says | Immediate action | Brief format |
+  |-----------|-----------------|-------------|
+  | "Yes, I have images/references" (including "I have character images", "I have scene photos", etc.) | **Register Material Slot immediately, mark `✅ Ready`**. Use sensible naming (e.g. `@[image1]` Boy reference, `@[image2]` Little yellow dog reference). **NEVER ask the user to re-upload.** | `@[imageN] [character/scene] reference — ✅ Ready` |
+  | "No" | Record as `none` in brief; STATE 3 follows Path B (director-character) | `none` |
+  | Skip / no answer | Record as `not provided` in brief; STATE 3 follows Path B (director-character) | `not provided` |
+
+  **Core principle: user says yes = slot ready. Registration takes effect immediately — no re-upload proof required.**
+
+- **Output brief** — the `Available references` field uses `@[imageN]` slot format
 
 After confirmation, output the brief — no additional questions needed.
 
@@ -41,6 +52,8 @@ Which direction do you prefer? Or do you have other ideas?
 ```
 
 Options should cover different styles (pure showcase / micro-drama / lifestyle MV / documentary / abstract performance, etc.). After user confirms direction, collect production params (duration, aspect ratio, style, platform, reference materials) and output brief. **Reference materials** is mandatory — proactively ask if they have reference images, video, or audio for characters/scenes/products.
+
+User response handling follows the same rules as **Fast Track** (immediately register Material Slot, mark `✅ Ready`, never ask for re-upload).
 
 ## Creative Interview (vague input)
 
