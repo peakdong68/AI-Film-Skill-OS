@@ -1,6 +1,6 @@
 ---
 name: storyboard-ecommerce
-description: "为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Image）生成电商/直播/带货分镜提示词——三种商业格式（社交商业板/服装导演板/产品展示板）按场景自动选择，含产品参考区、创作者参考区和字幕安全区。用于带货视频故事板、TK购物分镜、直播镜头规划、产品展示板、时尚穿搭分镜、服装分镜。注意：非商业分镜请用 `storyboard-master` 或 `storyboard-prompt`。Use for e-commerce/livestream/shopping storyboards with product reference areas."
+description: '为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Image）生成电商/直播/带货分镜提示词——三种商业格式（社交商业板/服装导演板/产品展示板）按场景自动选择，含产品参考区、创作者参考区和字幕安全区。用于带货视频故事板、TK购物分镜、直播镜头规划、产品展示板、时尚穿搭分镜、服装分镜。注意：非商业分镜请用 `storyboard-master` 或 `storyboard-prompt`。Use for e-commerce/livestream/shopping storyboards with product reference areas.'
 ---
 
 # Storyboard E-Commerce 电商分镜
@@ -26,13 +26,13 @@ description: "为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Ima
 
 **2. 扫描项目文件与用户素材：** 探测可用的参考资源：
 
-| 如发现... | 则... |
-|-----------|------|
-| 用户上传了产品图 | 映射为 `@[图片1]`（产品参考区） |
-| 用户上传了创作者/模特图 | 映射为 `@[图片2]`（创作者参考区，Format A） |
-| 用户上传了场景/背景图 | 映射为 `@[图片3]`（场景参考区，Format C） |
-| `outputs/character-sheets.md` | 若有创作者角色，提取设定映射为 `@[图片N]` |
-| `outputs/State-4-prompt-package.md` | 提取产品信息和镜头方案 |
+| 如发现...                           | 则...                                       |
+| ----------------------------------- | ------------------------------------------- |
+| 用户上传了产品图                    | 映射为 `@[图片1]`（产品参考区）             |
+| 用户上传了创作者/模特图             | 映射为 `@[图片2]`（创作者参考区，Format A） |
+| 用户上传了场景/背景图               | 映射为 `@[图片3]`（场景参考区，Format C）   |
+| `outputs/character-sheets.md`       | 若有创作者角色，提取设定映射为 `@[图片N]`   |
+| `outputs/State-4-prompt-package.md` | 提取产品信息和镜头方案                      |
 
 **3. 自动推断格式：** 根据可用素材推断最佳商业格式（Format A/B/C），减少用户选择负担。
 
@@ -46,10 +46,10 @@ description: "为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Ima
 
 三种商业格式，按场景选择：
 
-| 用户场景 | 格式 | 特点 |
-|---|---|---|
-| 带货视频、TK/Reels/Shorts、主播出镜演示产品 | **Format A: 社交商业板** | 产品参考区 + 创作者参考区 + 6 镜头（Hook→Problem→Reveal→Detail→Display→CTA）+ 字幕行 |
-| 服装/时尚/穿搭、模特展示、无口播 | **Format B: 服装导演板** | 12-15 镜头网格 + 节奏模块 + 运镜模块 + 光影模块 |
+| 用户场景                                       | 格式                     | 特点                                                                                          |
+| ---------------------------------------------- | ------------------------ | --------------------------------------------------------------------------------------------- |
+| 带货视频、TK/Reels/Shorts、主播出镜演示产品    | **Format A: 社交商业板** | 产品参考区 + 创作者参考区 + 6 镜头（Hook→Problem→Reveal→Detail→Display→CTA）+ 字幕行          |
+| 服装/时尚/穿搭、模特展示、无口播               | **Format B: 服装导演板** | 12-15 镜头网格 + 节奏模块 + 运镜模块 + 光影模块                                               |
 | 纯产品展示、3C/家电/家居/食品/美妆、无人物出镜 | **Format C: 产品展示板** | 产品参考区 + 场景参考区 + 6 镜头（Showcase→Detail→Feature→Use→Atmosphere→Packshot）、无字幕行 |
 
 > 各格式的完整布局结构、镜头卡片规格、默认镜头拆解、连续性要求和视觉风格关键词见 `references/ecommerce-formats.md`
@@ -98,14 +98,13 @@ TikTok 风格带货，创作者/主播出镜。双层参考区（创作者 + 产
 - Format B: 节奏模块必须将时间段映射到镜头编号和音乐节拍
 - Format C: 无人物出镜——如果手部入镜，保持同一肤色/手势风格
 
-
 ## 保存输出
 
 交付最终输出后，提示用户以带日期和主题的文件名保存：
 
 ```
-保存到 outputs/YYYY-MM-DD-[主题]-ecommerce-board.md？
-示例：outputs/2026-06-10-赛博朋克短片-seedance-prompt.md
+保存到 outputs/YYYY-MM-DD-[主题]/ecommerce-board.md？
+示例：outputs/2026-06-10-赛博朋克短片/seedance-prompt.md
 ```
 
 用户确认后，将输出写入指定路径。

@@ -318,6 +318,6 @@ STATE 5（条件性）         直通 STATE 6
 
 交付最终输出后，提示用户以带日期和主题的文件名保存：
 
-- 用户确认提示包后，保存到 `outputs/YYYY-MM-DD-[主题]-State-4-prompt-package.md`
-- 告知用户："✅ 已保存至 `outputs/YYYY-MM-DD-[主题]-State-4-prompt-package.md`"
+- 用户确认提示包后，保存到 `outputs/YYYY-MM-DD-[主题]/State-4-prompt-package.md`
+- 告知用户："✅ 已保存至 `outputs/YYYY-MM-DD-[主题]/State-4-prompt-package.md`"
 - 提示用户下一步操作（路由至 STATE 5/6 或手动使用）

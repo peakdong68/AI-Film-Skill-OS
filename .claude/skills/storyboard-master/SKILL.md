@@ -1,6 +1,6 @@
 ---
 name: storyboard-master
-description: "为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Image）生成多镜头分镜总览图/导演提案板提示词——产出为一张含全部镜头的规划板。用于分镜总览图、导演提案板、完整视觉规划板、前期制作蓝图、分镜规划图，或需要将镜头网格+节奏时间轴+摄影机运动图+视觉设计融合为一张综合多镜头规划板时。注意：单帧镜头画面请用 `storyboard-prompt`；电商带货板请用 `storyboard-ecommerce`；I2V 文本规划请用 `storyboard-sketch`。Use for multi-shot master sheets, director treatment boards, full visual planning boards — one image containing all shots."
+description: '为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Image）生成多镜头分镜总览图/导演提案板提示词——产出为一张含全部镜头的规划板。用于分镜总览图、导演提案板、完整视觉规划板、前期制作蓝图、分镜规划图，或需要将镜头网格+节奏时间轴+摄影机运动图+视觉设计融合为一张综合多镜头规划板时。注意：单帧镜头画面请用 `storyboard-prompt`；电商带货板请用 `storyboard-ecommerce`；I2V 文本规划请用 `storyboard-sketch`。Use for multi-shot master sheets, director treatment boards, full visual planning boards — one image containing all shots.'
 ---
 
 # Storyboard Master Sheet 分镜总览图
@@ -24,13 +24,13 @@ description: "为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Ima
 
 **2. 扫描项目文件：** 探测以下文件是否存在：
 
-| 如发现... | 则... |
-|-----------|------|
-| `outputs/character-sheets.md` | 提取角色名和设定图来源，映射为 `@[图片N]` 槽位 |
+| 如发现...                           | 则...                                                  |
+| ----------------------------------- | ------------------------------------------------------ |
+| `outputs/character-sheets.md`       | 提取角色名和设定图来源，映射为 `@[图片N]` 槽位         |
 | `outputs/State-4-prompt-package.md` | 提取分镜设计方案（镜头数、景别、时间码、动作、摄影机） |
-| `outputs/State-3-characters.md` | 提取角色锁定参数（面部、体型、服装） |
-| `outputs/State-2-visual.md` | 提取灯光和色彩方案 |
-| `outputs/State-1-story-emotion.md` | 提取叙事结构和情绪弧线 |
+| `outputs/State-3-characters.md`     | 提取角色锁定参数（面部、体型、服装）                   |
+| `outputs/State-2-visual.md`         | 提取灯光和色彩方案                                     |
+| `outputs/State-1-story-emotion.md`  | 提取叙事结构和情绪弧线                                 |
 
 **3. 自动补全槽位：** 即使无 `STATE.md`，若探测到角色设定图文件，自动建立角色锚点映射（如 `@[图片1]`=男孩, `@[图片2]`=小狗），并在分镜总览图中引用。
 
@@ -44,12 +44,13 @@ description: "为 AI 图像生成器（Midjourney, Flux, 即梦, 可灵, GPT Ima
 
 总览图有两种输出密度。根据用户意图选择：
 
-| 用户说...                                                                                                      | 输出                                       |
-| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| 用户说...                                                                                                                                 | 输出                                       |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
 | "storyboard master sheet", "Master Sheet", "Director Treatment Board", "director treatment board", "完整规划", "pre-production blueprint" | **完整总览图**（4 区，6-24 镜头）          |
-| "简版分镜图", "分镜图板", "quick board", "简洁版"                                                              | **简洁导演板**（仅镜头网格 + 底部 3 模块） |
+| "简版分镜图", "分镜图板", "quick board", "简洁版"                                                                                         | **简洁导演板**（仅镜头网格 + 底部 3 模块） |
 
 镜头数量按以下优先级确定：
+
 1. **用户显式指定** → 直接使用
 2. **存在上游管线产物**（如 `director-story` 的场景拆解、`director-prompt-packager` 的分镜方案、`director-core` 已执行的 STATE 产出）→ 从已有镜头/场景拆解中推导
 3. **无任何上下文时的兜底** → 简洁模式默认 6 镜头，完整模式默认 12 镜头
@@ -199,10 +200,10 @@ ART DIRECTION: [1-2 行设计指导]
 
 ### Section 1: Shot Grid
 
-| #   | Size | Timecode | Ref | Preview | Action | Camera | Purpose |
-| --- | ---- | -------- | --- | ------- | ------ | ------ | ------- |
-| 01  | ...  | ...      | @[图片1] | ... | ...    | ...    | ...     |
-| 02  | ...  | ...      | @[图片2] | ... | ...    | ...    | ...     |
+| #   | Size | Timecode | Ref      | Preview | Action | Camera | Purpose |
+| --- | ---- | -------- | -------- | ------- | ------ | ------ | ------- |
+| 01  | ...  | ...      | @[图片1] | ...     | ...    | ...    | ...     |
+| 02  | ...  | ...      | @[图片2] | ...     | ...    | ...    | ...     |
 
 ...
 
@@ -256,14 +257,13 @@ Director storyboard sheet, shot list board, camera movement diagram, rhythm stru
 
 - **角色锚点规则：** 当上游定义了素材槽位注册表（Material Slot Registry），压缩提示词中每个镜头描述必须嵌入 `@[图片N]` 引用。提示词开头添加角色锚点声明，如："角色锚点：所有镜头中男孩形象引用@[图片1]，小狗形象引用@[图片2]。"
 
-
 ## 保存输出
 
 交付最终输出后，提示用户以带日期和主题的文件名保存：
 
 ```
-保存到 outputs/YYYY-MM-DD-[主题]-storyboard-master.md？
-示例：outputs/2026-06-10-赛博朋克短片-seedance-prompt.md
+保存到 outputs/YYYY-MM-DD-[主题]/storyboard-master.md？
+示例：outputs/2026-06-10-赛博朋克短片/seedance-prompt.md
 ```
 
 用户确认后，将输出写入指定路径。
