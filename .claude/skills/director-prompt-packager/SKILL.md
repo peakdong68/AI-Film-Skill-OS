@@ -313,3 +313,9 @@ STATE 5（条件性）         直通 STATE 6
 - 执行验证清单（含输出边界检查）
 - 提交用户最终审核
 - 确认后标记 STATE 4 完成，进入路由决策
+
+**独立运行时（非 director-core 调用）：**
+
+- 用户确认提示包后，保存到 `outputs/YYYY-MM-DD-[主题]-State-4-prompt-package.md`
+- 告知用户："✅ 已保存至 `outputs/YYYY-MM-DD-[主题]-State-4-prompt-package.md`"
+- 提示用户下一步操作（路由至 STATE 5/6 或手动使用）
