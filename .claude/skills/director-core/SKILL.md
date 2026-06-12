@@ -388,7 +388,6 @@ director-story ────→ director-emotion
                 │                    │
         方案A: 分镜蓝图          方案B: 直接生视频
                 │                    │
-         storyboard-sketch /         │
          storyboard-prompt /         │
          storyboard-master /         │
          storyboard-ecommerce        │
