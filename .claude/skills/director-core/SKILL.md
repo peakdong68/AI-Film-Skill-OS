@@ -70,17 +70,11 @@ If any lock is broken, stop immediately and return to the earliest incomplete st
 
 ### STATE 0 — Input Collection
 
-First assess input quality, then decide whether to call :
+Route to `director-interview`. This skill has internal three-path gating (Fast Track / Creative Expansion / Creative Interview), automatically selecting the best path based on input quality and delivering a confirmed production brief.
 
-| Input quality           | Criteria                                           | Action                                      |
-| ----------------------- | -------------------------------------------------- | ------------------------------------------- |
-| Creative complete       | Has subject + action + scene + emotional direction | **Skip interview**, collect params directly |
-| Descriptive but no plot | Has scene/style/tone, lacks narrative action       | Call → Creative expansion                   |
-| Vague creative          | Only keywords / broad concepts                     | Call → Creative interview                   |
+If the user says "just do it", `director-interview` fills reasonable defaults with annotations.
 
-Collect production params (duration, style, platform, aspect ratio, reference materials). If user says "just do it", fill reasonable defaults with annotations.
-
-**After output:** save to `outputs/F-[N]-[topic]-State-0-brief.md`. Notify user: "✅ Saved to `outputs/F-[N]-[topic]-State-0-brief.md`".
+**After output:** save the brief to `outputs/F-[N]-[topic]-State-0-brief.md`. Notify user: "✅ Saved to `outputs/F-[N]-[topic]-State-0-brief.md`".
 
 **Verification Gates:**
 
@@ -136,16 +130,36 @@ Proceed to STATE 3.
 
 ### STATE 3 — Character Lock
 
-**Input Gate (check first, then route):**
+**Input Gate (inventory → ask → route):**
 
-After STATE 2 is confirmed, first check whether the user already provided character/product/prop reference images in the STATE 0 brief:
+After STATE 2 is confirmed, follow this three-step process:
+
+**Step 1: Inventory existing materials**
+
+Check all materials the user has provided in the current session (including `@[image]` `@[video]` references in messages and files mentioned in conversation history):
+
+| Source | How to check |
+|--------|-------------|
+| Reference markers in user messages | Search for `@[imageN]` `@[videoN]` `@[audioN]` tokens |
+| File paths uploaded or referenced | Check for associated file references |
+| Materials mentioned in earlier dialogue | Review if user previously said "I have an image", "reference photo", etc. |
+
+**Step 2: Ask if nothing found**
+
+If the inventory turns up no reference materials, **actively ask the user** rather than assuming "none" and defaulting to Path B:
+
+> I notice you haven't provided any reference images for characters/scenes/products yet. Do you have any on hand?
+> - **Yes, I have images** → Please share them and I'll register them directly to material slots
+> - **No, I don't** → I'll build text-level character identity definitions from scratch
+
+**Step 3: Route based on confirmed result**
 
 | User has...                                     | Action                                                                                                                                                                                                                            |
 | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Character reference image (`@[char ref]`)       | **Skip `director-character`**. The character's visual identity is already locked by the reference image — no text-level character definition needed. Register the reference image directly to material slots with status ✅ Ready |
 | Product/prop reference image (`@[product ref]`) | Same — register directly to material slots with status ✅ Ready                                                                                                                                                                   |
 | Some have images, some don't                    | Skip `director-character` for those with images → register directly; route those without images to `director-character` for text-level identity definition                                                                        |
-| No reference images at all                      | Route to `director-character` for text-level character identity definition                                                                                                                                                        |
+| User confirms no reference images               | Route to `director-character` for text-level character identity definition                                                                                                                                                        |
 
 > **Core principle: the reference image itself IS the identity lock.** When the user provides character/product reference images, the visual identity is already anchored by the image — there is no need to textually enumerate face/hairstyle/body type/wardrobe. `director-character` is only called when **no reference images exist**, to build character identity definitions from scratch.
 
@@ -604,6 +618,7 @@ Production state is persisted via a checkpoint file to ensure recoverability acr
 - **Platform**: [Seedance / Kling]
 - **Style**: [Cinematic / Commercial / Documentary / Anime / ...]
 - **Director mode**: [Observer / Emotional / Immersive / Epic / Commercial]
+- **Available references**: [character images / scene images / video clips / audio clips / none]
 
 ### Material Slots
 

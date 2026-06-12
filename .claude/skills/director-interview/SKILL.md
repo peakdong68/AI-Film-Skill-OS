@@ -19,7 +19,12 @@ Unified intake interview logic. Based on the creative clarity of user input, sel
 
 ## Fast Track
 
-User has provided subject + action + scene + emotional direction. Confirm key params and output the brief — no additional questions needed.
+User has provided subject + action + scene + emotional direction. Confirm key params and output the brief:
+
+- **Duration, aspect ratio, style, platform** — confirm each one
+- **Reference materials** — actively ask: "Do you have any reference images (characters, scenes, products), video clips, or audio you can provide?" This is mandatory regardless of how complete the input is. Record in the brief's `Available references` field for later stages.
+
+After confirmation, output the brief — no additional questions needed.
 
 ## Creative Expansion (descriptive but no plot)
 
@@ -35,7 +40,7 @@ Option C: [name] — [one-line description + suitable duration + pacing style]
 Which direction do you prefer? Or do you have other ideas?
 ```
 
-Options should cover different styles (pure showcase / micro-drama / lifestyle MV / documentary / abstract performance, etc.). After user confirms direction, collect production params and output brief.
+Options should cover different styles (pure showcase / micro-drama / lifestyle MV / documentary / abstract performance, etc.). After user confirms direction, collect production params (duration, aspect ratio, style, platform, reference materials) and output brief. **Reference materials** is mandatory — proactively ask if they have reference images, video, or audio for characters/scenes/products.
 
 ## Creative Interview (vague input)
 
