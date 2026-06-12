@@ -105,8 +105,8 @@ Present structured plan first, then compressed image generator prompt:
 After delivering the final output, prompt the user to save with a dated, topic-specific filename:
 
 ```
-Save to outputs/YYYY-MM-DD-[topic]/ecommerce-board.md?
-Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
+Save to outputs/F-[N]-[topic]-ecommerce-board.md?
+Example: outputs/F-1-cyberpunk-short-seedance-prompt.md
 ```
 
 If the user confirms, write the output to the specified path.

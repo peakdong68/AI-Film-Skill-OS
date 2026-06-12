@@ -191,16 +191,17 @@ Explicitly define subjects in reference assets for unique identifiability.
 
 **When reference images exist (I2V / R2V / FLF2V):**
 
-| Scenario | Format | Example |
-|----------|--------|---------|
-| **Basic definition** | `` Define [1-2 distinctive identifiers] in @[Image1] as `Subject1` `` | `` Define the male model in @[Image1] as `Model` `` |
-| **Short binding** | `` `Subject1`@[Image1] `` | `` `Model`@[Image1] `` |
+| Scenario                     | Format                                                                             | Example                                                                                 |
+| ---------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Basic definition**         | `` Define [1-2 distinctive identifiers] in @[Image1] as `Subject1` ``              | `` Define the male model in @[Image1] as `Model` ``                                     |
+| **Short binding**            | `` `Subject1`@[Image1] ``                                                          | `` `Model`@[Image1] ``                                                                  |
 | **Multi-asset same subject** | `` Define [identifier] in @[Image1] and [identifier] in @[Image2] as `SubjectN` `` | `` Define the character's face in @[Image1] and outfit in @[Image2] as `Protagonist` `` |
-| **Face close-up separation** | `` `Subject1`'s face references @[Image1], outfit references @[Image2] `` | Separate headshot + full-body references for enhanced facial extraction weight |
+| **Face close-up separation** | `` `Subject1`'s face references @[Image1], outfit references @[Image2] ``          | Separate headshot + full-body references for enhanced facial extraction weight          |
 
 **When no reference images exist (T2V):** detailed subject appearance description is required in the prompt (face + hairstyle + body type + wardrobe).
 
 **Anti-patterns (forbidden when reference images exist):**
+
 - ❌ `` Define the Asian male model with angular face structure, Korean-style slightly wavy short dark hair, lean athletic build, white printed crew neck t-shirt in @[Image1] as `Model` `` — over-describes details already locked in the reference image
 - ✅ `` Define the male model in @[Image1] as `Model` `` — identity binding only, no re-description
 
@@ -381,8 +382,8 @@ When called at STATE 6:
 After delivering the final output, prompt the user to save with a dated, topic-specific filename:
 
 ```
-Save to outputs/YYYY-MM-DD-[topic]/seedance-prompt.md?
-Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
+Save to outputs/F-[N]-[topic]-seedance-prompt.md?
+Example: outputs/F-1-cyberpunk-short-seedance-prompt.md
 ```
 
 If the user confirms, write the output to the specified path.

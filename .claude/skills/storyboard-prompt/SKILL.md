@@ -24,13 +24,13 @@ Probe available context on load to determine material sources:
 
 **2. Scan project files:** Check for the following files:
 
-| If discovered...                    | Then...                                                         |
-| ----------------------------------- | --------------------------------------------------------------- |
+| If discovered...                    | Then...                                                             |
+| ----------------------------------- | ------------------------------------------------------------------- |
 | `outputs/character-sheets.md`       | Extract character names and sheet sources, map to `@[imageN]` slots |
-| `outputs/State-4-prompt-package.md` | Extract shot size, action, camera, lighting plan for current shot |
-| `outputs/State-3-characters.md`     | Extract character lock parameters (face, body type, wardrobe)   |
-| `outputs/State-2-visual.md`         | Extract lighting and color schemes                              |
-| `outputs/State-1-story-emotion.md`  | Extract emotion value for the current scene                     |
+| `outputs/State-4-prompt-package.md` | Extract shot size, action, camera, lighting plan for current shot   |
+| `outputs/State-3-characters.md`     | Extract character lock parameters (face, body type, wardrobe)       |
+| `outputs/State-2-visual.md`         | Extract lighting and color schemes                                  |
+| `outputs/State-1-story-emotion.md`  | Extract emotion value for the current scene                         |
 
 **3. Auto-complete slots:** If character sheets or Material Slot Registry are detected, automatically establish character anchor mappings and reference `@[imageN]` in prompts.
 
@@ -42,12 +42,12 @@ Probe available context on load to determine material sources:
 
 > **This skill does NOT auto-select.** Only execute when explicitly routed by `director-core` STATE 5 or when the user explicitly requests single-frame storyboard prompts.
 
-| User says...                                                                     | Action                                         |
-| -------------------------------------------------------------------------------- | ---------------------------------------------- |
+| User says...                                                                     | Action                                          |
+| -------------------------------------------------------------------------------- | ----------------------------------------------- |
 | "how to shoot this shot", "write a storyboard frame", "single frame composition" | Use 8-element framework for single-frame prompt |
-| "make a master sheet", "full planning board", "multi-shot grid"                  | Route to `storyboard-master`                   |
-| "e-commerce storyboard", "fashion director board"                                | Route to `storyboard-ecommerce`                |
-| "I2V frame planning", "storyboard sketch"                                        | Route to `storyboard-sketch`                   |
+| "make a master sheet", "full planning board", "multi-shot grid"                  | Route to `storyboard-master`                    |
+| "e-commerce storyboard", "fashion director board"                                | Route to `storyboard-ecommerce`                 |
+| "I2V frame planning", "storyboard sketch"                                        | Route to `storyboard-sketch`                    |
 
 ---
 
@@ -55,16 +55,16 @@ Probe available context on load to determine material sources:
 
 Every single-frame storyboard prompt must cover the following 8 elements. This is the complete mapping from narrative beat to executable image generation prompt:
 
-| # | Element | Description |
-|---|---------|-------------|
-| 1 | **Scene** | Time, place, environment context — the space the viewer sees |
-| 2 | **Subject** | The core object in frame — character, product, or key element. When reference images exist, use `@[imageN]` reference — do not enumerate appearance |
-| 3 | **Action** | What the subject is doing — specific, observable physical action, not abstract emotion |
-| 4 | **Camera** | Shot size + angle + movement — one primary camera move |
-| 5 | **Composition** | Framing rule — rule of thirds / centered / negative space / frame-in-frame |
-| 6 | **Lighting** | Key light direction+quality + fill + color temperature + atmosphere |
-| 7 | **Mood** | Visual emotion conveyed by the frame — expressed through shootable light/color |
-| 8 | **Story Purpose** | Why this shot exists — establish/reveal/advance/escalate/contrast/resolve |
+| #   | Element           | Description                                                                                                                                         |
+| --- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Scene**         | Time, place, environment context — the space the viewer sees                                                                                        |
+| 2   | **Subject**       | The core object in frame — character, product, or key element. When reference images exist, use `@[imageN]` reference — do not enumerate appearance |
+| 3   | **Action**        | What the subject is doing — specific, observable physical action, not abstract emotion                                                              |
+| 4   | **Camera**        | Shot size + angle + movement — one primary camera move                                                                                              |
+| 5   | **Composition**   | Framing rule — rule of thirds / centered / negative space / frame-in-frame                                                                          |
+| 6   | **Lighting**      | Key light direction+quality + fill + color temperature + atmosphere                                                                                 |
+| 7   | **Mood**          | Visual emotion conveyed by the frame — expressed through shootable light/color                                                                      |
+| 8   | **Story Purpose** | Why this shot exists — establish/reveal/advance/escalate/contrast/resolve                                                                           |
 
 ## Output Format
 
@@ -75,16 +75,16 @@ Present structured analysis first, then compressed image generation prompt:
 
 ### 8-Element Analysis
 
-| Element | Content |
-|---------|---------|
-| Scene | [Time · Place · Environment] |
-| Subject | [Subject description. When reference images exist: reference @[imageN], do not enumerate appearance] |
-| Action | [Specific observable physical action] |
-| Camera | [Shot size] + [Angle] + [Movement] |
-| Composition | [Framing approach] |
-| Lighting | [Key light + Fill + Color temp + Atmosphere] |
-| Mood | [Visual mood keywords] |
-| Story Purpose | [Narrative function] |
+| Element       | Content                                                                                              |
+| ------------- | ---------------------------------------------------------------------------------------------------- |
+| Scene         | [Time · Place · Environment]                                                                         |
+| Subject       | [Subject description. When reference images exist: reference @[imageN], do not enumerate appearance] |
+| Action        | [Specific observable physical action]                                                                |
+| Camera        | [Shot size] + [Angle] + [Movement]                                                                   |
+| Composition   | [Framing approach]                                                                                   |
+| Lighting      | [Key light + Fill + Color temp + Atmosphere]                                                         |
+| Mood          | [Visual mood keywords]                                                                               |
+| Story Purpose | [Narrative function]                                                                                 |
 
 ### Compressed Prompt
 
@@ -108,22 +108,24 @@ User request: First shot of "a courier discovers a ticking package in a rainy al
 
 ### 8-Element Analysis
 
-| Element | Content |
-|---------|---------|
-| Scene | Midnight · Narrow back alley · Heavy rain |
-| Subject | Courier in red jacket, holding a small black package. Reference character slot with @[image1] when available |
-| Action | Enters from screen left, right hand holding package, cautious stride |
-| Camera | Wide shot + Eye level + Lateral track |
-| Composition | Alley wall leading lines, subject at left third |
-| Lighting | Streetlamp top light as key, blue ambient fill, high contrast, cold tone |
-| Mood | Tense · Wet · Isolated |
-| Story Purpose | Establish scene space and character entry state |
+| Element       | Content                                                                                                      |
+| ------------- | ------------------------------------------------------------------------------------------------------------ |
+| Scene         | Midnight · Narrow back alley · Heavy rain                                                                    |
+| Subject       | Courier in red jacket, holding a small black package. Reference character slot with @[image1] when available |
+| Action        | Enters from screen left, right hand holding package, cautious stride                                         |
+| Camera        | Wide shot + Eye level + Lateral track                                                                        |
+| Composition   | Alley wall leading lines, subject at left third                                                              |
+| Lighting      | Streetlamp top light as key, blue ambient fill, high contrast, cold tone                                     |
+| Mood          | Tense · Wet · Isolated                                                                                       |
+| Story Purpose | Establish scene space and character entry state                                                              |
 
 ### Compressed Prompt
+```
+
+Narrow brick back alley at midnight in heavy rain, a courier in a red jacket enters from screen left, right hand holding a small black package, cautious stride. Streetlamp top light casts hard light from above, blue cold ambient light fills the alley. Wet brick walls reflect faint light, ground puddles mirror silhouettes. Wide shot, eye level, lateral tracking. Leading line composition, subject at left third. High contrast, cinematic realism, 50mm lens feel, high detail texture.
 
 ```
-Narrow brick back alley at midnight in heavy rain, a courier in a red jacket enters from screen left, right hand holding a small black package, cautious stride. Streetlamp top light casts hard light from above, blue cold ambient light fills the alley. Wet brick walls reflect faint light, ground puddles mirror silhouettes. Wide shot, eye level, lateral tracking. Leading line composition, subject at left third. High contrast, cinematic realism, 50mm lens feel, high detail texture.
-```
+
 ```
 
 ## Quality Bar
@@ -140,8 +142,8 @@ Narrow brick back alley at midnight in heavy rain, a courier in a red jacket ent
 After delivering the final output, prompt the user to save with a date-prefixed and topic-named filename:
 
 ```
-Save to outputs/YYYY-MM-DD-[topic]/frame-prompts.md?
-Example: outputs/2026-06-10-cyberpunk-short/frame-prompts.md
+Save to outputs/F-[N]-[topic]-frame-prompts.md?
+Example: outputs/F-1-cyberpunk-short/frame-prompts.md
 ```
 
 After user confirmation, write the output to the specified path.

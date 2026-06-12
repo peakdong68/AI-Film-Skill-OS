@@ -273,8 +273,8 @@ Invoked by `director-core` or independently after STATE 3:
 After delivering the final output, prompt the user to save with a dated, topic-specific filename:
 
 ```
-Save to outputs/YYYY-MM-DD-[topic]/character-sheet.md?
-Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
+Save to outputs/F-[N]-[topic]-character-sheet.md?
+Example: outputs/F-1-cyberpunk-short-seedance-prompt.md
 ```
 
 If the user confirms, write the output to the specified path.

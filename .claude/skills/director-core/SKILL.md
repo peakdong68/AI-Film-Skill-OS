@@ -80,7 +80,7 @@ First assess input quality, then decide whether to call :
 
 Collect production params (duration, style, platform, aspect ratio, reference materials). If user says "just do it", fill reasonable defaults with annotations.
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-0-brief.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-0-brief.md`".
+**After output:** save to `outputs/F-[N]-[topic]-State-0-brief.md`. Notify user: "✅ Saved to `outputs/F-[N]-[topic]-State-0-brief.md`".
 
 **Verification Gates:**
 
@@ -99,7 +99,7 @@ Route to `director-story` and `director-emotion`.
 - Emotional arc diagram (calm → tension → climax → resolution)
 - Emotional intensity timeline
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-1-story-emotion.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-1-story-emotion.md`".
+**After output:** save to `outputs/F-[N]-[topic]-State-1-story-emotion.md`. Notify user: "✅ Saved to `outputs/F-[N]-[topic]-State-1-story-emotion.md`".
 
 **Verification Gates:**
 
@@ -122,7 +122,7 @@ Route to `director-style` (director style), `director-camera` (camera system), a
 - Color script (dominant colors per act/scene, temperature curve)
 - Composition rules (primary and secondary framing approaches)
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-2-visual.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-2-visual.md`".
+**After output:** save to `outputs/F-[N]-[topic]-State-2-visual.md`. Notify user: "✅ Saved to `outputs/F-[N]-[topic]-State-2-visual.md`".
 
 **Verification Gates:**
 
@@ -140,12 +140,12 @@ Proceed to STATE 3.
 
 After STATE 2 is confirmed, first check whether the user already provided character/product/prop reference images in the STATE 0 brief:
 
-| User has...                              | Action                                                       |
-| ---------------------------------------- | ------------------------------------------------------------ |
-| Character reference image (`@[char ref]`)  | **Skip `director-character`**. The character's visual identity is already locked by the reference image — no text-level character definition needed. Register the reference image directly to material slots with status ✅ Ready |
-| Product/prop reference image (`@[product ref]`) | Same — register directly to material slots with status ✅ Ready |
-| Some have images, some don't            | Skip `director-character` for those with images → register directly; route those without images to `director-character` for text-level identity definition |
-| No reference images at all              | Route to `director-character` for text-level character identity definition |
+| User has...                                     | Action                                                                                                                                                                                                                            |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Character reference image (`@[char ref]`)       | **Skip `director-character`**. The character's visual identity is already locked by the reference image — no text-level character definition needed. Register the reference image directly to material slots with status ✅ Ready |
+| Product/prop reference image (`@[product ref]`) | Same — register directly to material slots with status ✅ Ready                                                                                                                                                                   |
+| Some have images, some don't                    | Skip `director-character` for those with images → register directly; route those without images to `director-character` for text-level identity definition                                                                        |
+| No reference images at all                      | Route to `director-character` for text-level character identity definition                                                                                                                                                        |
 
 > **Core principle: the reference image itself IS the identity lock.** When the user provides character/product reference images, the visual identity is already anchored by the image — there is no need to textually enumerate face/hairstyle/body type/wardrobe. `director-character` is only called when **no reference images exist**, to build character identity definitions from scratch.
 
@@ -168,7 +168,7 @@ Route to `director-character`.
 - Behavior system (movement signature, eyeline direction, emotion→action mapping)
 - Multi-character relationship map (if applicable)
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-3-characters.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-3-characters.md`".
+**After output:** save to `outputs/F-[N]-[topic]-State-3-characters.md`. Notify user: "✅ Saved to `outputs/F-[N]-[topic]-State-3-characters.md`".
 
 **Verification Gates:**
 
@@ -199,11 +199,11 @@ After STATE 3 character lock + character image prompts are produced, immediately
 
 **Path A (user already has reference images) slot example:**
 
-| Slot        | Content                   | Source          | Status    |
-| ----------- | ------------------------- | --------------- | --------- |
-| `@[image1]` | [Character A] Reference   | User-provided   | ✅ Ready  |
-| `@[image2]` | [Product] Reference       | User-provided   | ✅ Ready  |
-| `@[image3]` | Storyboard Master Sheet   | State-5-storyboard.md | ⏳ Pending |
+| Slot        | Content                 | Source                | Status     |
+| ----------- | ----------------------- | --------------------- | ---------- |
+| `@[image1]` | [Character A] Reference | User-provided         | ✅ Ready   |
+| `@[image2]` | [Product] Reference     | User-provided         | ✅ Ready   |
+| `@[image3]` | Storyboard Master Sheet | State-5-storyboard.md | ⏳ Pending |
 
 **Path B (no reference images) slot example:**
 
@@ -244,7 +244,7 @@ The output is **not** a Seedance video prompt — it is the design foundation fo
 - Must not contain phrases like "generate in Seedance", "Seedance 2.0 prompt", "generate shot by shot in Seedance"
 - The prompt package is a platform-agnostic director-level design document — not bound to any specific image or video generation tool
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-4-prompt-package.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-4-prompt-package.md`".
+**After output:** save to `outputs/F-[N]-[topic]-State-4-prompt-package.md`. Notify user: "✅ Saved to `outputs/F-[N]-[topic]-State-4-prompt-package.md`".
 
 **Pre-flight Checklist (all must be YES):**
 
@@ -344,7 +344,7 @@ Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-pr
 - Per-shot visual descriptions (subject, composition, camera, lighting mood for each shot)
 - Cross-frame continuity anchors
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-5-storyboard.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-5-storyboard.md`".
+**After output:** save to `outputs/F-[N]-[topic]-State-5-storyboard.md`. Notify user: "✅ Saved to `outputs/F-[N]-[topic]-State-5-storyboard.md`".
 
 **Verification Gates:**
 
@@ -390,7 +390,7 @@ Route to `seedance-video-prompt`.
 
 > **For I2V scenarios, I2V (storyboard) is the primary recommendation.** It provides the best multi-shot control through storyboard blueprint images (generated in STATE 5). I2V (minimal) is a simpler fallback for single-reference-image cases. Always inform the user of both options and the tradeoffs.
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-6-video-prompts.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-6-video-prompts.md`".
+**After output:** save to `outputs/F-[N]-[topic]-State-6-video-prompts.md`. Notify user: "✅ Saved to `outputs/F-[N]-[topic]-State-6-video-prompts.md`".
 
 **Pre-flight Checklist (mode-aware):**
 
@@ -426,7 +426,7 @@ Quality check on all deliverables following a professional review loop:
 - **Word count check**: Each prompt Chinese ≤ 500 characters?
 - **Anti-slop check**: No hollow evaluation words?
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-7-verification.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-7-verification.md`".
+**After output:** save to `outputs/F-[N]-[topic]-State-7-verification.md`. Notify user: "✅ Saved to `outputs/F-[N]-[topic]-State-7-verification.md`".
 
 **Verification Gates:**
 
@@ -440,7 +440,7 @@ Proceed to STATE 8.
 
 Package final deliverables to professional delivery standards:
 
-> Save to `outputs/YYYY-MM-DD-[topic]/State-8-export.md`
+> Save to `outputs/F-[N]-[topic]-State-8-export.md`
 
 **Generation package:**
 
@@ -457,7 +457,7 @@ Package final deliverables to professional delivery standards:
 - Multi-Part splice point frame alignment guide (trim 6 frames from previous clip end + 1 frame from next clip start)
 - Asset rights status notes (character reference images, audio clip authorization/source)
 
-**After output:** Save the complete export package to `outputs/YYYY-MM-DD-[topic]/State-8-export.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-8-export.md`".
+**After output:** Save the complete export package to `outputs/F-[N]-[topic]-State-8-export.md`. Notify user: "✅ Saved to `outputs/F-[N]-[topic]-State-8-export.md`".
 
 **Verification Gates:**
 
@@ -467,7 +467,7 @@ Pipeline complete.
 
 **Archive Checkpoint:**
 
-1. Archive `STATE.md` to `outputs/YYYY-MM-DD-[topic]/STATE.md`
+1. Archive `STATE.md` to `outputs/F-[N]-[topic]-STATE.md`
 2. Clear root `STATE.md` (write `## Production Checkpoint
 
 No active project`) 3. Notify user: "✅ Project archived. STATE.md archived to outputs/ directory. Ready for new project."
