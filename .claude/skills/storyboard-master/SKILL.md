@@ -188,6 +188,8 @@ ART DIRECTION: [1-2 行设计指导]
 
 两种模式下，均先呈现结构化计划供用户审核，再呈现图像生成器的压缩提示词。
 
+**语言规则**：计划部分（Section 1-4）使用用户项目语言。压缩提示词使用 AI 图像生成器首选语言（英文），但其中镜头动作描述使用计划部分语言。详见下方「语言规则」章节。
+
 ```markdown
 ## Master Sheet Plan
 
@@ -246,7 +248,36 @@ Storyboard master sheet, director treatment board, creative production blueprint
 Director storyboard sheet, shot list board, camera movement diagram, rhythm structure, professional production board, clean infographic layout, white background, thin grid borders, ultra detailed
 ```
 
-## Quality Bar 质量门槛
+## 语言规则（硬约束）
+
+> 用户说什么语言，计划就写什么语言。压缩提示词可以双语但描述内容须与计划一致。
+
+- **计划部分（Section 1-4）**：使用用户的项目语言。中文项目 = 中文计划，英文项目 = 英文计划。不得混用。
+- **压缩提示词（Compressed Prompt）**：使用 AI 图像生成器的首选语言（英文通常效果更稳定），但其中的镜头动作描述必须与计划部分使用相同语言。角色锚点声明使用计划部分语言。
+- **风格关键词**：始终使用英文，不受计划语言影响。关键词仅限名词和形容词短语，不包含句子。
+
+**错误示例（中文项目）：**
+```
+# Master Sheet Plan
+### Section 1: Shot Grid
+| # | Size | Timecode | Action | Camera |
+```
+
+**正确示例（中文项目）：**
+```
+# 分镜总览图方案
+### 第一部分：分镜网格
+| 编号 | 景别 | 时间码 | 动作 | 摄影机 |
+```
+
+**压缩提示词的正确写法：**
+```
+Storyboard master sheet, 4-shot grid layout...
+角色锚点：所有镜头中男孩形象引用@[图片1]。
+SHOT 01：男孩坐在草地上，缓慢撕开面包包装。中全景，固定镜头。
+```
+
+## 质量门槛
 
 - 计划和提示词中都必须包含四个区（或简洁模式的三个区）。
 - 叙事弧线必须匹配内容类型——不得为电商视频使用电影弧线。
