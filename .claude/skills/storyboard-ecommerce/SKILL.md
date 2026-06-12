@@ -1,6 +1,6 @@
 ---
 name: storyboard-ecommerce
-description: "Generate e-commerce/livestream/shopping storyboard prompts for AI image generators (Midjourney, Flux, Jimeng, Kling, GPT Image) — 3 formats (Social Commerce / Fashion Director / Product Showcase) auto-selected with product reference areas, creator reference areas, and subtitle-safe framing. Triggers: shopping video, 带货视频, 电商分镜, TikTok shop, 直播分镜, product showcase, 服装分镜. Note: non-commerce → `storyboard-master` or `storyboard-prompt`."
+description: 'Generate e-commerce/livestream/shopping storyboard prompts for AI image generators (Midjourney, Flux, Jimeng, Kling, GPT Image) — 3 formats (Social Commerce / Fashion Director / Product Showcase) auto-selected with product reference areas, creator reference areas, and subtitle-safe framing. Triggers: shopping video, 带货视频, 电商分镜, TikTok shop, 直播分镜, product showcase, 服装分镜. Note: non-commerce → `storyboard-master` or `storyboard-prompt`.'
 ---
 
 # Storyboard E-Commerce
@@ -26,13 +26,13 @@ After loading, probe available context to determine material sources and format 
 
 **2. Scan project files and user assets:** Probe for available reference resources:
 
-| If found... | Then... |
-|---|---|
-| User uploaded product images | Map to `@[image1]` (product reference area) |
-| User uploaded creator/model images | Map to `@[image2]` (creator reference area, Format A) |
-| User uploaded scene/background images | Map to `@[image3]` (scene reference area, Format C) |
-| `outputs/character-sheets.md` | If a creator character exists, extract design and map to `@[imageN]` |
-| `outputs/State-4-prompt-package.md` | Extract product info and shot design plan |
+| If found...                           | Then...                                                              |
+| ------------------------------------- | -------------------------------------------------------------------- |
+| User uploaded product images          | Map to `@[image1]` (product reference area)                          |
+| User uploaded creator/model images    | Map to `@[image2]` (creator reference area, Format A)                |
+| User uploaded scene/background images | Map to `@[image3]` (scene reference area, Format C)                  |
+| `outputs/character-sheets.md`         | If a creator character exists, extract design and map to `@[imageN]` |
+| `outputs/State-4-prompt-package.md`   | Extract product info and shot design plan                            |
 
 **3. Auto-infer format:** Infer the best commerce format (Format A/B/C) based on available assets, reducing user selection burden.
 
@@ -46,11 +46,11 @@ After loading, probe available context to determine material sources and format 
 
 Three commerce formats, selected by scenario:
 
-| User scenario | Format | Characteristics |
-|---|---|---|
-| Social selling, TK/Reels/Shorts, host presents product | **Format A: Social Commerce Board** | Product ref + Creator ref + 6-shot (Hook→Problem→Reveal→Detail→Display→CTA) + subtitle line |
-| Fashion/apparel/lookbook, model showcase, no host | **Format B: Fashion Director Board** | 12-15 shot grid + rhythm + camera + lighting modules |
-| Pure product display, 3C/home/food/beauty, no people | **Format C: Product Showcase Board** | Product ref + Scene ref + 6-shot (Showcase→Detail→Feature→Use→Atmosphere→Packshot), no subtitle line |
+| User scenario                                          | Format                               | Characteristics                                                                                      |
+| ------------------------------------------------------ | ------------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| Social selling, TK/Reels/Shorts, host presents product | **Format A: Social Commerce Board**  | Product ref + Creator ref + 6-shot (Hook→Problem→Reveal→Detail→Display→CTA) + subtitle line          |
+| Fashion/apparel/lookbook, model showcase, no host      | **Format B: Fashion Director Board** | 12-15 shot grid + rhythm + camera + lighting modules                                                 |
+| Pure product display, 3C/home/food/beauty, no people   | **Format C: Product Showcase Board** | Product ref + Scene ref + 6-shot (Showcase→Detail→Feature→Use→Atmosphere→Packshot), no subtitle line |
 
 > Full layout structures, shot card specs, default breakdowns, continuity requirements, and visual style keywords → `references/ecommerce-formats.md`
 
@@ -99,13 +99,12 @@ Present structured plan first, then compressed image generator prompt:
 - Format B: Rhythm module must map time segments to shot numbers and music beats
 - Format C: No people on screen — if hands appear, maintain consistent skin tone/gesture style
 
-
 ## Save Output
 
 After delivering the final output, prompt the user to save with a dated, topic-specific filename:
 
 ```
-Save to outputs/YYYY-MM-DD-[topic]-ecommerce-board.md?
+Save to outputs/YYYY-MM-DD-[topic]/ecommerce-board.md?
 Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
 ```
 

@@ -20,13 +20,13 @@ The final compiler of **L5 — VIDEO GENERATION LAYER** in the AI Film OS pipeli
 
 This skill has built-in reference knowledge. Load on demand. Read this file first; only load external references in these scenarios:
 
-| When to Load | Which File | Content |
-| ------------ | ---------- | ------- |
-| Need full mode templates & examples | `references/seedance-methodology.md` | Complete prompt examples for all 7 modes, troubleshooting table, camera movement guide, character contract |
-| Need to verify platform hard constraints | `../references/seedance-platform.md` | Character/word limits, Part duration, `@[ref]` format spec |
-| Need cinematography terminology | `../references/cinematography-quick-reference.md` | Shot size / movement / angle / composition / lighting bilingual quick reference |
-| Encounter hollow adjectives needing replacement | `../references/anti-slop-lexicon.md` | 13 slop words → production language mapping |
-| Commercial/genre film needs special recipes | `../references/seedance-genre-recipes.md` | E-commerce / livestream / fashion / narrative genre templates |
+| When to Load                                    | Which File                                        | Content                                                                                                    |
+| ----------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Need full mode templates & examples             | `references/seedance-methodology.md`              | Complete prompt examples for all 7 modes, troubleshooting table, camera movement guide, character contract |
+| Need to verify platform hard constraints        | `../references/seedance-platform.md`              | Character/word limits, Part duration, `@[ref]` format spec                                                 |
+| Need cinematography terminology                 | `../references/cinematography-quick-reference.md` | Shot size / movement / angle / composition / lighting bilingual quick reference                            |
+| Encounter hollow adjectives needing replacement | `../references/anti-slop-lexicon.md`              | 13 slop words → production language mapping                                                                |
+| Commercial/genre film needs special recipes     | `../references/seedance-genre-recipes.md`         | E-commerce / livestream / fashion / narrative genre templates                                              |
 
 ## Context Probe (Required for Standalone Use)
 
@@ -36,13 +36,13 @@ This skill can be used standalone or called by `director-core` STATE 6. After lo
 
 **Step 2 — Scan project files:** Probe the `outputs/` directory for upstream artifacts:
 
-| If found... | Then infer... |
-| ----------- | ------------- |
-| `State-4-prompt-package.md` | A complete storyboard design plan exists — ready for prompt compilation |
-| `character-sheets.md` | Character design prompts exist — suggest user generate character reference images before using I2V |
-| `State-5-storyboard.md` | A storyboard master sheet plan exists — can reference as `@[Image3]` |
-| `State-3-characters.md` | Character identity definitions exist — key locking parameters can be extracted |
-| User-provided reference images/video/audio | Proceed directly to mode gating with user-supplied assets |
+| If found...                                | Then infer...                                                                                      |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| `State-4-prompt-package.md`                | A complete storyboard design plan exists — ready for prompt compilation                            |
+| `character-sheets.md`                      | Character design prompts exist — suggest user generate character reference images before using I2V |
+| `State-5-storyboard.md`                    | A storyboard master sheet plan exists — can reference as `@[Image3]`                               |
+| `State-3-characters.md`                    | Character identity definitions exist — key locking parameters can be extracted                     |
+| User-provided reference images/video/audio | Proceed directly to mode gating with user-supplied assets                                          |
 
 **Step 3 — Aggregate available resources:** Combine pipeline state + project files + user input into a resource inventory. If upstream `character-sheets.md` exists but user hasn't mentioned character images, proactively ask whether to generate character reference images first.
 
@@ -69,16 +69,16 @@ This skill can be used standalone or called by `director-core` STATE 6. After lo
 
 ### Field Specification
 
-| Field | Required When | Key Points |
-| ----- | ------------- | ---------- |
-| Material Declaration | `@[ImageN]` / `@[VideoN]` / `@[AudioN]` assets present | Declare each asset's role (identity / action / scene / rhythm) |
-| Subject Definition | Character reference images present | `` Define [2–3 static features] in @[ImageN] as `SubjectN` `` |
-| **Storyboard Blueprint Constraints** | **I2V storyboard mode** | **Must state: do NOT render the storyboard itself, ignore panel borders and text labels, strictly follow panel order and camera angles** |
-| Narrative Content | Always | Describe shot-by-shot per storyboard panel order; each shot = one visible beat |
-| Camera & Movement | Always | One primary movement with endpoint; no multi-movement stacking |
-| Lighting & Color | When specific light sources / color temperature exist | Physical light source + direction + color temperature; no hollow adjectives |
-| Audio | When music / SFX / dialogue present | Music with (), SFX with <>, dialogue with {} |
-| Constraints | Always | `keep subtitle-free, no logos, no watermarks` as baseline; I2V adds `no facial deformation, no identity drift` |
+| Field                                | Required When                                          | Key Points                                                                                                                               |
+| ------------------------------------ | ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Material Declaration                 | `@[ImageN]` / `@[VideoN]` / `@[AudioN]` assets present | Declare each asset's role (identity / action / scene / rhythm)                                                                           |
+| Subject Definition                   | Character reference images present                     | `` Define [2–3 static features] in @[ImageN] as `SubjectN` ``                                                                            |
+| **Storyboard Blueprint Constraints** | **I2V storyboard mode**                                | **Must state: do NOT render the storyboard itself, ignore panel borders and text labels, strictly follow panel order and camera angles** |
+| Narrative Content                    | Always                                                 | Describe shot-by-shot per storyboard panel order; each shot = one visible beat                                                           |
+| Camera & Movement                    | Always                                                 | One primary movement with endpoint; no multi-movement stacking                                                                           |
+| Lighting & Color                     | When specific light sources / color temperature exist  | Physical light source + direction + color temperature; no hollow adjectives                                                              |
+| Audio                                | When music / SFX / dialogue present                    | Music with (), SFX with <>, dialogue with {}                                                                                             |
+| Constraints                          | Always                                                 | `keep subtitle-free, no logos, no watermarks` as baseline; I2V adds `no facial deformation, no identity drift`                           |
 
 ### I2V Storyboard Blueprint Constraints (Hard Rule)
 
@@ -92,14 +92,14 @@ Strictly follow panel order, camera angles, and action rhythm.
 
 **Constraint Semantics:**
 
-| Constraint | Meaning | Why It's Required |
-| ---------- | ------- | ----------------- |
-| As narrative blueprint | The storyboard defines the shot sequence and narrative structure | Tells the model the storyboard is "script," not "source material" |
-| Don't render the board itself | Output is video, not a storyboard panel image | Prevents the model from treating the board as visual content to output directly |
-| Ignore panel borders and text labels | Exclude storyboard UI elements | Prevents rendering table lines, shot numbers, timecodes |
-| Follow panel order | Generate in 01→02→03... sequence | Ensures narrative causal chain is not scrambled by the model |
-| Follow camera angles | Each panel's specified shot size/angle must correspond | Ensures the director's shot design is faithfully executed |
-| Follow action rhythm | Time allocation and action density between panels | Ensures the emotion arc is not freely reinterpreted by the model |
+| Constraint                           | Meaning                                                          | Why It's Required                                                               |
+| ------------------------------------ | ---------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| As narrative blueprint               | The storyboard defines the shot sequence and narrative structure | Tells the model the storyboard is "script," not "source material"               |
+| Don't render the board itself        | Output is video, not a storyboard panel image                    | Prevents the model from treating the board as visual content to output directly |
+| Ignore panel borders and text labels | Exclude storyboard UI elements                                   | Prevents rendering table lines, shot numbers, timecodes                         |
+| Follow panel order                   | Generate in 01→02→03... sequence                                 | Ensures narrative causal chain is not scrambled by the model                    |
+| Follow camera angles                 | Each panel's specified shot size/angle must correspond           | Ensures the director's shot design is faithfully executed                       |
+| Follow action rhythm                 | Time allocation and action density between panels                | Ensures the emotion arc is not freely reinterpreted by the model                |
 
 ---
 
@@ -117,10 +117,10 @@ Seedance 2.0 defines **three core task types**. Each covers sub-modes selected b
 
 **Step 1 — Check route lock.** When called by `director-core` STATE 6, check upstream STATE 4's routing decision. If a route is already locked, use the corresponding mode directly — do not re-evaluate available assets.
 
-| Route Lock | Forced Mode | Notes |
-| ---------- | ----------- | ----- |
-| Plan A (I2V storyboard) | I2V (storyboard) | Even if the user has not yet generated assets, produce `@[ImageN]` placeholder prompts in I2V format |
-| Plan B (direct to STATE 6) | Evaluate by available assets | Follow Step 2 logic below |
+| Route Lock                 | Forced Mode                  | Notes                                                                                                |
+| -------------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Plan A (I2V storyboard)    | I2V (storyboard)             | Even if the user has not yet generated assets, produce `@[ImageN]` placeholder prompts in I2V format |
+| Plan B (direct to STATE 6) | Evaluate by available assets | Follow Step 2 logic below                                                                            |
 
 > **Key rule: Once Plan A is locked, STATE 6 MUST use I2V (storyboard) mode.**
 > Assets may not be generated yet — in this case, use `@[ImageN]` placeholders and prepend a "Material Mapping (effective after upload)" note to the prompt.
@@ -372,7 +372,7 @@ When called at STATE 6:
 After delivering the final output, prompt the user to save with a dated, topic-specific filename:
 
 ```
-Save to outputs/YYYY-MM-DD-[topic]-seedance-prompt.md?
+Save to outputs/YYYY-MM-DD-[topic]/seedance-prompt.md?
 Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
 ```
 

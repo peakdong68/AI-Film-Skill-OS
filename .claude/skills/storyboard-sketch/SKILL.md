@@ -22,13 +22,13 @@ After loading, probe available context to supplement the input gate's informatio
 
 **2. Scan project files:** Probe the `outputs/` directory:
 
-| If found... | Then... |
-|---|---|
-| `character-sheets.md` | Extract character names and design sheet sources, map to `@[imageN]` slots |
-| `State-4-prompt-package.md` | Extract full shot design plan as I2V frame planning data source |
-| `State-3-characters.md` | Extract character lock parameters to ensure cross-frame identity consistency |
-| `State-2-visual.md` | Extract lighting and color scheme to guide per-frame Lighting & Mood |
-| `State-1-story-emotion.md` | Extract emotion arcs to determine frame rhythm distribution |
+| If found...                 | Then...                                                                      |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| `character-sheets.md`       | Extract character names and design sheet sources, map to `@[imageN]` slots   |
+| `State-4-prompt-package.md` | Extract full shot design plan as I2V frame planning data source              |
+| `State-3-characters.md`     | Extract character lock parameters to ensure cross-frame identity consistency |
+| `State-2-visual.md`         | Extract lighting and color scheme to guide per-frame Lighting & Mood         |
+| `State-1-story-emotion.md`  | Extract emotion arcs to determine frame rhythm distribution                  |
 
 **3. Auto-fill slots:** If character sheet files are detected, reference `@[imageN]` slots in `Continuity anchors` and embed character references in each frame's `I2V motion note`.
 
@@ -42,9 +42,9 @@ After loading, probe available context to supplement the input gate's informatio
 
 Before generating output, decide which mode to use:
 
-| If the user says... | Use this mode |
-|---|---|
-| "storyboard sketch", "keyframe prompts", "I2V frame planning", "per-frame motion", "animatic sketch" | **Compact Frame Prompts** |
+| If the user says...                                                                                                          | Use this mode                |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| "storyboard sketch", "keyframe prompts", "I2V frame planning", "per-frame motion", "animatic sketch"                         | **Compact Frame Prompts**    |
 | "storyboard master sheet", "Master Sheet", "director storyboard board", or explicitly asks for a full visual planning layout | Route to `storyboard-master` |
 
 When uncertain, default to Compact Frame Prompts but mention the Master Sheet option briefly.
@@ -222,6 +222,6 @@ After delivering the final output, prompt the user to save with a dated, topic-s
 If the user confirms, write the output to the specified path.
 
 ```
-Save to outputs/YYYY-MM-DD-[topic]-i2v-frames.md?
+Save to outputs/YYYY-MM-DD-[topic]/i2v-frames.md?
 Example: outputs/2026-06-10-cyberpunk-short-i2v-frames.md
 ```

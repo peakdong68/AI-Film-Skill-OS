@@ -80,9 +80,10 @@ First assess input quality, then decide whether to call :
 
 Collect production params (duration, style, platform, aspect ratio, reference materials). If user says "just do it", fill reasonable defaults with annotations.
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-0-brief.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-0-brief.md`".
+**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-0-brief.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-0-brief.md`".
 
 **Verification Gates:**
+
 - [ ] **File saved to `outputs/`?**
 
 Proceed to STATE 1.
@@ -98,7 +99,7 @@ Route to `director-story` and `director-emotion`.
 - Emotional arc diagram (calm → tension → climax → resolution)
 - Emotional intensity timeline
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-1-story-emotion.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-1-story-emotion.md`".
+**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-1-story-emotion.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-1-story-emotion.md`".
 
 **Verification Gates:**
 
@@ -121,7 +122,7 @@ Route to `director-style` (director style), `director-camera` (camera system), a
 - Color script (dominant colors per act/scene, temperature curve)
 - Composition rules (primary and secondary framing approaches)
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-2-visual.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-2-visual.md`".
+**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-2-visual.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-2-visual.md`".
 
 **Verification Gates:**
 
@@ -144,7 +145,7 @@ Route to `director-character`.
 - Behavior system (movement signature, eyeline direction, emotion→action mapping)
 - Multi-character relationship map (if applicable)
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-3-characters.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-3-characters.md`".
+**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-3-characters.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-3-characters.md`".
 
 **Verification Gates:**
 
@@ -171,11 +172,11 @@ After STATE 3 character lock + character image prompts are produced, immediately
 
 **Example:**
 
-| Slot        | Content                         | Source                | Status                      |
-| ----------- | ------------------------------- | --------------------- | --------------------------- |
-| `@[image1]` | [Character A] Character Sheet   | character-sheets.md   | ⏳ Pending user generation  |
-| `@[image2]` | [Character B] Character Sheet   | character-sheets.md   | ⏳ Pending user generation  |
-| `@[image3]` | Storyboard Master Sheet         | State-5-storyboard.md | ⏳ Pending STATE 5 output   |
+| Slot        | Content                       | Source                | Status                     |
+| ----------- | ----------------------------- | --------------------- | -------------------------- |
+| `@[image1]` | [Character A] Character Sheet | character-sheets.md   | ⏳ Pending user generation |
+| `@[image2]` | [Character B] Character Sheet | character-sheets.md   | ⏳ Pending user generation |
+| `@[image3]` | Storyboard Master Sheet       | State-5-storyboard.md | ⏳ Pending STATE 5 output  |
 
 **Rules:**
 
@@ -207,7 +208,7 @@ The output is **not** a Seedance video prompt — it is the design foundation fo
 - Must not contain phrases like "generate in Seedance", "Seedance 2.0 prompt", "generate shot by shot in Seedance"
 - The prompt package is a platform-agnostic director-level design document — not bound to any specific image or video generation tool
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-4-prompt-package.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-4-prompt-package.md`".
+**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-4-prompt-package.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-4-prompt-package.md`".
 
 **Pre-flight Checklist (all must be YES):**
 
@@ -274,14 +275,14 @@ User-unmentioned items (show only when relevant):
 
 Based on the inventory results, show only matching rows from the mode table (not the full table):
 
-| User has... | Mode | Path |
-|---|---|---|
-| Storyboard images ready | I2V (storyboard) | STATE 4 → STATE 6 |
+| User has...                                | Mode                                             | Path                                                                   |
+| ------------------------------------------ | ------------------------------------------------ | ---------------------------------------------------------------------- |
+| Storyboard images ready                    | I2V (storyboard)                                 | STATE 4 → STATE 6                                                      |
 | Reference images (character/product/scene) | I2V (storyboard) — recommended; or I2V (minimal) | STATE 4 → STATE 5 → STATE 6 (storyboard) / STATE 4 → STATE 6 (minimal) |
-| Single reference image only | I2V (minimal) | STATE 4 → STATE 6 |
-| First + last frame | FLF2V | STATE 4 → STATE 6 |
-| Video source | V2V Edit / V2V Extend | STATE 4 → STATE 6 |
-| Text only (no reference resources) | T2V | STATE 4 → STATE 6 |
+| Single reference image only                | I2V (minimal)                                    | STATE 4 → STATE 6                                                      |
+| First + last frame                         | FLF2V                                            | STATE 4 → STATE 6                                                      |
+| Video source                               | V2V Edit / V2V Extend                            | STATE 4 → STATE 6                                                      |
+| Text only (no reference resources)         | T2V                                              | STATE 4 → STATE 6                                                      |
 
 > **For I2V, I2V (storyboard) is the primary recommendation.** It generates storyboard blueprint images first (STATE 5) for precise multi-shot control. I2V (minimal) is the simpler single-image option.
 >
@@ -307,7 +308,7 @@ Route to `storyboard-sketch` (for Seedance I2V rough sketches) or `storyboard-pr
 - Per-shot visual descriptions (subject, composition, camera, lighting mood for each shot)
 - Cross-frame continuity anchors
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-5-storyboard.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-5-storyboard.md`".
+**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-5-storyboard.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-5-storyboard.md`".
 
 **Verification Gates:**
 
@@ -340,20 +341,20 @@ Route to `seedance-video-prompt`.
 
 **Mode selection (based on available inputs):**
 
-| User has...                                           | Select mode        | Notes |
-| ----------------------------------------------------- | ------------------ | ----- |
-| Storyboard blueprint images                           | I2V (storyboard)   | Full multi-shot control via storyboard boards |
-| Character/product/environment reference images        | I2V (storyboard)   | Primary I2V recommendation; requires storyboard images from STATE 5 |
-| Single reference image only (product/character/scene) | I2V (minimal)      | Simple single-image → video generation; no storyboard needed |
-| First + last frame images                             | FLF2V              | |
-| Multiple different ref types (product+video+audio)    | R2V                | |
-| Video source to modify                                | V2V Edit           | |
-| Video to continue                                     | V2V Extend         | |
-| Text description only                                 | T2V                | |
+| User has...                                           | Select mode      | Notes                                                               |
+| ----------------------------------------------------- | ---------------- | ------------------------------------------------------------------- |
+| Storyboard blueprint images                           | I2V (storyboard) | Full multi-shot control via storyboard boards                       |
+| Character/product/environment reference images        | I2V (storyboard) | Primary I2V recommendation; requires storyboard images from STATE 5 |
+| Single reference image only (product/character/scene) | I2V (minimal)    | Simple single-image → video generation; no storyboard needed        |
+| First + last frame images                             | FLF2V            |                                                                     |
+| Multiple different ref types (product+video+audio)    | R2V              |                                                                     |
+| Video source to modify                                | V2V Edit         |                                                                     |
+| Video to continue                                     | V2V Extend       |                                                                     |
+| Text description only                                 | T2V              |                                                                     |
 
 > **For I2V scenarios, I2V (storyboard) is the primary recommendation.** It provides the best multi-shot control through storyboard blueprint images (generated in STATE 5). I2V (minimal) is a simpler fallback for single-reference-image cases. Always inform the user of both options and the tradeoffs.
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-6-video-prompts.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-6-video-prompts.md`".
+**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-6-video-prompts.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-6-video-prompts.md`".
 
 **Pre-flight Checklist (mode-aware):**
 
@@ -389,9 +390,10 @@ Quality check on all deliverables following a professional review loop:
 - **Word count check**: Each prompt Chinese ≤ 500 characters?
 - **Anti-slop check**: No hollow evaluation words?
 
-**After output:** save to `outputs/YYYY-MM-DD-[topic]-State-7-verification.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-7-verification.md`".
+**After output:** save to `outputs/YYYY-MM-DD-[topic]/State-7-verification.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-7-verification.md`".
 
 **Verification Gates:**
+
 - [ ] **File saved to `outputs/`?**
 
 Proceed to STATE 8.
@@ -402,7 +404,7 @@ Proceed to STATE 8.
 
 Package final deliverables to professional delivery standards:
 
-> Save to `outputs/YYYY-MM-DD-[topic]-State-8-export.md`
+> Save to `outputs/YYYY-MM-DD-[topic]/State-8-export.md`
 
 **Generation package:**
 
@@ -419,20 +421,20 @@ Package final deliverables to professional delivery standards:
 - Multi-Part splice point frame alignment guide (trim 6 frames from previous clip end + 1 frame from next clip start)
 - Asset rights status notes (character reference images, audio clip authorization/source)
 
-**After output:** Save the complete export package to `outputs/YYYY-MM-DD-[topic]-State-8-export.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-8-export.md`".
+**After output:** Save the complete export package to `outputs/YYYY-MM-DD-[topic]/State-8-export.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]/State-8-export.md`".
 
 **Verification Gates:**
+
 - [ ] **File saved to `outputs/`?**
 
 Pipeline complete.
 
 **Archive Checkpoint:**
 
-1. Archive `STATE.md` to `outputs/YYYY-MM-DD-[topic]-STATE.md`
+1. Archive `STATE.md` to `outputs/YYYY-MM-DD-[topic]/STATE.md`
 2. Clear root `STATE.md` (write `## Production Checkpoint
 
-No active project`)
-3. Notify user: "✅ Project archived. STATE.md archived to outputs/ directory. Ready for new project."
+No active project`) 3. Notify user: "✅ Project archived. STATE.md archived to outputs/ directory. Ready for new project."
 
 ## Dependency Graph
 
@@ -482,21 +484,21 @@ director-story ────→ director-emotion
 
 ## Routing Guide
 
-| User Intent                                                                        | Load First                                                           |
-| ---------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| "I have a creative idea, help me make it into a film"                              | Stay in director-core, start from STATE 0                            |
-| "I already have a script, need visual design"                                      | Enter from STATE 2                                                   |
-| "I have character identity definitions, need image generation prompts"             | Route to `character-image-prompt`                                    |
-| "I have story + visual + character design, need to compile a prompt package"       | Enter from STATE 4                                                   |
-| "I have a prompt package (text), need to generate storyboard blueprint images"     | Enter from STATE 5 (default `storyboard-master`)                     |
-| "Write a single shot frame / how to shoot this scene"                              | Route to `storyboard-prompt`                                         |
-| "Plan Seedance I2V storyboard frames / per-frame motion"                           | Route to `storyboard-sketch`                                         |
-| "E-commerce livestream / product showcase / fashion video storyboard"              | Route to `storyboard-ecommerce`                                      |
-| "I have a prompt package + ref images, need video directly (no storyboard needed)" | Enter from STATE 4 routing → skip to STATE 6                                  |
-| "I have storyboard blueprint images + character images, need Seedance 2.0 prompts" | Enter from STATE 6                                                              |
-| "I have single ref image / first-last frames, need to generate video"              | Enter from STATE 4 routing → STATE 6 (I2V minimal / FLF2V)                     |
-| "I just want character identity definitions"                                       | Route directly to `director-character`                               |
-| "Fix my broken AI video, characters keep changing faces"                           | Enter from STATE 3 (re-lock characters), then STATE 6                |
+| User Intent                                                                        | Load First                                                 |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| "I have a creative idea, help me make it into a film"                              | Stay in director-core, start from STATE 0                  |
+| "I already have a script, need visual design"                                      | Enter from STATE 2                                         |
+| "I have character identity definitions, need image generation prompts"             | Route to `character-image-prompt`                          |
+| "I have story + visual + character design, need to compile a prompt package"       | Enter from STATE 4                                         |
+| "I have a prompt package (text), need to generate storyboard blueprint images"     | Enter from STATE 5 (default `storyboard-master`)           |
+| "Write a single shot frame / how to shoot this scene"                              | Route to `storyboard-prompt`                               |
+| "Plan Seedance I2V storyboard frames / per-frame motion"                           | Route to `storyboard-sketch`                               |
+| "E-commerce livestream / product showcase / fashion video storyboard"              | Route to `storyboard-ecommerce`                            |
+| "I have a prompt package + ref images, need video directly (no storyboard needed)" | Enter from STATE 4 routing → skip to STATE 6               |
+| "I have storyboard blueprint images + character images, need Seedance 2.0 prompts" | Enter from STATE 6                                         |
+| "I have single ref image / first-last frames, need to generate video"              | Enter from STATE 4 routing → STATE 6 (I2V minimal / FLF2V) |
+| "I just want character identity definitions"                                       | Route directly to `director-character`                     |
+| "Fix my broken AI video, characters keep changing faces"                           | Enter from STATE 3 (re-lock characters), then STATE 6      |
 
 ## Session Resume
 
@@ -569,11 +571,11 @@ Production state is persisted via a checkpoint file to ensure recoverability acr
 
 ### Material Slots
 
-| Slot        | Content                         | Source                | Status                    |
-| ----------- | ------------------------------- | --------------------- | ------------------------- |
-| `@[image1]` | [Character A] Character Sheet   | character-sheets.md   | ⏳ Pending / ✅ Ready     |
-| `@[image2]` | [Character B] Character Sheet   | character-sheets.md   | ⏳ Pending / ✅ Ready     |
-| `@[image3]` | Storyboard Master Sheet         | State-5-storyboard.md | ⏳ Pending / ✅ Ready     |
+| Slot        | Content                       | Source                | Status                |
+| ----------- | ----------------------------- | --------------------- | --------------------- |
+| `@[image1]` | [Character A] Character Sheet | character-sheets.md   | ⏳ Pending / ✅ Ready |
+| `@[image2]` | [Character B] Character Sheet | character-sheets.md   | ⏳ Pending / ✅ Ready |
+| `@[image3]` | Storyboard Master Sheet       | State-5-storyboard.md | ⏳ Pending / ✅ Ready |
 ```
 
 ### End-of-Session Output

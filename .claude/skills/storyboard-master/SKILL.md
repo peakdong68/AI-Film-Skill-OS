@@ -1,6 +1,6 @@
 ---
 name: storyboard-master
-description: "Generate multi-shot storyboard master sheet / director treatment board prompts for AI image generators (Midjourney, Flux, Jimeng, Kling, GPT Image) — one planning board containing all shots. Use for storyboard master sheets, director treatment boards, full visual planning boards, pre-production blueprints, or combining shot grid + rhythm + camera + visual language into one board. Triggers: storyboard overview, 分镜总览图, 导演提案板, shot list board. Note: single-frame shots → `storyboard-prompt`; commerce boards → `storyboard-ecommerce`; I2V text planning → `storyboard-sketch`."
+description: 'Generate multi-shot storyboard master sheet / director treatment board prompts for AI image generators (Midjourney, Flux, Jimeng, Kling, GPT Image) — one planning board containing all shots. Use for storyboard master sheets, director treatment boards, full visual planning boards, pre-production blueprints, or combining shot grid + rhythm + camera + visual language into one board. Triggers: storyboard overview, 分镜总览图, 导演提案板, shot list board. Note: single-frame shots → `storyboard-prompt`; commerce boards → `storyboard-ecommerce`; I2V text planning → `storyboard-sketch`.'
 ---
 
 # Storyboard Master Sheet
@@ -24,13 +24,13 @@ After loading, probe available context to determine material sources:
 
 **2. Scan project files:** Probe for the following files:
 
-| If found... | Then... |
-|---|---|
-| `outputs/character-sheets.md` | Extract character names and design sheet sources, map to `@[imageN]` slots |
+| If found...                         | Then...                                                                    |
+| ----------------------------------- | -------------------------------------------------------------------------- |
+| `outputs/character-sheets.md`       | Extract character names and design sheet sources, map to `@[imageN]` slots |
 | `outputs/State-4-prompt-package.md` | Extract shot design plan (shot count, shot size, timecode, action, camera) |
-| `outputs/State-3-characters.md` | Extract character lock parameters (face, body type, wardrobe) |
-| `outputs/State-2-visual.md` | Extract lighting and color scheme |
-| `outputs/State-1-story-emotion.md` | Extract narrative structure and emotion arcs |
+| `outputs/State-3-characters.md`     | Extract character lock parameters (face, body type, wardrobe)              |
+| `outputs/State-2-visual.md`         | Extract lighting and color scheme                                          |
+| `outputs/State-1-story-emotion.md`  | Extract narrative structure and emotion arcs                               |
 
 **3. Auto-fill slots:** Even without `STATE.md`, if character sheet files are detected, automatically establish character anchor mappings (e.g., `@[image1]`=Boy, `@[image2]`=Dog) and reference them in the master sheet.
 
@@ -50,6 +50,7 @@ The master sheet has two output densities. Choose based on user intent:
 | "concise storyboard board", "storyboard panel board", "quick board", "concise version"                                                     | **Concise Director Board** (shot grid only + bottom 3 modules) |
 
 Shot count is determined by the following priority:
+
 1. **User explicitly specifies** → use directly
 2. **Upstream pipeline artifacts exist** (e.g., scene breakdown from `director-story`, shot plan from `director-prompt-packager`, outputs from `director-core` states) → derive from existing shot/scene breakdowns
 3. **No context available (fallback)** → default to 6 shots for concise, 12 shots for full
@@ -200,10 +201,10 @@ For both modes, present the structured plan first for user review, then the comp
 
 ### Section 1: Shot Grid
 
-| #   | Size | Timecode | Ref | Preview | Action | Camera | Purpose |
-| --- | ---- | -------- | --- | ------- | ------ | ------ | ------- |
-| 01  | ...  | ...      | @[image1] | ... | ...    | ...    | ...     |
-| 02  | ...  | ...      | @[image2] | ... | ...    | ...    | ...     |
+| #   | Size | Timecode | Ref       | Preview | Action | Camera | Purpose |
+| --- | ---- | -------- | --------- | ------- | ------ | ------ | ------- |
+| 01  | ...  | ...      | @[image1] | ...     | ...    | ...    | ...     |
+| 02  | ...  | ...      | @[image2] | ...     | ...    | ...    | ...     |
 
 ...
 
@@ -256,13 +257,12 @@ Director storyboard sheet, shot list board, camera movement diagram, rhythm stru
 - If the user specifies Chinese output, all descriptive text in the plan stays in Chinese; keep style keywords in English for better image generator performance.
 - **Character anchor rule:** When upstream Material Slot Registry is defined, every shot description in the compressed prompt MUST embed `@[imageN]` references. Add character anchor declaration at prompt start, e.g.: "Character anchors: Boy references @[image1], Dog references @[image2]."
 
-
 ## Save Output
 
 After delivering the final output, prompt the user to save with a dated, topic-specific filename:
 
 ```
-Save to outputs/YYYY-MM-DD-[topic]-storyboard-master.md?
+Save to outputs/YYYY-MM-DD-[topic]/storyboard-master.md?
 Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
 ```
 

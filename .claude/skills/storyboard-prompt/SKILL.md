@@ -22,13 +22,13 @@ After loading, probe available context to supplement the input gate's informatio
 
 **2. Scan project files:** Probe the `outputs/` directory:
 
-| If found... | Then... |
-|---|---|
-| `character-sheets.md` | Extract character names and design sheet sources, map to `@[imageN]` slots |
-| `State-4-prompt-package.md` | Extract shot design plan as reference for storyboard frame design |
-| `State-3-characters.md` | Extract character lock parameters for consistency |
-| `State-2-visual.md` | Extract lighting and color direction |
-| `State-1-story-emotion.md` | Extract emotion arcs to guide shot composition |
+| If found...                 | Then...                                                                    |
+| --------------------------- | -------------------------------------------------------------------------- |
+| `character-sheets.md`       | Extract character names and design sheet sources, map to `@[imageN]` slots |
+| `State-4-prompt-package.md` | Extract shot design plan as reference for storyboard frame design          |
+| `State-3-characters.md`     | Extract character lock parameters for consistency                          |
+| `State-2-visual.md`         | Extract lighting and color direction                                       |
+| `State-1-story-emotion.md`  | Extract emotion arcs to guide shot composition                             |
 
 **3. Auto-fill slots:** If character sheet files are detected, reference `@[imageN]` slots in output fields.
 
@@ -42,10 +42,10 @@ After loading, probe available context to supplement the input gate's informatio
 
 Before generating output, decide which mode to use:
 
-| If the user says...                                                                                                                                                                                                                  | Use this mode               |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------- |
-| "storyboard sketch", "keyframe prompts", "I2V frame planning", "per-frame motion"                                                                                                                          | **Compact Frame Prompts**   |
-| "storyboard master sheet", "Master Sheet", "director storyboard board", or explicitly asks for a full visual planning layout                                                                                      | Route to `storyboard-master` |
+| If the user says...                                                                                                          | Use this mode                |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| "storyboard sketch", "keyframe prompts", "I2V frame planning", "per-frame motion"                                            | **Compact Frame Prompts**    |
+| "storyboard master sheet", "Master Sheet", "director storyboard board", or explicitly asks for a full visual planning layout | Route to `storyboard-master` |
 
 When uncertain, default to Compact Frame Prompts but mention the Master Sheet option briefly.
 
@@ -220,7 +220,7 @@ This skill includes bundled reference knowledge. Load when needed:
 After delivering the final output, prompt the user to save with a dated, topic-specific filename:
 
 ```
-Save to outputs/YYYY-MM-DD-[topic]-storyboard-shot.md?
+Save to outputs/YYYY-MM-DD-[topic]/storyboard-shot.md?
 Example: outputs/2026-06-10-cyberpunk-short-seedance-prompt.md
 ```
 
