@@ -14,7 +14,7 @@ Multi-Part projects: one prompt per Part, each counted independently.
 
 ## Reference Format
 
-Seedance 2.0 uses `` `ImageN` `` / `` `VideoN` `` / `` `AudioN` `` format to reference uploaded assets. Upload assets in order, reference by sequence number.
+Seedance 2.0 uses `` `@[Image1]` `` / `` `@[Video1]` `` / `` `@[Audio1]` `` format to reference uploaded assets. Upload assets in order, reference by sequence number.
 
 | Reference Example | Purpose |
 |---------|------|
@@ -22,7 +22,7 @@ Seedance 2.0 uses `` `ImageN` `` / `` `VideoN` `` / `` `AudioN` `` format to ref
 | `` @[Video1] `` | Camera reference, motion reference, VFX reference, edit/extend source |
 | `` @[Audio1] `` | Rhythm/atmosphere, voice tone reference |
 
-**Edit/Extend tasks:** Use `` `VideoN` `` directly. NEVER add "reference" prefix, which causes task misclassification.
+**Edit/Extend tasks:** Use `` `@[Video1]` `` directly. NEVER add "reference" prefix, which causes task misclassification.
 
 ## Subject Definition
 

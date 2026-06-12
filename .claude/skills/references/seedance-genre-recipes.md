@@ -21,7 +21,7 @@ Standardized video genre patterns with prompt skeletons. Use as starting pattern
 
 **Product I2V:**
 ```
-[Image1] is the product reference; preserve logo, label, shape, and materials exactly.
+[@Image1] is the product reference; preserve logo, label, shape, and materials exactly.
 [One material or light change]. Camera: [single move]. Lighting: [physical source].
 Sound: [ambient/SFX].
 ```
@@ -35,14 +35,14 @@ Sound: [ambient or short dialogue]. End state: [changed expression/action].
 
 **Reference Motion:**
 ```
-[Video1] provides only [camera/action/timing] reference; do not transfer identity,
+[@Video1] provides only [camera/action/timing] reference; do not transfer identity,
 costume, logo, or environment. New subject: [authorized/original subject].
 [Action and endpoint].
 ```
 
 **First/Last Frame:**
 ```
-[Image1] is the first frame. [Image2] is the last frame.
+[@Image1] is the first frame. [@Image2] is the last frame.
 Preserve [identity/product/scene anchors]. Generate a continuous transition from
 [start state] to [end state]. Camera: [locked or one controlled move].
 Sound: [ambient/SFX].

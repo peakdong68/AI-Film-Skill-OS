@@ -1,6 +1,6 @@
 ---
 name: seedance-video-prompt
-description: "Compiles image, video, and audio multimodal references into executable video generation prompts for Seedance 2.0 / Kling platforms. Selects generation mode automatically based on available resources (3 task categories: multimodal reference, video edit, video extend; 7 sub-modes). Storyboard images are optional. This is the final L5 video generation layer compiler in the AI Film OS pipeline. Use for Seedance 2.0 prompts, video generation prompts, or when director-core routes to STATE 6. Trigger words: Seedance 2.0 prompt, video generation prompt, Seedance prompt, video generation prompt, I2V, first-last frame."
+description: 'Compiles image, video, and audio multimodal references into executable video generation prompts for Seedance 2.0 / Kling platforms. Selects generation mode automatically based on available resources (3 task categories: multimodal reference, video edit, video extend; 7 sub-modes). Storyboard images are optional. This is the final L5 video generation layer compiler in the AI Film OS pipeline. Use for Seedance 2.0 prompts, video generation prompts, or when director-core routes to STATE 6. Trigger words: Seedance 2.0 prompt, video generation prompt, Seedance prompt, video generation prompt, I2V, first-last frame.'
 ---
 
 # Seedance Video Prompt — L5 Video Generation Compiler
@@ -10,6 +10,7 @@ description: "Compiles image, video, and audio multimodal references into execut
 The final compiler of **L5 — VIDEO GENERATION LAYER** in the AI Film OS pipeline. Receives multimodal references and compiles them into platform-executable video prompts for Seedance 2.0 / Kling.
 
 **Key Distinction:**
+
 - STATE 4 (`director-prompt-packager`): Text-level compiler. **Not a video platform prompt.**
 - STATE 6 (`seedance-video-prompt`): Image-reference-level compiler → platform-executable prompts.
 
@@ -19,11 +20,11 @@ The final compiler of **L5 — VIDEO GENERATION LAYER** in the AI Film OS pipeli
 
 Seedance 2.0 defines **three core task types**. Each covers sub-modes selected by available resources.
 
-| Task Type | Sub-Modes | Required Inputs | Core Pattern |
-|---|---|---|---|
-| **Multimodal Reference** | T2V / I2V minimal / I2V storyboard / R2V / FLF2V | At least one reference (image/video/audio), or text only | Extract elements from refs, generate a new video |
-| **Video Edit** | V2V Edit | `` @[Video1] `` | Local/global modification of source video; **do NOT use "reference" prefix** |
-| **Video Extend** | V2V Extend | `` @[Video1] `` | Temporal extension matching audio-visual style; **do NOT use "reference" prefix** |
+| Task Type                | Sub-Modes                                        | Required Inputs                                          | Core Pattern                                                                      |
+| ------------------------ | ------------------------------------------------ | -------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| **Multimodal Reference** | T2V / I2V minimal / I2V storyboard / R2V / FLF2V | At least one reference (image/video/audio), or text only | Extract elements from refs, generate a new video                                  |
+| **Video Edit**           | V2V Edit                                         | `@[Video1]`                                              | Local/global modification of source video; **do NOT use "reference" prefix**      |
+| **Video Extend**         | V2V Extend                                       | `@[Video1]`                                              | Temporal extension matching audio-visual style; **do NOT use "reference" prefix** |
 
 ### Mode Decision Tree
 
@@ -45,33 +46,33 @@ Text description only? → T2V
 Precise Subject + Action Detail + Scene Environment + Lighting/Color + Camera Movement + Visual Style + Quality + Constraints
 ```
 
-| Slot | Purpose | Example |
-|---|---|---|
-| Subject | The anchor the model tracks; define first | `` Define the woman in @[Image1] wearing a red dress and straw hat as `Subject1` `` |
-| Action | Visible change with body-part detail + degree quantification | `slowly raises hand, gently nods, using the momentum of the turn to swing the arm up` |
-| Scene | Only what is not already in references | `quiet rain-lit kitchen counter, shallow depth of field` |
-| Camera | One primary movement with endpoint | `medium shot steady follow, slow push-in to close-up` |
-| Light/Style | Physical light + visual tone | `warm amber daylight through window, cool blue rim, cinematic documentary style` |
-| Quality | Clarity, detail, texture | `high definition, rich detail, cinematic quality, natural color` |
-| Audio | SFX/dialogue/music | `(upbeat rock plays in background) <dog barking in distance>` |
-| Constraints | Preservation and exclusions | `keep subtitle-free, no logos, no watermarks` |
+| Slot        | Purpose                                                      | Example                                                                               |
+| ----------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| Subject     | The anchor the model tracks; define first                    | `` Define the woman in @[Image1] wearing a red dress and straw hat as `Subject1` ``   |
+| Action      | Visible change with body-part detail + degree quantification | `slowly raises hand, gently nods, using the momentum of the turn to swing the arm up` |
+| Scene       | Only what is not already in references                       | `quiet rain-lit kitchen counter, shallow depth of field`                              |
+| Camera      | One primary movement with endpoint                           | `medium shot steady follow, slow push-in to close-up`                                 |
+| Light/Style | Physical light + visual tone                                 | `warm amber daylight through window, cool blue rim, cinematic documentary style`      |
+| Quality     | Clarity, detail, texture                                     | `high definition, rich detail, cinematic quality, natural color`                      |
+| Audio       | SFX/dialogue/music                                           | `(upbeat rock plays in background) <dog barking in distance>`                         |
+| Constraints | Preservation and exclusions                                  | `keep subtitle-free, no logos, no watermarks`                                         |
 
 ## Reference Format
 
 Seedance 2.0 uses `` `ImageN` `` / `` `VideoN` `` / `` `AudioN` `` format for uploaded assets. Upload in order, reference by sequence number.
 
-| Asset Type | Format | Purpose |
-|---|---|---|
-| Image | `` @[Image1] `` `` @[Image2] `` | Character anchoring, scene setting, product locking, first/last frame |
-| Video | `` @[Video1] `` | Camera reference, motion reference, VFX reference, edit/extend source |
-| Audio | `` @[Audio1] `` | Rhythm/atmosphere, voice timbre reference |
+| Asset Type | Format                  | Purpose                                                               |
+| ---------- | ----------------------- | --------------------------------------------------------------------- |
+| Image      | `@[Image1]` `@[Image2]` | Character anchoring, scene setting, product locking, first/last frame |
+| Video      | `@[Video1]`             | Camera reference, motion reference, VFX reference, edit/extend source |
+| Audio      | `@[Audio1]`             | Rhythm/atmosphere, voice timbre reference                             |
 
 ### Subject Definition Rules
 
 Explicitly define subjects in reference assets with 2-3 clear, stable static features (clothing, hairstyle, appearance category) for unique identifiability.
 
 **Basic definition:** `` Define [feature1], [feature2] in @[Image1] as `Subject1` ``
-**Short binding:** `` `Subject1`@[Image1] `` / `` John@Image1 ``
+**Short binding:** `` `Subject1`@[Image1] `` / `John@Image1`
 **Multi-asset same subject:** `` Define [...] in @[Image1] and [...] in @[Image2] as `SubjectN` ``
 **Face close-up separation:** `` `Subject1`'s facial features reference @[Image1] (headshot), styling references @[Image2] (full-body) ``
 (Optional — recommended when high identity consistency is required; helps Seedance extract facial features with higher weight)
@@ -82,9 +83,9 @@ Explicitly define subjects in reference assets with 2-3 clear, stable static fea
 
 Edit and extend tasks **must NOT use the "reference" prefix**. Use `` `VideoN` `` directly to avoid misclassification as a reference task.
 
-- ✅ `` Edit @[Video1], change [original feature] to [new feature] ``
-- ✅ `` Extend @[Video1] forward, generating... ``
-- ❌ `` Reference @[Video1], edit... ``
+- ✅ `Edit @[Video1], change [original feature] to [new feature]`
+- ✅ `Extend @[Video1] forward, generating...`
+- ❌ `Reference @[Video1], edit...`
 
 ## Action Description Rules
 
@@ -96,22 +97,22 @@ Edit and extend tasks **must NOT use the "reference" prefix**. Use `` `VideoN` `
 
 **4. Emotional externalization**: Express emotion through physical body details instead of abstract words.
 
-| Abstract Emotion | Externalize as Action & Detail |
-|---|---|
-| Sadness | head lowered, shoulders trembling slightly, eyes reddening, fingers unconsciously gripping clothing |
-| Joy | corners of mouth rising uncontrollably, brows relaxed, footsteps lightened |
-| Anxiety | frequently checking watch, fingers tapping desk, rapid breathing, gaze darting |
-| Anger | fists clenched, jawline tight, chest heaving heavily, eyes sharp as blades |
-| Relief | long exhale, tense shoulders fully relaxing, a faint long-lost smile appearing |
+| Abstract Emotion | Externalize as Action & Detail                                                                      |
+| ---------------- | --------------------------------------------------------------------------------------------------- |
+| Sadness          | head lowered, shoulders trembling slightly, eyes reddening, fingers unconsciously gripping clothing |
+| Joy              | corners of mouth rising uncontrollably, brows relaxed, footsteps lightened                          |
+| Anxiety          | frequently checking watch, fingers tapping desk, rapid breathing, gaze darting                      |
+| Anger            | fists clenched, jawline tight, chest heaving heavily, eyes sharp as blades                          |
+| Relief           | long exhale, tense shoulders fully relaxing, a faint long-lost smile appearing                      |
 
 ## Special Characters
 
-| Purpose | Symbol | Example |
-|---|---|---|
-| Music | `()` | `(upbeat rock plays in background)` |
-| SFX | `<>` | `<dog barking in distance>` |
-| Dialogue | `{}` | `{Hello, world}`. For non-English: `says in Japanese {こんにちは}` |
-| Subtitles | `【】` | `【Chapter One: Departure】` |
+| Purpose   | Symbol | Example                                                            |
+| --------- | ------ | ------------------------------------------------------------------ |
+| Music     | `()`   | `(upbeat rock plays in background)`                                |
+| SFX       | `<>`   | `<dog barking in distance>`                                        |
+| Dialogue  | `{}`   | `{Hello, world}`. For non-English: `says in Japanese {こんにちは}` |
+| Subtitles | `【】` | `【Chapter One: Departure】`                                       |
 
 ## Platform Hard Constraints
 
@@ -159,12 +160,12 @@ Audio-visual style, subject, and narrative remain consistent.
 
 **Only describe what the image cannot convey.** A static image already contains subject identity, product form, composition. Re-describing static details causes drift. Add only: motion, camera, lighting changes, sound, preservation constraints.
 
-| Good Addition | Example |
-|---|---|
-| Micro-expression | `subject blinks once, gaze drops slightly` |
-| Product light sweep | `a thin highlight sweeps across the label` |
-| Weather/atmosphere | `rain streaks behind, dust catches in the doorway beam` |
-| Camera movement | `slow push-in from current composition to tighter detail` |
+| Good Addition       | Example                                                   |
+| ------------------- | --------------------------------------------------------- |
+| Micro-expression    | `subject blinks once, gaze drops slightly`                |
+| Product light sweep | `a thin highlight sweeps across the label`                |
+| Weather/atmosphere  | `rain streaks behind, dust catches in the doorway beam`   |
+| Camera movement     | `slow push-in from current composition to tighter detail` |
 
 ## Anti-Slop
 
@@ -177,9 +178,9 @@ Replace hollow evaluation words with capturable production language. Core: cinem
 ## Validation Checklist
 
 - [ ] Mode declared and matches available inputs
-- [ ] References use `` `ImageN` `` / `` `VideoN` `` / `` `AudioN` `` format
-- [ ] Subjects explicitly defined (`` Define [features] in `ImageN` as `SubjectN` ``)
-- [ ] Edit/extend mode: no "reference" prefix, uses `` `VideoN` `` directly
+- [ ] References use `` `@[Image1]` `` / `` `@[Video1]` `` / `` `@[Audio1]` `` format
+- [ ] Subjects explicitly defined (`` Define [features] in `@[Image1]` as `Subject1` ``)
+- [ ] Edit/extend mode: no "reference" prefix, uses `` `@[Video1]` `` directly
 - [ ] Actions include body-part detail + degree quantification, prefer low-slow-continuous
 - [ ] Emotions expressed through physical details, no abstract emotion words
 - [ ] SFX/dialogue/music use correct special characters (`()<>{}`)
@@ -198,7 +199,6 @@ When called at STATE 6:
 4. Compile executable prompts per selected mode
 5. Count words, run validation checklist
 6. Present for user review; mark STATE 6 complete upon confirmation
-
 
 ## Save Output
 
