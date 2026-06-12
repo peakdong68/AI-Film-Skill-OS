@@ -9,7 +9,7 @@ STATE 2 → Visual Design      (Camera grammar + lighting + color)
 STATE 3 → Character Lock     (Character sheets + identity locking)
 STATE 4 → Prompt Packaging   (Film-level short film prompt package: storyboard design + camera language + sound design + Part decomposition plan)
     ↓
-[Routing Decision: inventory resources → match STATE 6 mode → select route]
+[Routing Decision: intelligent resource inventory → match STATE 6 mode → select route]
     ↓                        ↓
 STATE 5 (conditional)    Direct to STATE 6
 Storyboard Blueprint     (skip STATE 5)
@@ -54,20 +54,35 @@ STATE 0-4 are mandatory, must not be skipped. STATE 5 is conditional — only ex
 
 After prompt package confirmation, do NOT proceed directly to STATE 5. Execute a three-step routing decision:
 
-### Step 1: Inventory available resources
-Ask the user what multimodal resources they have (character images, product images, background images, first/last frames, video clips, audio clips).
+### Step 1: Intelligent Resource Inventory (Context-Driven)
 
-### Step 2: Match STATE 6 modes
+**Do NOT use a static checklist.** Automatically infer resource states from pipeline-produced information and context:
+
+1. **Read Material Slot Registry** (STATE.md's `Material Slots` block) → retrieve registered material slots and their status
+2. **Check STATE 3 output**: Was `character-image-prompt` invoked to generate Character Sheet prompts? → Character images "awaiting user generation"
+3. **Scan story/script content**: Extract from STATE 1 story structure and STATE 4 prompt package —
+   - How many characters? → Each character needs a character reference image
+   - What specific scenes/environments? → Whether background reference images are needed
+   - Are there products/props? → Whether product/prop reference images are needed
+4. **Check original user input**: Did the user provide any reference materials during STATE 0?
+
+**Key Rules:**
+- "None — text only" is only shown when no character sheet prompts have been produced AND the user provided no reference materials
+- Background/scene refs: proactively ask when specific scene names appear in the story
+- Product/prop refs: proactively ask when products/props appear in the story
+- First/last frame, video/audio clips: only show when mentioned in STATE 0 input or implied by the story
+
+### Step 2: Match STATE 6 Modes
 | Available resources | Eligible modes |
 |---|---|
-| No reference assets | T2V |
+| Text only (no reference assets) | T2V |
 | Single reference image (product/character/scene) | I2V (minimal) |
 | First + last frame | FLF2V |
 | Multiple different ref types | R2V |
 | Video source clip | V2V Edit / V2V Extend |
-| Need storyboard boards for multi-shot continuous camera | I2V (storyboard) → requires STATE 5 first |
+| Reference images + need storyboard for multi-shot control | I2V (storyboard) → STATE 5 → STATE 6 |
 
-### Step 3: Present 2-3 route options
+### Step 3: Present 2-3 Route Options (dynamically matched by resources)
 | Route | Path | Best for |
 |---|---|---|
 | A: Storyboard Blueprint | STATE 4 → STATE 5 → STATE 6 (I2V storyboard) | Narrative films, complex multi-shot, precise storyboard control |
@@ -120,7 +135,7 @@ All must be YES:
 - [ ] If Route A/C: storyboard blueprint images generated and confirmed?
 - [ ] If Route B: reference images (single/first-last frames/video clips) ready?
 - [ ] Character reference images available? (or user explicitly chose to skip)
-- [ ] Product images locked (if applicable)?
+- [ ] Product/prop images locked (if applicable)?
 - [ ] Background images locked (if applicable)?
 - [ ] Music style and BPM determined?
 - [ ] Each prompt word count compliant (Chinese ≤ 500 chars per Part)?

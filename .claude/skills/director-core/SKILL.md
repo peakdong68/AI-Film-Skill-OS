@@ -228,33 +228,67 @@ Proceed to routing decision.
 
 After prompt package confirmation, present a simple routing choice to the user. Do NOT proceed directly to STATE 5 or STATE 6.
 
-**Ask the user what resources they have:**
+**Step 1: Intelligent Resource Inventory (Context-Driven)**
+
+Before presenting the choice, execute a context-driven resource inventory — infer existing resource states from prior pipeline outputs and context, rather than presenting a static checklist.
+
+**Inventory Logic:**
+
+1. **Read Material Slot Registry** (STATE.md's `Material Slots` block) → retrieve registered material slots and their status
+2. **Check STATE 3 output**: Was `character-image-prompt` invoked to generate Character Sheet prompts? → Character images "awaiting user generation"
+3. **Scan story/script content**: Extract from STATE 1 story structure and STATE 4 prompt package —
+   - How many characters appear? → Each character needs a character reference image
+   - What specific scenes/environments appear? → Whether background reference images are needed
+   - Are there products/props? → Whether product/prop reference images are needed
+4. **Check original user input**: Did the user provide any reference materials during STATE 0?
+
+**Generate a context-aware resource inventory based on findings, not a static template.** The format is as follows, but the displayed items differ per project:
 
 ```
-Which resources do you currently have?
-- [ ] Character reference images
-- [ ] Product reference images
-- [ ] Background/environment reference images
-- [ ] First/last frame images
-- [ ] Video reference clips
-- [ ] Audio reference clips
-- [ ] None — text only
+📋 Resource Inventory:
+
+Already available / ready:
+✅ Character ref — [Character A] Character Sheet prompt produced (user needs to generate image on the image platform)
+✅ Character ref — [Character B] Character Sheet prompt produced (same as above)
+   ↳ If user hasn't generated the character image yet, mark as ⌛ Awaiting user's image generation
+
+Items identified by pipeline as needing confirmation:
+⏳ Background/scene ref — Story involves [Scene 1], [Scene 2]. Do you have scene reference images?
+⏳ Product/prop ref — Story involves product [Product Name]. Do you have product images?
+
+User-unmentioned items (show only when relevant):
+- First/last frame: Not needed (non-FLF2V scenario)
+- Video reference clips: Not needed
+- Audio reference clips: Not needed
 ```
 
-**Determine mode and present the choice:**
+**Key Rules:**
+
+- **"None — text only" is only shown when the pipeline has produced no character sheet prompts AND the user has provided no reference materials** — this option should not normally appear
+- **Background/scene refs**: When specific scene names appear in the story, proactively ask the user whether they want to provide scene reference images. If skipped, use text descriptions in STATE 6 instead
+- **Product/prop refs**: Proactively ask when products/props appear in the story. If skipped, use text descriptions in STATE 6 instead
+- **First/last frame, video/audio clips**: Only show when mentioned in the user's STATE 0 input or implied by the story structure
+
+**Step 2: Match Mode and Present Choices**
+
+Based on the inventory results, show only matching rows from the mode table (not the full table):
 
 | User has... | Mode | Path |
 |---|---|---|
-| Nothing | T2V | STATE 4 → STATE 6 |
 | Storyboard images ready | I2V (storyboard) | STATE 4 → STATE 6 |
 | Reference images (character/product/scene) | I2V (storyboard) — recommended; or I2V (minimal) | STATE 4 → STATE 5 → STATE 6 (storyboard) / STATE 4 → STATE 6 (minimal) |
 | Single reference image only | I2V (minimal) | STATE 4 → STATE 6 |
 | First + last frame | FLF2V | STATE 4 → STATE 6 |
 | Video source | V2V Edit / V2V Extend | STATE 4 → STATE 6 |
+| Text only (no reference resources) | T2V | STATE 4 → STATE 6 |
 
 > **For I2V, I2V (storyboard) is the primary recommendation.** It generates storyboard blueprint images first (STATE 5) for precise multi-shot control. I2V (minimal) is the simpler single-image option.
 >
-> Your resources: **[summary]**. Recommended: **I2V (storyboard)** — we'll generate storyboard images in STATE 5, then compile video prompts in STATE 6. Alternative: skip storyboard and use I2V (minimal) directly. Which do you prefer?
+> Your resources: **[dynamic summary based on inventory]**. Recommended: **[best match mode based on resources]**. Which do you choose?
+
+**Step 3: Finalize**
+
+After the user selects a route, summarize missing resource items as a to-do list, write back to STATE.md's Material Slots block, then proceed to STATE 5 or STATE 6.
 
 ### STATE 5 — Storyboard Blueprint Generation (Image Level, Conditional — On-Demand Only)
 
