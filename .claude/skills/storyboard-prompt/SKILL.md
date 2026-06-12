@@ -128,6 +128,32 @@ Narrow brick back alley at midnight in heavy rain, a courier in a red jacket ent
 
 ```
 
+## Language Rules (Hard Constraint)
+
+> Whatever language the user speaks, the plan speaks it too. The compressed prompt can be bilingual but descriptions match the plan.
+
+- **Plan sections**: Use the user's project language. Chinese project = Chinese plan, English project = English plan. Never mix.
+- **Compressed prompt**: Use the AI image generator's preferred language (English typically gives more stable results), but shot/scene descriptions must use the plan language.
+- **Style keywords**: Always English, regardless of plan language. Keywords only — nouns and adjective phrases, not full sentences.
+
+**Wrong (Chinese project):**
+```
+Frame: Boy sitting on grass, golden hour lighting.
+Camera: Medium shot, eye-level, static.
+```
+
+**Correct (Chinese project):**
+```
+镜头：男孩坐在草地上，落日逆光。
+摄影机：中景，平视，固定镜头。
+```
+
+**Correct compressed prompt (Chinese project):**
+```
+A boy sitting on grass at golden hour, backlit by warm sunset.
+男孩坐在草地上，缓慢抠开面包包装。中景，平视，固定镜头。
+```
+
 ## Quality Bar
 
 - All 8 elements must be fully covered — none may be omitted.
