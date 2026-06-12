@@ -189,6 +189,8 @@ Bottom modules are simplified but must still include:
 
 For both modes, present the structured plan first for user review, then the compressed prompt for the image generator.
 
+**Language rule**: The plan (Sections 1-4) uses the user's project language. The compressed prompt uses the AI image generator's preferred language (English), but shot-level action descriptions use the plan language. See the dedicated Language Rules section below.
+
 ```markdown
 ## Master Sheet Plan
 
@@ -245,6 +247,35 @@ For concise boards, reduce to:
 
 ```
 Director storyboard sheet, shot list board, camera movement diagram, rhythm structure, professional production board, clean infographic layout, white background, thin grid borders, ultra detailed
+```
+
+## Language Rules (Hard Constraint)
+
+> Whatever language the user speaks, the plan speaks it too. The compressed prompt can be bilingual but descriptions match the plan.
+
+- **Plan sections (1-4)**: Use the user's project language. Chinese project = Chinese plan, English project = English plan. Never mix.
+- **Compressed prompt**: Use the AI image generator's preferred language (English typically gives more stable results), but shot-level action descriptions must use the plan language. Character anchor declaration uses the plan language.
+- **Style keywords**: Always English, regardless of plan language. Keywords only — nouns and adjective phrases, not full sentences.
+
+**Wrong (Chinese project):**
+```
+## Master Sheet Plan
+### Section 1: Shot Grid
+| # | Size | Timecode | Action | Camera |
+```
+
+**Correct (Chinese project):**
+```
+## 分镜总览图方案
+### 第一部分：分镜网格
+| 编号 | 景别 | 时间码 | 动作 | 摄影机 |
+```
+
+**Correct compressed prompt (Chinese project):**
+```
+Storyboard master sheet, 4-shot grid layout...
+Character anchors: Boy references @[image1].
+SHOT 01：男孩坐在草地上，缓慢抠开面包包装。中全景，固定镜头。
 ```
 
 ## Quality Bar
