@@ -26,31 +26,31 @@ description: Compile character identity definitions from director-character into
 
 **Input Sources:**
 
-| Source | Role |
-|--------|------|
-| Reference Image (recommended) | Visual anchor for character appearance |
-| director-character output | Full character profile: face, hair, body, wardrobe, props, expression system |
-| Project Context | Project type, emotional tone — used to derive visual style direction |
+| Source                        | Role                                                                         |
+| ----------------------------- | ---------------------------------------------------------------------------- |
+| Reference Image (recommended) | Visual anchor for character appearance                                       |
+| director-character output     | Full character profile: face, hair, body, wardrobe, props, expression system |
+| Project Context               | Project type, emotional tone — used to derive visual style direction         |
 
 ---
 
 ## Output Structure — 12-Section Character Sheet Profile
 
-| Section | Content | Purpose |
-|---------|---------|---------|
-| [0] | Character Reference ID | ID, role, priority, continuity importance, reference tag |
-| [1] | Core Identity | Age, occupation, personality, emotional function, visual signature, keywords |
-| [2] | Face Identity Lock | Face shape, skin tone, eyes, eyebrows, nose, mouth, jaw, distinguishing features |
-| [3] | Hair Lock | Length, style, color, texture, parting, movement |
-| [4] | Body Lock | Height, body type, build, posture, movement style, signature gesture |
-| [5] | Wardrobe Lock | Main outfit, color palette, fabric, fit, accessories, alternative outfits |
-| [6] | Prop Lock | Primary/secondary props, signature items, interaction style |
-| [7] | Expression System | Emotion range with physical manifestations (3-5 key emotions) |
-| [8] | Character Sheet View Requirements | Required views checklist |
-| [9] | Visual Style Settings | Style, realism level, lighting, color mood, lens feel, background |
-| [10] | Seedance Reference Settings | Lock switches, reference priority, reference boundaries |
-| **[11]** | **Character Sheet Image Prompt** | **← Final deliverable. Ready to paste into AI image generators.** |
-| [12] | Negative Prompt | Negative constraint checklist |
+| Section  | Content                           | Purpose                                                                          |
+| -------- | --------------------------------- | -------------------------------------------------------------------------------- |
+| [0]      | Character Reference ID            | ID, role, priority, continuity importance, reference tag                         |
+| [1]      | Core Identity                     | Age, occupation, personality, emotional function, visual signature, keywords     |
+| [2]      | Face Identity Lock                | Face shape, skin tone, eyes, eyebrows, nose, mouth, jaw, distinguishing features |
+| [3]      | Hair Lock                         | Length, style, color, texture, parting, movement                                 |
+| [4]      | Body Lock                         | Height, body type, build, posture, movement style, signature gesture             |
+| [5]      | Wardrobe Lock                     | Main outfit, color palette, fabric, fit, accessories, alternative outfits        |
+| [6]      | Prop Lock                         | Primary/secondary props, signature items, interaction style                      |
+| [7]      | Expression System                 | Emotion range with physical manifestations (3-5 key emotions)                    |
+| [8]      | Character Sheet View Requirements | Required views checklist                                                         |
+| [9]      | Visual Style Settings             | Style, realism level, lighting, color mood, lens feel, background                |
+| [10]     | Seedance Reference Settings       | Lock switches, reference priority, reference boundaries                          |
+| **[11]** | **Character Sheet Image Prompt**  | **← Final deliverable. Ready to paste into AI image generators.**                |
+| [12]     | Negative Prompt                   | Negative constraint checklist                                                    |
 
 > **Note:** Sections [0]-[10] are the compiler's working data sourced from director-character. Section [11] is the deliverable. Section [12] is the constraint appendix.
 
@@ -140,31 +140,31 @@ no text-heavy poster layout
 
 Every Character Sheet MUST include:
 
-| View | Required | Notes |
-|------|----------|-------|
-| Front view | ✓ | Full body |
-| Side view | ✓ | Full body |
-| 3/4 view | ✓ | Full body |
-| Rear view | ✓ | Full body or silhouette |
-| Face close-up | ✓ | Neutral expression, front |
-| Hair detail | ✓ | Close-up showing texture |
-| Hand detail | ✗ | If hands are narratively important |
-| Full body standing pose | ✓ | Signature stance |
-| Walking pose | ✗ | If movement is important |
-| Action pose | ✗ | If character has signature action |
-| Expression sheet | ✓ | 3-5 emotion variations |
+| View                    | Required | Notes                              |
+| ----------------------- | -------- | ---------------------------------- |
+| Front view              | ✓        | Full body                          |
+| Side view               | ✓        | Full body                          |
+| 3/4 view                | ✓        | Full body                          |
+| Rear view               | ✓        | Full body or silhouette            |
+| Face close-up           | ✓        | Neutral expression, front          |
+| Hair detail             | ✓        | Close-up showing texture           |
+| Hand detail             | ✗        | If hands are narratively important |
+| Full body standing pose | ✓        | Signature stance                   |
+| Walking pose            | ✗        | If movement is important           |
+| Action pose             | ✗        | If character has signature action  |
+| Expression sheet        | ✓        | 3-5 emotion variations             |
 
 ---
 
 ## Visual Style Settings
 
-| Parameter | Default | Alternatives |
-|-----------|---------|-------------|
-| Visual Style | Cinematic realism | Stylized anime, semi-realistic, concept art, editorial, 3D render — derived from project type |
-| Lighting | Neutral studio lighting with subtle rim light | Dramatic rim light, soft diffused, high-contrast — derived from emotional tone |
-| Background | Neutral gray or soft gradient studio backdrop | Clean off-white — must NOT distract from character |
-| Lens feel | 50mm portrait | 85mm editorial, 35mm situational |
-| Layout | Clean professional presentation | Asymmetric editorial (if project calls for it) |
+| Parameter    | Default                                       | Alternatives                                                                                  |
+| ------------ | --------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Visual Style | Cinematic realism                             | Stylized anime, semi-realistic, concept art, editorial, 3D render — derived from project type |
+| Lighting     | Neutral studio lighting with subtle rim light | Dramatic rim light, soft diffused, high-contrast — derived from emotional tone                |
+| Background   | Neutral gray or soft gradient studio backdrop | Clean off-white — must NOT distract from character                                            |
+| Lens feel    | 50mm portrait                                 | 85mm editorial, 35mm situational                                                              |
+| Layout       | Clean professional presentation               | Asymmetric editorial (if project calls for it)                                                |
 
 ---
 
@@ -172,14 +172,14 @@ Every Character Sheet MUST include:
 
 All views and all downstream Seedance prompts must maintain:
 
-| Lock | Scope |
-|------|-------|
-| Face Lock | Face shape, features, proportions, age |
-| Hair Lock | Length, style, color, texture |
-| Body Lock | Build, height proportion, limb features |
-| Wardrobe Lock | Main outfit, accessories, shoes |
-| Prop Lock | Fixed items, weapons, ornaments |
-| Mood Lock | Personality, emotional baseline |
+| Lock          | Scope                                   |
+| ------------- | --------------------------------------- |
+| Face Lock     | Face shape, features, proportions, age  |
+| Hair Lock     | Length, style, color, texture           |
+| Body Lock     | Build, height proportion, limb features |
+| Wardrobe Lock | Main outfit, accessories, shoes         |
+| Prop Lock     | Fixed items, weapons, ornaments         |
+| Mood Lock     | Personality, emotional baseline         |
 
 ---
 
@@ -199,7 +199,7 @@ All views and all downstream Seedance prompts must maintain:
 
 User already has a character image. The prompt uses the image as the identity source.
 
-- Prompt says: "using the reference image as identity source"
+- Prompt says: "using the `@[character reference image]` as identity source"
 - Character appearance is locked by the reference
 - The image generator focuses on creating the multi-view Character Sheet layout
 
@@ -236,13 +236,13 @@ consistent identity with {Character Name} character sheet
 
 The Character Sheet prompt is platform-agnostic. Adjust per target platform:
 
-| Platform | Language | Adjustments | Parameters |
-|----------|----------|-------------|------------|
-| **Midjourney** | English (default) | Keep as-is | `--ar 16:9 --style raw --v 6.1` |
-| **Flux** | English (default) | Keep as-is, natural flow | None needed |
-| **GPT Image** | English (default) | Keep as-is | None needed |
-| **Jimeng** | Translate to Chinese locale | Preserve multi-view structure, add negative keywords to negative prompt | None needed |
-| **Kling** | Translate to Chinese locale | Strong consistency emphasis, add negative keywords | None needed |
+| Platform       | Language                    | Adjustments                                                             | Parameters                      |
+| -------------- | --------------------------- | ----------------------------------------------------------------------- | ------------------------------- |
+| **Midjourney** | English (default)           | Keep as-is                                                              | `--ar 16:9 --style raw --v 6.1` |
+| **Flux**       | English (default)           | Keep as-is, natural flow                                                | None needed                     |
+| **GPT Image**  | English (default)           | Keep as-is                                                              | None needed                     |
+| **Jimeng**     | Translate to Chinese locale | Preserve multi-view structure, add negative keywords to negative prompt | None needed                     |
+| **Kling**      | Translate to Chinese locale | Strong consistency emphasis, add negative keywords                      | None needed                     |
 
 ---
 
@@ -267,7 +267,6 @@ Invoked by `director-core` or independently after STATE 3:
 2. Compile into [0]-[12] complete Character Sheet Profile + Image Prompt
 3. User confirms, then pastes [11] into their chosen AI image generator to generate Character Sheet image
 4. Generated Character Sheet serves as character reference for STATE 6 `seedance-video-prompt`
-
 
 ## Save Output
 
