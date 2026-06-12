@@ -14,6 +14,28 @@ Turn a scene idea, script, or concept into a storyboard plan for Seedance image-
 
 Favor clarity, continuity, and sketchability over polished cinematic prose in both modes.
 
+## Context Probe (Required for Standalone Use)
+
+After loading, probe available context to supplement the input gate's information gathering:
+
+**1. Check pipeline state:** Read `STATE.md`. If it exists, retrieve character material slots from the `Material Slots` section.
+
+**2. Scan project files:** Probe the `outputs/` directory:
+
+| If found... | Then... |
+|---|---|
+| `character-sheets.md` | Extract character names and design sheet sources, map to `@[imageN]` slots |
+| `State-4-prompt-package.md` | Extract full shot design plan as I2V frame planning data source |
+| `State-3-characters.md` | Extract character lock parameters to ensure cross-frame identity consistency |
+| `State-2-visual.md` | Extract lighting and color scheme to guide per-frame Lighting & Mood |
+| `State-1-story-emotion.md` | Extract emotion arcs to determine frame rhythm distribution |
+
+**3. Auto-fill slots:** If character sheet files are detected, reference `@[imageN]` slots in `Continuity anchors` and embed character references in each frame's `I2V motion note`.
+
+**4. No context fallback:** Process per existing input gate logic, relying solely on user direct input.
+
+---
+
 ## Mode Selection Gate
 
 > **This skill is NOT auto-selected.** Only execute when explicitly routed by `director-core` STATE 5 or when the user explicitly requests `storyboard-sketch`. Do not trigger this skill in any default flow.
@@ -180,7 +202,7 @@ This skill includes bundled reference knowledge. Load when needed:
 - For Seedance I2V workflow, operating modes, and motion note specifications, read `../references/seedance-i2v-workflow.md`
 - For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`
 - For bilingual shot size, camera movement, angle, composition, lighting, and narrative purpose quick reference tables, read `../references/cinematography-quick-reference.md`
-- For Seedance platform constraints (word limits, @[ref] format), read shared reference `../references/seedance-platform.md`
+- For Seedance platform constraints (word limits, `@[imageN]` / `@[videoN]` reference format), read shared reference `../references/seedance-platform.md`
 
 ---
 

@@ -16,6 +16,28 @@ Use this skill for multi-shot master sheets. For single-frame storyboard prompts
 - For anti-slop lexicon replacement when writing prompts, read shared reference `../references/anti-slop-lexicon.md`.
 - For bilingual cinematography quick reference tables, read `../references/cinematography-quick-reference.md`.
 
+## Context Probe (Required for Standalone Use)
+
+After loading, probe available context to determine material sources:
+
+**1. Check pipeline state:** Read `STATE.md`. If it exists, retrieve character material slot mappings from the `Material Slots` section.
+
+**2. Scan project files:** Probe for the following files:
+
+| If found... | Then... |
+|---|---|
+| `outputs/character-sheets.md` | Extract character names and design sheet sources, map to `@[imageN]` slots |
+| `outputs/State-4-prompt-package.md` | Extract shot design plan (shot count, shot size, timecode, action, camera) |
+| `outputs/State-3-characters.md` | Extract character lock parameters (face, body type, wardrobe) |
+| `outputs/State-2-visual.md` | Extract lighting and color scheme |
+| `outputs/State-1-story-emotion.md` | Extract narrative structure and emotion arcs |
+
+**3. Auto-fill slots:** Even without `STATE.md`, if character sheet files are detected, automatically establish character anchor mappings (e.g., `@[image1]`=Boy, `@[image2]`=Dog) and reference them in the master sheet.
+
+**4. No context fallback:** Rely purely on user-provided shot descriptions without auto-inference.
+
+---
+
 ## Mode Gate
 
 > **This skill is NOT auto-selected.** Only execute when explicitly routed by `director-core` STATE 5 or the user explicitly requests this skill. Do not trigger in any default flow.
@@ -58,6 +80,7 @@ The primary section. Each shot card in the grid must contain:
 ```
 ┌──────────────────────────┐
 │ #01 | WS | 00:00-00:02  │  ← gray header bar
+│ Ref: @[image1] @[image2]│  ← character material reference anchors
 │                          │
 │    [Frame Preview]       │  ← visual preview of the shot
 │                          │
@@ -67,7 +90,16 @@ The primary section. Each shot card in the grid must contain:
 └──────────────────────────┘
 ```
 
-Shot card information format: `Shot # | Shot Size | Timecode`
+Shot card information format: `Number | Size | Timecode | Ref`
+Character reference format: `Ref: @[imageN] @[imageM]` (annotates which character/material slots this shot depends on)
+
+**Rule:** When the upstream `director-core` has defined the Material Slot Registry, every shot card MUST annotate its dependent character slots. This ensures each shot in the storyboard blueprint image can reference the correct character identity.
+
+**Character Anchor Declaration:** When upstream material slots are defined, declare the character-material mapping above the shot grid:
+
+```
+Character anchors: [Character A] references @[image1] ([Character A] sheet), [Character B] references @[image2] ([Character B] sheet).
+```
 
 Layout rules:
 
@@ -168,10 +200,10 @@ For both modes, present the structured plan first for user review, then the comp
 
 ### Section 1: Shot Grid
 
-| #   | Size | Timecode | Preview | Action | Camera | Purpose |
-| --- | ---- | -------- | ------- | ------ | ------ | ------- |
-| 01  | ...  | ...      | ...     | ...    | ...    | ...     |
-| 02  | ...  | ...      | ...     | ...    | ...    | ...     |
+| #   | Size | Timecode | Ref | Preview | Action | Camera | Purpose |
+| --- | ---- | -------- | --- | ------- | ------ | ------ | ------- |
+| 01  | ...  | ...      | @[image1] | ... | ...    | ...    | ...     |
+| 02  | ...  | ...      | @[image2] | ... | ...    | ...    | ...     |
 
 ...
 
@@ -222,6 +254,7 @@ Director storyboard sheet, shot list board, camera movement diagram, rhythm stru
 - Camera movement diagram must include numbered positions and trajectory arrows.
 - Style keywords must emphasize "board" and "sheet" concepts — this prevents the image generator from producing a finished film frame instead of a planning document.
 - If the user specifies Chinese output, all descriptive text in the plan stays in Chinese; keep style keywords in English for better image generator performance.
+- **Character anchor rule:** When upstream Material Slot Registry is defined, every shot description in the compressed prompt MUST embed `@[imageN]` references. Add character anchor declaration at prompt start, e.g.: "Character anchors: Boy references @[image1], Dog references @[image2]."
 
 
 ## Save Output

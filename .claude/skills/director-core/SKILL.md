@@ -161,6 +161,30 @@ Route to `director-character`.
 
 Character image generation (if selected) and STATE 4 prompt package compilation can run in parallel.
 
+### Material Slot Registry
+
+After STATE 3 character lock + character image prompts are produced, immediately define global material slots. All downstream STATEs MUST reference this table.
+
+**Write timing:** After STATE 3 completes, before STATE 4 begins (when character image prompts have been produced).
+
+**Example:**
+
+| Slot        | Content                         | Source                | Status                      |
+| ----------- | ------------------------------- | --------------------- | --------------------------- |
+| `@[image1]` | [Character A] Character Sheet   | character-sheets.md   | ⏳ Pending user generation  |
+| `@[image2]` | [Character B] Character Sheet   | character-sheets.md   | ⏳ Pending user generation  |
+| `@[image3]` | Storyboard Master Sheet         | State-5-storyboard.md | ⏳ Pending STATE 5 output   |
+
+**Rules:**
+
+- Slot IDs (`@[imageN]`) are globally unique and immutable across STATE 4/5/6/8
+- STATE 5 storyboard master sheets must annotate per-shot character slot dependencies
+- STATE 6 video prompts must use `@[imageN]` for subject definitions and reference storyboard blueprints
+- STATE 8 export package must include a complete slot→material mapping table
+- If materials have not yet been generated (user hasn't uploaded), use `@[imageN]` placeholder with note "effective after uploading corresponding material"
+
+**Write to checkpoint file:** After slot definition is complete, update `STATE.md`, appending a `Material Slots` block after `Production Brief`.
+
 ### STATE 4 — Prompt Packaging (Film-Level Short Film Prompt Package)
 
 Route to `director-prompt-packager`.
@@ -332,6 +356,8 @@ Quality check on all deliverables following a professional review loop:
 
 ### STATE 8 — Export Ready
 
+> **Hard Rule: STATE 8 MUST produce an independent file. Passing STATE 7 validation does NOT mean the pipeline is complete.**
+
 Package final deliverables to professional delivery standards:
 
 > Save to `outputs/YYYY-MM-DD-[topic]-State-8-export.md`
@@ -350,6 +376,8 @@ Package final deliverables to professional delivery standards:
 - End-clip audio fade-out reminder
 - Multi-Part splice point frame alignment guide (trim 6 frames from previous clip end + 1 frame from next clip start)
 - Asset rights status notes (character reference images, audio clip authorization/source)
+
+**After output:** Save the complete export package to `outputs/YYYY-MM-DD-[topic]-State-8-export.md`. Notify user: "✅ Saved to `outputs/YYYY-MM-DD-[topic]-State-8-export.md`". Pipeline complete.
 
 ## Dependency Graph
 
@@ -428,10 +456,13 @@ director-story ────→ director-emotion
 - Project: [project name]
 - Current progress: STATE N — [name]
 - Completed: STATE 0 → STATE N-1
+- Available resources: [character images ready/pending] [storyboard ready/pending] [video assets/none]
 - Next step: [action description]
 
 Continue? (reply "continue" to resume from checkpoint, or "restart" to clear progress)
 ```
+
+**Resource scan logic:** When resuming, check `outputs/` for `character-sheets.md` (character image prompts ready), `State-5-storyboard.md` (storyboard plan produced), and whether user has uploaded assets in other sessions. Resource status is written to `STATE.md` Material Slots block.
 
 If user chooses "restart", delete or archive the old checkpoint file, start from STATE 0.
 
@@ -479,6 +510,14 @@ Production state is persisted via a checkpoint file to ensure recoverability acr
 - **Platform**: [Seedance / Kling]
 - **Style**: [Cinematic / Commercial / Documentary / Anime / ...]
 - **Director mode**: [Observer / Emotional / Immersive / Epic / Commercial]
+
+### Material Slots
+
+| Slot        | Content                         | Source                | Status                    |
+| ----------- | ------------------------------- | --------------------- | ------------------------- |
+| `@[image1]` | [Character A] Character Sheet   | character-sheets.md   | ⏳ Pending / ✅ Ready     |
+| `@[image2]` | [Character B] Character Sheet   | character-sheets.md   | ⏳ Pending / ✅ Ready     |
+| `@[image3]` | Storyboard Master Sheet         | State-5-storyboard.md | ⏳ Pending / ✅ Ready     |
 ```
 
 ### End-of-Session Output

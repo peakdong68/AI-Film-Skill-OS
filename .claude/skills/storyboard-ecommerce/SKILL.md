@@ -18,6 +18,28 @@ Generate professional e-commerce and social commerce storyboard prompts for AI i
 - Cinematography quick reference → `../references/cinematography-quick-reference.md`
 - Product and commerce genre recipes → `../references/seedance-genre-recipes.md`
 
+## Context Probe (Required for Standalone Use)
+
+After loading, probe available context to determine material sources and format selection basis:
+
+**1. Check pipeline state:** Read `STATE.md`. If it exists, retrieve product/creator material slots.
+
+**2. Scan project files and user assets:** Probe for available reference resources:
+
+| If found... | Then... |
+|---|---|
+| User uploaded product images | Map to `@[image1]` (product reference area) |
+| User uploaded creator/model images | Map to `@[image2]` (creator reference area, Format A) |
+| User uploaded scene/background images | Map to `@[image3]` (scene reference area, Format C) |
+| `outputs/character-sheets.md` | If a creator character exists, extract design and map to `@[imageN]` |
+| `outputs/State-4-prompt-package.md` | Extract product info and shot design plan |
+
+**3. Auto-infer format:** Infer the best commerce format (Format A/B/C) based on available assets, reducing user selection burden.
+
+**4. No context fallback:** Select format based on user's direct product description.
+
+---
+
 ## Sub-Mode Gate
 
 > **This skill is NOT auto-selected.** Only execute when explicitly routed by `director-core` STATE 5 or the user explicitly requests e-commerce storyboard. Do not trigger in any default flow.
@@ -69,6 +91,7 @@ Present structured plan first, then compressed image generator prompt:
 - Visual style keywords must clearly describe board format — not video content
 - Compressed prompt must include anti-pattern checklist to prevent AI image generator drift to poster/concept art style
 - If user provides product/creator reference images, preserve their visual identity exactly
+- Reference materials use `@[imageN]` format
 
 **Format-specific rules:**
 
