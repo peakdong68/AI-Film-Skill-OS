@@ -198,7 +198,7 @@ no text-heavy poster layout
 
 用户已有角色图像。提示词使用图像作为身份来源。
 
-- 提示词中写："using the `@[reference image]` as identity source"
+- 提示词中写："using the `@[character ref ]` as identity source"
 - 角色外观由参考图像锁定
 - 生图平台专注于创建多视角 Character Sheet 布局
 
