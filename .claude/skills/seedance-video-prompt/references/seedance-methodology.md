@@ -10,20 +10,20 @@ Loaded on demand by the `seedance-video-prompt` skill. Contains complete templat
 
 **Chinese:**
 ```
-`图片1`为参考；精确保留[身份/产品/场景]。仅[运动]发生变化。
+@[图片1]为参考；精确保留[身份/产品/场景]。仅[运动]发生变化。
 镜头：[单一运镜]。光影：[光源或过渡]。音效：[提示音]。约束：[不变项]。
 ```
 
 **English:**
 ```
-`Image1` as reference, strictly preserve [identity/product/scene].
+@[Image1] as reference, strictly preserve [identity/product/scene].
 Only [motion] changes. Camera: [one movement]. Light: [source or transition].
 Sound: [cue]. Constraints: [what must not change].
 ```
 
 **Example — Product:**
 ```
-`图片1`为产品参考；精确保留瓶身标签、Logo、瓶型、颜色不变。
+@[图片1]为产品参考；精确保留瓶身标签、Logo、瓶型、颜色不变。
 仅水珠凝结并沿玻璃滑落。镜头：锁定中景产品镜头，缓慢推近。
 光影：左侧暖光条扫过标签表面。音效：<清脆玻璃音>。
 约束：保持无字幕、不要生成Logo。字数：96 字 ✅
@@ -31,7 +31,7 @@ Sound: [cue]. Constraints: [what must not change].
 
 **Example — Character:**
 ```
-`图片1`为角色参考；精确保留面部结构、发型、外套不变。
+@[图片1]为角色参考；精确保留面部结构、发型、外套不变。
 仅眼睛缓慢眨一次，视线微微下移。镜头：锁定中近景，无重新取景。
 光影：柔和的窗户自然光。<安静的房间底噪>。
 ```
@@ -39,9 +39,9 @@ Sound: [cue]. Constraints: [what must not change].
 ### I2V Storyboard-Driven
 
 ```
-Define the storyboard in `Image1` as motion planning reference;
+Define the storyboard in @[Image1] as motion planning reference;
 do not render the storyboard itself. Ignore all borders, panels, text, labels.
-Define [character traits] in `Image2` as `Subject1`.
+Define [character traits] in @[Image2] as `Subject1`.
 
 Shot 1: [Corresponds to panel 1 — establish space and initial state]
 Shot 2: [Corresponds to panel 2 — character action or environment change]
@@ -57,9 +57,9 @@ No facial distortion, no identity drift, no scene jumps.
 ### R2V Multi-Reference Role Mapping
 
 ```
-Define [traits] in `Image1` as `Subject1`.
-`Video1` controls camera rhythm only; do not transfer performer, room, brand, or costume.
-`Audio1` controls tempo and energy only.
+Define [traits] in @[Image1] as `Subject1`.
+@[Video1] controls camera rhythm only; do not transfer performer, room, brand, or costume.
+@[Audio1] controls tempo and energy only.
 
 `Subject1` [action description], [scene environment].
 Camera: [movement]. SFX: [cue]. Constraints: [preservation items].
@@ -67,10 +67,10 @@ Camera: [movement]. SFX: [cue]. Constraints: [preservation items].
 
 **Example:**
 ```
-Define the man in black trench coat with sunglasses in `Image1` as `Subject1`.
-`Video1` controls side-tracking camera rhythm only;
+Define the man in black trench coat with sunglasses in @[Image1] as `Subject1`.
+@[Video1] controls side-tracking camera rhythm only;
 do not transfer performer, interior layout, or brand identity.
-`Audio1` controls tempo and energy only.
+@[Audio1] controls tempo and energy only.
 
 `Subject1` walks across a wet platform, stops under a flickering sign, turns head left.
 Camera: 35mm locked medium-wide, one slow side track.
@@ -82,7 +82,7 @@ Constraints: no subtitles, no logos, no watermarks.
 ### FLF2V First/Last Frame
 
 ```
-`Image1` is the first frame. `Image2` is the last frame.
+@[Image1] is the first frame. @[Image2] is the last frame.
 Preserve the same subject's facial structure, hairstyle, outfit, and scene layout.
 Generate a continuous transition from [start state] to [end state].
 Motion: [one physical action path]. Camera: [locked medium or one slow push-in].
@@ -91,7 +91,7 @@ Lighting: [source and continuity]. Sound: [ambience]. Constraints: [preservation
 
 **Example:**
 ```
-`Image1` is the first frame. `Image2` is the last frame.
+@[Image1] is the first frame. @[Image2] is the last frame.
 Preserve `Subject1`'s facial structure, hairstyle, jacket, and room layout.
 Generate a continuous transition from sitting to standing:
 `Subject1` slowly rises from the chair, walks to the window, stops in the final pose.
@@ -109,7 +109,7 @@ Lighting: [source and quality]. Style: [tone]. Constraints: [exclusions].
 ### V2V Edit
 
 ```
-Edit `Video1`, change [original feature] to [new feature].
+Edit @[Video1], change [original feature] to [new feature].
 Unmentioned elements remain unchanged by default.
 Constraints: no subtitles, no logos.
 ```
@@ -117,7 +117,7 @@ Constraints: no subtitles, no logos.
 ### V2V Extend
 
 ```
-Extend `Video1` backward/forward, [subject] continues [action].
+Extend @[Video1] backward/forward, [subject] continues [action].
 Audio-visual style, subject, and narrative remain consistent.
 Constraints: no subtitles, no logos, no watermarks.
 ```
@@ -165,7 +165,7 @@ When prompts are too long, trim in this order:
 
 **Compact Chinese I2V template:**
 ```
-`图片1`为参考，严格保持[主体]不变；仅加入[动作/光线/镜头]。音效：[提示]。约束：[不变项]。
+@[图片1]为参考，严格保持[主体]不变；仅加入[动作/光线/镜头]。音效：[提示]。约束：[不变项]。
 ```
 
 ---
@@ -173,7 +173,7 @@ When prompts are too long, trim in this order:
 ## Common Scene Adaptations
 
 ### Fashion / Apparel Videos
-- Role mapping is mandatory: `` `Image1` `` locks color/print/fit
+- Role mapping is mandatory: `` @[Image1] `` locks color/print/fit
 - Fabric dynamics (folds, sway) must be described
 - Back constraint: solid color, no print, no text
 - Music: lo-fi hip-hop / chill trap, BPM 90-110
@@ -250,7 +250,7 @@ Use one clear camera idea. The best camera direction has a start frame, movement
 
 **Conflict rule:** If user gives multiple incompatible moves → choose one primary move, put the rest in optional variants. Multi-beat needs → split into separate clips or time-segmented prompts.
 
-**Multi-character camera anchoring:** `Camera holds Character A in foreground while Character B crosses behind`. For I2V, preserve image composition unless user explicitly wants reframing. For video reference, declare: `` `Video1` controls camera rhythm only; do not transfer performer, room, logo, or identity ``.
+**Multi-character camera anchoring:** `Camera holds Character A in foreground while Character B crosses behind`. For I2V, preserve image composition unless user explicitly wants reframing. For video reference, declare: `` @[Video1] controls camera rhythm only; do not transfer performer, room, logo, or identity ``.
 
 ---
 

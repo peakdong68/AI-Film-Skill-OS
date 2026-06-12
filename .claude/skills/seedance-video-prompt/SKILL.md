@@ -22,14 +22,14 @@ Seedance 2.0 defines **three core task types**. Each covers sub-modes selected b
 | Task Type | Sub-Modes | Required Inputs | Core Pattern |
 |---|---|---|---|
 | **Multimodal Reference** | T2V / I2V minimal / I2V storyboard / R2V / FLF2V | At least one reference (image/video/audio), or text only | Extract elements from refs, generate a new video |
-| **Video Edit** | V2V Edit | `` `Video1` `` | Local/global modification of source video; **do NOT use "reference" prefix** |
-| **Video Extend** | V2V Extend | `` `Video1` `` | Temporal extension matching audio-visual style; **do NOT use "reference" prefix** |
+| **Video Edit** | V2V Edit | `` @[Video1] `` | Local/global modification of source video; **do NOT use "reference" prefix** |
+| **Video Extend** | V2V Extend | `` @[Video1] `` | Temporal extension matching audio-visual style; **do NOT use "reference" prefix** |
 
 ### Mode Decision Tree
 
 ```
-Video source to modify? → Video Edit (use `Video1` directly, no "reference" prefix)
-Video to continue? → Video Extend (use `Video1` directly, no "reference" prefix)
+Video source to modify? → Video Edit (use @[Video1] directly, no "reference" prefix)
+Video to continue? → Video Extend (use @[Video1] directly, no "reference" prefix)
 Storyboard images? → I2V storyboard
 First + last frame? → FLF2V
 Multiple different ref types? → R2V
@@ -47,7 +47,7 @@ Precise Subject + Action Detail + Scene Environment + Lighting/Color + Camera Mo
 
 | Slot | Purpose | Example |
 |---|---|---|
-| Subject | The anchor the model tracks; define first | `` Define the woman in `Image1` wearing a red dress and straw hat as `Subject1` `` |
+| Subject | The anchor the model tracks; define first | `` Define the woman in @[Image1] wearing a red dress and straw hat as `Subject1` `` |
 | Action | Visible change with body-part detail + degree quantification | `slowly raises hand, gently nods, using the momentum of the turn to swing the arm up` |
 | Scene | Only what is not already in references | `quiet rain-lit kitchen counter, shallow depth of field` |
 | Camera | One primary movement with endpoint | `medium shot steady follow, slow push-in to close-up` |
@@ -62,18 +62,18 @@ Seedance 2.0 uses `` `ImageN` `` / `` `VideoN` `` / `` `AudioN` `` format for up
 
 | Asset Type | Format | Purpose |
 |---|---|---|
-| Image | `` `Image1` `` `` `Image2` `` | Character anchoring, scene setting, product locking, first/last frame |
-| Video | `` `Video1` `` | Camera reference, motion reference, VFX reference, edit/extend source |
-| Audio | `` `Audio1` `` | Rhythm/atmosphere, voice timbre reference |
+| Image | `` @[Image1] `` `` @[Image2] `` | Character anchoring, scene setting, product locking, first/last frame |
+| Video | `` @[Video1] `` | Camera reference, motion reference, VFX reference, edit/extend source |
+| Audio | `` @[Audio1] `` | Rhythm/atmosphere, voice timbre reference |
 
 ### Subject Definition Rules
 
 Explicitly define subjects in reference assets with 2-3 clear, stable static features (clothing, hairstyle, appearance category) for unique identifiability.
 
-**Basic definition:** `` Define [feature1], [feature2] in `Image1` as `Subject1` ``
-**Short binding:** `` `Subject1`@`Image1` `` / `` John@Image1 ``
-**Multi-asset same subject:** `` Define [...] in `Image1` and [...] in `Image2` as `SubjectN` ``
-**Face close-up separation:** `` `Subject1`'s facial features reference `Image1` (headshot), styling references `Image2` (full-body) ``
+**Basic definition:** `` Define [feature1], [feature2] in @[Image1] as `Subject1` ``
+**Short binding:** `` `Subject1`@[Image1] `` / `` John@Image1 ``
+**Multi-asset same subject:** `` Define [...] in @[Image1] and [...] in @[Image2] as `SubjectN` ``
+**Face close-up separation:** `` `Subject1`'s facial features reference @[Image1] (headshot), styling references @[Image2] (full-body) ``
 (Optional — recommended when high identity consistency is required; helps Seedance extract facial features with higher weight)
 
 > **Recommendation**: For best identity consistency, use separate face close-up (headshot) + full-body reference images. Place face reference earliest in the prompt for higher weight.
@@ -82,9 +82,9 @@ Explicitly define subjects in reference assets with 2-3 clear, stable static fea
 
 Edit and extend tasks **must NOT use the "reference" prefix**. Use `` `VideoN` `` directly to avoid misclassification as a reference task.
 
-- ✅ `` Edit `Video1`, change [original feature] to [new feature] ``
-- ✅ `` Extend `Video1` forward, generating... ``
-- ❌ `` Reference `Video1`, edit... ``
+- ✅ `` Edit @[Video1], change [original feature] to [new feature] ``
+- ✅ `` Extend @[Video1] forward, generating... ``
+- ❌ `` Reference @[Video1], edit... ``
 
 ## Action Description Rules
 
@@ -122,7 +122,7 @@ See `../references/seedance-platform.md`. Key: ≤ 500 Chinese chars / ≤ 1000 
 ### Multimodal Reference — I2V Preservation
 
 ```
-`Image1` as reference; strictly preserve [identity/product/scene].
+@[Image1] as reference; strictly preserve [identity/product/scene].
 Only [motion] changes. Camera: [one movement]. Light: [source or transition].
 Sound: [cue]. Constraints: [what must not change].
 ```
@@ -130,7 +130,7 @@ Sound: [cue]. Constraints: [what must not change].
 ### Multimodal Reference — Multi-Character R2V
 
 ```
-Define [feature1] in `Image1` as `Subject1`, define [feature2] in `Image2` as `Subject2`.
+Define [feature1] in @[Image1] as `Subject1`, define [feature2] in @[Image2] as `Subject2`.
 `Subject1` [action]; `Subject2` [action]. Scene: [environment].
 Camera: [movement]. Style: [tone]. Constraints: keep subtitle-free, no logos.
 ```
@@ -138,14 +138,14 @@ Camera: [movement]. Style: [tone]. Constraints: keep subtitle-free, no logos.
 ### Video Edit — V2V Edit
 
 ```
-Edit `Video1`, change [original feature] to [new feature].
+Edit @[Video1], change [original feature] to [new feature].
 Elements not mentioned remain unchanged by default.
 ```
 
 ### Video Extend — V2V Extend
 
 ```
-Extend `Video1` forward, [subject] continues [action].
+Extend @[Video1] forward, [subject] continues [action].
 Audio-visual style, subject, and narrative remain consistent.
 ```
 

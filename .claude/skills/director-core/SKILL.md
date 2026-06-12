@@ -339,7 +339,7 @@ Package final deliverables to professional delivery standards:
 
 **Generation package:**
 - Complete Seedance 2.0 prompts (in Part execution order, with per-prompt reference image mapping)
-- Image reference character mapping (which `` `ImageN` `` corresponds to which asset, character tag mapping table)
+- Image reference character mapping (which `@[ImageN]` corresponds to which asset, character tag mapping table)
 - Multi-Part continuity notes (previous video reference instructions for Part 2+)
 - Delivery format notes (duration, aspect ratio, target platform)
 

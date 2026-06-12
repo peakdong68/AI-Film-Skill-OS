@@ -18,9 +18,9 @@ Seedance 2.0 uses `` `ImageN` `` / `` `VideoN` `` / `` `AudioN` `` format to ref
 
 | Reference Example | Purpose |
 |---------|------|
-| `` `Image1` `` `` `Image2` `` | Character anchoring, scene setting, product locking, first/last frame |
-| `` `Video1` `` | Camera reference, motion reference, VFX reference, edit/extend source |
-| `` `Audio1` `` | Rhythm/atmosphere, voice tone reference |
+| `` @[Image1] `` `` @[Image2] `` | Character anchoring, scene setting, product locking, first/last frame |
+| `` @[Video1] `` | Camera reference, motion reference, VFX reference, edit/extend source |
+| `` @[Audio1] `` | Rhythm/atmosphere, voice tone reference |
 
 **Edit/Extend tasks:** Use `` `VideoN` `` directly. NEVER add "reference" prefix, which causes task misclassification.
 
@@ -28,9 +28,9 @@ Seedance 2.0 uses `` `ImageN` `` / `` `VideoN` `` / `` `AudioN` `` format to ref
 
 Explicitly define subjects in reference assets using 2-3 clear, stable features for unique identification.
 
-- Basic: `` Define [features] in `Image1` as `Subject1` ``
-- Shorthand: `` `Subject1`@`Image1` ``
-- Face close-up separation (recommended): `` `Subject1`'s facial features reference `Image1` (headshot), styling references `Image2` (full-body) ``
+- Basic: `` Define [features] in @[Image1] as `Subject1` ``
+- Shorthand: `` `Subject1`@[Image1] ``
+- Face close-up separation (recommended): `` `Subject1`'s facial features reference @[Image1] (headshot), styling references @[Image2] (full-body) ``
 
 ## Stable Constraints
 
