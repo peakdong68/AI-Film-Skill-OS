@@ -258,12 +258,6 @@ Route to `seedance-video-prompt`.
 
 **Storyboard images are NOT mandatory — they are only one input for I2V storyboard mode.** The compiler supports seven modes: T2V / I2V minimal / I2V storyboard / R2V / FLF2V / V2V Edit / V2V Extend.
 
-**Platform hard constraints:**
-
-- Chinese prompts ≤ 500 characters, English prompts ≤ 1000 words, total characters ≤ 2000
-- Each reference asset must be assigned a unique primary role (identity / product / environment / action rhythm), using role mapping declaration format
-- Pass anti-slop check: no empty evaluative words (cinematic / epic / beautiful and other non-physically-referable terms)
-
 **Available inputs (mode-dependent):**
 
 - Storyboard blueprint images (from AI image generators) — only required for I2V storyboard mode
